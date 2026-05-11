@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('welcome-template');
 });
 
+Route::get('/ui-login', function () {
+    return view('ui-login');
+});
+
+Route::get('/ui-register', function () {
+    return view('ui-register');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
