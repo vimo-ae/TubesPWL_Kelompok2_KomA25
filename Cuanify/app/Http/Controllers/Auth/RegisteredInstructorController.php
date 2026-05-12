@@ -13,18 +13,18 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisteredInstructorController extends Controller
 {
     /**
-     * Display the registration view.
+     * Display the instructor registration view.
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.register-instructor');
     }
 
     /**
-     * Handle an incoming registration request.
+     * Handle an incoming instructor registration request.
      *
      * @throws ValidationException
      */
@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -40,6 +40,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'instructor',
+            'is_approved' => false,
         ]);
 
         event(new Registered($user));
