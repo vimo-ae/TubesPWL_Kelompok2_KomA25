@@ -4,7 +4,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome-template');
+    return view('welcome');
+});
+
+Route::get('/ui-login', function () {
+    return view('ui-login');
+});
+
+Route::get('/ui-register', function () {
+    return view('ui-register');
 });
 
 Route::get('/dashboard', function () {
