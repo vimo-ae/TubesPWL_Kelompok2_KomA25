@@ -14,4 +14,17 @@
             </div>
         </div>
     </div>
+
+    <div class="py-1">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <a
+                    href="{{ url('/course') }}"
+                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                >
+                    Test Course
+                </a>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
