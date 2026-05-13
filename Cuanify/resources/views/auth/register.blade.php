@@ -26,6 +26,7 @@
             rounded-full blur-3xl">
         </div>
 
+        
         <div class="absolute bottom-20 left-20
             w-20 h-20 bg-pink-200/10
             rounded-full blur-2xl">
@@ -53,7 +54,7 @@
                 >
 
                 <h1 class="text-lg font-extrabold text-gray-800 mt-3">
-                    Create Account ✨
+                    Create Account 
                 </h1>
 
                 <p class="text-gray-500 mt-2">

@@ -32,7 +32,7 @@
                 >
 
                 <h1 class="text-xl font-extrabold text-gray-800 mt-4">
-                    Welcome Back 👋
+                    Welcome Back
                 </h1>
 
                 <p class="text-gray-500 mt-3">
