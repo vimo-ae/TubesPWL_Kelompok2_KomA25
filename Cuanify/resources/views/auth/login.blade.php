@@ -1,26 +1,16 @@
 <x-guest-layout>
 
     <div class="min-h-screen flex items-center justify-center
-            bg-gradient-to-br from-[#5B21B6] via-[#9333EA] to-[#FACC15]
-            relative overflow-hidden p-4 sm:p-6">
-            
-        <div class="absolute top-0 left-0
-            w-80 h-80 bg-fuchsia-300/20
-            rounded-full blur-3xl">
-        </div>
+            bg-[#f5f7fb]
+            relative overflow-hidden px-4">
 
-        <div class="absolute bottom-0 right-0
-            w-80 h-80 bg-amber-300/20
-            rounded-full blur-3xl">
-        </div>
-
-        <div class="absolute top-1/2 left-1/2
-            -translate-x-1/2 -translate-y-1/2
-            w-[500px] h-[500px]
-            bg-violet-300/20 rounded-full blur-3xl">
-        </div>
-
-    <div class="relative z-10 w-full max-w-[360px] bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.25)] p-4 border border-white/30">
+    <div class="relative z-10
+            w-full max-w-[420px]
+            bg-white
+            rounded-[2rem]
+            shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+            p-6
+            border border-gray-100">
     
             <!-- Logo -->
             <div class="text-center mb-5">
@@ -69,17 +59,13 @@
                         placeholder="Masukkan email"
                         required
                         autofocus
-                        class="w-full mt-2 px-4 py-2 rounded-xl
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
                                border border-gray-300
-                               focus:border-purple-500
-                               focus:ring-purple-500
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
-
-                    <x-input-error
-                        :messages="$errors->get('email')"
-                        class="mt-2"
-                    />
                 </div>
 
                 <!-- Password -->
@@ -93,17 +79,19 @@
                         name="password"
                         placeholder="Masukkan password"
                         required
-                        class="w-full mt-2 px-4 py-2 rounded-xl
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
                                border border-gray-300
-                               focus:border-purple-500
-                               focus:ring-purple-500
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
-
-                    <x-input-error
-                        :messages="$errors->get('password')"
-                        class="mt-2"
-                    />
+                    
+                    @if ($errors->has('email'))
+                        <p class="mt-1 text-xs text-red-500">
+                        {{ $errors->first('email') }}
+                    </p>
+                    @endif
                 </div>
 
                 <!-- Remember & Forgot -->
@@ -135,10 +123,13 @@
                 <!-- Button -->
                 <button
                     type="submit"
-                    class="w-full mt-7 py-2 rounded-xl
-                           bg-gradient-to-br from-[#7F00FF] via-[#E100FF] to-[#FFD000]
-                           text-white font-bold shadow-lg
-                           hover:scale-[1.02] hover:shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition duration-300"
+                    class="w-full mt-7 py-3 rounded-xl
+                        bg-gradient-to-r from-[#7F00FF] to-[#A855F7]
+                        hover:from-[#6D00E6] hover:to-[#9333EA]
+                        text-white font-semibold
+                        hover:scale-[1.02] 
+                        hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+                        transition duration-300"
                 >
                     Login
                 </button>

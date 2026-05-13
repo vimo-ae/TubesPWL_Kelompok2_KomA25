@@ -1,48 +1,34 @@
 <x-guest-layout>
 
-    <div class="h-screen flex items-center justify-center
-                bg-gradient-to-br from-[#4B0082] via-[#7F00FF] to-[#FFD000]
-                relative overflow-hidden p-4 sm:p-6">
+        <div class="min-h-screen flex items-center justify-center
+                    bg-[#f6f7fb] relative overflow-hidden px-4">
 
-        <!-- Background Blur -->
-        <div class="absolute top-0 left-0
-                    w-80 h-80 bg-pink-300/30
-                    rounded-full blur-3xl">
-        </div>
-
-        <div class="absolute bottom-0 right-0
-                    w-80 h-80 bg-yellow-300/30
-                    rounded-full blur-3xl">
-        </div>
-
+        <!-- Blur Background -->
         <div class="absolute top-1/2 left-1/2
                     -translate-x-1/2 -translate-y-1/2
                     w-[350px] h-[350px]
                     bg-purple-300/20 rounded-full blur-3xl">
         </div>
 
-        <div class="absolute top-20 right-20
-            w-40 h-40 bg-white/10
-            rounded-full blur-3xl">
+        <!-- Blur -->
+        <div class="absolute top-[-80px] right-[-80px]
+                    w-72 h-72 bg-purple-200/40
+                    rounded-full blur-3xl">
         </div>
 
-        
-        <div class="absolute bottom-20 left-20
-            w-20 h-20 bg-pink-200/10
-            rounded-full blur-2xl">
-        </div>
+        <div class="absolute bottom-[-80px] left-[-80px]
+                    w-72 h-72 bg-yellow-200/40
+                    rounded-full blur-3xl">
+        </div> 
 
         <!-- Card -->
         <div class="relative z-10
-                    w-full max-w-[360px]
-                    max-h-[95vh]
-                    bg-white/70 backdrop-blur-xl
+                    w-full max-w-[420px]
+                    bg-white
                     rounded-[2rem]
-                    shadow-[0_20px_60px_rgba(0,0,0,0.25)]
-                    p-4 
-                    border border-white/30
-                    transition duration-300 
-                    hover:scale-[1.01]">
+                    shadow-xl
+                    p-5 sm:p-6
+                    border border-gray-100">
 
             <!-- Logo -->
             <div class="text-center mb-4">
@@ -53,11 +39,11 @@
                     class="w-24 sm:w-32 mx-auto drop-shadow-lg"
                 >
 
-                <h1 class="text-lg font-extrabold text-gray-800 mt-3">
+                <h1 class="text-2xl font-extrabold text-gray-800 mt-3">
                     Create Account 
                 </h1>
 
-                <p class="text-gray-500 mt-2">
+                <p class="text-gray-500 mt-2 text-sm sm:text-base">
                     Mulai perjalanan cuanmu bersama Cuanify
                 </p>
 
@@ -80,16 +66,17 @@
                         placeholder="Masukkan nama lengkap"
                         required
                         autofocus
-                        class="w-full mt-2 px-4 py-2 rounded-xl
-                               border border-white/40 bg-white/70
-                               focus:border-yellow-400
-                               focus:ring-yellow-400
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
+                               border border-gray-300 bg-white
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
 
                     <x-input-error
-                        :messages="$errors->get('name')"
-                        class="mt-2"
+                    :messages="$errors->get('name')"
+                    class="mt-1 text-red-500 text-xs"
                     />
                 </div>
 
@@ -105,16 +92,17 @@
                         value="{{ old('email') }}"
                         placeholder="Masukkan email"
                         required
-                        class="w-full mt-2 px-4 py-2 rounded-xl
-                               border border-white/40 bg-white/70
-                               focus:border-yellow-400
-                               focus:ring-yellow-400
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
+                               border border-gray-300 bg-white
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
 
                     <x-input-error
                         :messages="$errors->get('email')"
-                        class="mt-2"
+                        class="mt-1 text-red-500 text-xs"
                     />
                 </div>
 
@@ -129,16 +117,17 @@
                         name="password"
                         placeholder="Masukkan password"
                         required
-                        class="w-full mt-2 px-4 py-2 rounded-xl
-                               border border-white/40 bg-white/70
-                               focus:border-yellow-400
-                               focus:ring-yellow-400
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
+                               border border-gray-300 bg-white
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
 
                     <x-input-error
                         :messages="$errors->get('password')"
-                        class="mt-2"
+                        class="mt-1 text-red-500 text-xs"
                     />
                 </div>
 
@@ -153,30 +142,36 @@
                         name="password_confirmation"
                         placeholder="Konfirmasi password"
                         required
-                        class="w-full mt-2 px-4 py-2 rounded-xl
-                               border border-white/40 bg-white/70
-                               focus:border-yellow-400
-                               focus:ring-yellow-400
+                        class="w-full mt-2 px-4 py-2.5 rounded-xl
+                               border border-gray-300 bg-white
+                               focus:border-[#7F00FF]
+                               focus:ring-4 focus:ring-purple-100
+                               hover:border-yellow-400
                                transition duration-300"
                     >
 
+                    <x-input-error
+                        :messages="$errors->get('password_confirmation')"
+                        class="mt-1 text-red-500 text-xs"
+                    />
                 </div>
 
                 <!-- Button -->
                 <button
                     type="submit"
-                    class="w-full mt-7 py-2 rounded-xl
-                           bg-gradient-to-r from-yellow-400 to-purple-700
-                           text-white font-bold shadow-lg
+                    class="w-full mt-7 py-2.5 rounded-xl
+                           bg-gradient-to-r from-[#7F00FF] to-[#A855F7]
+                           hover:from-[#6D00E6] hover:to-[#9333EA]
+                           text-white font-semibold
                            hover:scale-[1.02]
-                           hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)]
+                           hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)]
                            transition duration-300"
                 >
                     Register
                 </button>
 
                 <!-- Login -->
-                <p class="text-center text-sm text-gray-500 mt-6">
+                <p class="text-center text-sm text-gray-800 mt-6">
                     Sudah punya akun?
 
                     <a
