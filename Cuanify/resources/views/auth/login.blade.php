@@ -11,6 +11,26 @@
             shadow-[0_10px_30px_rgba(0,0,0,0.08)]
             p-6
             border border-gray-100">
+
+            <!-- BACK TO WELCOME (PILL BUTTON) -->
+            <a href="{{ url('/') }}"
+               class="absolute top-4 left-4 flex items-center gap-2
+                      px-4 py-1.5 rounded-full
+                      bg-gray-100 hover:bg-purple-100
+                      text-gray-600 hover:text-purple-700
+                      text-sm font-medium
+                      transition-all duration-300 group">
+            
+                <!-- icon -->
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-4 h-4 group-hover:-translate-x-1 transition"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            
+                <span>Back</span>
+            </a>
     
             <!-- Logo -->
             <div class="text-center mb-5">
