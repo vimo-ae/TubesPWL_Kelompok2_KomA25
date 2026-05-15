@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id('enrollment_id');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses', 'course_id')->onDelete('cascade');
-            $table->timestamp('enrolled_at')->useCurrent();
+            $table->timestamps();
             $table->enum('status', ['active', 'completed', 'dropped'])->default('active');
             $table->decimal('completion_percentage', 5, 2)->default(0);
         });
