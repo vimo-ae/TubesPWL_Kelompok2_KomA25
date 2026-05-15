@@ -1,7 +1,7 @@
 <x-guest-layout>
 
-        <div class="min-h-screen flex items-center justify-center
-                    bg-[#f6f7fb] relative overflow-hidden px-4">
+    <div class="min-h-screen flex flex-col items-center justify-center
+                bg-[#f6f7fb] relative overflow-hidden px-4">
 
         <!-- Blur Background -->
         <div class="absolute top-1/2 left-1/2
@@ -10,7 +10,6 @@
                     bg-purple-300/20 rounded-full blur-3xl">
         </div>
 
-        <!-- Blur -->
         <div class="absolute top-[-80px] right-[-80px]
                     w-72 h-72 bg-purple-200/40
                     rounded-full blur-3xl">
@@ -19,9 +18,19 @@
         <div class="absolute bottom-[-80px] left-[-80px]
                     w-72 h-72 bg-yellow-200/40
                     rounded-full blur-3xl">
-        </div> 
+        </div>
 
-        <!-- Card -->
+        <!-- LOGO DI LUAR FORM -->
+        <div class="relative z-10 text-center mb-6">
+
+            <img
+                src="{{ asset('images/logo1.png') }}"
+                alt="Logo Cuanify"
+                class="w-28 sm:w-36 mx-auto drop-shadow-lg"
+            >
+        </div>
+
+        <!-- CARD -->
         <div class="relative z-10
                     w-full max-w-[420px]
                     bg-white
@@ -30,41 +39,41 @@
                     p-5 sm:p-6
                     border border-gray-100">
 
-        <!-- BACK TO WELCOME (PILL BUTTON) -->
-        <a href="{{ url('/') }}"
-           class="absolute top-4 left-4 flex items-center gap-2
-                  px-4 py-1.5 rounded-full
-                  bg-gray-100 hover:bg-purple-100
-                  text-gray-600 hover:text-purple-700
-                  text-sm font-medium
-                  transition-all duration-300 group">
-            
-            <!-- icon -->
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-4 h-4 group-hover:-translate-x-1 transition"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-        
-            <span>Back</span>
-        </a>
+            <!-- BACK BUTTON -->
+            <a href="{{ url('/') }}"
+               class="absolute top-4 left-4 flex items-center gap-2
+                      px-4 py-1.5 rounded-full
+                      bg-gray-100 hover:bg-purple-100
+                      text-gray-600 hover:text-purple-700
+                      text-sm font-medium
+                      transition-all duration-300 group">
 
-            <!-- Logo -->
-            <div class="text-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-4 h-4 group-hover:-translate-x-1 transition"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
-                <img
-                    src="{{ asset('images/logo1.png') }}"
-                    alt="Logo Cuanify"
-                    class="w-24 sm:w-32 mx-auto drop-shadow-lg"
-                >
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
 
-                <h1 class="text-2xl font-extrabold text-gray-800 mt-3">
-                    Create Account 
+                <span>Back</span>
+            </a>
+
+            <!-- TITLE -->
+            <div class="text-center mb-4 mt-6">
+
+                <h1 class="text-2xl font-extrabold text-gray-800">
+                    Creat Your Account
                 </h1>
 
                 <p class="text-gray-500 mt-2 text-sm sm:text-base">
                     Mulai perjalanan cuanmu bersama Cuanify
+                </p>
+
+                <p class="text-sm text-gray-500 mt-2">
+                #BelajarJadiCuan 🚀
                 </p>
 
             </div>

@@ -1,221 +1,309 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuanify</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuanify</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
 
-<style>
-    body { font-family: 'DM Sans', sans-serif; }
-    .font-display { font-family: 'Fraunces', serif; }
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    .shadow-soft {
-        box-shadow: 0 10px 30px rgba(0,0,0,.08);
-    }
-</style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .font-display {
+            font-family: 'Fraunces', serif;
+        }
+
+        .shadow-soft {
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-to-b from-[#f5f7fb] to-white relative overflow-x-hidden">
 
-<!-- BACKGROUND BLUR -->
-<div class="fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute w-[420px] h-[420px] bg-purple-500/30 blur-[130px] rounded-full top-[-120px] left-[-120px]"></div>
-    <div class="absolute w-[380px] h-[380px] bg-pink-500/30 blur-[130px] rounded-full bottom-[-120px] right-[-100px]"></div>
-    <div class="absolute w-[300px] h-[300px] bg-purple-300/20 blur-[140px] rounded-full top-[40%] left-[50%] -translate-x-1/2"></div>
-</div>
+    <!-- BACKGROUND BLUR -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute w-[420px] h-[420px] bg-purple-500/30 blur-[130px] rounded-full top-[-120px] right-[-120px]"></div>
 
-@php $isLoggedIn = auth()->check(); @endphp
+        <div class="absolute w-[380px] h-[380px] bg-pink-500/30 blur-[130px] rounded-full bottom-[-120px] left-[-100px]"></div>
 
-<!-- NAV -->
-<nav class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-
-    <img src="{{ asset('images/logo1.png') }}" class="w-28 drop-shadow-lg">
-
-    <div class="flex gap-3 items-center">
-
-        @if ($isLoggedIn)
-            <a href="{{ route('dashboard') }}"
-               class="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
-                Dashboard
-            </a>
-        @else
-            <a href="{{ route('login') }}"
-               class="px-5 py-2 rounded-full hover:bg-white transition">
-                Login
-            </a>
-
-            <a href="{{ route('register') }}"
-               class="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
-                Register
-            </a>
-        @endif
-
+        <div class="absolute w-[300px] h-[300px] bg-purple-300/20 blur-[140px] rounded-full top-[40%] left-[50%] -translate-x-1/2"></div>
     </div>
-</nav>
 
-<!-- HERO -->
-<header class="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center gap-12">
+    @php $isLoggedIn = auth()->check(); @endphp
 
-<div class="flex-1">
-    <h1 class="font-display text-5xl font-bold text-gray-900 leading-tight">
-        Belajar Ekonomi & UMKM Jadi Lebih Mudah
-    </h1>
+    <!-- NAVBAR -->
+    <nav class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center backdrop-blur-xl bg-white/30 rounded-b-3xl">
 
-    <p class="mt-5 text-gray-600">
-        Cuanify membantu kamu belajar ekonomi, bisnis, dan keuangan dengan cara modern.
-    </p>
+        <!-- LOGO -->
+        <img src="{{ asset('images/logo1.png') }}"
+             class="w-28 drop-shadow-lg">
 
-    <div class="mt-8 flex gap-4">
+        <!-- BUTTON -->
+        <div class="flex gap-3 items-center">
 
-        @if (!$isLoggedIn)
-            <a href="{{ route('register') }}"
-               class="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
-                Mulai Belajar
-            </a>
+            @if ($isLoggedIn)
 
-            <a href="#features"
-               class="group px-6 py-3 rounded-full border border-purple-500 text-purple-600
-               hover:bg-purple-600 hover:text-white transition duration-300 shadow-soft">
-                <span>Lihat Fitur</span>
-            </a>
-        @endif
+                <a href="{{ route('dashboard') }}"
+                   class="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
+                    Dashboard
+                </a>
 
-    </div>
-</div>
+            @else
 
-<div class="flex-1 hidden lg:block">
-    <img src="{{ asset('images/welcome.png') }}"
-         class="rounded-3xl shadow-soft">
-</div>
+                <a href="{{ route('login') }}"
+                   class="px-5 py-2 rounded-full hover:bg-white transition">
+                    Login
+                </a>
 
-</header>
+                <a href="{{ route('register') }}"
+                   class="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
+                    Register
+                </a>
 
-<!-- FEATURES -->
-<section id="features" class="max-w-7xl mx-auto px-6 py-20">
+            @endif
 
-<h2 class="text-center font-display text-3xl font-bold text-gray-900">
-    Kenapa Cuanify?
-</h2>
+        </div>
+    </nav>
 
-<div class="grid md:grid-cols-4 gap-6 mt-10">
+    <!-- HERO -->
+    <header class="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center gap-12 min-h-[80vh]">
 
-<!-- CARD 1 -->
-<div class="bg-white p-6 rounded-2xl shadow-soft
-    transition-all duration-300 group cursor-pointer
-    hover:bg-purple-600 hover:shadow-xl hover:-translate-y-2">
+        <!-- KIRI -->
+        <div class="flex-1 flex flex-col justify-center">
 
-    <div class="text-2xl">📚</div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-purple-900 leading-tight tracking-tight">
+                Belajar Ekonomi & UMKM Jadi Lebih Mudah
+            </h1>
 
-    <h3 class="font-bold mt-3 text-gray-900 group-hover:text-white transition">
-        Materi Ekonomi Dasar
-    </h3>
+            <p class="mt-5 text-gray-600 text-lg leading-relaxed max-w-xl">
+                Cuanify membantu kamu belajar ekonomi, bisnis, dan keuangan
+                dengan cara modern, interaktif, dan mudah dipahami.
+            </p>
 
-    <p class="text-sm text-gray-600 mt-2 group-hover:text-purple-100 transition">
-        Pelajari inflasi, permintaan & penawaran, dan dasar ekonomi dengan mudah.
-    </p>
-</div>
+            <div class="mt-8 flex gap-4">
 
-<!-- CARD 2 -->
-<div class="bg-white p-6 rounded-2xl shadow-soft
-    transition-all duration-300 group cursor-pointer
-    hover:bg-purple-600 hover:shadow-xl hover:-translate-y-2">
+                @if (!$isLoggedIn)
 
-    <div class="text-2xl">💼</div>
+                    <a href="{{ route('register') }}"
+                       class="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
+                        Mulai Belajar
+                    </a>
 
-    <h3 class="font-bold mt-3 text-gray-900 group-hover:text-white transition">
-        Edukasi UMKM
-    </h3>
+                    <a href="#features"
+                       class="group px-6 py-3 rounded-full border border-purple-500 text-purple-600 hover:bg-purple-600 hover:text-white transition duration-300 shadow-soft">
+                        Lihat Fitur
+                    </a>
 
-    <p class="text-sm text-gray-600 mt-2 group-hover:text-purple-100 transition">
-        Belajar bisnis kecil, strategi marketing, dan keuangan UMKM.
-    </p>
-</div>
+                @endif
 
-<!-- CARD 3 -->
-<div class="bg-white p-6 rounded-2xl shadow-soft
-    transition-all duration-300 group cursor-pointer
-    hover:bg-purple-600 hover:shadow-xl hover:-translate-y-2">
+            </div>
+        </div>
 
-    <div class="text-2xl">🎓</div>
+        <!-- KANAN -->
+        <div class="flex-1 hidden lg:flex justify-center">
 
-    <h3 class="font-bold mt-3 text-gray-900 group-hover:text-white transition">
-        Konten Interaktif
-    </h3>
+            <img src="{{ asset('images/welcome.png') }}"
+                 class="rounded-3xl shadow-soft w-full max-w-[560px]">
 
-    <p class="text-sm text-gray-600 mt-2 group-hover:text-purple-100 transition">
-        Artikel, kuis, dan infografis biar belajar lebih seru.
-    </p>
-</div>
+        </div>
 
-<!-- CARD 4 -->
-<div class="bg-white p-6 rounded-2xl shadow-soft
-    transition-all duration-300 group cursor-pointer
-    hover:bg-purple-600 hover:shadow-xl hover:-translate-y-2">
+    </header>
 
-    <div class="text-2xl">📊</div>
+    <!-- FEATURES -->
+    <section id="features"
+             class="max-w-7xl mx-auto px-6 py-20 scroll-mt-12">
 
-    <h3 class="font-bold mt-3 text-gray-900 group-hover:text-white transition">
-        Progress Tracking
-    </h3>
+        <!-- TITLE -->
+        <h2 class="text-center text-3xl font-bold text-purple-900 tracking-tight">
+            Kenapa Cuanify?
+        </h2>
 
-    <p class="text-sm text-gray-600 mt-2 group-hover:text-purple-100 transition">
-        Pantau perkembangan belajar kamu secara realtime.
-    </p>
-</div>
-</div>
-</div>
-</section>
+        <!-- GRID -->
+        <div class="grid md:grid-cols-4 gap-6 mt-10">
+
+            <!-- CARD 1 -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
+
+                <div class="h-44 overflow-hidden">
+                    <img src="{{ asset('images/materi ekonomi dasar.jpg') }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+
+                <div class="p-6">
+
+                    <h3 class="font-bold text-gray-900 text-lg group-hover:text-purple-700 transition">
+                        Materi Ekonomi Dasar
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                        Pelajari inflasi, permintaan & penawaran, dan dasar ekonomi dengan mudah.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
+
+                <div class="h-44 overflow-hidden">
+                    <img src="{{ asset('images/edukasi UMKM.jpg') }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+
+                <div class="p-6">
+
+                    <h3 class="font-bold text-gray-900 text-lg group-hover:text-purple-700 transition">
+                        Edukasi UMKM
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                        Belajar bisnis kecil, strategi marketing, dan keuangan UMKM.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
+
+                <div class="h-44 overflow-hidden">
+                    <img src="{{ asset('images/konten interaktif.jpg') }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+
+                <div class="p-6">
+
+                    <h3 class="font-bold text-gray-900 text-lg group-hover:text-purple-700 transition">
+                        Konten Interaktif
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                        Artikel, kuis, dan infografis biar belajar lebih seru.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
+
+                <div class="h-44 overflow-hidden">
+                    <img src="{{ asset('images/progress tracking.jpg') }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                </div>
+
+                <div class="p-6">
+
+                    <h3 class="font-bold text-gray-900 text-lg group-hover:text-purple-700 transition">
+                        Progress Tracking
+                    </h3>
+
+                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                        Pantau perkembangan belajar kamu secara realtime.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 <!-- CTA -->
 <section class="px-6 py-20">
 
-<div class="max-w-4xl mx-auto text-center bg-gradient-to-r from-purple-700 to-pink-600 text-white p-12 rounded-3xl shadow-soft">
+    <div class="max-w-5xl mx-auto">
 
-<h2 class="font-display text-3xl font-bold">
-    Siap Mulai?
-</h2>
+        <!-- TITLE -->
+        <div class="text-center mb-10">
 
-<p class="mt-3 text-purple-100">
-    Gabung sekarang dan mulai perjalanan cuan kamu.
-</p>
+            <h2 class="text-3xl font-bold text-purple-900 tracking-tight">
+                Siap Mulai?
+            </h2>
 
-@if (!$isLoggedIn)
-    <a href="{{ route('register') }}"
-       class="inline-block mt-6 px-8 py-3 bg-yellow-400 text-black rounded-full hover:scale-105 transition">
-        Daftar Sekarang
-    </a>
-@endif
+            <p class="mt-3 text-gray-600 leading-relaxed">
+                Gabung sekarang dan mulai perjalanan cuan kamu.
+            </p>
 
-</div>
+            @if (!$isLoggedIn)
 
-</section>
+                <a href="{{ route('register') }}"
+                   class="inline-block mt-6 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-medium hover:scale-105 transition">
+                    Daftar Sekarang
+                </a>
 
-<!-- FOOTER -->
-<footer class="w-full py-6 px-6 bg-[#1e1b4b] text-white relative overflow-hidden">
+            @endif
 
-    <!-- soft glow (lebih kecil + lebih subtle) -->
-    <div class="absolute w-[140px] h-[140px] bg-purple-500/5 blur-[80px] rounded-full -top-16 -left-16"></div>
-    <div class="absolute w-[120px] h-[120px] bg-pink-500/5 blur-[80px] rounded-full -bottom-16 -right-10"></div>
-
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
-
-        <!-- LOGO -->
-        <div class="flex items-center gap-3">
-
-            <img src="{{ asset('images/logo1.png') }}"
-                class="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-md">
         </div>
 
-        <!-- TEXT -->
-        <p class="text-sm text-purple-200 text-center md:text-right leading-relaxed">
-            © 2026 Cuanify — Platform edukasi ekonomi untuk generasi muda Indonesia.
-        </p>
+        <!-- CARD INSTRUKTUR -->
+        <div class="bg-gradient-to-r from-purple-700 to-pink-600 rounded-2xl shadow-soft p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-5">
+
+            <!-- KIRI -->
+            <div class="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
+
+                <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl text-white">
+                    🎓
+                </div>
+
+                <div>
+
+                    <h3 class="text-lg font-bold text-white">
+                        Ingin Jadi Instruktur?
+                    </h3>
+
+                    <p class="text-sm text-purple-100 mt-1">
+                        Bagikan pengalaman dan bantu generasi muda belajar ekonomi & bisnis.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- BUTTON -->
+            <a href="{{ route('register') }}"
+               class="px-6 py-3 rounded-full bg-white text-[#5b21b6] font-medium hover:bg-purple-100 hover:scale-105 transition whitespace-nowrap">
+                Daftar Instruktur
+            </a>
+
+        </div>
 
     </div>
-</footer>
+</section>
+
+    <!-- FOOTER -->
+    <footer class="w-full py-6 px-6 bg-[#1e1b4b] text-white relative overflow-hidden">
+
+        <!-- GLOW -->
+        <div class="absolute w-[140px] h-[140px] bg-purple-500/5 blur-[80px] rounded-full -top-16 -left-16"></div>
+
+        <div class="absolute w-[120px] h-[120px] bg-pink-500/5 blur-[80px] rounded-full -bottom-16 -right-10"></div>
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+
+            <!-- LOGO -->
+            <div class="flex items-center gap-3">
+
+                <img src="{{ asset('images/logo1.png') }}"
+                     class="w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-md">
+
+            </div>
+
+            <!-- TEXT -->
+            <p class="text-sm text-purple-200 text-center md:text-right leading-relaxed">
+                © 2026 Cuanify — Platform edukasi ekonomi untuk generasi muda Indonesia.
+            </p>
+
+        </div>
+    </footer>
+
 </body>
 </html>
