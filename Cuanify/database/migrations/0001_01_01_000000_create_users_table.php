@@ -12,21 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id('user_id');
+            $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'instructor', 'student'])->default('student'); // ➕ tambahan
+            $table->boolean('is_verified')->default(false);                               // ➕ tambahan
+            $table->timestamp('last_login')->nullable();                                  // ➕ tambahan
+            $table->enum('status', ['active', 'inactive', 'banned'])->default('active'); // ➕ tambahan
             $table->rememberToken();
             $table->timestamps();
         });
-
+    
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
-
+    
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -34,7 +38,6 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-
         });
     }
 
