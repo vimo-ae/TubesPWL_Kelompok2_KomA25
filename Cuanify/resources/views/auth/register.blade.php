@@ -1,7 +1,7 @@
 <x-guest-layout>
 
     <div class="min-h-screen flex flex-col items-center justify-center
-                bg-[#f6f7fb] relative overflow-hidden px-4">
+                bg-[#f6f7fb] relative overflow-hidden px-4 py-10">
 
         <!-- Blur Background -->
         <div class="absolute top-1/2 left-1/2
@@ -62,7 +62,7 @@
             </a>
 
             <!-- TITLE -->
-            <div class="text-center mb-4 mt-6">
+            <div class="text-center mb-4 mt-10">
 
                 <h1 class="text-2xl font-extrabold text-gray-800">
                     Creat Your Account

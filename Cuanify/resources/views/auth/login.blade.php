@@ -46,7 +46,7 @@
             </a>
 
             <!-- TITLE -->
-            <div class="text-center mb-5 mt-6">
+            <div class="text-center mb-5 mt-10">
 
                 <h1 class="text-2xl font-extrabold text-gray-800">
                     Welcome Back
