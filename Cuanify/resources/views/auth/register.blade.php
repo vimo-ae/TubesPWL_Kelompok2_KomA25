@@ -90,8 +90,8 @@
 
                     <input
                         type="text"
-                        name="name"
-                        value="{{ old('name') }}"
+                        name="username"
+                        value="{{ old('username') }}"
                         placeholder="Masukkan nama lengkap"
                         required
                         autofocus
@@ -104,7 +104,7 @@
                     >
 
                     <x-input-error
-                    :messages="$errors->get('name')"
+                    :messages="$errors->get('username')"
                     class="mt-1 text-red-500 text-xs"
                     />
                 </div>
