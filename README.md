@@ -44,3 +44,4 @@ Dibuat oleh:
 * Alvin Benyamin Singalingging
 * Daradira Vonna
 * Aliyah Briek Salem Guzhie
+>>>>>>> 92131128efcf86e412e7d74b786f54c97bf1a13a
