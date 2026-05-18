@@ -1,3 +1,3 @@
 <footer class="bg-gray-800 text-white text-center py-4">
-    <p> Ini footer </p>
+    <p> ®Copyright </p>
 </footer>

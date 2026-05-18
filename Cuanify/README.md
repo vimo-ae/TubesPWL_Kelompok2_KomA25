@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -56,3 +57,51 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# 🌍 Cuanify – SDGs Education & Economic Awareness Web
+
+## 📖 Deskripsi
+
+**Cuanify** adalah sebuah platform web berbasis edukasi yang menggabungkan konsep *Sustainable Development Goals (SDGs)* dengan fokus pada **pendidikan dan ekonomi**.
+
+Website ini bertujuan untuk meningkatkan literasi ekonomi masyarakat, khususnya generasi muda, melalui konten yang mudah dipahami dan relevan dengan kehidupan sehari-hari.
+
+## 🎯 Tujuan
+
+* Meningkatkan pemahaman tentang konsep ekonomi dasar
+* Mendukung kesadaran terhadap SDGs (khususnya pendidikan & ekonomi)
+* Memberikan edukasi terkait UMKM dan pengelolaan keuangan
+* Menjadi media pembelajaran digital yang interaktif
+
+## 🚀 Fitur Utama
+
+* 📚 **Materi Ekonomi Dasar**
+  Penjelasan konsep seperti inflasi, permintaan & penawaran, dll
+
+* 💼 **Edukasi UMKM**
+  Tips membangun usaha kecil dan strategi pengembangan
+
+* 🎓 **Konten Pendidikan Interaktif**
+  Artikel, infografis, dan (opsional) quiz
+
+* 📊 **Sistem Progress User**
+  Fitur untuk mengidentifikasi progress yang dilakukan oleh user
+
+## 🛠️ Teknologi yang Digunakan
+
+* Laravel (PHP Framework)
+* PHP
+* MySQL
+* HTML, CSS, JavaScript
+* Git & GitHub
+
+## ✨ Author
+
+Dibuat oleh:
+
+* Ryan Fredryck Ginting
+* Vedder Timothy Simbolon
+* Alvin Benyamin Singalingging
+* Daradira Vonna
+* Aliyah Briek Salem Guzhie
+>>>>>>> 92131128efcf86e412e7d74b786f54c97bf1a13a
