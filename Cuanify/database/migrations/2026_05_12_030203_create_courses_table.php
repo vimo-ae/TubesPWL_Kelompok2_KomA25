@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->bigInteger('estimated_duration')->nullable();
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
         });
     }
