@@ -65,7 +65,7 @@
                     Login
                 </a>
 
-                <a href="{{ route('register-student') }}"
+                <a href="{{ route('register') }}"
                    class="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
                     Register
                 </a>
@@ -94,7 +94,7 @@
 
                 @if (!$isLoggedIn)
 
-                    <a href="{{ route('register-student') }}"
+                    <a href="{{ route('register') }}"
                        class="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-soft hover:scale-105 transition">
                         Mulai Belajar
                     </a>
@@ -236,7 +236,7 @@
 
             @if (!$isLoggedIn)
 
-                <a href="{{ route('register-student') }}"
+                <a href="{{ route('register') }}"
                    class="inline-block mt-6 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-medium hover:scale-105 transition">
                     Daftar Sekarang
                 </a>

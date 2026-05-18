@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,8 +9,22 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('student.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');;
+
+Route::get('/instructor', function () {
+    return view('instructor.dashboard');
+})->middleware(['auth', 'instructor'])->name('dashboard');;
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'admin'])->name('dashboard');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve']);
+    Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

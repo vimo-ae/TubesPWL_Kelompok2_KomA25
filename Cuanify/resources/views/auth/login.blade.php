@@ -164,7 +164,7 @@
 
                     Belum punya akun?
 
-                    <a href="{{ route('register-student') }}"
+                    <a href="{{ route('register') }}"
                        class="text-purple-600 font-semibold hover:underline">
 
                         Register

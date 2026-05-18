@@ -79,7 +79,7 @@
             </div>
 
             <!-- Form -->
-            <form method="POST" action="{{ route('register-student') }}">
+            <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <!-- Name -->

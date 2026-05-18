@@ -28,7 +28,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            return redirect('/admin');
+        }
+
+        if ($user->role == 'instructor') {
+
+            if(!$user->is_approved){
+                Auth::logout();
+
+                return redirect('/')
+                    ->with('error', 'Akun instructor Anda belum disetujui admin.');
+            }
+
+            return redirect('/instructor');
+        }
+
+        return redirect('dashboard');
     }
 
     /**
