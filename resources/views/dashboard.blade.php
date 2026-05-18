@@ -1,13 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-8 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto space-y-8 w-full">
+    <div class="py-10 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto space-y-10 w-full">
 
-        {{-- Hero Banner --}}
         <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 shadow-2xl min-h-[240px] flex items-center">
             <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
             <div class="absolute bottom-[-20px] right-[10%] w-40 h-40 border-[20px] border-white/5 rounded-full"></div>
@@ -37,7 +31,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             <div class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl p-5 text-white shadow-xl flex flex-col justify-between">
                 <div>
@@ -127,8 +121,7 @@
 
         <div>
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-extrabold text-gray-800">Kategori Populer</h2>
-                <a href="#" class="text-blue-600 text-sm font-bold hover:underline">Lihat Semua</a>
+                <h2 class="text-xl font-extrabold text-gray-900">Kategori Populer</h2>
             </div>
             <div class="flex overflow-x-auto gap-3 pb-4 no-scrollbar">
                 <div class="flex-none w-36 bg-orange-50 p-3 rounded-2xl border border-orange-100 flex flex-col items-center text-center shadow-sm hover:bg-orange-100 transition duration-300">
@@ -160,11 +153,11 @@
         </div>
 
         <div class="mb-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-extrabold text-gray-800">Rekomendasi Kursus untuk Kamu</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-extrabold text-gray-900">Rekomendasi Kursus untuk Kamu</h2>
                 <a href="#" class="text-blue-600 font-bold hover:underline">Lihat Semua</a>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 
                 <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300">
                     <div class="h-32 relative overflow-hidden">
@@ -184,7 +177,7 @@
                 <div class="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300">
                     <div class="h-32 relative overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <span class="absolute top-2 left-2 bg-white/90 px-2 py-0.5 rounded-full text-[9px] font-bold text-orange-700 shadow-sm">Beginner</span>
+                        <span class="absolute top-2 left-2 bg-white/90 px-2 py-0.5 rounded-full text-[9px] font-bold text-purple-700 shadow-sm">Beginner</span>
                     </div>
                     <div class="p-3">
                         <h3 class="font-bold text-gray-800 text-xs leading-tight mb-1 line-clamp-2">Branding Bisnis Kecil</h3>
