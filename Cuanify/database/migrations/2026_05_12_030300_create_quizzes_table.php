@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');  // "tittle" di ERD kemungkinan typo
             $table->bigInteger('passing_score')->default(70);
             $table->bigInteger('time_limit')->nullable();
+            $table->timestamps();
         });
     }
 
