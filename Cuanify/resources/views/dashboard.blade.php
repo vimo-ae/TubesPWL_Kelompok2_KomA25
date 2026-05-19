@@ -19,7 +19,7 @@
 
                         <div class="flex flex-col sm:flex-row gap-4 pt-4">
                             <button class="bg-yellow-100 hover:bg-yellow-200 text-indigo-900 px-6 py-3 rounded-xl font-bold transition duration-300"> Lanjut Belajar </button>
-                            <button class="border border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-xl font-semibold transition duration-300"> Jelajahi Kursus </button>
+                            <a href="{{ route('courses.index') }}" class="border border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-xl font-semibold transition duration-300 inline-block">Jelajahi Kursus</a>
                         </div>
                     </div>
 
