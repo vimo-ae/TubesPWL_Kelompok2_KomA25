@@ -31,7 +31,7 @@
     <!-- LOGO -->
     <div>
 
-        <h2 class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+        <h2 class="text-3xl font-bold bg-slate-900 from-medium to-slate-900 bg-clip-text text-transparent">
             Cuanify
         </h2>
 
@@ -119,24 +119,25 @@
         @if ($lesson['active'])
 
             <!-- ACTIVE -->
-            <div class= "relative overflow-hidden p-5 rounded-3xl 
-            bg-gradient-to-r from-purple-600 to-pink-500
-            text-white shadow-xl shadow-purple-200">
+            <div class= "group block p-5 rounded-3xl bg-white border border-gray-100
+               hover:border-purple-200 hover:bg-purple-50/60
+               hover:-translate-y-1 hover:shadow-lg
+               transition duration-300">
 
-                <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-10 -mt-10"></div>
-                <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center mb-4 text-xl backdrop-blur-md">
-                📖
+                <div class="w-11 h-11 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mb-4 group-hover:bg-purple-200 transition">
+                    📘
                 </div>
 
                 <p class="text-sm opacity-80">
                     Lesson {{ $lesson['id'] }}
                 </p>
 
-                <h3 class="font-bold mt-1">
+                <h3 class="font-semibold text-gray-800 mt-1 group-hover:text-purple-700 transition">
                     {{ $lesson['title'] }}
                 </h3>
 
             </div>
+
 
         @else
 
@@ -303,9 +304,6 @@
                     transition duration-300">
                     Lanjut Belajar
                     <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition"></div>
-                    <span class="group-hover:translate-x-1 transition">
-                    →
-                    </span>
 
                     </button>
 

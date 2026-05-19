@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,5 +25,8 @@ Route::get('/course', function () {
 Route::get('/lesson/{id}', function ($id) {
     return "Lesson " . $id;
 })->name('lesson.show');
+
+Route::get('/courses', [CourseController::class, 'index'])
+    ->name('courses.index');
 
 require __DIR__.'/auth.php';
