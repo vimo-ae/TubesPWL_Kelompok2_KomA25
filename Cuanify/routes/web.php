@@ -18,7 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/courses', [CourseController::class, 'index'])
-    ->name('courses.index');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 require __DIR__.'/auth.php';
