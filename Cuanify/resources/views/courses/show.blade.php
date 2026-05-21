@@ -7,23 +7,30 @@
 
         @foreach($course->lessons as $lesson)
 
-    <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
+            <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
 
-        <div>
-            <h2>Judul: {{ $lesson->title }}</h2>
+                <div>
+                    <h2>Judul: {{ $lesson->title }}</h2>
 
-            <p>{{ $lesson->content }}</p>
+                    <p>{{ $lesson->content }}</p>
 
-            <p>Link video: {{ $lesson->video_url}}</p>
-            
-            <p>File PDF: {{ $lesson->pdf_file}}</p>
+                    <p>Link video: {{ $lesson->video_url }}</p>
+                    
+                    <p>File PDF: {{ $lesson->pdf_file }}</p>
 
-            <p>Total Xp: {{ $lesson->xp_reward}}</p>
-        </div>
+                    <p>Total XP: {{ $lesson->xp_reward }}</p>
+                </div>
 
-    </div>
+                <a href="{{ route('quizzes.show', $lesson->lesson_id) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
 
-@endforeach
+                    Lihat Quiz
+
+                </a>
+
+            </div>
+
+        @endforeach
+
     </div>
 
 </x-app-layout>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,5 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])->name('quizzes.show');
 
 require __DIR__.'/auth.php';
