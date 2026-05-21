@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,3 +24,7 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 require __DIR__.'/auth.php';
+
+Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
+    ->middleware('auth')
+    ->name('enroll.course');
