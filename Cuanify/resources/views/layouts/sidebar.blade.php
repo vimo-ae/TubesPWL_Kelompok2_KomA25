@@ -21,3 +21,5 @@
         <span>Pengaturan Profil</span>
     </x-nav-link>
 </div>
+
+.
