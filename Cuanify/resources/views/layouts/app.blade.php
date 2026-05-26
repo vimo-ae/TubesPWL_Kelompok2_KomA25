@@ -13,14 +13,14 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-gray-900 bg-white dark:bg-gray-900">
-        <div class="min-h-screen flex">
+    <body class="font-sans antialiased text-gray-900 bg-[#fff5f8] dark:bg-gray-900">
+        <div class="min-h-screen flex bg-[#fff5f8]">
             
-            <aside class="w-64 bg-[#fff5f8] dark:bg-gray-800 border-r border-pink-100 dark:border-gray-700 min-h-screen hidden md:flex flex-col justify-between sticky top-0 shadow-sm z-50">
+            <aside class="w-64 bg-[#fff5f8] dark:bg-gray-800 min-h-screen hidden md:flex flex-col justify-between sticky top-0 z-50">
                 <div class="py-6">
-                    <div class="px-6 pt-4 mb-6">
-                        <a href="{{ route('dashboard') }}" class="flex items-center">
-                            <img src="{{ asset('images/Cuanify.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain transition-all duration-200 hover:scale-105">
+                    <div class="px-6 pt-4 mb-6 bg-[#fff5f8]">
+                        <a href="{{ route('dashboard') }}" class="flex items-center bg-[#fff5f8]">
+                            <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
                         </a>
 
                         <span class="text-[11px] font-bold tracking-wide text-gray-450 dark:text-gray-400 pl-1 opacity-90 block mt-2">
@@ -34,13 +34,13 @@
                 </div>
             </aside>
 
-            <div class="flex-1 min-w-0 flex flex-col">
+            <div class="flex-1 min-w-0 flex flex-col bg-[#fff5f8]">
                 
-                <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 w-full h-16 flex items-center justify-end px-6 sticky top-0 z-40 shadow-sm">
+                <nav class="bg-[#fff5f8] dark:bg-gray-800 w-full h-16 flex items-center justify-end px-6 sticky top-0 z-40">
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-[#fff5f8] dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                     <div>{{ Auth::user()->name }}</div>
                                     <div class="ms-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -68,15 +68,15 @@
                     </div>
                 </nav>
 
-                <div class="md:hidden bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 h-16 flex items-center justify-between px-4 sticky top-0 z-40 shadow-sm">
-                    <img src="{{ asset('images/Cuanify.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
+                <div class="md:hidden bg-[#fff5f8] dark:bg-gray-800 h-16 flex items-center justify-between px-4 sticky top-0 z-40">
+                    <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-xs font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-xl">Keluar</button>
                     </form>
                 </div>
 
-                <main class="flex-1 bg-white p-6 md:p-8">
+                <main class="flex-1 bg-[#fff5f8] p-6 md:p-8 overflow-x-hidden">
                     {{ $slot }}
                 </main>
 
