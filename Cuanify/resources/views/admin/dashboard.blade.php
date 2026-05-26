@@ -31,12 +31,12 @@
                             {{ $instructor->email }}
                         </td>
                         <td class="p-3 border">
-                            @if ($instructor->status == 'pending')
+                            @if ($instructor->status_instructor == 'pending')
                                 <span class="text-yellow-500 font-semibold">
                                     Pending
                                 </span>
 
-                            @elseif ($instructor->status == 'approved')
+                            @elseif ($instructor->status_instructor == 'approved')
                                 <span class="text-green-500 font-semibold">
                                     Approved
                                 </span>
@@ -127,8 +127,54 @@
             </tbody>
 
         </table>
-    </div>
 
-    
+        <h1 class="text-2xl font-bold mt-10 mb-6">
+            Instruktur Rejected
+        </h1>
+
+        <table class="w-full border">
+
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-3 border">Nama</th>
+                    <th class="p-3 border">Email</th>
+                    <th class="p-3 border">Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @forelse ($rejectedInstructors as $instructor)
+
+                    <tr>
+
+                        <td class="p-3 border">
+                            {{ $instructor->username }}
+                        </td>
+
+                        <td class="p-3 border">
+                            {{ $instructor->email }}
+                        </td>
+
+                        <td class="p-3 border text-red-500 font-semibold">
+                            Rejected
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="3" class="p-4 text-center">
+                            Belum ada instructor rejected
+                        </td>
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+    </div>
 
 </x-app-layout>

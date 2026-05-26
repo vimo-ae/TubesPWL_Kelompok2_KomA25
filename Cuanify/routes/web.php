@@ -10,12 +10,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('student.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');;
-
-Route::get('/instructor', function () {
-    return view('instructor.dashboard');
-})->middleware(['auth', 'instructor'])->name('dashboard');;
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');

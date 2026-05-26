@@ -12,10 +12,14 @@ class AdminController extends Controller
         $instructors = User::where('role', 'instructor')->get();
 
         $approvedInstructors = User::where('role', 'instructor')
-                                ->where('status', 'approved')
+                                ->where('status_instructor', 'approved')
                                 ->get();
 
-        return view('admin.dashboard', compact('instructors', 'approvedInstructors'));
+        $rejectedInstructors = User::where('role', 'instructor')
+                                ->where('status_instructor', 'rejected')
+                                ->get();
+
+        return view('admin.dashboard', compact('instructors', 'approvedInstructors', 'rejectedInstructors'));
     }
 
     public function approve(int $user_id)

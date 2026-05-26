@@ -36,14 +36,23 @@ class AuthenticatedSessionController extends Controller
 
         if ($user->role == 'instructor') {
 
-            if(!$user->is_approved){
+            if ($user->status_instructor == 'pending') {
+
                 Auth::logout();
 
-                return redirect('/')
-                    ->with('error', 'Akun instructor Anda belum disetujui admin.');
+                return back()
+                    ->with('warning', 'Akun instructor masih menunggu verifikasi admin.')
+                    ->withInput();;
             }
 
-            return redirect('/instructor');
+            if ($user->status_instructor == 'rejected') {
+
+                Auth::logout();
+
+                return back()
+                    ->with('error', 'Pengajuan instructor ditolak admin.')
+                    ->withInput();;
+            }
         }
 
         return redirect('dashboard');
