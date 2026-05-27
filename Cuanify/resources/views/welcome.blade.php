@@ -269,7 +269,7 @@
             </div>
 
             <!-- BUTTON -->
-            <a href="{{ route('register') }}"
+            <a href="{{ route('register-instructor') }}"
                class="px-6 py-3 rounded-full bg-white text-[#5b21b6] font-medium hover:bg-purple-100 hover:scale-105 transition whitespace-nowrap">
                 Daftar Instruktur
             </a>

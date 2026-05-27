@@ -72,6 +72,16 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'role' => 'student',
         ]);
+      
+        User::create([
+            'username' => 'Guru 1',
+            'email' => 'guru1@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+            'status_instructor' => 'pending',          
+        ]);
 
         User::factory()->create([
             'username' => 'Test User',
