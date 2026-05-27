@@ -23,13 +23,35 @@
         <p>Level: {{ $course->difficulty_level }}</p>
     </div>
 
-        <a href="{{ route('courses.show', $course->course_id) }}"
-        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
-
-            Lihat Lesson
-
-        </a>
-
+        @if(auth()->user()->courses->contains('course_id', $course->course_id))
+            
+            <div>
+                <p class="text-green-600 font-semibold">
+                    Sudah Enroll
+                </p>
+            
+                <a href="{{ route('courses.show', $course->course_id) }}"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+                
+                    Lihat Lesson
+                
+                </a>
+            </div>
+        
+        @else
+        
+            <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
+                @csrf
+            
+                <button type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+            
+                    Enroll
+            
+                </button>
+            </form>
+        
+        @endif
     </div>
 
 @endforeach

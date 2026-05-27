@@ -3,9 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,3 +38,7 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])->name('quizzes.show');
 
 require __DIR__.'/auth.php';
+
+Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
+    ->middleware('auth')
+    ->name('enroll.course');
