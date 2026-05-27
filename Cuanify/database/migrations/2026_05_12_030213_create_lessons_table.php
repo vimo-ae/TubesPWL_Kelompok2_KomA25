@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('pdf_file')->nullable();
             $table->bigInteger('lesson_order')->default(1);
             $table->bigInteger('xp_reward')->default(0);
+            $table->timestamps();
         });
     }
 
