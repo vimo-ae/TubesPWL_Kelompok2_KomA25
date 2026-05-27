@@ -16,10 +16,10 @@
     <body class="font-sans antialiased text-gray-900 bg-[#fff5f8] dark:bg-gray-900">
         <div class="min-h-screen flex bg-[#fff5f8]">
             
-            <aside class="w-64 bg-[#fff5f8] dark:bg-gray-800 min-h-screen hidden md:flex flex-col justify-between sticky top-0 z-50">
+            <aside class="w-64 bg-[#fff5f8] dark:bg-gray-800 h-screen hidden md:flex flex-col justify-between sticky top-0 z-50 overflow-y-auto">
                 <div class="py-6">
                     <div class="px-6 pt-4 mb-6 bg-[#fff5f8]">
-                        <a href="{{ route('dashboard') }}" class="flex items-center bg-[#fff5f8]">
+                        <a href="{{ route('dashboard') }}" class="logo-link inline-flex items-center">
                             <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
                         </a>
 
@@ -76,7 +76,7 @@
                     </form>
                 </div>
 
-                <main class="flex-1 bg-[#fff5f8] p-6 md:p-8 overflow-x-hidden">
+                <main class="flex-1 bg-gradient-to-br from-pink-100 via-fuchsia-100 to-purple-200  p-6 md:p-8 overflow-x-hidden">
                     {{ $slot }}
                 </main>
 
