@@ -28,7 +28,34 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            return redirect('/admin');
+        }
+
+        if ($user->role == 'instructor') {
+
+            if ($user->status_instructor == 'pending') {
+
+                Auth::logout();
+
+                return back()
+                    ->with('warning', 'Akun instructor masih menunggu verifikasi admin.')
+                    ->withInput();;
+            }
+
+            if ($user->status_instructor == 'rejected') {
+
+                Auth::logout();
+
+                return back()
+                    ->with('error', 'Pengajuan instructor ditolak admin.')
+                    ->withInput();;
+            }
+        }
+
+        return redirect('dashboard');
     }
 
     /**
