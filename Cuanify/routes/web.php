@@ -40,9 +40,6 @@ Route::middleware('auth')->group(function () {
         ->name('enroll.course');
 });
 
-Route::get('/course', function () {
-    return view('course.dashboard');
-});
 
 Route::get('/lesson/{id}', function ($id) {
     return "Lesson " . $id;

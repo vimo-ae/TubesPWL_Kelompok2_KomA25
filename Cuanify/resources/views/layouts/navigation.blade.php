@@ -37,11 +37,11 @@
                 <span class="text-base">📊</span> {{ __('Dashboard') }}
             </x-nav-link>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200">
+            <a href="{{ route('courses.index') }}" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200">
                 <span class="text-base">📖</span> Course Saya
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200">
+            <a href="{{ route('courses.index') }}"class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-600 dark:text-gray-400 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-200">
                 <span class="text-base">🔍</span> Daftar Course
             </a>
 
