@@ -1,11 +1,11 @@
 <x-guest-layout>
-
+    
     <div class="min-h-screen flex flex-col items-center justify-center
-            bg-[#f5f7fb]
-            relative overflow-hidden px-4">
-
-        <!-- LOGO DI LUAR FORM -->
-        <div class="mb-6 relative z-10 text-center">
+    bg-[#f5f7fb]
+    relative overflow-hidden px-4">
+    
+    <!-- LOGO DI LUAR FORM -->
+    <div class="mb-6 relative z-10 text-center">
 
             <img
                 src="{{ asset('images/logo1.png') }}"
@@ -22,19 +22,19 @@
                 shadow-[0_10px_30px_rgba(0,0,0,0.08)]
                 p-6
                 border border-gray-100">
-
-            <!-- BACK BUTTON -->
-            <a href="{{ url('/') }}"
-               class="absolute top-4 left-4 flex items-center gap-2
-                      px-4 py-1.5 rounded-full
-                      bg-gray-100 hover:bg-purple-100
-                      text-gray-600 hover:text-purple-700
-                      text-sm font-medium
-                      transition-all duration-300 group">
-
+                
+                <!-- BACK BUTTON -->
+                <a href="{{ url('/') }}"
+                class="absolute top-4 left-4 flex items-center gap-2
+                px-4 py-1.5 rounded-full
+                bg-gray-100 hover:bg-purple-100
+                text-gray-600 hover:text-purple-700
+                text-sm font-medium
+                transition-all duration-300 group">
+                
                 <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-4 h-4 group-hover:-translate-x-1 transition"
-                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                class="w-4 h-4 group-hover:-translate-x-1 transition"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
                     <path stroke-linecap="round"
                           stroke-linejoin="round"
@@ -145,19 +145,32 @@
                     @endif
 
                 </div>
-
+                
+                
                 <!-- BUTTON -->
                 <button
-                    type="submit"
-                    class="w-full mt-7 py-3 rounded-xl
+                type="submit"
+                class="w-full mt-7 py-3 rounded-xl
                         bg-gradient-to-r from-[#7F00FF] to-[#A855F7]
                         hover:from-[#6D00E6] hover:to-[#9333EA]
                         text-white font-semibold
                         hover:scale-[1.02]
                         transition duration-300">
-
-                    Login
-                </button>
+                        
+                        Login
+                    </button>
+                    
+                    @if (session('warning'))
+                        <div id="warning" class="mt-4 rounded bg-yellow-100 border border-yellow-400 text-yellow-700 transition-opacity duration-500 px-4 py-3">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
+                
+                    @if (session('error'))
+                        <div id="error" class="mt-4 rounded bg-red-100 border border-red-400 text-red-700 transition-opacity duration-500 px-4 py-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                 <!-- REGISTER -->
                 <p class="text-center text-sm text-gray-500 mt-6">
@@ -166,16 +179,33 @@
 
                     <a href="{{ route('register') }}"
                        class="text-purple-600 font-semibold hover:underline">
-
-                        Register
+                       
+                       Register
                     </a>
-
+                    
                 </p>
 
+                
             </form>
 
         </div>
 
     </div>
+    <script>
+        setTimeout(() => {
+            const warning = document.getElementById('warning');
+            const error = document.getElementById('error');
 
+            if (warning) {
+                warning.classList.add('opacity-0');
+                setTimeout(() => warning.remove(), 500);
+            }
+
+            if (error) {
+                error.classList.add('opacity-0');
+                setTimeout(() => error.remove(), 500);
+
+            }
+        }, 3000);
+    </script>
 </x-guest-layout>

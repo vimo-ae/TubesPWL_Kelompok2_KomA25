@@ -9,15 +9,19 @@
 
     <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
 
-        <div>
-            <h2>Judul: {{ $course->title }}</h2>
+    <div>
+        <img src="{{ asset('storage/' . $course->thumbnail) }}" width="200">
 
-            <p>Deskripsi: {{ $course->description }}</p>
+        <h2>{{ $course->title }}</h2>
 
-            <p>Tingkat Kesulitan: {{ $course->difficulty_level }}</p>
+        <p>{{ $course->description }}</p>
 
-            <p>Estimasi Waktu: {{ $course->estimated_duration }} menit</p>
-        </div>
+        <p>Instructor: {{ $course->instructor->name }}</p>
+
+        <p>Category: {{ $course->category->category_name }}</p>
+
+        <p>Level: {{ $course->difficulty_level }}</p>
+    </div>
 
         @if(auth()->user()->courses->contains('course_id', $course->course_id))
             
