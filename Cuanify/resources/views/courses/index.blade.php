@@ -16,7 +16,8 @@
 
         <p>{{ $course->description }}</p>
 
-        <p>Instructor: {{ $course->instructor->name }}</p>
+        {{-- <p>Instructor: {{ $course->instructor->name }}</p> --}}
+        <p>Instructor: </p>
 
         <p>Category: {{ $course->category->category_name }}</p>
 
