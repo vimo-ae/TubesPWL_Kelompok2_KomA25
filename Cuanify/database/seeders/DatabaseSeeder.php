@@ -29,13 +29,58 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
+            'username' => 'Ryan',
+            'email' => 'ryan@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('ryan123'),
+            'remember_token' => Str::random(10),
+            'role' => 'student',
+        ]);
+
+        User::create([
+            'username' => 'Alvin',
+            'email' => 'alvin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('alvin123'),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+        ]);
+        
+        User::create([
+            'username' => 'Vimo',
+            'email' => 'vimo@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('vimo123'),
+            'remember_token' => Str::random(10),
+            'role' => 'student',
+        ]);
+
+        User::create([
+            'username' => 'Dara',
+            'email' => 'dara@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('dara123'),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+        ]);
+
+        User::create([
+            'username' => 'Aliyah',
+            'email' => 'aliyah@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('aliyah123'),
+            'remember_token' => Str::random(10),
+            'role' => 'student',
+        ]);
+      
+        User::create([
             'username' => 'Guru 1',
             'email' => 'guru1@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'role' => 'instructor',
-            'status_instructor' => 'pending',
+            'status_instructor' => 'pending',          
         ]);
 
         User::factory()->create([
@@ -47,6 +92,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             CourseSeeder::class,
             LessonSeeder::class,
+            QuizSeeder::class,
+            ReviewSeeder::class,
         ]);
         
     }
