@@ -11,16 +11,24 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'category_name' => 'Programming',
-                'description' => 'Belajar coding dan development',
+                'category_name' => 'Literasi Keuangan',
+                'description' => 'Pembelajaran finansial dan pengelolaan uang',
             ],
             [
-                'category_name' => 'Design',
-                'description' => 'Belajar UI/UX dan desain grafis',
+                'category_name' => 'UMKM & Kewirausahaan',
+                'description' => 'Pembelajaran bisnis dan entrepreneurship',
             ],
             [
-                'category_name' => 'Business',
-                'description' => 'Belajar bisnis dan marketing',
+                'category_name' => 'Digital Marketing',
+                'description' => 'Pembelajaran pemasaran digital',
+            ],
+            [
+                'category_name' => 'Karier & Pengembangan Diri',
+                'description' => 'Pembelajaran soft skill dan pengembangan diri',
+            ],
+            [
+                'category_name' => 'Ekonomi Berkelanjutan',
+                'description' => 'Pembelajaran ekonomi berkelanjutan dan SDGs',
             ],
         ]);
     }

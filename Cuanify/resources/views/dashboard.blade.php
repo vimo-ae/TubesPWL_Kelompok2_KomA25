@@ -21,9 +21,7 @@
                             <button class="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-2.5 rounded-2xl font-black text-sm shadow-xl transition-all duration-300 hover:-translate-y-1">
                                 Lanjut Belajar
                             </button>
-                            <button class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-6 py-2.5 rounded-2xl font-bold text-sm transition-all">
-                                Jelajahi Kursus
-                            </button>
+                            <a href="{{ route('courses.index') }}" class="border border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-xl font-semibold transition duration-300 inline-block">Jelajahi Kursus</a>
                         </div>
                     </div>
                     <div class="hidden md:flex flex-col items-center justify-center opacity-20 select-none">
