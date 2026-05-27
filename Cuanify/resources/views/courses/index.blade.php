@@ -9,15 +9,19 @@
 
     <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
 
-        <div>
-            <h2>Judul: {{ $course->title }}</h2>
+    <div>
+        <img src="{{ asset('storage/' . $course->thumbnail) }}" width="200">
 
-            <p>Deskripsi: {{ $course->description }}</p>
+        <h2>{{ $course->title }}</h2>
 
-            <p>Tingkat Kesulitan: {{ $course->difficulty_level }}</p>
+        <p>{{ $course->description }}</p>
 
-            <p>Estimasi Waktu: {{ $course->estimated_duration }} menit</p>
-        </div>
+        <p>Instructor: {{ $course->instructor->name }}</p>
+
+        <p>Category: {{ $course->category->category_name }}</p>
+
+        <p>Level: {{ $course->difficulty_level }}</p>
+    </div>
 
         <a href="{{ route('courses.show', $course->course_id) }}"
         class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
