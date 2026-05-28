@@ -17,4 +17,13 @@ class EnrollmentController extends Controller
         return redirect()->back()
             ->with('success', 'Berhasil enroll!');
     }
+
+    public function myCourses()
+    {
+        $enrollments = Enrollment::with('course')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        return view('courses.my-course', compact('enrollments'));
+    }
 }

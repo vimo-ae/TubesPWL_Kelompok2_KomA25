@@ -51,6 +51,10 @@ Route::get('/courses', [CourseController::class, 'index'])
 Route::get('/courses/{id}', [CourseController::class, 'show'])
     ->name('courses.show');
 
+Route::get('/my-courses', [EnrollmentController::class, 'myCourses'])
+    ->middleware('auth')
+    ->name('my.courses');
+
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])
     ->name('quizzes.show');
 
