@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Enrollment;
-use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller
 {
     public function enroll($course_id)
     {
-        Enrollment::firstOrCreate([
-            'user_id' => Auth::id(),
+        Enrollment::create([
+            'user_id' => auth()->user()->user_id,
             'course_id' => $course_id,
         ]);
 
-        return redirect()->back()
-            ->with('success', 'Berhasil enroll!');
+        return redirect()->route('my.courses');
     }
 
     public function myCourses()
     {
-        $enrollments = Enrollment::with('course')
-            ->where('user_id', Auth::id())
+        $enrollments = Enrollment::with('course.category', 'course.lessons')
+            ->where('user_id', auth()->user()->user_id)
             ->get();
 
-        return view('courses.my-course', compact('enrollments'));
+        return view('courses.my-courses', compact('enrollments'));
     }
 }

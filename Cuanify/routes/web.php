@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
@@ -47,12 +48,21 @@ Route::get('/lesson/{id}', function ($id) {
 Route::get('/courses', [CourseController::class, 'index'])
     ->name('courses.index');
 
-Route::get('/courses/{id}', [CourseController::class, 'show'])
+Route::get('/courses/{course}', [CourseController::class, 'show'])
     ->name('courses.show');
 
 Route::get('/my-courses', [EnrollmentController::class, 'myCourses'])
     ->middleware('auth')
     ->name('my.courses');
+
+Route::get('/courses/{course}/lessons', [LessonController::class, 'index'])
+    ->name('lessons.index');
+
+Route::post('/enroll/{course_id}', [EnrollmentController::class, 'store'])
+    ->name('enroll.course');
+
+Route::get('/lesson/{lesson}', [LessonController::class, 'show'])
+    ->name('lessons.show');
 
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])
     ->name('quizzes.show');
