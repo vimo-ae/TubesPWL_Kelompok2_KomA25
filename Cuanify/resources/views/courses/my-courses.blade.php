@@ -6,39 +6,52 @@
             Course Saya
         </h1>
 
+        <div class="flex gap-2 flex-wrap mb-6">
+
+    <a href="{{ route('my-courses.index') }}" class="bg-gray-300 px-4 py-2 rounded-lg transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
+        Semua
+    </a>
+
+    @foreach($categories as $category)
+
+        <a href="{{ route('my-courses.index', ['category' => $category->category_id]) }}" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:scale-[1.02] transition duration-300 hover:shadow-lg cursor-pointer">
+
+            {{ $category->category_name }}
+
+        </a>
+
+    @endforeach
+
+</div>
+
         @forelse($courses as $course)
 
-    <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
+    <a href="{{ route('courses.show', $course->course_id) }}">
 
-        <div>
-            <h2 class="font-bold text-lg">
-                {{ $course->title }}
-            </h2>
+        <div class="bg-white p-4 rounded mt-4 flex justify-between items-center 
+                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
 
-            <p>{{ $course->description }}</p>
+            <div>
+                <h2 class="font-bold text-lg">
+                    {{ $course->title }}
+                </h2>
 
-            <p>
-                Tingkat: {{ $course->difficulty_level }}
-            </p>
-        </div>
+                <p>{{ $course->description }}</p>
 
-        <div>
-            
-            <a href="{{ route('courses.show', $course->course_id) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
-                
-                Lihat Lesson
-
-            </a>
+                <p>
+                    Tingkat: {{ $course->difficulty_level }}
+                </p>
+            </div>
 
         </div>
 
-    </div>
+    </a>
 
 @empty
 
-            <p>Kamu belum enroll course!</p>
+    <p>Kamu belum enroll course!</p>
 
-        @endforelse
+@endforelse
 
     </div>
 

@@ -11,7 +11,7 @@
         <span>Course Saya</span>
     </a>
 
-    <a href="#" 
+    <a href="{{ route('courses.index') }}" 
        class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
         <i class="fas fa-search text-sm"></i>
         <span>Daftar Course</span>
