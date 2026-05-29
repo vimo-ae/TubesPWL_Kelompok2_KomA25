@@ -14,9 +14,9 @@ class CourseController extends Controller
         return view('courses.index', compact('courses'));
     }
 
-    public function show($id)
+    public function show(Course $course)
     {
-        $course = Course::with('lessons')->findOrFail($id);
+        $course->load('lessons', 'category');
 
         return view('courses.show', compact('course'));
     }
