@@ -27,10 +27,6 @@
         @if(auth()->user()->courses->contains('course_id', $course->course_id))
             
             <div>
-                <p class="text-green-600 font-semibold">
-                    Sudah Enroll
-                </p>
-            
                 <a href="{{ route('courses.show', $course->course_id) }}"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
                 
