@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use App\Models\User;
 
-class CourseController extends Controller
+class MyCourseController extends Controller
 {
     public function index(Request $request)
     {
         $categories = Category::all();
 
-        $courses = Course::query();
+        /** @var User $user */
+        $user = Auth::user();
+
+        $courses = $user->courses();
 
         if ($request->category) {
             $courses->where('category_id', $request->category);
@@ -20,13 +24,6 @@ class CourseController extends Controller
 
         $courses = $courses->get();
 
-        return view('courses.index', compact('courses', 'categories'));
-    }
-
-    public function show(Course $course)
-    {
-        $course->load('lessons', 'category');
-
-        return view('courses.show', compact('course'));
+        return view('courses.my-courses', compact('courses', 'categories'));
     }
 }

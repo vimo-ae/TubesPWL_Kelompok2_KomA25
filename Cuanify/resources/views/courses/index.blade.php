@@ -1,7 +1,6 @@
 <x-app-layout>
 
 <div class="min-h-screen w-full bg-[#f7eef7] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
-
     <div class="max-w-7xl mx-auto">
 
         <!-- Header -->
@@ -29,7 +28,16 @@
             @foreach($courses as $course)
         
             <div class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300">
-            
+            <div class="flex gap-2 flex-wrap mb-6">
+                <a href="{{ route('courses.index') }}"class="bg-white px-4 py-2 rounded-xl text-sm shadow">
+                    Semua
+                </a>
+
+            @foreach($categories as $category)
+                <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"class="bg-purple-500 text-white px-4 py-2 rounded-xl text-sm">{{ $category->category_name }}
+                </a>
+            @endforeach
+            </div>
                 <!-- Thumbnail -->
                 <div class="h-40 relative overflow-hidden">
                 
@@ -62,8 +70,8 @@
                     </p>
                 
                     <!-- Bottom -->
-                    <div class="flex justify-between items-center text-xs mb-4">
-                    
+                        <div class="flex justify-between items-center text-xs mb-3">
+                                        
                         <span class="text-yellow-500 font-bold">
                             ⭐ 4.8
                         </span>
@@ -73,6 +81,18 @@
                         </span>
                     
                     </div>
+
+                    @if(auth()->check())
+                        @if(auth()->user()->courses->contains('course_id', $course->course_id))
+                            <p class="text-green-600 text-xs font-semibold mb-3">
+                                ✓ Sudah Enroll
+                            </p>
+                        @else
+                            <p class="text-indigo-600 text-xs font-semibold mb-3">
+                                Belum Enroll
+                            </p>
+                        @endif
+                    @endif
                 
                     <!-- Button -->
                     <a href="{{ route('courses.show', $course->course_id) }}"
@@ -88,6 +108,70 @@
         
         </div>
     </div>
+        <div class="flex gap-2 flex-wrap mb-6 mt-4">
+
+    <a href="{{ route('courses.index') }}" class="bg-gray-300 px-4 py-2 rounded-lg">
+
+        Semua
+
+    </a>
+
+    @foreach($categories as $category)
+
+        <a href="{{ route('courses.index', ['category' => $category->category_id]) }}" class="bg-indigo-500 text-white px-4 py-2 rounded-lg">
+
+            {{ $category->category_name }}
+
+        </a>
+
+    @endforeach
+
+</div>
+
+        @foreach($courses as $course)
+
+    <a href="{{ route('courses.show', $course->course_id) }}">
+
+        <div class="bg-white p-4 rounded mt-4 flex justify-between items-center
+                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
+
+            <div>
+                <img src="{{ asset('storage/' . $course->thumbnail) }}" width="200">
+
+                <h2 class="font-bold text-lg mt-2">
+                    {{ $course->title }}
+                </h2>
+
+                <p>{{ $course->description }}</p>
+
+                <p>Instructor:</p>
+
+                <p>Category: {{ $course->category->category_name }}</p>
+
+                <p>Level: {{ $course->difficulty_level }}</p>
+            </div>
+
+            <div>
+
+                @if(auth()->user()->courses->contains('course_id', $course->course_id))
+
+                    <span class="text-green-600 font-semibold">
+                        Sudah Enroll
+                    </span>
+
+                @else
+
+                    <span class="text-indigo-600 font-semibold">
+                        Belum Enroll
+                    </span>
+
+                @endif
+
+            </div>
+
+        </div>
+
+    </a>
 
 </div>
 

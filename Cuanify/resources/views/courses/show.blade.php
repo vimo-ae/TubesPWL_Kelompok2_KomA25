@@ -4,6 +4,11 @@
 
     <div class="max-w-6xl mx-auto">
 
+    @php
+        $isEnrolled = auth()->check()
+            ? auth()->user()->courses->contains('course_id', $course->course_id)
+            : false;
+    @endphp
         <!-- Back -->
         <a href="{{ route('courses.index') }}"
            class="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-800 mb-6 transition">
@@ -91,30 +96,52 @@
                         </h3>
 
                         <div class="space-y-4">
+                            
+                        @forelse($course->lessons as $lesson)
 
-                            @forelse($course->lessons as $lesson)
+        @if($isEnrolled)
 
-                            <div class="bg-[#faf5ff] border border-purple-100 rounded-2xl p-5 flex items-center justify-between">
+        <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
 
-                                <div>
-                                    <h4 class="font-bold text-gray-800">
-                                        {{ $lesson->title }}
-                                    </h4>
+            <div class="bg-[#faf5ff] border border-purple-100 rounded-2xl p-5 flex items-center justify-between hover:shadow-md transition">
 
-                                    <p class="text-sm text-gray-500 mt-1">
-                                        Lesson {{ $loop->iteration }}
-                                    </p>
-                                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800">
+                        {{ $lesson->title }}
+                    </h4>
 
-                            </div>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Lesson {{ $loop->iteration }}
+                    </p>
+                </div>
 
-                            @empty
+            </div>
 
-                            <div class="bg-gray-50 rounded-2xl p-6 text-gray-400 text-center">
-                                Belum ada lesson.
-                            </div>
+        </a>
 
-                            @endforelse
+    @else
+
+        <div class="bg-gray-100 border rounded-2xl p-5 opacity-75">
+
+            <h4 class="font-bold text-gray-800">
+                {{ $lesson->title }}
+            </h4>
+
+            <p class="text-red-500 text-sm mt-2">
+                Enroll course terlebih dahulu untuk membuka lesson.
+            </p>
+
+        </div>
+
+    @endif
+
+@empty
+
+    <div class="bg-gray-50 rounded-2xl p-6 text-gray-400 text-center">
+        Belum ada lesson.
+    </div>
+
+@endforelse
 
                         </div>
 
@@ -132,7 +159,7 @@
                         </h3>
 
                         <p class="text-sm text-gray-500 mb-6">
-                            Tingkatkan skill dan mulai perjalanan belajarmu sekarang.
+                       Tingkatkan skill dan mulai perjalanan belajarmu sekarang.
                         </p>
 
                         <!-- Info -->
@@ -190,7 +217,5 @@
         </div>
 
     </div>
-
-</div>
 
 </x-app-layout>

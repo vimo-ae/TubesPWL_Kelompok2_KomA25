@@ -5,6 +5,14 @@
     <!-- HEADER QUIZ -->
     <div class="bg-white rounded-xl shadow p-6 mb-6 text-center">
 
+    <a href="{{ url()->previous() }}"class="inline-block mb-4 text-indigo-600 hover:text-indigo-800">
+
+    ← Kembali ke Lesson
+
+</a>
+
+    <div class="p-6">
+
         <h1 class="text-2xl font-bold">
             🧠 Quiz
         </h1>
@@ -12,6 +20,31 @@
         <p class="text-gray-500 mt-2">
             Jawab pertanyaan dengan benar
         </p>
+
+        @forelse($lesson->quizzes as $quiz)
+
+    <div class="bg-white p-4 rounded mt-4">
+
+        <h2 class="font-bold text-lg">
+            {{ $quiz->title }}
+        </h2>
+
+        <p>Passing Score: {{ $quiz->passing_score }}</p>
+
+        <p>Time Limit: {{ $quiz->time_limit }} menit</p>
+
+    </div>
+
+@empty
+
+    <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded mt-4">
+
+        Belum ada quiz untuk lesson ini.
+
+    </div>
+
+@endforelse
+
 
     </div>
 
