@@ -50,12 +50,14 @@
 
         <div class="flex items-center gap-3 mt-4">
 
-            <a href="{{ route('instructor.lessons.create', $course->course_id) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
-                + Tambah Lesson
-            </a>
-
             @if($course->status == 'draft')
-                <form action="{{ route('instructor.courses.submit', $course->course_id) }}" method="POST">
+                <a href="{{ route('instructor.lessons.create', $course->course_id) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
+                    + Tambah Lesson
+                </a>
+
+                <form action="{{ route('instructor.courses.submit', $course->course_id) }}" 
+                      method="POST"
+                      onsubmit="return confirm('Yakin ingin mengajukan verifikasi? Setelah diajukan, detail course dan seluruh materi lesson tidak dapat diedit atau dihapus lagi.');">
                     @csrf
                     <button
                         type="submit"
@@ -80,21 +82,27 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <a href="{{ route('instructor.lessons.edit', ['course' => $course->course_id, 'lesson' => $lesson->lesson_id]) }}" 
-                       class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-all">
-                        Edit
-                    </a>
+                    @if($course->status == 'draft')
+                        <a href="{{ route('instructor.lessons.edit', ['course' => $course->course_id, 'lesson' => $lesson->lesson_id]) }}" 
+                           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-all">
+                            Edit
+                        </a>
 
-                    <form action="{{ route('instructor.lessons.destroy', ['course' => $course->course_id, 'lesson' => $lesson->lesson_id]) }}" 
-                          method="POST" 
-                          onsubmit="return confirm('Yakin mau hapus lesson ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" 
-                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition-all">
-                            Delete
-                        </button>
-                    </form>
+                        <form action="{{ route('instructor.lessons.destroy', ['course' => $course->course_id, 'lesson' => $lesson->lesson_id]) }}" 
+                              method="POST" 
+                              onsubmit="return confirm('Yakin mau hapus lesson ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" 
+                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition-all">
+                                Delete
+                            </button>
+                        </form>
+                    @else
+                        <span class="text-gray-400 text-sm font-medium bg-gray-100 px-2.5 py-1 rounded flex items-center gap-1">
+                            <i class="fas fa-lock text-xs"></i> Terkunci
+                        </span>
+                    @endif
                 </div>
             </div>
         @endforeach
