@@ -66,7 +66,7 @@ Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
     ->name('enroll.course');
 
 
-oute::prefix('instructor')->group(function () {
+Route::prefix('instructor')->group(function () {
 
     Route::get('/courses', [InstructorCourseController::class, 'index'])->name('instructor.courses.index');
 

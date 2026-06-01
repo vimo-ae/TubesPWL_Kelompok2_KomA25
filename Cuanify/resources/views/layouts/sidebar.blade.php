@@ -41,13 +41,6 @@
         @endif
 
     @endif
-    <hr class="my-4 border-pink-200/60">
-
-    <a href="{{ route('profile.edit') }}" 
-       class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-user-cog text-sm"></i>
-        <span>Pengaturan Profil</span>
-    </a>
 </div>
 
 <style>
