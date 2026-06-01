@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'role' => 'instructor',
-            'status_instructor' => 'pending',          
+            'status_instructor' => 'approved',          
         ]);
 
         User::factory()->create([
