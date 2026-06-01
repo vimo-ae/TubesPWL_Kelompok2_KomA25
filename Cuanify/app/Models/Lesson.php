@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Prompts\Progress;
 
 class Lesson extends Model
 {
@@ -38,9 +39,12 @@ class Lesson extends Model
         return $this->hasMany(Quiz::class, 'lesson_id', 'lesson_id');
     }
 
-    // Lesson has many Progress records
     public function progress()
     {
-        return $this->hasMany(Progress::class, 'lesson_id', 'lesson_id');
+        return $this->hasMany(
+            Progress::class,
+            'lesson_id',
+            'lesson_id'
+        );
     }
 }

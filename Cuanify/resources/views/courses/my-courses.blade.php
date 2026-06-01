@@ -1,58 +1,154 @@
 <x-app-layout>
+<div class="min-h-screen bg-[#f8f1fb] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 px-6 py-8">
 
-    <div class="p-6">
+    <div class="max-w-7xl mx-auto">
 
-        <h1 class="text-2xl font-bold mb-4">
-            Course Saya
-        </h1>
+        <!-- Header -->
+        <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-7 md:p-8 shadow-xl mb-8">
 
-        <div class="flex gap-2 flex-wrap mb-6">
+            <!-- Blur -->
+            <div class="absolute -top-20 -right-16 w-80 h-80 bg-white/10 rounded-full blur-[90px]"></div>
+            <div class="absolute bottom-[-40px] left-[20%] w-52 h-52 border-[18px] border-white/10 rounded-full"></div>
 
-    <a href="{{ route('my-courses.index') }}" class="bg-gray-300 px-4 py-2 rounded-lg transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
-        Semua
-    </a>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-    @foreach($categories as $category)
+                <!-- Left -->
+                <div>
 
-        <a href="{{ route('my-courses.index', ['category' => $category->category_id]) }}" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:scale-[1.02] transition duration-300 hover:shadow-lg cursor-pointer">
+                    <div class="inline-flex items-center gap-2 bg-white/15 border border-white/10 backdrop-blur-md text-white text-[11px] uppercase tracking-[3px] font-bold px-4 py-2 rounded-full mb-4">
+                        📚 Learning Space
+                    </div>
 
-            {{ $category->category_name }}
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
+                        My Courses
+                    </h1>
 
-        </a>
+                    <p class="text-sm md:text-base text-purple-100 leading-relaxed max-w-2xl">
+                        Semua course yang sudah kamu enroll akan tampil di sini.
+                        Yuk lanjutkan progress belajar kamu 🚀
+                    </p>
 
-    @endforeach
+                </div>
 
-</div>
+                <!-- Stats -->
+                <div class="bg-white/10 border border-white/10 backdrop-blur-md rounded-3xl px-8 py-5 text-center min-w-[160px] shadow-lg">
 
-        @forelse($courses as $course)
+                    <p class="text-xs uppercase tracking-[2px] text-purple-100 mb-1">
+                        Total Course
+                    </p>
 
-    <a href="{{ route('courses.show', $course->course_id) }}">
+                    <h2 class="text-4xl font-extrabold text-white">
+                        {{ $courses->count() }}
+                    </h2>
 
-        <div class="bg-white p-4 rounded mt-4 flex justify-between items-center 
-                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
+                </div>
 
-            <div>
-                <h2 class="font-bold text-lg">
-                    {{ $course->title }}
-                </h2>
-
-                <p>{{ $course->description }}</p>
-
-                <p>
-                    Tingkat: {{ $course->difficulty_level }}
-                </p>
             </div>
 
         </div>
 
-    </a>
+        @if($courses->count() > 0)
 
-@empty
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        
+            @foreach($courses as $course)
 
-    <p>Kamu belum enroll course!</p>
+            <a href="{{ route('courses.show', $course->course_id) }}"
+               class="block group">
+            
+                <div class="bg-white rounded-2xl overflow-hidden border border-purple-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                
+                    <!-- Thumbnail -->
+                    <div class="relative h-36 overflow-hidden">
+                    
+                        @if($course->thumbnail)
+                    
+                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    
+                        @else
+                    
+                            <div class="w-full h-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-4xl">
+                                📚
+                            </div>
+                        
+                        @endif
+                        
+                        <div class="absolute top-3 left-3 bg-white/95 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full shadow">
+                            {{ ucfirst($course->difficulty_level) }}
+                        </div>
+                    
+                    </div>
+                
+                    <!-- Content -->
+                    <div class="p-4">
+                    
+                        <p class="text-[10px] uppercase tracking-[2px] font-bold text-purple-500 mb-2">
+                            {{ $course->category->category_name ?? 'Course' }}
+                        </p>
+                    
+                        <h2 class="text-lg font-bold text-gray-800 leading-snug line-clamp-2 mb-2">
+                            {{ $course->title }}
+                        </h2>
+                    
+                        <p class="text-sm text-gray-500 line-clamp-2 mb-4">
+                            {{ $course->description }}
+                        </p>
+                    
+                        <div class="flex items-center justify-between text-xs">
+                        
+                            <div class="text-purple-600 font-semibold">
+                                📚 {{ $course->lessons->count() }} Lesson
+                            </div>
+                        
+                            <div class="text-gray-400">
+                                ⏱ {{ $course->estimated_duration }} Jam
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                
+                </div>
+            
+            </a>
+            
+            @endforeach
+        
+        </div>
 
-@endforelse
+        @else
+
+        <!-- Empty State -->
+        <div class="bg-white border border-purple-100 rounded-[35px] p-14 text-center shadow-sm">
+
+            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-white text-5xl shadow-xl mb-6">
+                📖
+            </div>
+
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-3">
+                Belum Ada Course
+            </h2>
+
+            <p class="text-gray-500 max-w-lg mx-auto leading-relaxed mb-8">
+                Kamu belum enroll course apapun.
+                Yuk mulai belajar sekarang 
+            </p>
+
+            <a href="{{ route('courses.index') }}"
+               class="inline-block bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:opacity-90 text-white px-8 py-3 rounded-2xl font-bold shadow-lg transition duration-300">
+
+                Jelajahi Course
+
+            </a>
+
+        </div>
+
+        @endif
 
     </div>
+
+</div>
 
 </x-app-layout>

@@ -1,10 +1,12 @@
 <div class="space-y-1 px-4 sidebar-container">
     <a href="{{ route('dashboard') }}" 
        class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-home text-sm"></i>
+        <i class="fas fa-home text-sm"></i> 
         <span>{{ __('Dashboard') }}</span>
     </a>
-
+    
+    <hr class="my-4 border-pink-200/60">
+    
     @if(auth()->check())
     
         @if(auth()->user()->role === 'instructor')
@@ -13,7 +15,9 @@
                 <i class="fas fa-book-open text-sm"></i>
                 <span>Course Saya</span>
             </a>
-
+            
+            <hr class="my-4 border-pink-200/60">
+            
             <a href="{{ url('/courses') }}" 
                class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
                 <i class="fas fa-globe text-sm"></i>
@@ -26,7 +30,9 @@
                 <i class="fas fa-book-open text-sm"></i>
                 <span>Course Saya</span>
             </a>
-
+            
+            <hr class="my-4 border-pink-200/60">
+            
             <a href="{{ route('courses.index') }}" 
                class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
                 <i class="fas fa-globe text-sm"></i>

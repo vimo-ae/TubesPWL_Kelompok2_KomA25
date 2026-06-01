@@ -1,29 +1,35 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<div id="editProfileModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
+          class="bg-white p-6 rounded w-[400px]">
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+        @csrf
+        @method('PUT')
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+        <h2 class="text-lg font-bold mb-4">Edit Profil</h2>
+
+        <input type="text" name="full_name"
+               value="{{ $profile->full_name }}"
+               class="w-full border p-2 mb-3"
+               placeholder="Nama lengkap">
+
+        <textarea name="bio"
+                  class="w-full border p-2 mb-3"
+                  placeholder="Bio">{{ $profile->bio }}</textarea>
+
+        <input type="file" name="profile_photo" class="mb-3">
+
+        <div class="flex justify-end gap-2">
+            <button type="button"
+                    onclick="document.getElementById('editProfileModal').classList.add('hidden')">
+                Cancel
+            </button>
+
+            <button class="bg-blue-600 text-white px-4 py-2 rounded">
+                Save
+            </button>
         </div>
-    </div>
-</x-app-layout>
+
+    </form>
+
+</div>

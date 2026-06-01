@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\LessonController;
@@ -29,9 +30,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+
+    Route::get('/profile-edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::get('/settings', [SettingController::class, 'edit'])
+        ->name('settings.edit');
+
+    Route::patch('/settings', [SettingController::class, 'update'])
+        ->name('settings.update');
+
+    Route::delete('/settings', [SettingController::class, 'destroy'])
+        ->name('settings.destroy');
+
+    Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -48,11 +65,8 @@ Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
     ->middleware('auth')
     ->name('enroll.course');
 
-Route::middleware('auth')->group(function () {
-Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
-});
 
-Route::prefix('instructor')->group(function () {
+oute::prefix('instructor')->group(function () {
 
     Route::get('/courses', [InstructorCourseController::class, 'index'])->name('instructor.courses.index');
 

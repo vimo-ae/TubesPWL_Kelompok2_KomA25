@@ -4,13 +4,13 @@
 
     <div class="max-w-6xl mx-auto">
 
-        <!-- BACK -->
+        <!-- Back -->
         <a href="{{ url()->previous() }}"
            class="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-800 mb-6 transition">
             ← Kembali
         </a>
 
-        <!-- HEADER -->
+        <!-- Header -->
         <div class="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-700 rounded-[35px] p-8 text-white shadow-xl mb-8">
 
             <p class="text-sm text-purple-100 mb-2">
@@ -22,13 +22,14 @@
             </h1>
 
             <p class="text-purple-100 leading-relaxed">
-                {{ $lesson->content ?? 'Materi pembelajaran tersedia dalam video dan PDF.' }}
+                Pelajari materi melalui video pembelajaran dan PDF yang telah disediakan.
             </p>
 
         </div>
 
-        <!-- VIDEO -->
+        <!-- Video -->
         @if($lesson->video)
+
         <div class="bg-white rounded-[30px] p-6 shadow-sm border border-purple-100 mb-8">
 
             <h2 class="text-2xl font-extrabold text-gray-800 mb-5">
@@ -40,11 +41,13 @@
             </video>
 
         </div>
+
         @endif
 
         <!-- PDF -->
         @if($lesson->pdf)
-        <div class="bg-white rounded-[30px] p-6 shadow-sm border border-purple-100 mb-8">
+
+        <div class="bg-white rounded-[30px] p-6 shadow-sm border border-purple-100">
 
             <div class="flex items-center justify-between mb-5">
 
@@ -66,24 +69,8 @@
             </iframe>
 
         </div>
+
         @endif
-
-        <!-- XP + QUIZ -->
-        <div class="bg-white p-6 rounded-[30px] shadow-sm border border-purple-100 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-            <div>
-                <p class="text-sm text-gray-500">XP Reward</p>
-                <h3 class="text-2xl font-bold text-gray-800">
-                    {{ $lesson->xp_reward }} XP
-                </h3>
-            </div>
-
-            <a href="{{ route('quizzes.show', $lesson->lesson_id) }}"
-               class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition">
-                Lihat Quiz
-            </a>
-
-        </div>
 
     </div>
 
