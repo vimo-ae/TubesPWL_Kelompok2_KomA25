@@ -17,12 +17,6 @@
 
         @if(auth()->user()->courses->contains('course_id', $course->course_id))
 
-            <span class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold">
-
-                Sudah Enroll
-
-            </span>
-
         @else
 
             <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
@@ -44,29 +38,24 @@
 
         @foreach($course->lessons as $lesson)
 
-            <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
+    <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
 
-                <div>
-                    <h2>Judul: {{ $lesson->title }}</h2>
+        <div class="bg-white p-4 rounded mt-4
+                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
 
-                    <p>{{ $lesson->content }}</p>
+            <h2 class="font-bold text-lg">
+                {{ $lesson->title }}
+            </h2>
 
-                    <p>Link video: {{ $lesson->video_url }}</p>
-                    
-                    <p>File PDF: {{ $lesson->pdf_file }}</p>
+            <p>
+                {{ Str::limit($lesson->content, 100) }}
+            </p>
 
-                    <p>Total XP: {{ $lesson->xp_reward }}</p>
-                </div>
+        </div>
 
-                <a href="{{ route('quizzes.show', $lesson->lesson_id) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+    </a>
 
-                    Lihat Quiz
-
-                </a>
-
-            </div>
-
-        @endforeach
+@endforeach
 
     </div>
 
