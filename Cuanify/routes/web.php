@@ -50,10 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
 });
 
-Route::get('/lesson/{id}', function ($id) {
-    return "Lesson " . $id;
-})->name('lesson.show');
-
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');

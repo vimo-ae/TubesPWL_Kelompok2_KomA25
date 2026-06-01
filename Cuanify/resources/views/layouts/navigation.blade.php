@@ -83,7 +83,7 @@
         </div>
 
         <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
-        <a href="{{ route('my.courses') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50">Course Saya</a>
+        <a href="{{ route('my-courses.index') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50">Course Saya</a>
         <a href="{{ route('courses.index') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50">Daftar Course</a>
         
         <hr class="my-2 border-gray-100 dark:border-gray-800">
