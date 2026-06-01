@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\MyCourseController;
+use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])->name('quizzes.show');
 

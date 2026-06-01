@@ -1,5 +1,11 @@
 <x-app-layout>
 
+    <a href="{{ route('courses.index') }}" class="inline-block mb-4 text-indigo-600 hover:text-indigo-800 font-medium">
+
+    ← Kembali ke Daftar Course
+
+</a>
+
     <div class="p-6">
         <h1 class="text-2xl font-bold">
             {{ $course->title }}
@@ -17,56 +23,76 @@
 
         @if(auth()->user()->courses->contains('course_id', $course->course_id))
 
-            <span class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold">
+    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold">
 
-                Sudah Enroll
+        ✓ Sudah Enroll
 
-            </span>
+    </span>
 
-        @else
+@else
 
-            <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
-                @csrf
+    <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
+        @csrf
 
-                <button type="submit"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
 
-                    Enroll Sekarang
+            Enroll Sekarang
 
-                </button>
-            </form>
+        </button>
+    </form>
 
-        @endif
+@endif
 
     </div>
 
 </div>
 
+@php
+    $isEnrolled = auth()->user()->courses->contains('course_id', $course->course_id);
+@endphp
+
         @foreach($course->lessons as $lesson)
 
-            <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
+    @if($isEnrolled)
 
-                <div>
-                    <h2>Judul: {{ $lesson->title }}</h2>
+    <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
 
-                    <p>{{ $lesson->content }}</p>
+        <div class="bg-white p-4 rounded mt-4
+                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
 
-                    <p>Link video: {{ $lesson->video_url }}</p>
-                    
-                    <p>File PDF: {{ $lesson->pdf_file }}</p>
+            <h2 class="font-bold text-lg">
+                {{ $lesson->title }}
+            </h2>
 
-                    <p>Total XP: {{ $lesson->xp_reward }}</p>
-                </div>
+            <p>
+                {{ Str::limit($lesson->content, 100) }}
+            </p>
 
-                <a href="{{ route('quizzes.show', $lesson->lesson_id) }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+        </div>
 
-                    Lihat Quiz
+    </a>
 
-                </a>
+@else
 
-            </div>
+    <div class="bg-gray-100 p-4 rounded mt-4 opacity-75 cursor-not-allowed">
 
-        @endforeach
+        <h2 class="font-bold text-lg">
+            {{ $lesson->title }}
+        </h2>
+
+        <p>
+            {{ Str::limit($lesson->content, 100) }}
+        </p>
+
+        <p class="text-red-600 mt-2">
+            Enroll course terlebih dahulu untuk membuka lesson.
+        </p>
+
+    </div>
+
+@endif
+
+@endforeach
 
     </div>
 
