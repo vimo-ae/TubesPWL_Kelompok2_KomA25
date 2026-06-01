@@ -28,8 +28,15 @@
                         </span>
                     </div>
                     
+                    <!-- Sidebar Dinamis Berdasarkan Role -->
                     <nav class="px-4 space-y-1.5">
-                        @include('layouts.sidebar')
+                        @if(auth()->check())
+                            @if(auth()->user()->role === 'admin')
+                                @include('layouts.sidebar-admin')
+                            @else
+                                @include('layouts.sidebar-user')
+                            @endif
+                        @endif
                     </nav>
                 </div>
             </aside>
@@ -76,7 +83,7 @@
                     </form>
                 </div>
 
-                <main class="flex-1 bg-gradient-to-br from-pink-100 via-fuchsia-100 to-purple-200  p-6 md:p-8 overflow-x-hidden">
+                <main class="flex-1 bg-gradient-to-br from-pink-100 via-fuchsia-100 to-purple-200 p-6 md:p-8 overflow-x-hidden">
                     {{ $slot }}
                 </main>
 
