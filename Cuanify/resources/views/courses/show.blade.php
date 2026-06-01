@@ -1,5 +1,11 @@
 <x-app-layout>
 
+    <a href="{{ route('courses.index') }}" class="inline-block mb-4 text-indigo-600 hover:text-indigo-800 font-medium">
+
+    ← Kembali ke Daftar Course
+
+</a>
+
     <div class="p-6">
         <h1 class="text-2xl font-bold">
             {{ $course->title }}
@@ -17,20 +23,25 @@
 
         @if(auth()->user()->courses->contains('course_id', $course->course_id))
 
-        @else
+    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold">
 
-            <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
-                @csrf
+        ✓ Sudah Enroll
 
-                <button type="submit"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+    </span>
 
-                    Enroll Sekarang
+@else
 
-                </button>
-            </form>
+    <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
+        @csrf
 
-        @endif
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
+
+            Enroll Sekarang
+
+        </button>
+    </form>
+
+@endif
 
     </div>
 

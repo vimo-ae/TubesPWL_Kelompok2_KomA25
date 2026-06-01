@@ -1,5 +1,11 @@
 <x-app-layout>
 
+    <a href="{{ url()->previous() }}"class="inline-block mb-4 text-indigo-600 hover:text-indigo-800">
+
+    ← Kembali ke Course
+
+</a>
+
     <div class="p-6">
 
         <h1 class="text-2xl font-bold">
