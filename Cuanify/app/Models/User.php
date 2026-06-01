@@ -52,4 +52,18 @@ class User extends Authenticatable
             'course_id'
         );
     }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->profile()->create([
+                'user_id' => $user->id,
+            ]);
+        });
+    }
+    
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'user_id');
+    }
 }

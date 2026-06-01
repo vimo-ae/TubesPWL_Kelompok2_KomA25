@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,14 +28,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
+    Route::get('/settings', [SettingController::class, 'edit'])
+        ->name('settings.edit');
 
-    Route::patch('/profile', [ProfileController::class, 'update'])
-        ->name('profile.update');
+    Route::patch('/settings', [SettingController::class, 'update'])
+        ->name('settings.update');
 
-    Route::delete('/profile', [ProfileController::class, 'destroy'])
-        ->name('profile.destroy');
+    Route::delete('/settings', [SettingController::class, 'destroy'])
+        ->name('settings.destroy');
 
     Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
         ->name('enroll.course');
@@ -56,5 +57,9 @@ Route::get('/my-courses', [EnrollmentController::class, 'myCourses'])
 
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])
     ->name('quizzes.show');
+
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('profile');
 
 require __DIR__.'/auth.php';
