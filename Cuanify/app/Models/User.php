@@ -62,4 +62,9 @@ class User extends Authenticatable
             'course_id'
         );
     }
+
+    public function createdCourses()
+    {
+        return $this->hasMany(Course::class, 'user_id', 'user_id');
+    }
 }

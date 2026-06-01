@@ -5,18 +5,24 @@
         <span>{{ __('Dashboard') }}</span>
     </a>
 
-    <a href="{{ route('my-courses.index') }}" 
-       class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-book-open text-sm"></i>
-        <span>Course Saya</span>
-    </a>
+    @if(auth()->check())
+    
+        @if(auth()->user()->role === 'instructor')
+            <a href="{{ route('instructor.courses.index') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-book-open text-sm"></i>
+                <span>Course Saya</span>
+            </a>
+            
+        @elseif(auth()->user()->role === 'student')
+            <a href="{{ url('/student/courses') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-book-open text-sm"></i>
+                <span>Course Saya</span>
+            </a>
+        @endif
 
-    <a href="{{ route('courses.index') }}" 
-       class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-search text-sm"></i>
-        <span>Daftar Course</span>
-    </a>
-
+    @endif
     <hr class="my-4 border-pink-200/60">
 
     <a href="{{ route('profile.edit') }}" 
