@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/settings', [SettingController::class, 'destroy'])
         ->name('settings.destroy');
 
+    Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+});
+
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
@@ -58,7 +61,3 @@ require __DIR__.'/auth.php';
 Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
     ->middleware('auth')
     ->name('enroll.course');
-
-Route::middleware('auth')->group(function () {
-Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
-});
