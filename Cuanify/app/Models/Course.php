@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
 
 class Course extends Model
 {
@@ -52,6 +51,18 @@ class Course extends Model
     }
 
     public function users()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'enrollments',
+            'course_id',
+            'user_id',
+            'course_id',
+            'user_id'
+        );
+    }
+
+    public function enrolledUsers()
     {
         return $this->belongsToMany(
             User::class,

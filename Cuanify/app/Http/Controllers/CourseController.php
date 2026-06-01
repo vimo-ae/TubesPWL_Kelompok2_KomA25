@@ -4,19 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Category;
 
 class CourseController extends Controller
 {
-    public function index()
-    {
-        $courses = Course::all();
+    public function index(Request $request)
+{
+    $categories = Category::all();
 
-        return view('courses.index', compact('courses'));
+    $courses = Course::query();
+
+    if ($request->category) {
+        $courses->where('category_id', $request->category);
     }
 
-    public function show(Course $course)
+    $courses = $courses->get();
+
+    return view('courses.index', compact('courses', 'categories'));
+}
+
+    public function show($id)
     {
-        $course->load('lessons', 'category');
+        $course = Course::with('lessons')->findOrFail($id);
 
         return view('courses.show', compact('course'));
     }
