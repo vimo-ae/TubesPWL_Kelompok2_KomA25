@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\MyCourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,3 +43,7 @@ require __DIR__.'/auth.php';
 Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
     ->middleware('auth')
     ->name('enroll.course');
+
+Route::middleware('auth')->group(function () {
+Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+});

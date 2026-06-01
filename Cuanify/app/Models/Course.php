@@ -61,4 +61,16 @@ class Course extends Model
             'user_id'
         );
     }
+
+    public function enrolledUsers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'enrollments',
+            'course_id',
+            'user_id',
+            'course_id',
+            'user_id'
+        );
+    }
 }

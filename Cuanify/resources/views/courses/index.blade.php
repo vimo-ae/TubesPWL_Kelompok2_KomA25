@@ -5,55 +5,70 @@
             Daftar Courses
         </h1>
 
+        <div class="flex gap-2 flex-wrap mb-6 mt-4">
+
+    <a href="{{ route('courses.index') }}" class="bg-gray-300 px-4 py-2 rounded-lg">
+
+        Semua
+
+    </a>
+
+    @foreach($categories as $category)
+
+        <a href="{{ route('courses.index', ['category' => $category->category_id]) }}" class="bg-indigo-500 text-white px-4 py-2 rounded-lg">
+
+            {{ $category->category_name }}
+
+        </a>
+
+    @endforeach
+
+</div>
+
         @foreach($courses as $course)
 
-    <div class="bg-white p-4 rounded mt-4 flex justify-between items-center">
+    <a href="{{ route('courses.show', $course->course_id) }}">
 
-    <div>
-        <img src="{{ asset('storage/' . $course->thumbnail) }}" width="200">
+        <div class="bg-white p-4 rounded mt-4 flex justify-between items-center
+                    transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
 
-        <h2>{{ $course->title }}</h2>
-
-        <p>{{ $course->description }}</p>
-
-        {{-- <p>Instructor: {{ $course->instructor->name }}</p> --}}
-        <p>Instructor: </p>
-
-        <p>Category: {{ $course->category->category_name }}</p>
-
-        <p>Level: {{ $course->difficulty_level }}</p>
-    </div>
-
-        @if(auth()->user()->courses->contains('course_id', $course->course_id))
-            
             <div>
-                <p class="text-green-600 font-semibold">
-                    Sudah Enroll
-                </p>
-            
-                <a href="{{ route('courses.show', $course->course_id) }}"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition duration-300">
-                
-                    Lihat Lesson
-                
-                </a>
+                <img src="{{ asset('storage/' . $course->thumbnail) }}" width="200">
+
+                <h2 class="font-bold text-lg mt-2">
+                    {{ $course->title }}
+                </h2>
+
+                <p>{{ $course->description }}</p>
+
+                <p>Instructor:</p>
+
+                <p>Category: {{ $course->category->category_name }}</p>
+
+                <p>Level: {{ $course->difficulty_level }}</p>
             </div>
-        
-        @else
-        
-            <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
-                @csrf
-            
-                <button type="submit"
-                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
-            
-                    Enroll
-            
-                </button>
-            </form>
-        
-        @endif
-    </div>
+
+            <div>
+
+                @if(auth()->user()->courses->contains('course_id', $course->course_id))
+
+                    <span class="text-green-600 font-semibold">
+                        Sudah Enroll
+                    </span>
+
+                @else
+
+                    <span class="text-indigo-600 font-semibold">
+                        Belum Enroll
+                    </span>
+
+                @endif
+
+            </div>
+
+        </div>
+
+    </a>
 
 @endforeach
     </div>
