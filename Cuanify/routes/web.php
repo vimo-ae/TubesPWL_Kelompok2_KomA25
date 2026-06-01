@@ -27,6 +27,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile');
+
+    Route::get('/profile-edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
 
     Route::get('/settings', [SettingController::class, 'edit'])
         ->name('settings.edit');
@@ -57,9 +65,5 @@ Route::get('/my-courses', [EnrollmentController::class, 'myCourses'])
 
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])
     ->name('quizzes.show');
-
-Route::get('/profile', [ProfileController::class, 'index'])
-    ->middleware('auth')
-    ->name('profile');
 
 require __DIR__.'/auth.php';
