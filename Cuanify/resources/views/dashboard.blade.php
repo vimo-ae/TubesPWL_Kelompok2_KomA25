@@ -1,4 +1,32 @@
 <x-app-layout>
+
+    @if(auth()->user()->role === 'admin')
+        <!-- TAMPILAN KHUSUS ADMIN -->
+        <div class="min-h-screen p-6 sm:p-8">
+            <div class="max-w-5xl mx-auto">
+                <h1 class="text-3xl font-extrabold text-gray-800 mb-8">Dashboard Admin</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Kartu Verifikasi Instruktur -->
+                    <a href="{{ route('admin.instructors') }}" class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
+                        <div class="text-4xl mb-4">👥</div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">Verifikasi Instruktur</h2>
+                        <p class="text-gray-500 text-sm">Kelola pendaftaran instruktur baru yang menunggu persetujuan.</p>
+                        <span class="mt-4 inline-block text-indigo-600 font-bold text-sm group-hover:underline">Buka Dashboard →</span>
+                    </a>
+
+                    <!-- Kartu Verifikasi Course -->
+                    <a href="{{ route('admin.courses') }}" class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">Verifikasi Course</h2>
+                        <p class="text-gray-500 text-sm">Review dan approve materi course yang diunggah instruktur.</p>
+                        <span class="mt-4 inline-block text-indigo-600 font-bold text-sm group-hover:underline">Buka Dashboard →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    @else
     <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
@@ -237,6 +265,7 @@
 
         </div>
     </div>
+    @endif
 
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }

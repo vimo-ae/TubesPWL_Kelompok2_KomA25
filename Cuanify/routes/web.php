@@ -19,16 +19,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'admin'])->name('dashboard');
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index']);
-    Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve']);
-    Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject']);
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])
         ->name('profile');
@@ -49,6 +39,23 @@ Route::middleware('auth')->group(function () {
         ->name('settings.destroy');
 
     Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', function () {
+        return redirect()->route('admin.instructors');
+    })->name('admin.dashboard');
+
+    Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
+    Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve']);
+    Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject']);
+
+    Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
+    
+    Route::get('/admin/course/{course_id}', [AdminController::class, 'showCourse'])->name('admin.courses.show');
+    
+    Route::post('/admin/course/{course_id}/approve', [AdminController::class, 'approveCourse'])->name('admin.courses.approve');
+    Route::post('/admin/course/{course_id}/reject', [AdminController::class, 'rejectCourse'])->name('admin.courses.reject');
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -74,8 +81,7 @@ Route::prefix('instructor')->group(function () {
 
     Route::post('/courses', [InstructorCourseController::class, 'store'])->name('instructor.courses.store');
 
-    Route::get(
-    '/courses/{course}', [InstructorCourseController::class, 'show'])->name('instructor.courses.show');
+    Route::get('/courses/{course}', [InstructorCourseController::class, 'show'])->name('instructor.courses.show');
 
     Route::get('/courses/{course}/lessons/create', [InstructorCourseController::class, 'createLesson'])->name('instructor.lessons.create');
 
@@ -95,5 +101,3 @@ Route::prefix('instructor')->group(function () {
 
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'destroyLesson'])->name('instructor.lessons.destroy');
 });
-
-

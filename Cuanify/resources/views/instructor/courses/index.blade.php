@@ -29,6 +29,14 @@
                             <span class="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded">Published</span>
                         @endif
                     </p>
+
+                    {{-- Pesan Penolakan muncul di sini --}}
+                    @if($course->status == 'draft' && $course->rejection_reason)
+                        <div class="bg-red-50 border-l-4 border-red-400 p-3 mt-2 rounded">
+                            <p class="text-xs text-red-700 font-bold">Ditolak oleh Admin:</p>
+                            <p class="text-xs text-red-600 mt-0.5">{{ $course->rejection_reason }}</p>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="flex gap-2">
