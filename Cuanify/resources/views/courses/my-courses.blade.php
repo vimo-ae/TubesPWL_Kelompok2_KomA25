@@ -38,7 +38,7 @@
                     </p>
 
                     <h2 class="text-4xl font-extrabold text-white">
-                        {{ $enrollments->count() }}
+                        {{ $courses->count() }}
                     </h2>
 
                 </div>
@@ -47,79 +47,73 @@
 
         </div>
 
-        @if($enrollments->count() > 0)
+        @if($courses->count() > 0)
 
         <!-- Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         
-            @foreach($enrollments as $enrollment)
-        
-            <div class="bg-white rounded-2xl overflow-hidden border border-purple-100 hover:shadow-lg transition duration-300 group">
+            @foreach($courses as $course)
+
+            <a href="{{ route('courses.show', $course->course_id) }}"
+               class="block group">
             
-                <!-- Thumbnail -->
-                <div class="relative h-36 overflow-hidden">
+                <div class="bg-white rounded-2xl overflow-hidden border border-purple-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
                 
-                    @if($enrollment->course->thumbnail)
-                
-                        <img src="{{ asset('storage/' . $enrollment->course->thumbnail) }}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                
-                    @else
-                
-                        <div class="w-full h-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-4xl">
-                            📚
-                        </div>
+                    <!-- Thumbnail -->
+                    <div class="relative h-36 overflow-hidden">
                     
-                    @endif
+                        @if($course->thumbnail)
                     
-                    <!-- Badge -->
-                    <div class="absolute top-3 left-3 bg-white/95 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full shadow">
-                        {{ ucfirst($enrollment->course->difficulty_level) }}
-                    </div>
-                
-                </div>
-            
-                <!-- Content -->
-                <div class="p-4">
-                
-                    <!-- Category -->
-                    <p class="text-[10px] uppercase tracking-[2px] font-bold text-purple-500 mb-2">
-                        {{ $enrollment->course->category->category_name ?? 'Course' }}
-                    </p>
-                
-                    <!-- Title -->
-                    <h2 class="text-lg font-bold text-gray-800 leading-snug line-clamp-2 mb-2">
-                        {{ $enrollment->course->title }}
-                    </h2>
-                
-                    <!-- Desc -->
-                    <p class="text-sm text-gray-500 line-clamp-2 mb-4">
-                        {{ $enrollment->course->description }}
-                    </p>
-                
-                    <!-- Info -->
-                    <div class="flex items-center justify-between text-xs mb-4">
+                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     
-                        <div class="text-purple-600 font-semibold">
-                            📚 {{ $enrollment->course->lessons->count() }} Lesson
-                        </div>
+                        @else
                     
-                        <div class="text-gray-400">
-                            ⏱ {{ $enrollment->course->estimated_duration }} Jam
+                            <div class="w-full h-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-4xl">
+                                📚
+                            </div>
+                        
+                        @endif
+                        
+                        <div class="absolute top-3 left-3 bg-white/95 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full shadow">
+                            {{ ucfirst($course->difficulty_level) }}
                         </div>
                     
                     </div>
                 
-                    <!-- Button -->
-                    <a href="{{ route('courses.show', $enrollment->course->course_id) }}"
-                        class="block w-full text-center bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:opacity-90 text-white py-2.5 rounded-xl text-sm font-semibold transition">
-                        Lanjut Belajar
-                    </a>
+                    <!-- Content -->
+                    <div class="p-4">
+                    
+                        <p class="text-[10px] uppercase tracking-[2px] font-bold text-purple-500 mb-2">
+                            {{ $course->category->category_name ?? 'Course' }}
+                        </p>
+                    
+                        <h2 class="text-lg font-bold text-gray-800 leading-snug line-clamp-2 mb-2">
+                            {{ $course->title }}
+                        </h2>
+                    
+                        <p class="text-sm text-gray-500 line-clamp-2 mb-4">
+                            {{ $course->description }}
+                        </p>
+                    
+                        <div class="flex items-center justify-between text-xs">
+                        
+                            <div class="text-purple-600 font-semibold">
+                                📚 {{ $course->lessons->count() }} Lesson
+                            </div>
+                        
+                            <div class="text-gray-400">
+                                ⏱ {{ $course->estimated_duration }} Jam
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
                 
                 </div>
             
-            </div>
-        
+            </a>
+            
             @endforeach
         
         </div>
@@ -139,7 +133,7 @@
 
             <p class="text-gray-500 max-w-lg mx-auto leading-relaxed mb-8">
                 Kamu belum enroll course apapun.
-                Yuk mulai belajar sekarang 🚀
+                Yuk mulai belajar sekarang 
             </p>
 
             <a href="{{ route('courses.index') }}"
