@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Course;
 
 #[Fillable(['username', 'email', 'password', 'role', 'is_approved'])]
 #[Hidden(['password', 'remember_token'])]
@@ -39,6 +40,18 @@ class User extends Authenticatable
     }
     
     public function courses()
+    {
+        return $this->belongsToMany(
+            Course::class,
+            'enrollments',
+            'user_id',
+            'course_id',
+            'user_id',
+            'course_id'
+        );
+    }
+
+    public function enrolledCourses()
     {
         return $this->belongsToMany(
             Course::class,
