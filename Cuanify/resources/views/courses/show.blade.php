@@ -36,7 +36,13 @@
 
 </div>
 
+@php
+    $isEnrolled = auth()->user()->courses->contains('course_id', $course->course_id);
+@endphp
+
         @foreach($course->lessons as $lesson)
+
+    @if($isEnrolled)
 
     <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
 
@@ -54,6 +60,26 @@
         </div>
 
     </a>
+
+@else
+
+    <div class="bg-gray-100 p-4 rounded mt-4 opacity-75 cursor-not-allowed">
+
+        <h2 class="font-bold text-lg">
+            {{ $lesson->title }}
+        </h2>
+
+        <p>
+            {{ Str::limit($lesson->content, 100) }}
+        </p>
+
+        <p class="text-red-600 mt-2">
+            Enroll course terlebih dahulu untuk membuka lesson.
+        </p>
+
+    </div>
+
+@endif
 
 @endforeach
 
