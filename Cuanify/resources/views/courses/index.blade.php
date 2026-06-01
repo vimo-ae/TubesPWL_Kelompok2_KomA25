@@ -20,12 +20,27 @@
             </a>
         </div>
 
+        <!-- CATEGORY FILTER (dari file 2, disesuaikan style file 1) -->
+        <div class="flex gap-2 flex-wrap mb-6">
+            <a href="{{ route('courses.index') }}"
+               class="px-4 py-2 rounded-lg bg-gray-300 text-gray-800">
+                Semua
+            </a>
+
+            @foreach($categories as $category)
+                <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"
+                   class="px-4 py-2 rounded-lg bg-indigo-500 text-white">
+                    {{ $category->category_name }}
+                </a>
+            @endforeach
+        </div>
+
         <!-- COURSE GRID -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach($courses as $course)
 
-            <!-- FULL CLICKABLE CARD -->
+            <!-- CARD -->
             <a href="{{ route('courses.show', $course->course_id) }}"
                class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block">
 
@@ -39,7 +54,6 @@
                              class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     @endif
 
-                    <!-- BADGE -->
                     <span class="absolute top-2 left-2 bg-white/90 px-2 py-0.5 rounded-full text-[10px] font-bold text-purple-700 capitalize">
                         {{ $course->difficulty_level }}
                     </span>
@@ -63,8 +77,8 @@
                         </span>
                     </div>
 
-                    <!-- STATUS ENROLL -->
-                    @if(auth()->check())
+                    <!-- STATUS ENROLL (SAFE AUTH CHECK) -->
+                    @auth
                         @if(auth()->user()->courses->contains('course_id', $course->course_id))
                             <p class="text-green-600 text-xs font-semibold mb-2">
                                 ✓ Sudah Enroll
@@ -74,9 +88,9 @@
                                 Belum Enroll
                             </p>
                         @endif
-                    @endif
+                    @endauth
 
-                    <!-- CTA TEXT -->
+                    <!-- CTA -->
                     <div class="text-center text-sm font-bold text-purple-600 group-hover:text-purple-800">
                         Lihat Course →
                     </div>

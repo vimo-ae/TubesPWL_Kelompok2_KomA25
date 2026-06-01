@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Course;
-use App\Models\Quiz;
+use Laravel\Prompts\Progress;
 
 class Lesson extends Model
 {
@@ -22,6 +21,12 @@ class Lesson extends Model
         'xp_reward',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
+
     // Lesson belongs to Course
     public function course()
     {
@@ -34,4 +39,9 @@ class Lesson extends Model
         return $this->hasMany(Quiz::class, 'lesson_id', 'lesson_id');
     }
 
+    // Lesson has many Progress records
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'lesson_id', 'lesson_id');
+    }
 }

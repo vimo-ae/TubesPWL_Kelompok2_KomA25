@@ -41,9 +41,6 @@ Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lesson
 
 Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])->name('quizzes.show');
 
-Route::get('/courses/{course}/lessons', [LessonController::class, 'index'])
-    ->name('lessons.index');
-
 require __DIR__.'/auth.php';
 
 Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])

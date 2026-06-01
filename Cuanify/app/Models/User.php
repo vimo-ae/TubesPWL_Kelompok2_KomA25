@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use App\Models\Course;
-use App\Models\EnrollmentCon;
 
 #[Fillable(['username', 'email', 'password', 'role', 'is_approved'])]
 #[Hidden(['password', 'remember_token'])]

@@ -2,26 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
 use App\Models\Lesson;
+
 
 class LessonController extends Controller
 {
-    public function index(Course $course)
+    public function show($id)
     {
-        $course->load('lessons');
+    $lesson = Lesson::findOrFail($id);
 
-        return view('lessons.index', compact('course'));
+    $course = $lesson->course;
+
+    if (!auth()->user()->courses->contains('course_id', $course->course_id)) {
+        abort(403);
     }
 
-    public function show(Lesson $lesson)
-    {
-        $course = $lesson->course;
-
-        if (!auth()->user()->courses->contains('course_id', $course->course_id)) {
-            abort(403);
-        }
-
-        return view('lessons.show', compact('lesson'));
+    return view('lessons.show', compact('lesson'));
     }
 }
