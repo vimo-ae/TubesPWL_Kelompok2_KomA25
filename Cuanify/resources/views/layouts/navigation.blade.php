@@ -12,7 +12,11 @@
                         
                         <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm group-hover:scale-105 transition duration-200">
                             <img 
-                                src="{{ asset(Auth::user()->profile->photo_url) }}" 
+                                src="{{ 
+                                    Auth::user()->profile && Auth::user()->profile->profile_photo
+                                        ? asset('storage/' . Auth::user()->profile->profile_photo)
+                                        : asset('images/profile-default.jpg')
+                                }}"
                                 alt="Avatar" 
                                 class="w-full h-full object-cover"
                             >
@@ -68,7 +72,11 @@
         
         <div class="flex items-center gap-3 px-3 py-2 mb-2 bg-pink-50/40 dark:bg-gray-800 rounded-xl">
             <img 
-                src="{{ Auth::user()->profile && Auth::user()->profile->photo_url ? asset(Auth::user()->profile->profile_photo) : 'https://api.dicebear.com/7.x/fun-emoji/svg?seed=' . Auth::user()->username }}" 
+                src="{{ 
+                    Auth::user()->profile && Auth::user()->profile->profile_photo
+                        ? asset('storage/' . Auth::user()->profile->profile_photo)
+                        : asset('images/profile-default.jpg')
+                }}"
                 alt="Avatar" 
                 class="w-9 h-9 rounded-full object-cover border border-pink-200"
             >

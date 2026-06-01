@@ -9,7 +9,12 @@
     {{-- Profil --}}
     <div class="border p-4 rounded mb-6">
 
-        <img src="{{ $profile->photo_url }}" width="120" class="mb-3">
+        <img src="{{ 
+            Auth::user()->profile && Auth::user()->profile->profile_photo
+            ? asset('storage/' . Auth::user()->profile->profile_photo)
+            : asset('images/profile-default.jpg')
+        }}" 
+        width="120" class="mb-3">
 
         <h2 class="text-xl font-bold">
             {{ $profile->full_name ?? 'Full Name..' }}
