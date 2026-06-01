@@ -28,19 +28,19 @@
             </a>
 
             @foreach($categories as $category)
-                <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"
-                   class="px-4 py-2 rounded-lg bg-indigo-500 text-white">
-                    {{ $category->category_name }}
-                </a>
-            @endforeach
-        </div>
+            <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"
+               class="px-4 py-2 rounded-lg bg-indigo-500 text-white">
+                {{ $category->category_name }}
+            </a>
 
-        <!-- COURSE GRID -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @endforeach
+            </div>
+
+            <!-- COURSE GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach($courses as $course)
 
-            <!-- CARD -->
             <a href="{{ route('courses.show', $course->course_id) }}"
                class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block">
 
@@ -77,16 +77,18 @@
                         </span>
                     </div>
 
-                    <!-- STATUS ENROLL (SAFE AUTH CHECK) -->
+                    <!-- STATUS ENROLL (HYBRID: MAIN + HEAD LOGIC) -->
                     @auth
-                        @if(auth()->user()->courses->contains('course_id', $course->course_id))
-                            <p class="text-green-600 text-xs font-semibold mb-2">
-                                ✓ Sudah Enroll
-                            </p>
-                        @else
-                            <p class="text-indigo-600 text-xs font-semibold mb-2">
-                                Belum Enroll
-                            </p>
+                        @if(auth()->user()->role === 'student')
+                            @if(auth()->user()->courses->contains('course_id', $course->course_id))
+                                <p class="text-green-600 text-xs font-semibold mb-2">
+                                    ✓ Sudah Enroll
+                                </p>
+                            @else
+                                <p class="text-indigo-600 text-xs font-semibold mb-2">
+                                    Belum Enroll
+                                </p>
+                            @endif
                         @endif
                     @endauth
 
@@ -100,19 +102,15 @@
 
             @endforeach
 
-        </div>
+            </div>
 
-    </div>
-</div>
-
-<style>
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-</style>
-
+            <style>
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            </style>
 </x-app-layout>

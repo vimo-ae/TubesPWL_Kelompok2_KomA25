@@ -4,23 +4,50 @@
         <i class="fas fa-home text-sm"></i> 
         <span>{{ __('Dashboard') }}</span>
     </a>
+    
+    <hr class="my-4 border-pink-200/60">
+    
+    @if(auth()->check())
+    
+        @if(auth()->user()->role === 'instructor')
+            <a href="{{ route('instructor.courses.index') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-book-open text-sm"></i>
+                <span>Course Saya</span>
+            </a>
+            
+            <hr class="my-4 border-pink-200/60">
+            
+            <a href="{{ url('/courses') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-globe text-sm"></i>
+                <span>Semua Course</span>
+            </a>
+            
+        @elseif(auth()->user()->role === 'student')
+            <a href="{{ url('/my-courses') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-book-open text-sm"></i>
+                <span>Course Saya</span>
+            </a>
+            
+            <hr class="my-4 border-pink-200/60">
+            
+            <a href="{{ route('courses.index') }}" 
+               class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
+                <i class="fas fa-globe text-sm"></i>
+                <span>Semua Course</span>
+            </a>
+        @endif
 
+    @endif
     <hr class="my-4 border-pink-200/60">
 
-    <a href="{{ route('my-courses.index') }}" 
+    <a href="{{ route('profile.edit') }}" 
        class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-book-open text-sm"></i>
-        <span>Course Saya</span>
+        <i class="fas fa-user-cog text-sm"></i>
+        <span>Pengaturan Profil</span>
     </a>
-
-    <hr class="my-4 border-pink-200/60">
-
-    <a href="{{ route('courses.index') }}" 
-       class="w-full flex items-center space-x-3 py-3 px-4 rounded-lg transition-all duration-300 text-gray-600 hover-gradient font-medium">
-        <i class="fas fa-search text-sm"></i>
-        <span>Daftar Course</span>
-    </a>
-
 </div>
 
 <style>

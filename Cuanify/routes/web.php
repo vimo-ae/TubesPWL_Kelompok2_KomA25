@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
@@ -63,3 +64,36 @@ require __DIR__.'/auth.php';
 Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
     ->middleware('auth')
     ->name('enroll.course');
+
+
+oute::prefix('instructor')->group(function () {
+
+    Route::get('/courses', [InstructorCourseController::class, 'index'])->name('instructor.courses.index');
+
+    Route::get('/courses/create', [InstructorCourseController::class, 'create'])->name('instructor.courses.create');
+
+    Route::post('/courses', [InstructorCourseController::class, 'store'])->name('instructor.courses.store');
+
+    Route::get(
+    '/courses/{course}', [InstructorCourseController::class, 'show'])->name('instructor.courses.show');
+
+    Route::get('/courses/{course}/lessons/create', [InstructorCourseController::class, 'createLesson'])->name('instructor.lessons.create');
+
+    Route::post('/courses/{course}/lessons', [InstructorCourseController::class, 'storeLesson'])->name('instructor.lessons.store');
+
+    Route::post('/courses/{course}/submit',[InstructorCourseController::class, 'submitVerification'])->name('instructor.courses.submit');
+
+    Route::get('/courses/{course}/edit', [InstructorCourseController::class, 'edit'])->name('instructor.courses.edit');
+
+    Route::put('/courses/{course}', [InstructorCourseController::class, 'update'])->name('instructor.courses.update');
+
+    Route::delete('/courses/{course}', [InstructorCourseController::class, 'destroy'])->name('instructor.courses.destroy');
+    
+    Route::get('/courses/{course}/lessons/{lesson}/edit', [InstructorCourseController::class, 'editLesson'])->name('instructor.lessons.edit');
+
+    Route::put('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'updateLesson'])->name('instructor.lessons.update');
+
+    Route::delete('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'destroyLesson'])->name('instructor.lessons.destroy');
+});
+
+

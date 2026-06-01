@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->bigInteger('estimated_duration')->nullable();
             $table->timestamps();
-            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+            $table->enum('status', ['draft', 'pending', 'published', 'archived'])->default('draft');
         });
     }
 

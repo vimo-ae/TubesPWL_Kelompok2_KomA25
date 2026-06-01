@@ -32,12 +32,10 @@
 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-                <!-- BADGE -->
                 <span class="absolute top-5 left-5 bg-white/90 px-4 py-1 rounded-full text-xs font-bold text-purple-700 capitalize">
                     {{ $course->difficulty_level }}
                 </span>
 
-                <!-- TITLE -->
                 <div class="absolute bottom-8 left-8 text-white">
 
                     <p class="text-sm mb-2 opacity-90">
@@ -49,17 +47,12 @@
                     </h1>
 
                     <div class="flex items-center gap-6 text-sm text-purple-100">
-
                         <span>⭐ 4.8 Rating</span>
-
                         <span>⏱ {{ $course->estimated_duration }} Jam</span>
-
                         <span>📚 {{ $course->lessons->count() }} Lessons</span>
-
                     </div>
 
                 </div>
-
             </div>
 
             <!-- SUCCESS MESSAGE -->
@@ -85,19 +78,24 @@
 
                     <!-- LESSON LIST -->
                     <div>
-
                         <h3 class="text-xl font-extrabold text-gray-800 mb-4">
                             Daftar Lesson
                         </h3>
 
                         <div class="space-y-4">
 
+                            @php
+                                $isEnrolled = auth()->check()
+                                    && auth()->user()->courses->contains('course_id', $course->course_id);
+
+                                $firstLesson = $course->lessons->first();
+                            @endphp
+
                             @forelse($course->lessons as $lesson)
 
                                 @if($isEnrolled)
 
                                     <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
-
                                         <div class="bg-[#faf5ff] border border-purple-100 rounded-2xl p-5 flex items-center justify-between hover:shadow-md transition">
 
                                             <div>
@@ -111,7 +109,6 @@
                                             </div>
 
                                         </div>
-
                                     </a>
 
                                 @else
@@ -139,12 +136,11 @@
                             @endforelse
 
                         </div>
-
                     </div>
 
                 </div>
 
-                <!-- RIGHT SIDEBAR -->
+                <!-- RIGHT -->
                 <div>
 
                     <div class="bg-[#faf5ff] border border-purple-100 rounded-3xl p-6 sticky top-6">
@@ -184,13 +180,9 @@
 
                         @if($isEnrolled)
 
-                            @php
-                                $firstLesson = $course->lessons->first();
-                            @endphp
-
                             @if($firstLesson)
                                 <a href="{{ route('lessons.show', $firstLesson->lesson_id) }}"
-                                class="block text-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                   class="block text-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:-translate-y-1">
                                     Mulai Belajar
                                 </a>
                             @else
@@ -203,11 +195,9 @@
 
                             <form action="{{ route('enroll.course', $course->course_id) }}" method="POST">
                                 @csrf
-
                                 <button class="w-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:-translate-y-1">
                                     Enroll Sekarang
                                 </button>
-
                             </form>
 
                         @endif
@@ -220,6 +210,32 @@
 
         </div>
 
+        @foreach($course->lessons as $lesson)
+            @if($isEnrolled)
+                <a href="{{ route('lessons.show', $lesson->lesson_id) }}">
+                    <div class="bg-white p-4 rounded mt-4 transition duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer">
+                        <h2 class="font-bold text-lg">
+                            {{ $lesson->title }}
+                        </h2>
+                        <p class="text-gray-600 mt-1">
+                            {{ Str::limit($lesson->content, 100) }}
+                        </p>
+                    </div>
+                </a>
+            @else
+                <div class="bg-gray-100 p-4 rounded mt-4 opacity-75 cursor-not-allowed">
+                    <h2 class="font-bold text-lg text-gray-500">
+                        {{ $lesson->title }}
+                    </h2>
+                    <p class="text-gray-500 mt-1">
+                        {{ Str::limit($lesson->content, 100) }}
+                    </p>
+                    <p class="text-red-600 mt-2 text-sm font-medium">
+                        Enroll course terlebih dahulu untuk membuka materi lesson ini.
+                    </p>
+                </div>
+            @endif
+        @endforeach
     </div>
 
 </div>
