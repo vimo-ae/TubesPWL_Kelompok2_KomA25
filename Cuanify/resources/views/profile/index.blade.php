@@ -9,11 +9,7 @@
     {{-- Profil --}}
     <div class="border p-4 rounded mb-6">
 
-        <img
-            src="{{ $profile->profile_photo ?? 'https://via.placeholder.com/120' }}"
-            width="120"
-            class="mb-3"
-        >
+        <img src="{{ $profile->photo_url }}" width="120" class="mb-3">
 
         <h2 class="text-xl font-bold">
             {{ $profile->full_name ?? 'Full Name..' }}

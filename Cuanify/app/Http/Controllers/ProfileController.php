@@ -91,9 +91,9 @@ class ProfileController extends Controller
         // handle foto
         if ($request->hasFile('profile_photo')) {
 
-            if ($profile->profile_photo) {
-                Storage::disk('public')->delete($profile->profile_photo);
-            }
+            // if ($profile->profile_photo) {
+            //     Storage::disk('public')->delete($profile->profile_photo);
+            // }
 
             $path = $request->file('profile_photo')
                 ->store('profile_photos', 'public');
