@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Prompts\Progress;
 
 class Lesson extends Model
 {
