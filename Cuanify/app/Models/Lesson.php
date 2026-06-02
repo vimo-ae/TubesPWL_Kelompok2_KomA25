@@ -19,6 +19,8 @@ class Lesson extends Model
         'pdf_file',
         'lesson_order',
         'xp_reward',
+        'has_quiz',
+        'is_published',
     ];
 
     /*
@@ -46,5 +48,24 @@ class Lesson extends Model
             'lesson_id',
             'lesson_id'
         );
+    }
+
+    public function getEmbedVideoUrlAttribute()
+    {
+        if (!$this->video_url) {
+            return null;
+        }
+
+        // Cari ID unik video YouTube dari berbagai format link
+        $regExp = '/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/';
+        preg_match($regExp, $this->video_url, $matches);
+
+        // Jika ID video ketemu (panjang ID YouTube biasanya 11 karakter)
+        if (isset($matches[2]) && strlen($matches[2]) == 11) {
+            return 'https://www.youtube.com/embed/' . $matches[2];
+        }
+
+        // Kalau bukan link YouTube (misal link mp4 langsung), kembalikan aslinya
+        return $this->video_url;
     }
 }
