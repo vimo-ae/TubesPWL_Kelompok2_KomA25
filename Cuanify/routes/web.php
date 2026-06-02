@@ -5,8 +5,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizResultController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonProgressController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,8 +41,6 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 
 Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 
-Route::get('/quizzes/{lesson_id}', [QuizController::class, 'show'])->name('quizzes.show');
-
 require __DIR__.'/auth.php';
 
 Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
@@ -49,4 +49,25 @@ Route::post('/enroll/{course_id}', [EnrollmentController::class, 'enroll'])
 
 Route::middleware('auth')->group(function () {
 Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+});
+
+Route::post('/lessons/{lesson}/complete', [LessonProgressController::class, 'complete'])
+    ->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+
+    // Halaman list quiz dari lesson
+    Route::get('/lessons/{lesson}/quizzes', [QuizController::class, 'show'])
+        ->name('quizzes.show');
+
+    // Halaman mengerjakan quiz
+    Route::get('/quizzes/{quiz}', [QuizController::class, 'take'])
+        ->name('quizzes.take');
+
+    // Submit jawaban quiz
+    Route::post('/quizzes/{quiz}/submit', [QuizController::class, 'submit'])
+        ->name('quizzes.submit');
+
+    Route::get('/quiz-result/{quiz_id}', [QuizResultController::class, 'show'])
+    ->name('quizzes.result');
 });

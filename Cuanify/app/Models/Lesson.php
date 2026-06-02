@@ -43,4 +43,14 @@ class Lesson extends Model
     {
         return $this->hasMany(Progress::class, 'lesson_id', 'lesson_id');
     }
+
+public function users()
+{
+    return $this->belongsToMany(
+        User::class,
+        'lesson_user',
+        'lesson_id',
+        'user_id'
+    )->withTimestamps();
+}
 }

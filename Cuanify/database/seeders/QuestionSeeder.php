@@ -3,39 +3,27 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Question;
 use Illuminate\Support\Facades\DB;
 
 class QuestionSeeder extends Seeder
 {
-public function run(): void
-{
-DB::table('questions')->delete();
+    public function run(): void
+    {
+        Question::create([
+            'question_id' => 1,
+            'quiz_id' => 1,
+            'question_text' => 'Apa tujuan utama investasi?',
+            'question_type' => 'multiple_choice',
+            'points' => 10
+        ]);
 
-DB::table('questions')->insert([
-[
-'quiz_id' => 1,
-'question_text' => 'Apa yang dimaksud dengan kelangkaan dalam ilmu ekonomi?',
-'question_type' => 'essay',
-'points' => 10
-],
-[
-'quiz_id' => 1,
-'question_text' => 'Hukum permintaan berbanding lurus dengan harga.',
-'question_type' => 'true_false',
-'points' => 5
-],
-[
-'quiz_id' => 2,
-'question_text' => 'Faktor utama yang mempengaruhi penawaran adalah biaya produksi.',
-'question_type' => 'true_false',
-'points' => 5
-],
-[
-'quiz_id' => 3,
-'question_text' => 'Sebutkan 3 elemen penting dalam Business Model Canvas (BMC)!',
-'question_type' => 'essay',
-'points' => 10
-]
-]);
-}
+        Question::create([
+            'question_id' => 2,
+            'quiz_id' => 1,
+            'question_text' => 'Investasi selalu tanpa risiko',
+            'question_type' => 'true_false',
+            'points' => 10
+        ]);
+    }
 }

@@ -3,44 +3,27 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use App\Models\QuizResult;
+use App\Models\User;
+use App\Models\Quiz;
 
 class QuizResultSeeder extends Seeder
 {
-public function run(): void
-{
-DB::table('quiz_results')->delete();
+    public function run(): void
+    {
+        $user = User::first();
+        $quiz = Quiz::first();
 
-DB::table('quiz_results')->insert([
-[
-'user_id' => 1,
-'quiz_id' => 1,
-'score' => 80,
-'total_correct' => 8,
-'completed_at' => Carbon::now()
-],
-[
-'user_id' => 3,
-'quiz_id' => 1,
-'score' => 60,
-'total_correct' => 6,
-'completed_at' => Carbon::now()
-],
-[
-'user_id' => 5,
-'quiz_id' => 2,
-'score' => 90,
-'total_correct' => 9,
-'completed_at' => Carbon::now()
-],
-[
-'user_id' => 1,
-'quiz_id' => 3,
-'score' => 100,
-'total_correct' => 10,
-'completed_at' => Carbon::now()
-]
-]);
-}
+        if (!$user || !$quiz) {
+            return;
+        }
+
+        QuizResult::create([
+            'user_id' => $user->user_id,
+            'quiz_id' => $quiz->quiz_id,
+            'score' => 80,
+            'total_correct' => 2,
+            'completed_at' => now(),
+        ]);
+    }
 }

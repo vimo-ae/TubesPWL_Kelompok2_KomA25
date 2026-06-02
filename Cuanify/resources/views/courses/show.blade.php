@@ -65,7 +65,7 @@
             </h2>
 
             <p>
-                {{ Str::limit($lesson->content, 100) }}
+                {!! Str::limit($lesson->content, 100) !!}
             </p>
 
         </div>

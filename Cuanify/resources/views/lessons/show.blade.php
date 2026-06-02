@@ -14,7 +14,18 @@
 
         <div class="bg-white p-4 rounded mt-4">
 
-            <p>{{ $lesson->content }}</p>
+            <div class="max-w-none
+    [&_h2]:text-2xl
+    [&_h2]:font-bold
+    [&_h2]:mt-6
+    [&_h2]:mb-3
+    [&_p]:mb-4
+    [&_ul]:list-disc
+    [&_ul]:pl-6
+    [&_ul]:mb-4
+    [&_li]:mb-2">
+    {!! $lesson->content !!}
+</div>
 
             <p class="mt-4">
                 Video:
@@ -32,6 +43,19 @@
             </p>
 
         </div>
+
+        @if($completed)
+    <p class="text-green-600 font-semibold">
+        ✔ Materi ini sudah selesai
+    </p>
+@else
+    <form method="POST" action="/lessons/{{ $lesson->lesson_id }}/complete">
+        @csrf
+        <button type="submit" style="padding:10px 16px; border:none; border-radius:6px; background:#16a34a; color:white; font-weight:600; cursor:pointer;">
+    Tandai Selesai
+</button>
+    </form>
+@endif
 
         <div class="mt-4">
 
