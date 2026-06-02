@@ -14,6 +14,9 @@
             <a href="{{ route('admin.courses') }}" class="font-bold text-lg text-indigo-600 border-b-2 border-indigo-600 pb-2">
                 Verifikasi Course
             </a>
+            <a href="{{ route('admin.categories.index') }}" class="font-bold text-lg text-gray-500 hover:text-indigo-500 transition pb-2">
+                Kelola Kategori
+            </a>
         </div>
 
         <h1 class="text-2xl font-bold mb-6 text-indigo-700">
@@ -62,10 +65,10 @@
                             <form action="{{ route('admin.courses.reject', $course->course_id) }}" method="POST" onsubmit="return confirm('Yakin kembalikan course ini ke draft?');">
                                 @csrf
                                 <button type="button" 
-    @click="showRejectModal = true; selectedCourseId = {{ $course->course_id }}; selectedCourseTitle = '{{ $course->title }}'"
-    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition text-sm">
-    Reject
-</button>
+                                    @click="showRejectModal = true; selectedCourseId = {{ $course->course_id }}; selectedCourseTitle = '{{ $course->title }}'"
+                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition text-sm">
+                                    Reject
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -123,21 +126,21 @@
         </table>
 
         <div x-show="showRejectModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
-    <div class="bg-white p-6 rounded-2xl w-96 shadow-xl" @click.away="showRejectModal = false">
-        <h2 class="text-lg font-bold mb-2">Reject Course</h2>
-        <p class="text-sm text-gray-600 mb-4">Berikan alasan penolakan untuk: <br><strong x-text="selectedCourseTitle"></strong></p>
-        
-        <form :action="'/admin/course/' + selectedCourseId + '/reject'" method="POST">
-            @csrf
-            <textarea name="reason" class="w-full border-gray-300 rounded-lg mb-4" rows="4" placeholder="Masukkan alasan penolakan..." required></textarea>
-            
-            <div class="flex justify-end gap-2">
-                <button type="button" @click="showRejectModal = false" class="px-4 py-2 bg-gray-200 rounded-lg">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg">Kirim Penolakan</button>
+            <div class="bg-white p-6 rounded-2xl w-96 shadow-xl" @click.away="showRejectModal = false">
+                <h2 class="text-lg font-bold mb-2">Reject Course</h2>
+                <p class="text-sm text-gray-600 mb-4">Berikan alasan penolakan untuk: <br><strong x-text="selectedCourseTitle"></strong></p>
+                
+                <form :action="'/admin/course/' + selectedCourseId + '/reject'" method="POST">
+                    @csrf
+                    <textarea name="reason" class="w-full border-gray-300 rounded-lg mb-4" rows="4" placeholder="Masukkan alasan penolakan..." required></textarea>
+                    
+                    <div class="flex justify-end gap-2">
+                        <button type="button" @click="showRejectModal = false" class="px-4 py-2 bg-gray-200 rounded-lg">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg">Kirim Penolakan</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
 
     </div>
 </x-app-layout>

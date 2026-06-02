@@ -1,35 +1,17 @@
 <x-app-layout>
-
-    @if(auth()->user()->role === 'admin')
-        <!-- TAMPILAN KHUSUS ADMIN -->
-        <div class="min-h-screen p-6 sm:p-8">
-            <div class="max-w-5xl mx-auto">
-                <h1 class="text-3xl font-extrabold text-gray-800 mb-8">Dashboard Admin</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Kartu Verifikasi Instruktur -->
-                    <a href="{{ route('admin.instructors') }}" class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
-                        <div class="text-4xl mb-4">👥</div>
-                        <h2 class="text-xl font-bold text-gray-800 mb-2">Verifikasi Instruktur</h2>
-                        <p class="text-gray-500 text-sm">Kelola pendaftaran instruktur baru yang menunggu persetujuan.</p>
-                        <span class="mt-4 inline-block text-indigo-600 font-bold text-sm group-hover:underline">Buka Dashboard →</span>
-                    </a>
-
-                    <!-- Kartu Verifikasi Course -->
-                    <a href="{{ route('admin.courses') }}" class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg transition duration-300 group">
-                        <div class="text-4xl mb-4">📚</div>
-                        <h2 class="text-xl font-bold text-gray-800 mb-2">Verifikasi Course</h2>
-                        <p class="text-gray-500 text-sm">Review dan approve materi course yang diunggah instruktur.</p>
-                        <span class="mt-4 inline-block text-indigo-600 font-bold text-sm group-hover:underline">Buka Dashboard →</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    @else
     <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
+
+            @if(session('error'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-5 rounded-2xl shadow-sm flex items-start gap-4 transition-all">
+                    <span class="text-2xl mt-0.5">🚨</span>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Perhatian!</h3>
+                        <p class="text-sm opacity-90 leading-relaxed">{!! session('error') !!}</p>
+                    </div>
+                </div>
+            @endif
 
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[240px] flex items-center">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
@@ -265,7 +247,6 @@
 
         </div>
     </div>
-    @endif
 
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }

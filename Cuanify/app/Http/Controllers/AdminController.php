@@ -79,4 +79,72 @@ class AdminController extends Controller
         
         return view('admin.courses-show', compact('course'));
     }
+
+    public function dashboard()
+    {
+        $totalStudents = User::where('role', 'student')->count();
+        $totalInstructors = User::where('role', 'instructor')->count();
+        $pendingInstructors = User::where('role', 'instructor')->where('status_instructor', 'pending')->count();
+        $totalCourses = Course::count();
+
+        return view('admin.dashboard', compact(
+            'totalStudents', 
+            'totalInstructors', 
+            'pendingInstructors', 
+            'totalCourses'
+        ));
+    }
+
+    public function students()
+    {
+        $users = User::where('role', 'student')->latest()->get();
+        $title = 'Daftar Student';
+        
+        return view('admin.users', compact('users', 'title'));
+    }
+
+    public function allInstructors()
+    {
+        $users = User::where('role', 'instructor')->latest()->get();
+        $title = 'Daftar Seluruh Instruktur';
+        
+        return view('admin.users', compact('users', 'title'));
+    }
+
+    public function showUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.user-detail', compact('user'));
+    }
+
+    public function updateUserStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:active,inactive,banned',
+            'ban_duration' => 'nullable|integer', 
+            'ban_reason' => 'nullable|string'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->status = $request->status;
+
+        if ($request->status === 'banned') {
+
+            $user->ban_reason = $request->ban_reason;
+    
+            if ($request->ban_duration == 9999) {
+                $user->banned_until = now()->addYears(100);
+            } else {
+                $user->banned_until = now()->addDays((int) $request->ban_duration);
+            }
+        } else {
+
+            $user->banned_until = null;
+            $user->ban_reason = null;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status pengguna berhasil diperbarui!');
+    }
 }

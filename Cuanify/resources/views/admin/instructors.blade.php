@@ -14,6 +14,9 @@
             <a href="{{ route('admin.courses') }}" class="font-bold text-lg text-gray-500 hover:text-indigo-500 transition pb-2">
                 Verifikasi Course
             </a>
+            <a href="{{ route('admin.categories.index') }}" class="font-bold text-lg text-gray-500 hover:text-indigo-500 transition pb-2">
+                Kelola Kategori
+            </a>
         </div>
 
         <h1 class="text-2xl font-bold mb-6 text-gray-800">
