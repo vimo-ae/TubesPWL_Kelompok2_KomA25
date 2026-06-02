@@ -37,35 +37,59 @@
             @endauth
         </div>
 
-        <div class="flex gap-2 flex-wrap mb-6">
-            <a href="{{ route('courses.index') }}"
-               class="px-4 py-2 rounded-lg bg-gray-300 text-gray-800 font-medium">
-                Semua
-            </a>
-
-            @foreach($categories as $category)
-                <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"
-                   class="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition text-white font-medium">
-                    {{ $category->category_name }}
+        <div class="mb-6">
+        <details class="relative inline-block">
+        
+            <summary class="cursor-pointer list-none px-5 py-3 bg-white rounded-xl shadow-sm border border-gray-200 font-medium text-gray-700 hover:bg-gray-50">
+                {{ request('category')
+                    ? $categories->firstWhere('category_id', request('category'))->category_name
+                    : 'Semua Kategori' }}
+                ▼
+            </summary>
+        
+            <div class="absolute mt-2 w-64 bg-white rounded-xl shadow-lg border z-50">
+            
+                <a href="{{ route('courses.index') }}"
+                   class="block px-4 py-3 hover:bg-purple-50">
+                    Semua Kategori
                 </a>
-            @endforeach
-        </div>
+            
+                @foreach($categories as $category)
+                    <a href="{{ route('courses.index', ['category' => $category->category_id]) }}"
+                       class="block px-4 py-3 hover:bg-purple-50">
+                        {{ $category->category_name }}
+                    </a>
+                @endforeach
+                
+            </div>
+        
+        </details>
+    </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach($courses as $course)
 
+            @php
+            $banner = match($course->category_id) {
+                1 => 'images/courses/literasi-keuangan.jpg',
+                2 => 'images/courses/umkm-kewirausahaan.jpg',
+                3 => 'images/courses/digital-marketing.jpg',
+                4 => 'images/courses/pengembangan-diri.jpg',
+                5 => 'images/courses/ekonomi-berkelanjutan.jpg',
+                default => 'images/courses/default-course.jpg',
+            };
+            @endphp
+
                 <a href="{{ route('courses.show', $course->course_id) }}"
                    class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block">
 
                     <div class="h-40 overflow-hidden relative">
-                        @if($course->thumbnail)
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
-                                 class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        @else
-                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"
-                                 class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        @endif
+                        <img
+                            src="{{ asset($banner) }}"
+                            alt="{{ $course->title }}"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                        >
 
                         <span class="absolute top-3 left-3 bg-white/90 px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm">
                             {{ $course->difficulty_level }}
@@ -83,10 +107,15 @@
                         </p>
 
                         <div class="flex justify-between items-center text-xs mb-4">
-                            <span class="text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">⭐ 4.8</span>
+
+                            <span class="text-gray-500 font-medium bg-gray-50 px-2 py-1 rounded-md">
+                                📚 {{ $course->difficulty_level }}
+                            </span>
+                        
                             <span class="text-gray-500 font-medium bg-gray-50 px-2 py-1 rounded-md">
                                 ⏱ {{ $course->estimated_duration }} jam
                             </span>
+                        
                         </div>
 
                         @auth

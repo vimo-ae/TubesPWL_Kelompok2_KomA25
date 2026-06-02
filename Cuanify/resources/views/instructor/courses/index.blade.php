@@ -25,14 +25,27 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         
             @foreach($courses as $course)
-        
+
+            @php
+            $banner = match($course->category_id) {
+                1 => 'images/courses/literasi-keuangan.jpg',
+                2 => 'images/courses/umkm-kewirausahaan.jpg',
+                3 => 'images/courses/digital-marketing.jpg',
+                4 => 'images/courses/pengembangan-diri.jpg',
+                5 => 'images/courses/ekonomi-berkelanjutan.jpg',
+                default => 'images/courses/default-course.jpg',
+            };
+            @endphp
+
             <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
             
                 {{-- Thumbnail --}}
-                <div class="h-44 bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
-                    <span class="text-white text-lg font-semibold text-center px-4">
-                        {{ $course->title }}
-                    </span>
+                <div class="h-44 overflow-hidden">
+                    <img
+                        src="{{ asset($banner) }}"
+                        alt="{{ $course->title }}"
+                        class="w-full h-full object-cover"
+                    >
                 </div>
             
                 <div class="p-5">
@@ -55,10 +68,6 @@
                     <h2 class="text-lg font-bold mt-3 text-gray-800">
                         {{ $course->title }}
                     </h2>
-                
-                    <p class="text-sm text-gray-500 mt-2 line-clamp-2">
-                        {{ $course->description ?? 'Belum ada deskripsi course.' }}
-                    </p>
 
                     <p class="text-sm text-gray-500 mt-2 line-clamp-2">
                         {{ $course->description ?? 'Belum ada deskripsi course.' }}

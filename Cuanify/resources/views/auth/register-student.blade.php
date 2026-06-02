@@ -136,6 +136,10 @@
                 </div>
 
                 <!-- Password -->
+                <div class="mt-3">
+                    <label class="block text-sm font-semibold text-gray-700">
+                        Password
+                    </label>
                 <div class="relative mt-2">
                     <input
                         id="password"

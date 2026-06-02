@@ -20,7 +20,7 @@
                 <div class="py-6">
                     <div class="px-6 pt-4 mb-6 bg-[#fff5f8]">
                         <a href="{{ route('dashboard') }}" class="logo-link inline-flex items-center">
-                            <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
+                            <img src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
                         </a>
 
                         <span class="text-[11px] font-bold tracking-wide text-gray-450 dark:text-gray-400 pl-1 opacity-90 block mt-2">
