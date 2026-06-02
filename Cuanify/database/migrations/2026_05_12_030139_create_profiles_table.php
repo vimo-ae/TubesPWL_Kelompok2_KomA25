@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id('profile_id');
             $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade');
-            $table->string('full_name');
-            $table->string('profile_photo')->nullable();
+            $table->string('full_name')->nullable();
+            $table->string('profile_photo')->default('images/profile-default.jpg');
             $table->text('bio')->nullable();
             $table->bigInteger('level')->default(1);
             $table->bigInteger('xp_points')->default(0);

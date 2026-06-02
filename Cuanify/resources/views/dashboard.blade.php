@@ -3,25 +3,34 @@
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
 
+            @if(session('error'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-5 rounded-2xl shadow-sm flex items-start gap-4 transition-all">
+                    <span class="text-2xl mt-0.5">🚨</span>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Perhatian!</h3>
+                        <p class="text-sm opacity-90 leading-relaxed">{!! session('error') !!}</p>
+                    </div>
+                </div>
+            @endif
+
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[240px] flex items-center">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
                 <div class="absolute bottom-[-20px] right-[10%] w-40 h-40 border-[20px] border-white/5 rounded-full"></div>
                 <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-10 md:px-16 py-8">
                     <div class="w-full md:w-2/3 text-white">
                         <div class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-white/30">
-                            🔥 Welcome Back
+                            Welcome Back
                         </div>
                         <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
-                            Selamat datang, <span class="text-yellow-300">{{ Auth::user()->name }}!</span>
+                            Selamat datang, <span class="text-yellow-300">{{ Auth::user()->username }}!</span>
                         </h1>
                         <p class="text-purple-100 text-sm max-w-lg leading-relaxed opacity-90">
                             Memahami ekonomi itu investasi berharga. Terus konsisten, jadikan ide sebagai peluang <span class="text-yellow-300 font-bold italic">cuan!</span>
                         </p>
                         <div class="flex flex-wrap gap-4 mt-6">
-                            <button class="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-2.5 rounded-2xl font-black text-sm shadow-xl transition-all duration-300 hover:-translate-y-1">
-                                Lanjut Belajar
-                            </button>
-                            <a href="{{ route('courses.index') }}" class="border border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-xl font-semibold transition duration-300 inline-block">Jelajahi Kursus</a>
+                            <a href="{{ route('courses.index') }}" class="border border-white hover:bg-white hover:text-indigo-600 px-6 py-3 rounded-xl font-semibold transition duration-300 inline-block">
+                                Jelajahi Kursus
+                            </a>
                         </div>
                     </div>
                     <div class="hidden md:flex flex-col items-center justify-center opacity-20 select-none">

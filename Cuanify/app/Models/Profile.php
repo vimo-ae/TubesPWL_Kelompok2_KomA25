@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     protected $primaryKey = 'profile_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
@@ -18,8 +19,20 @@ class Profile extends Model
         'streak_days',
     ];
 
+    public function getPhotoUrlAttribute()
+    {
+        return $this->profile_photo
+            ? asset('storage/' . $this->profile_photo)
+            : asset('images/profile-default.jpg');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class, 'profile_id', 'profile_id');
     }
 }

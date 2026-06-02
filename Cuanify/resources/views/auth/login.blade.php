@@ -57,7 +57,7 @@
                 </p>
 
                 <p class="text-sm text-gray-500 mt-2">
-                #BelajarJadiCuan 🚀
+                #BelajarJadiCuan 
                 </p>
 
             </div>
@@ -95,31 +95,73 @@
                 </div>
 
                 <!-- Password -->
-                <div class="mt-3">
-
+                <div class="mt-4">
                     <label class="block text-sm font-semibold text-gray-700">
                         Password
                     </label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Masukkan password"
-                        required
-                        class="w-full mt-2 px-4 py-2.5 rounded-xl
-                               border border-gray-300
-                               focus:border-[#7F00FF]
-                               focus:ring-4 focus:ring-purple-100
-                               hover:border-yellow-400
-                               transition duration-300"
-                    >
-
-                    @if ($errors->has('email'))
-                        <p class="mt-1 text-xs text-red-500">
-                            {{ $errors->first('email') }}
-                        </p>
-                    @endif
-
+                
+                    <div class="relative">
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            placeholder="Masukkan password"
+                            required
+                            class="w-full mt-2 px-4 py-2.5 pr-12 rounded-xl
+                                   border border-gray-300 bg-white
+                                   focus:border-[#7F00FF]
+                                   focus:ring-4 focus:ring-purple-100
+                                   hover:border-yellow-400
+                                   transition duration-300"
+                        >
+                    
+                        <button
+                            type="button"
+                            onclick="togglePassword('password')"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-600"
+                        >
+                            <svg id="eye-open"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 class="w-5 h-5"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M2.458 12C3.732 7.943 7.523 5 12 5
+                                         c4.478 0 8.268 2.943 9.542 7
+                                         -1.274 4.057-5.064 7-9.542 7
+                                         -4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        
+                            <svg id="eye-close"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 class="w-5 h-5 hidden"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M13.875 18.825A10.05 10.05 0 0112 19
+                                         c-4.478 0-8.268-2.943-9.542-7
+                                         a9.956 9.956 0 012.042-3.368M6.223 6.223
+                                         A9.953 9.953 0 0112 5c4.478 0 8.268 2.943
+                                         9.542 7a9.97 9.97 0 01-4.293 5.774M15 12
+                                         a3 3 0 00-4.243-4.243M3 3l18 18" />
+                            </svg>
+                        </button>
+                    </div>
+                
+                    <x-input-error
+                        :messages="$errors->get('password')"
+                        class="mt-1 text-red-500 text-xs"
+                    />
                 </div>
 
                 <!-- Remember -->
@@ -192,20 +234,20 @@
 
     </div>
     <script>
-        setTimeout(() => {
-            const warning = document.getElementById('warning');
-            const error = document.getElementById('error');
-
-            if (warning) {
-                warning.classList.add('opacity-0');
-                setTimeout(() => warning.remove(), 500);
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const eyeOpen = document.getElementById('eye-open');
+            const eyeClose = document.getElementById('eye-close');
+        
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeOpen.classList.add('hidden');
+                eyeClose.classList.remove('hidden');
+            } else {
+                input.type = 'password';
+                eyeOpen.classList.remove('hidden');
+                eyeClose.classList.add('hidden');
             }
-
-            if (error) {
-                error.classList.add('opacity-0');
-                setTimeout(() => error.remove(), 500);
-
-            }
-        }, 3000);
+        }
     </script>
 </x-guest-layout>

@@ -51,16 +51,23 @@ class User extends Authenticatable
         );
     }
 
-    public function enrolledCourses()
+    protected static function booted()
     {
-        return $this->belongsToMany(
-            Course::class,
-            'enrollments',
-            'user_id',
-            'course_id',
-            'user_id',
-            'course_id'
-        );
+        static::created(function ($user) {
+            $user->profile()->create([
+                'user_id' => $user->user_id
+            ]);
+        });
+    }
+    
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'user_id');
+    }
+
+    public function createdCourses()
+    {
+        return $this->hasMany(Course::class, 'user_id', 'user_id');
     }
 
 public function lessons()

@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Progress extends Model
 {
-    protected $table = 'progress';
-
     protected $primaryKey = 'progress_id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,21 +17,13 @@ class Progress extends Model
         'xp_earned',
     ];
 
-    public function lesson()
-    {
-        return $this->belongsTo(
-            Lesson::class,
-            'lesson_id',
-            'lesson_id'
-        );
-    }
-
     public function profile()
     {
-        return $this->belongsTo(
-            Profile::class,
-            'profile_id',
-            'profile_id'
-        );
+        return $this->belongsTo(Profile::class, 'profile_id', 'profile_id');
+    }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class, 'lesson_id', 'lesson_id');
     }
 }
