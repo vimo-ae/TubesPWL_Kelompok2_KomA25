@@ -68,4 +68,14 @@ class Lesson extends Model
         // Kalau bukan link YouTube (misal link mp4 langsung), kembalikan aslinya
         return $this->video_url;
     }
+
+public function users()
+{
+    return $this->belongsToMany(
+        User::class,
+        'lesson_user',
+        'lesson_id',
+        'user_id'
+    )->withTimestamps();
+}
 }
