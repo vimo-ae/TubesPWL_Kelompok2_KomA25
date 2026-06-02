@@ -1,75 +1,128 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Overview Dashboard
-        </h2>
-    </x-slot>
-
-    <div class="p-6 max-w-7xl mx-auto">
-        <h1 class="text-3xl font-extrabold text-gray-800 mb-8">Statistik Platform</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            
-    <a href="{{ route('admin.students') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
-        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl group-hover:bg-blue-600 group-hover:text-white transition">
-            👨‍🎓
-        </div>
-        <div>
-            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-blue-600 transition">Total Student</p>
-            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalStudents }}</h3>
-        </div>
-    </a>
-
-    <a href="{{ route('admin.all_instructors') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
-        <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl group-hover:bg-purple-600 group-hover:text-white transition">
-            👨‍🏫
-        </div>
-        <div>
-            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-purple-600 transition">Total Instructor</p>
-            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalInstructors }}</h3>
-        </div>
-    </a>
-
-    <a href="{{ route('admin.courses') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
-        <div class="w-14 h-14 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl group-hover:bg-green-600 group-hover:text-white transition">
-            📚
-        </div>
-        <div>
-            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-green-600 transition">Total Course</p>
-            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalCourses }}</h3>
-        </div>
-    </a>
-
-    <a href="{{ route('admin.instructors') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-amber-200 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-2 h-full bg-amber-400 group-hover:w-full transition-all opacity-10 group-hover:opacity-20"></div>
-        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl group-hover:bg-amber-600 group-hover:text-white transition z-10">
-            ⏳
-        </div>
-        <div class="z-10">
-            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-amber-700 transition">Pending Instruktur</p>
-            <h3 class="text-2xl font-extrabold text-gray-800">{{ $pendingInstructors }}</h3>
-        </div>
-    </a>
-
-</div>
-
-        <h2 class="text-xl font-bold text-gray-800 mb-6">Akses Cepat Menu Admin</h2>
+    <div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a href="{{ route('admin.instructors') }}" class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
-                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">🛡️ Verifikasi Instruktur</h3>
-                <p class="text-sm text-indigo-100">Review dan kelola pendaftaran instruktur baru yang masuk.</p>
-            </a>
+        @include('admin.partials.sidebar')
 
-            <a href="{{ route('admin.courses') }}" class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
-                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">✅ Verifikasi Course</h3>
-                <p class="text-sm text-emerald-100">Cek dan setujui materi course yang diajukan instruktur.</p>
-            </a>
+        <div class="flex-1 p-6 lg:p-10">
+            
+            <div class="bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-[30px] p-8 md:p-10 text-white mb-8 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                <div class="absolute bottom-0 right-32 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl mb-4"></div>
+                <h1 class="text-3xl font-extrabold mb-2 relative z-10">Selamat datang di Cuanify</h1>
+                <p class="text-purple-100 relative z-10 text-sm">Kelola platform belajar mengajar dengan mudah dan efisien.</p>
+            </div>
 
-            <a href="{{ route('admin.categories.index') }}" class="bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
-                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">📁 Kelola Kategori</h3>
-                <p class="text-sm text-rose-100">Tambah, edit, dan hapus daftar kategori pembelajaran yang tersedia.</p>
-            </a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Student</p>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg"><i class="fas fa-user"></i></div>
+                        <h3 class="text-3xl font-black text-gray-800">{{ $totalStudents }}</h3>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Aktif</span>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Instructor</p>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center text-lg"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="text-3xl font-black text-gray-800">{{ $totalInstructors }}</h3>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Terdaftar</span>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Course</p>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-500 flex items-center justify-center text-lg"><i class="fas fa-book"></i></div>
+                        <h3 class="text-3xl font-black text-gray-800">{{ $totalCourses }}</h3>
+                    </div>
+                    <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-3 py-1 rounded-full">Tersedia</span>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-amber-100 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-amber-400"></div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Pending Verifikasi</p>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-lg"><i class="fas fa-clock"></i></div>
+                        <h3 class="text-3xl font-black text-gray-800">{{ $pendingInstructors + $pendingCourses }}</h3>
+                    </div>
+                    <span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Perlu Tindakan</span>
+                </div>
+
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-purple-50">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-gray-800">Tugas Menunggu Anda</h2>
+                        <p class="text-sm text-gray-500">Item yang memerlukan perhatian segera</p>
+                    </div>
+                    @if(($pendingInstructors + $pendingCourses) > 0)
+                        <div class="bg-fuchsia-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            {{ $pendingInstructors + $pendingCourses }}
+                        </div>
+                    @endif
+                </div>
+
+                <div class="space-y-4">
+                    @if($pendingInstructors > 0)
+                        <a href="{{ route('admin.instructors') }}" class="flex items-center justify-between p-5 bg-amber-50/50 rounded-2xl border border-amber-100 hover:bg-amber-100/50 transition cursor-pointer group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-3 h-3 bg-amber-500 rounded-full shadow-sm"></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Instruktur menunggu verifikasi</h4>
+                                    <p class="text-xs text-gray-500 mt-0.5">Tinjau dan setujui akun instruktur baru</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-lg">{{ $pendingInstructors }}</span>
+                                <i class="fas fa-arrow-right text-amber-400 group-hover:text-amber-600 transition"></i>
+                            </div>
+                        </a>
+                    @else
+                        <div class="flex items-center justify-between p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <div class="flex items-center gap-4">
+                                <div class="w-3 h-3 bg-emerald-500 rounded-full shadow-sm"></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Semua instruktur sudah ditinjau</h4>
+                                    <p class="text-xs text-gray-500 mt-0.5">Tidak ada pendaftaran instruktur baru</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-check text-emerald-500 text-xl"></i>
+                        </div>
+                    @endif
+
+                    @if($pendingCourses > 0)
+                        <a href="{{ route('admin.courses') }}" class="flex items-center justify-between p-5 bg-amber-50/50 rounded-2xl border border-amber-100 hover:bg-amber-100/50 transition cursor-pointer group">
+                            <div class="flex items-center gap-4">
+                                <div class="w-3 h-3 bg-amber-500 rounded-full shadow-sm"></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Course menunggu verifikasi</h4>
+                                    <p class="text-xs text-gray-500 mt-0.5">Tinjau dan setujui materi materi pembelajaran baru</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-lg">{{ $pendingCourses }}</span>
+                                <i class="fas fa-arrow-right text-amber-400 group-hover:text-amber-600 transition"></i>
+                            </div>
+                        </a>
+                    @else
+                        <div class="flex items-center justify-between p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <div class="flex items-center gap-4">
+                                <div class="w-3 h-3 bg-emerald-500 rounded-full shadow-sm"></div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Semua course sudah ditinjau</h4>
+                                    <p class="text-xs text-gray-500 mt-0.5">Tidak ada kursus yang menunggu review</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-check text-emerald-500 text-xl"></i>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
         </div>
     </div>
 </x-app-layout>

@@ -86,12 +86,15 @@ class AdminController extends Controller
         $totalInstructors = User::where('role', 'instructor')->count();
         $pendingInstructors = User::where('role', 'instructor')->where('status_instructor', 'pending')->count();
         $totalCourses = Course::count();
+        
+        $pendingCourses = Course::where('status', 'pending')->count();
 
         return view('admin.dashboard', compact(
             'totalStudents', 
             'totalInstructors', 
             'pendingInstructors', 
-            'totalCourses'
+            'totalCourses',
+            'pendingCourses' 
         ));
     }
 
