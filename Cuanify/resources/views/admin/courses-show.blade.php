@@ -79,7 +79,7 @@
                         <span class="text-indigo-600 mr-1">Lesson {{ $loop->iteration }}:</span> {{ $lesson->title }}
                     </h3>
                     <div class="text-gray-700 text-sm whitespace-pre-line bg-gray-50 p-5 rounded-xl border border-gray-100 leading-relaxed">
-                        {{ $lesson->content }}
+                        {!! $lesson->content !!}
                     </div>
                 </div>
             @empty
