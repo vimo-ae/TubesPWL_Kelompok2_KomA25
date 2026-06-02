@@ -10,15 +10,15 @@ class CourseController extends Controller
 {
     public function index(Request $request)
 {
-    $categories = Category::all();
+    $categories = \App\Models\Category::all();
 
-    $courses = Course::query();
+    $query = \App\Models\Course::where('status', 'published');
 
-    if ($request->category) {
-        $courses->where('category_id', $request->category);
+    if ($request->has('category')) {
+        $query->where('category_id', $request->category);
     }
 
-    $courses = $courses->get();
+    $courses = $query->latest()->get();
 
     return view('courses.index', compact('courses', 'categories'));
 }
