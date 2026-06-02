@@ -1,180 +1,75 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard Admin') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Overview Dashboard
         </h2>
     </x-slot>
 
-    <div class="p-6">
-        <h1 class="text-2xl font-bold mb-6">
-            Verifikasi Instruktur
-        </h1>
+    <div class="p-6 max-w-7xl mx-auto">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-8">Statistik Platform</h1>
 
-        <table class="w-full border">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            
+    <a href="{{ route('admin.students') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl group-hover:bg-blue-600 group-hover:text-white transition">
+            👨‍🎓
+        </div>
+        <div>
+            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-blue-600 transition">Total Student</p>
+            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalStudents }}</h3>
+        </div>
+    </a>
 
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="p-3 border">Nama</th>
-                    <th class="p-3 border">Email</th>
-                    <th class="p-3 border">Status</th>
-                    <th class="p-3 border">Aksi</th>
-                </tr>
-            </thead>
+    <a href="{{ route('admin.all_instructors') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
+        <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl group-hover:bg-purple-600 group-hover:text-white transition">
+            👨‍🏫
+        </div>
+        <div>
+            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-purple-600 transition">Total Instructor</p>
+            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalInstructors }}</h3>
+        </div>
+    </a>
 
-            <tbody>
-                @forelse ($instructors as $instructor)
-                    <tr>
-                        <td class="p-3 border">
-                            {{ $instructor->username }}
-                        </td>
-                        <td class="p-3 border">
-                            {{ $instructor->email }}
-                        </td>
-                        <td class="p-3 border">
-                            @if ($instructor->status_instructor == 'pending')
-                                <span class="text-yellow-500 font-semibold">
-                                    Pending
-                                </span>
+    <a href="{{ route('admin.courses') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer">
+        <div class="w-14 h-14 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl group-hover:bg-green-600 group-hover:text-white transition">
+            📚
+        </div>
+        <div>
+            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-green-600 transition">Total Course</p>
+            <h3 class="text-2xl font-extrabold text-gray-800">{{ $totalCourses }}</h3>
+        </div>
+    </a>
 
-                            @elseif ($instructor->status_instructor == 'approved')
-                                <span class="text-green-500 font-semibold">
-                                    Approved
-                                </span>
+    <a href="{{ route('admin.instructors') }}" class="bg-white rounded-3xl p-6 shadow-sm border border-amber-200 flex items-center gap-4 transition hover:shadow-lg hover:-translate-y-1 group cursor-pointer relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-2 h-full bg-amber-400 group-hover:w-full transition-all opacity-10 group-hover:opacity-20"></div>
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl group-hover:bg-amber-600 group-hover:text-white transition z-10">
+            ⏳
+        </div>
+        <div class="z-10">
+            <p class="text-sm font-bold text-gray-500 mb-1 group-hover:text-amber-700 transition">Pending Instruktur</p>
+            <h3 class="text-2xl font-extrabold text-gray-800">{{ $pendingInstructors }}</h3>
+        </div>
+    </a>
 
-                            @else
-                                <span class="text-red-500 font-semibold">
-                                    Rejected
-                                </span>
+</div>
 
-                            @endif
-                        </td>
-                        <td class="p-3 border flex gap-2">
-                            <form action="/admin/approve/{{ $instructor->user_id }}" method="POST">
-                                @csrf
-                                <button
-                                    class="bg-green-500 text-white px-3 py-1 rounded">
-                                    Approve
-                                </button>
-                            </form>
+        <h2 class="text-xl font-bold text-gray-800 mb-6">Akses Cepat Menu Admin</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="{{ route('admin.instructors') }}" class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">🛡️ Verifikasi Instruktur</h3>
+                <p class="text-sm text-indigo-100">Review dan kelola pendaftaran instruktur baru yang masuk.</p>
+            </a>
 
-                            <form action="/admin/reject/{{ $instructor->user_id }}" method="POST">
-                                @csrf
-                                <button
-                                    class="bg-red-500 text-white px-3 py-1 rounded">
-                                    Reject
-                                </button>
-                            </form>
+            <a href="{{ route('admin.courses') }}" class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">✅ Verifikasi Course</h3>
+                <p class="text-sm text-emerald-100">Cek dan setujui materi course yang diajukan instruktur.</p>
+            </a>
 
-                        </td>
-                    </tr>
-
-                @empty
-                    <tr>
-                        <td colspan="4" class="p-4 text-center">
-                            Tidak ada instructor pending
-                        </td>
-                    </tr>
-
-                @endforelse
-
-            </tbody>
-        </table>
-
-        <h1 class="text-2xl font-bold mt-10 mb-6">
-            Instruktur Approved
-        </h1>
-
-        <table class="w-full border">
-
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="p-3 border">Nama</th>
-                    <th class="p-3 border">Email</th>
-                    <th class="p-3 border">Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @forelse ($approvedInstructors as $instructor)
-
-                    <tr>
-
-                        <td class="p-3 border">
-                            {{ $instructor->username }}
-                        </td>
-
-                        <td class="p-3 border">
-                            {{ $instructor->email }}
-                        </td>
-
-                        <td class="p-3 border text-green-500 font-semibold">
-                            Approved
-                        </td>
-
-                    </tr>
-
-                @empty
-
-                    <tr>
-                        <td colspan="3" class="p-4 text-center">
-                            Belum ada instructor approved
-                        </td>
-                    </tr>
-
-                @endforelse
-
-            </tbody>
-
-        </table>
-
-        <h1 class="text-2xl font-bold mt-10 mb-6">
-            Instruktur Rejected
-        </h1>
-
-        <table class="w-full border">
-
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="p-3 border">Nama</th>
-                    <th class="p-3 border">Email</th>
-                    <th class="p-3 border">Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @forelse ($rejectedInstructors as $instructor)
-
-                    <tr>
-
-                        <td class="p-3 border">
-                            {{ $instructor->username }}
-                        </td>
-
-                        <td class="p-3 border">
-                            {{ $instructor->email }}
-                        </td>
-
-                        <td class="p-3 border text-red-500 font-semibold">
-                            Rejected
-                        </td>
-
-                    </tr>
-
-                @empty
-
-                    <tr>
-                        <td colspan="3" class="p-4 text-center">
-                            Belum ada instructor rejected
-                        </td>
-                    </tr>
-
-                @endforelse
-
-            </tbody>
-
-        </table>
+            <a href="{{ route('admin.categories.index') }}" class="bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-3xl p-6 shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                <h3 class="text-lg font-bold mb-2 flex items-center gap-2">📁 Kelola Kategori</h3>
+                <p class="text-sm text-rose-100">Tambah, edit, dan hapus daftar kategori pembelajaran yang tersedia.</p>
+            </a>
+        </div>
     </div>
-
 </x-app-layout>
