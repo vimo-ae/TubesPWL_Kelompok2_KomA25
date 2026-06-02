@@ -98,6 +98,12 @@
                                 Delete
                             </button>
                         </form>
+
+                        <a href="{{ route('instructor.lessons.preview', ['course' => $course->course_id,'lesson' => $lesson->lesson_id]) }}" 
+                           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-all" target="_blank"> 
+                            Preview
+                        </a>
+
                     @else
                         <span class="text-gray-400 text-sm font-medium bg-gray-100 px-2.5 py-1 rounded flex items-center gap-1">
                             <i class="fas fa-lock text-xs"></i> Terkunci
