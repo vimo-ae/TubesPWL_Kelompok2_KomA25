@@ -178,7 +178,7 @@
         </div>
         <div class="hero-info">
             <h2 class="hero-name">
-                {{ $profile->full_name }}
+                {{ $profile->full_name ?? $user->username }}
                 <span class="role-badge role-{{ $user->role }}">{{ ucfirst($user->role) }}</span>
             </h2>
             <p class="hero-bio">"{{ $profile->bio ?? 'Belum ada bio.' }}"</p>
@@ -302,10 +302,6 @@
                 <p class="info-label">Bergabung Sejak</p>
                 <p class="info-val">{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}</p>
             </div>
-            <a href="{{ route('profile.edit') }}" class="btn-ubah">
-                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                Ubah Informasi
-            </a>
         </div>
 
         {{-- HISTORY XP --}}
@@ -363,19 +359,19 @@
         @else
             <div class="course-grid">
                 @foreach($enrolledCourses as $course)
-                <div class="course-item">
-                    <p class="course-name">{{ $course->title }}</p>
-                    <span class="course-status-pill cs-{{ $course->pivot->status }}">
-                        {{ $course->pivot->status === 'completed' ? 'Selesai' : ($course->pivot->status === 'active' ? 'Aktif' : 'Dropped') }}
-                    </span>
-                    <div class="prog-bar-label">
-                        <span>Progress</span>
-                        <span>{{ number_format($course->pivot->completion_percentage, 0) }}%</span>
-                    </div>
-                    <div class="prog-bar-wrap">
-                        <div class="prog-bar-fill" style="width:{{ $course->pivot->completion_percentage }}%"></div>
-                    </div>
-                </div>
+                    <a href="{{ route('courses.show', $course->pivot->course_id) }}" class="course-item" style="text-decoration: none; color: inherit; display: block;">
+                        <p class="course-name">{{ $course->title }}</p>
+                        <span class="course-status-pill cs-{{ $course->pivot->status }}">
+                            {{ $course->pivot->status === 'completed' ? 'Selesai' : ($course->pivot->status === 'active' ? 'Aktif' : 'Dropped') }}
+                        </span>
+                        <div class="prog-bar-label">
+                            <span>Progress</span>
+                            <span>{{ number_format($course->pivot->completion_percentage, 0) }}%</span>
+                        </div>
+                        <div class="prog-bar-wrap">
+                            <div class="prog-bar-fill" style="width:{{ $course->pivot->completion_percentage }}%"></div>
+                        </div>
+                    </a>
                 @endforeach
             </div>
         @endif
