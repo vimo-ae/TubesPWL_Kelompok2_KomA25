@@ -1,132 +1,123 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard Admin') }}
-        </h2>
-    </x-slot>
-
-    <div class="p-6">
+    <div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
         
-        <div class="flex gap-6 mb-8 border-b border-gray-200">
-            <a href="{{ route('admin.instructors') }}" class="font-bold text-lg text-indigo-600 border-b-2 border-indigo-600 pb-2">
-                Verifikasi Instruktur
-            </a>
-            <a href="{{ route('admin.courses') }}" class="font-bold text-lg text-gray-500 hover:text-indigo-500 transition pb-2">
-                Verifikasi Course
-            </a>
-            <a href="{{ route('admin.categories.index') }}" class="font-bold text-lg text-gray-500 hover:text-indigo-500 transition pb-2">
-                Kelola Kategori
-            </a>
-        </div>
+        @include('admin.partials.sidebar')
+        
+        <div class="flex-1 p-6 lg:p-10">
+            
+            <h1 class="text-3xl font-extrabold mb-6 text-gray-800">
+                Instruktur Pending
+            </h1>
 
-        <h1 class="text-2xl font-bold mb-6 text-gray-800">
-            Instruktur Pending
-        </h1>
-
-        <table class="w-full border mb-10">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="p-3 border">Nama</th>
-                    <th class="p-3 border">Email</th>
-                    <th class="p-3 border">Status</th>
-                    <th class="p-3 border">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($instructors as $instructor)
-                    @if($instructor->status_instructor == 'pending')
+            <table class="w-full border mb-10 rounded-xl overflow-hidden bg-white shadow-sm">
+                <thead class="bg-gray-50 border-b border-gray-100">
                     <tr>
-                        <td class="p-3 border">{{ $instructor->username }}</td>
-                        <td class="p-3 border">{{ $instructor->email }}</td>
-                        <td class="p-3 border">
-                            <span class="text-yellow-500 font-semibold bg-yellow-50 px-2 py-1 rounded text-sm">
-                                Pending
-                            </span>
-                        </td>
-                        <td class="p-3 border flex gap-2 justify-center">
-                            <form action="/admin/approve/{{ $instructor->user_id }}" method="POST">
-                                @csrf
-                                <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition">
-                                    Approve
-                                </button>
-                            </form>
-
-                            <form action="/admin/reject/{{ $instructor->user_id }}" method="POST">
-                                @csrf
-                                <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">
-                                    Reject
-                                </button>
-                            </form>
-                        </td>
+                        <th class="p-4 text-left text-sm font-bold text-gray-600">Nama</th>
+                        <th class="p-4 text-left text-sm font-bold text-gray-600">Email</th>
+                        <th class="p-4 text-center text-sm font-bold text-gray-600">Status</th>
+                        <th class="p-4 text-center text-sm font-bold text-gray-600">Aksi</th>
                     </tr>
-                    @endif
-                @empty
-                    <tr>
-                        <td colspan="4" class="p-4 text-center text-gray-500">
-                            Tidak ada instruktur pending
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @forelse ($instructors as $instructor)
+                        @if($instructor->status_instructor == 'pending')
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="p-4 font-bold text-gray-800">{{ $instructor->username }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $instructor->email }}</td>
+                            <td class="p-4 text-center">
+                                <span class="text-amber-600 font-bold bg-amber-50 border border-amber-200 px-3 py-1 rounded-full text-xs">
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="p-4 flex gap-2 justify-center">
+                                <form action="/admin/approve/{{ $instructor->user_id }}" method="POST">
+                                    @csrf
+                                    <button class="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-1.5 rounded-lg text-sm font-bold transition">
+                                        Approve
+                                    </button>
+                                </form>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <div>
-                <h1 class="text-xl font-bold mb-4 text-green-600">
-                    Instruktur Approved
-                </h1>
-                <table class="w-full border">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="p-3 border">Nama</th>
-                            <th class="p-3 border">Email</th>
+                                <form action="/admin/reject/{{ $instructor->user_id }}" method="POST">
+                                    @csrf
+                                    <button class="bg-red-100 text-red-700 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg text-sm font-bold transition">
+                                        Reject
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($approvedInstructors as $instructor)
-                            <tr>
-                                <td class="p-3 border">{{ $instructor->username }}</td>
-                                <td class="p-3 border">{{ $instructor->email }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2" class="p-4 text-center text-gray-500">
-                                    Belum ada instruktur approved
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        @endif
+                    @empty
+                        <tr>
+                            <td colspan="4" class="p-8 text-center text-gray-500 font-medium">
+                                Tidak ada instruktur pending
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-xl font-bold mb-4 text-emerald-600">
+                        Instruktur Approved
+                    </h2>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-emerald-50 border-b border-emerald-100">
+                                <tr>
+                                    <th class="p-4 text-left text-sm font-bold text-emerald-800">Nama</th>
+                                    <th class="p-4 text-left text-sm font-bold text-emerald-800">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse ($approvedInstructors as $instructor)
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="p-4 font-bold text-gray-800">{{ $instructor->username }}</td>
+                                        <td class="p-4 text-sm text-gray-600">{{ $instructor->email }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="p-8 text-center text-gray-500 font-medium">
+                                            Belum ada instruktur approved
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold mb-4 text-red-600">
+                        Instruktur Rejected
+                    </h2>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-red-50 border-b border-red-100">
+                                <tr>
+                                    <th class="p-4 text-left text-sm font-bold text-red-800">Nama</th>
+                                    <th class="p-4 text-left text-sm font-bold text-red-800">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @forelse ($rejectedInstructors as $instructor)
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="p-4 font-bold text-gray-800">{{ $instructor->username }}</td>
+                                        <td class="p-4 text-sm text-gray-600">{{ $instructor->email }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2" class="p-8 text-center text-gray-500 font-medium">
+                                            Belum ada instruktur rejected
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <h1 class="text-xl font-bold mb-4 text-red-600">
-                    Instruktur Rejected
-                </h1>
-                <table class="w-full border">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="p-3 border">Nama</th>
-                            <th class="p-3 border">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($rejectedInstructors as $instructor)
-                            <tr>
-                                <td class="p-3 border">{{ $instructor->username }}</td>
-                                <td class="p-3 border">{{ $instructor->email }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2" class="p-4 text-center text-gray-500">
-                                    Belum ada instruktur rejected
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
         </div>
-
     </div>
 </x-app-layout>
