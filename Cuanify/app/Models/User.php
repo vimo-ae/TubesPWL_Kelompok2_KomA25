@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Course;
 
 #[Fillable(['username', 'email', 'password', 'role', 'is_approved'])]
 #[Hidden(['password', 'remember_token'])]
@@ -48,5 +49,24 @@ class User extends Authenticatable
             'user_id',
             'course_id'
         );
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->profile()->create([
+                'user_id' => $user->user_id
+            ]);
+        });
+    }
+    
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'user_id');
+    }
+
+    public function createdCourses()
+    {
+        return $this->hasMany(Course::class, 'user_id', 'user_id');
     }
 }

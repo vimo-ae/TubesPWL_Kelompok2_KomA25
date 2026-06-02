@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
+        $user1 = User::create([
             'username' => 'Admin',
             'email' => 'admin@cuanify.com',
             'email_verified_at' => now(),
@@ -27,66 +27,25 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'role' => 'admin',
         ]);
+        $user1->profile()->firstOrCreate(['user_id' => $user1->user_id]);
 
-        User::create([
-            'username' => 'Ryan',
-            'email' => 'ryan@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('ryan123'),
-            'remember_token' => Str::random(10),
-            'role' => 'student',
-        ]);
-
-        User::create([
-            'username' => 'Alvin',
-            'email' => 'alvin@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('alvin123'),
-            'remember_token' => Str::random(10),
-            'role' => 'instructor',
-        ]);
-        
-        User::create([
-            'username' => 'Vimo',
-            'email' => 'vimo@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('vimo123'),
-            'remember_token' => Str::random(10),
-            'role' => 'student',
-        ]);
-
-        User::create([
-            'username' => 'Dara',
-            'email' => 'dara@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('dara123'),
-            'remember_token' => Str::random(10),
-            'role' => 'instructor',
-        ]);
-
-        User::create([
-            'username' => 'Aliyah',
-            'email' => 'aliyah@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('aliyah123'),
-            'remember_token' => Str::random(10),
-            'role' => 'student',
-        ]);
-      
-        User::create([
+        $user2 = User::create([
             'username' => 'Guru 1',
             'email' => 'guru1@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'role' => 'instructor',
-            'status_instructor' => 'pending',          
+            'status_instructor' => 'approved',          
         ]);
+        $user2->profile()->firstOrCreate(['user_id' => $user2->user_id]);
 
-        User::factory()->create([
+        $user3 = User::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
+
 
         $this->call([
             CategorySeeder::class,

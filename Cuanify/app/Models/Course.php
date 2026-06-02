@@ -11,6 +11,7 @@ class Course extends Model
 
     // Field yang boleh diisi
     protected $fillable = [
+        'user_id',
         'category_id',
         'title',
         'description',
@@ -60,5 +61,22 @@ class Course extends Model
             'course_id',
             'user_id'
         );
+    }
+
+    public function enrolledUsers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'enrollments',
+            'course_id',
+            'user_id',
+            'course_id',
+            'user_id'
+        );
+    }
+
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 }
