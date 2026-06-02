@@ -30,6 +30,9 @@ public function complete($lessonId)
                     'xp_earned'    => $lesson->xp_reward ?? 0
                 ]
             );
+
+        
+
     return back()->with('success', 'Lesson ditandai selesai! Kamu mendapatkan ' . ($lesson->xp_reward ?? 0) . ' XP.');
 }
 }

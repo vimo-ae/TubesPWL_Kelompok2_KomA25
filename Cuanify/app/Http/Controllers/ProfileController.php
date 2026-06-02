@@ -51,6 +51,34 @@ class ProfileController extends Controller
         
         $persentaseTotal = $totalPenyebut > 0 ? round(($totalPembilang / $totalPenyebut) * 100) : 0;
 
+        $enrolledCoursesRaw = $user->courses; // Ambil koleksi course lewat relation
+
+        foreach ($enrolledCoursesRaw as $course) {
+            // Hitung total materi di kelas ini
+            $totalMateriDiCourse = Lesson::where('course_id', $course->course_id)->count();
+
+            // Hitung materi yang sudah dicentang selesai oleh siswa di kelas ini
+            $materiSelesaiDiCourse = Progress::where('profile_id', $profile->profile_id)
+                ->where('is_completed', true)
+                ->whereIn('lesson_id', function($query) use ($course) {
+                    $query->select('lesson_id')->from('lessons')->where('course_id', $course->course_id);
+                })
+                ->count();
+
+            // Hitung persentase kelasnya
+            $persentaseCourse = $totalMateriDiCourse > 0 
+                ? round(($materiSelesaiDiCourse / $totalMateriDiCourse) * 100) 
+                : 0;
+
+            $statusBaru = $persentaseCourse >= 100 ? 'completed' : 'active';
+
+            // Update data pivot menggunakan Eloquent bawaan relation User
+            $user->courses()->updateExistingPivot($course->course_id, [
+                'completion_percentage' => $persentaseCourse,
+                'status' => $statusBaru
+            ]);
+        }
+
         // Ambil progress lengkap untuk kebutuhan list di bawah (kode lamamu)
         $progress = Progress::with('lesson')
             ->where('profile_id', $profile->profile_id)
