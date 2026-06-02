@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\MyCourseController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\AdminCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,18 +17,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    if (auth()->user()->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+    
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'admin'])->name('dashboard');
-
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index']);
-    Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve']);
-    Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject']);
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])
@@ -49,6 +44,30 @@ Route::middleware('auth')->group(function () {
         ->name('settings.destroy');
 
     Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+    Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
+    Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve']);
+    Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject']);
+
+    Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
+    Route::get('/admin/course/{course_id}', [AdminController::class, 'showCourse'])->name('admin.courses.show');
+    Route::post('/admin/course/{course_id}/approve', [AdminController::class, 'approveCourse'])->name('admin.courses.approve');
+    Route::post('/admin/course/{course_id}/reject', [AdminController::class, 'rejectCourse'])->name('admin.courses.reject');
+
+    Route::get('/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.index');
+    Route::post('/admin/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::put('/admin/categories/{category_id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/admin/categories/{category_id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
+    Route::get('/admin/students', [AdminController::class, 'students'])->name('admin.students');
+    Route::get('/admin/all-instructors', [AdminController::class, 'allInstructors'])->name('admin.all_instructors');
+    
+    Route::get('/admin/users/{id}', [AdminController::class, 'showUser'])->name('admin.users.show');
+    Route::put('/admin/users/{id}/status', [AdminController::class, 'updateUserStatus'])->name('admin.users.update_status');
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
@@ -74,8 +93,7 @@ Route::prefix('instructor')->group(function () {
 
     Route::post('/courses', [InstructorCourseController::class, 'store'])->name('instructor.courses.store');
 
-    Route::get(
-    '/courses/{course}', [InstructorCourseController::class, 'show'])->name('instructor.courses.show');
+    Route::get('/courses/{course}', [InstructorCourseController::class, 'show'])->name('instructor.courses.show');
 
     Route::get('/courses/{course}/lessons/create', [InstructorCourseController::class, 'createLesson'])->name('instructor.lessons.create');
 
@@ -95,5 +113,3 @@ Route::prefix('instructor')->group(function () {
 
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorCourseController::class, 'destroyLesson'])->name('instructor.lessons.destroy');
 });
-
-

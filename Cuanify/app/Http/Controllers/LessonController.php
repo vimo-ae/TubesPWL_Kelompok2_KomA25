@@ -7,16 +7,23 @@ use App\Models\Lesson;
 
 class LessonController extends Controller
 {
-    public function show($id)
-    {
-    $lesson = Lesson::findOrFail($id);
+    public function show($id) 
+{
+    $user = auth()->user();
 
-    $course = $lesson->course;
+    if ($user->status === 'banned') {
+        if ($user->banned_until && now()->lessThan($user->banned_until)) {
+            $waktuSelesai = \Carbon\Carbon::parse($user->banned_until)->format('d M Y H:i');
+            $alasan = $user->ban_reason ?? 'Melanggar aturan komunitas.';
+            
+            $pesanError = "<strong>Akses Ditolak!</strong> Akun kamu sedang diblokir sementara karena: <em>{$alasan}</em> <br> Blokir akan otomatis terbuka pada: <strong>{$waktuSelesai} WIB</strong>.";
+            return redirect()->route('dashboard')->with('error', $pesanError);
+        } else {
 
-    if (!auth()->user()->courses->contains('course_id', $course->course_id)) {
-        abort(403);
+            $user->status = 'active';
+            $user->banned_until = null;
+            $user->save();
+        }
     }
-
-    return view('lessons.show', compact('lesson'));
-    }
+}
 }
