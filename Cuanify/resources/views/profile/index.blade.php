@@ -1,13 +1,25 @@
 <x-app-layout>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+/* SET GLOBAL FONT MENGGUNAKAN UI-SANS-SERIF */
+.pf, 
+.pf h1, 
+.pf h2, 
+.pf p, 
+.pf span, 
+.pf div, 
+.pf table, 
+.pf th, 
+.pf td, 
+.pf a { 
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important; 
+}
 
-.pf { font-family:'DM Sans',sans-serif; max-width:960px; margin:0 auto; padding:0 0 32px; }
+.pf { max-width:960px; margin:0 auto; padding:0 0 32px; }
 
 /* ---- PAGE TITLE ---- */
-.pf-title { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:#1e1b4b; margin:0 0 4px; }
-.pf-subtitle { font-size:13px; color:#9ca3af; margin:0 0 24px; }
+.pf-title { font-size:32px; font-weight:600; color:#1e1b4b; margin:0 0 4px; }
+.pf-subtitle { font-size:15px; color:#9ca3af; margin:0 0 24px; }
 
 /* ---- HERO ---- */
 .hero-card {
@@ -43,7 +55,7 @@
     text-decoration:none;
 }
 .hero-info { flex:1; position:relative; z-index:1; }
-.hero-name { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.hero-name { font-size:22px; font-weight:600; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
 .role-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:99px; }
 .role-admin    { background:#ede9fe; color:#7c3aed; }
 .role-student  { background:#ccfbf1; color:#0d9488; }
@@ -79,8 +91,8 @@
 .si-amber  { background:#fef3c7; }
 .si-teal   { background:#ccfbf1; }
 .stat-mini-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
-.stat-mini-val { font-family:'Outfit',sans-serif; font-size:20px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
-.stat-mini-sub { font-size:10px; color:#9ca3af; }
+.stat-mini-val { font-size:30px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
+.stat-mini-sub { font-size:13px; color:#9ca3af; font-weight: 500; }
 
 /* ---- PROGRESS ---- */
 .progress-card {
@@ -88,20 +100,38 @@
     padding:22px; margin-bottom:16px;
 }
 .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-.section-title { font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
+.section-title { font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
 .progress-inner { display:flex; align-items:center; gap:28px; }
-.ring-wrap { position:relative; width:80px; height:80px; flex-shrink:0; }
+
+.ring-wrap { position:relative; width:110px; height:110px; flex-shrink:0; }
 .ring-wrap svg { transform:rotate(-90deg); }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.ring-pct { font-family:'Outfit',sans-serif; font-size:16px; font-weight:800; color:#7c3aed; line-height:1; }
-.ring-lbl { font-size:8px; color:#9ca3af; font-weight:600; }
+
+.ring-pct { font-size:22px; font-weight:800; color:#7c3aed; line-height:1; margin-bottom: 2px; }
+.ring-lbl { font-size:11px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
+
 .progress-right { flex:1; }
-.prog-encourage { font-size:13px; color:#6b7280; margin:0 0 12px; }
+.prog-encourage { font-size:16px; font-weight: 500; color:#6b7280; margin:0 0 12px; }
 .prog-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .prog-stat-box { background:#faf5ff; border-radius:10px; padding:10px 14px; }
-.psb-label { font-size:10px; color:#9ca3af; font-weight:600; margin:0 0 3px; }
-.psb-val { font-family:'Outfit',sans-serif; font-size:16px; font-weight:800; color:#1e1b4b; margin:0; }
-.psb-sub { font-size:10px; color:#a78bfa; }
+.psb-label {
+    font-size: 14px;            
+    color: #000000;             
+    font-weight: 700;           
+    margin: 0 0 6px; 
+    display: inline-block;            
+}
+.psb-val { 
+    font-size: 26px;          
+    font-weight: 800; 
+    color: #1e1b4b; 
+    margin: 0 0 2px;
+}
+.psb-sub { 
+    font-size: 13px; 
+    color: #7c3aed;       
+    font-weight: 600;
+}
 
 /* ---- TWO COL ---- */
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
@@ -223,7 +253,7 @@
             </div>
             <p class="stat-mini-label">Streak Belajar</p>
             <p class="stat-mini-val">{{ $profile->streak_days ?? 0 }}</p>
-            <p class="stat-mini-sub">hari</p>
+            <p class="stat-mini-sub">Hari</p>
         </div>
         <div class="stat-mini">
             <div class="stat-mini-icon si-teal">
@@ -231,7 +261,7 @@
             </div>
             <p class="stat-mini-label">Kelas Diikuti</p>
             <p class="stat-mini-val">{{ $enrolledCourses->count() }}</p>
-            <p class="stat-mini-sub">kelas</p>
+            <p class="stat-mini-sub">Kelas</p>
         </div>
     </div>
 
@@ -242,12 +272,13 @@
             <p class="section-title">Progress Belajar</p>
         </div>
         <div class="progress-inner">
+            
             <div class="ring-wrap">
-                <svg width="80" height="80" viewBox="0 0 80 80">
-                    <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9fe" stroke-width="7"/>
-                    <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="7"
-                        stroke-dasharray="{{ round(2 * 3.14159 * 32) }}"
-                        stroke-dashoffset="{{ round(2 * 3.14159 * 32 * (1 - $persentaseTotal/100)) }}"
+                <svg width="110" height="110" viewBox="0 0 110 110">
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#ede9fe" stroke-width="9"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#a855f7" stroke-width="9"
+                        stroke-dasharray="{{ round(2 * 3.14159 * 46) }}"
+                        stroke-dashoffset="{{ round(2 * 3.14159 * 46 * (1 - $persentaseTotal/100)) }}"
                         stroke-linecap="round"/>
                 </svg>
                 <div class="ring-center">
@@ -255,17 +286,18 @@
                     <span class="ring-lbl">Selesai</span>
                 </div>
             </div>
+            
             <div class="progress-right">
                 <p class="prog-encourage">Terus tingkatkan progresmu!</p>
                 <div class="prog-stat-grid">
                     <div class="prog-stat-box">
                         <p class="psb-label">Materi Selesai</p>
-                        <p class="psb-val">{{ $materiSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
+                        <p class="psb-val">{{ $materiSelesai }} <span style="font-size:13px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
                         <span class="psb-sub">materi</span>
                     </div>
                     <div class="prog-stat-box">
                         <p class="psb-label">Kuis Selesai</p>
-                        <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
+                        <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:13px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
                         <span class="psb-sub">kuis</span>
                     </div>
                 </div>
