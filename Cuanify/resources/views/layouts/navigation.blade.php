@@ -90,9 +90,24 @@
             </div>
         </div>
 
-        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
-        <a href="{{ route('my-courses.index') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50">Course Saya</a>
-        <a href="{{ route('courses.index') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50">Daftar Course</a>
+        @if(auth()->user()->role === 'admin')
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">Dashboard Admin</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.instructors')" :active="request()->routeIs('admin.instructors')">Verifikasi Instruktur</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">Kelola Kategori</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.courses')" :active="request()->routeIs('admin.courses')">Kelola Course</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.students')" :active="request()->routeIs('admin.students')">Kelola Pengguna</x-responsive-nav-link>
+
+        @else
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
+            
+            @if(auth()->user()->role === 'instructor')
+                <x-responsive-nav-link :href="route('instructor.courses.index')" :active="request()->routeIs('instructor.courses.index')">Course Saya</x-responsive-nav-link>
+            @elseif(auth()->user()->role === 'student')
+                <x-responsive-nav-link :href="route('my-courses.index')" :active="request()->routeIs('my-courses.index')">Course Saya</x-responsive-nav-link>
+            @endif
+            
+            <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">Daftar Course</x-responsive-nav-link>
+        @endif
         
         <hr class="my-2 border-gray-100 dark:border-gray-800">
         
