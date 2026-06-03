@@ -80,4 +80,14 @@ class Course extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+
+    public function getRequiredLevel()
+    {
+        return match (strtolower($this->difficulty_level)) {
+            'advanced'     => 10, 
+            'intermediate' => 5,  
+            'beginner'     => 0,  
+            default        => 0,
+        };
+    }
 }

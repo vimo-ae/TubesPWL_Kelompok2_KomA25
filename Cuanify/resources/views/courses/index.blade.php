@@ -55,62 +55,45 @@
 
                 @foreach($courses as $course)
 
-                    <a href="{{ route('courses.show', $course->course_id) }}"
-                    class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block">
+        @php
+            $requiredLevel = $course->getRequiredLevel(); 
+            $userLevel = (auth()->check() && auth()->user()->role === 'student') ? (auth()->user()->profile->level ?? 1) : 0;
+            $isLocked = (auth()->check() && auth()->user()->role === 'student' && $userLevel < $requiredLevel);
+        @endphp
 
-                        <div class="h-40 overflow-hidden relative">
-                            @if($course->thumbnail)
-                                <img src="{{ asset('storage/' . $course->thumbnail) }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            @endif
+        <a href="{{ $isLocked ? '#' : route('courses.show', $course->course_id) }}" class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block relative {{ $isLocked ? 'opacity-80' : '' }}">
 
-                            <span class="absolute top-3 left-3 bg-white/90 px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm">
-                                {{ $course->difficulty_level }}
-                            </span>
-                        </div>
+            <div class="h-40 overflow-hidden relative">
+                @if($isLocked)
+                    <div class="absolute inset-0 bg-black/40 z-10 flex flex-col items-center justify-center text-white backdrop-blur-sm">
+                        <i class="fas fa-lock text-2xl mb-2"></i>
+                        <span class="text-[10px] font-bold uppercase">Butuh Level {{ $requiredLevel }}</span>
+                    </div>
+                @endif
 
-                        <div class="p-5">
+                @if($course->thumbnail)
+                    <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                @else
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                @endif
 
-                            <h3 class="font-bold text-gray-800 dark:text-gray-200 text-base line-clamp-2 mb-1">
-                                {{ $course->title }}
-                            </h3>
+                <span class="absolute top-3 left-3 bg-white/90 px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm">
+                    {{ $course->difficulty_level }}
+                </span>
+            </div>
 
-                            <p class="text-xs text-gray-500 mb-3 font-medium">
-                                {{ $course->category->category_name ?? 'No Category' }}
-                            </p>
-
-                            <div class="flex justify-between items-center text-xs mb-4">
-                                <span class="text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">⭐ 4.8</span>
-                                <span class="text-gray-500 font-medium bg-gray-50 px-2 py-1 rounded-md">
-                                    ⏱ {{ $course->estimated_duration }} jam
-                                </span>
-                            </div>
-
-                            @auth
-                                @if(auth()->user()->role === 'student')
-                                    @if(auth()->user()->courses->contains('course_id', $course->course_id))
-                                        <p class="text-green-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                            <i class="fas fa-check-circle"></i> Sudah Enroll
-                                        </p>
-                                    @else
-                                        <p class="text-indigo-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                            <i class="fas fa-bookmark"></i> Belum Enroll
-                                        </p>
-                                    @endif
-                                @endif
-                            @endauth
-
-                            <div class="text-center text-sm font-bold text-purple-600 group-hover:text-purple-800 transition mt-2">
-                                Lihat Course →
-                            </div>
-
-                        </div>
-                    </a>
-
-                @endforeach
+            <div class="p-5">
+                <h3 class="font-bold text-gray-800 dark:text-gray-200 text-base line-clamp-2 mb-1">
+                    {{ $course->title }}
+                </h3>
+                <div class="text-center text-sm font-bold text-purple-600 transition mt-2">
+                    {{ $isLocked ? 'Terkunci 🔒' : 'Lihat Course →' }}
+                </div>
+            </div>
+        </a>
+    @endforeach
 
             </div>
 

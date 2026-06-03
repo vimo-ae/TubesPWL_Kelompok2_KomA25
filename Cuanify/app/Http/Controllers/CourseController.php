@@ -26,7 +26,17 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::with('lessons')->findOrFail($id);
+        $user = auth()->user();
+    
+    
+    $userLevel = $user->profile->level ?? 1;
+    $requiredLevel = $course->getRequiredLevel();
 
-        return view('courses.show', compact('course'));
+    // Satpam: Cek akses
+    if ($userLevel < $requiredLevel) {
+        return back()->with('error', 'Ups! Kamu butuh minimal **Level ' . $requiredLevel . '** untuk mengakses kursus ini.');
     }
+
+    return view('courses.show', compact('course'));
+}
 }
