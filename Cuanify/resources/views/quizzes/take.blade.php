@@ -6,7 +6,12 @@
         {{ $quiz->title }}
     </h1>
 
-    <form method="POST" action="{{ route('quizzes.submit', $quiz->quiz_id) }}">
+    <div class="mb-4">
+        Sisa Waktu:
+        <span id="timer"></span>
+    </div>
+
+    <form id="quizForm" method="POST" action="{{ route('quizzes.submit', $quiz->quiz_id) }}">
         @csrf
 
         @foreach($quiz->questions as $question)
@@ -62,5 +67,29 @@
     </form>
 
 </div>
+
+<script>
+    let timeLeft = {{ $quiz->time_limit * 60 }};
+
+    const timer = setInterval(function () {
+
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        document.getElementById('timer').innerText =
+            minutes + ':' + String(seconds).padStart(2, '0');
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+
+            alert('Waktu habis! Quiz akan otomatis dikumpulkan.');
+
+            document.getElementById('quizForm').submit();
+        }
+
+        timeLeft--;
+
+    }, 1000);
+</script>
 
 </x-app-layout>
