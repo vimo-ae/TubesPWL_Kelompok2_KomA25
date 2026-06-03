@@ -8,21 +8,50 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // Mengambil data dashboard (Menggunakan versi Incoming yang lebih akurat menghitung total data)
+    public function dashboard()
+    {
+        $totalStudents = User::where('role', 'student')->count();
+        $totalInstructors = User::where('role', 'instructor')->count();
+        $pendingInstructors = User::where('role', 'instructor')->where('status_instructor', 'pending')->count();
+        $totalCourses = Course::count();
+        $pendingCourses = Course::where('status', 'pending')->count();
+
+        return view('admin.dashboard', compact(
+            'totalStudents', 
+            'totalInstructors', 
+            'pendingInstructors', 
+            'totalCourses',
+            'pendingCourses' 
+        ));
+    }
+
+    // Mengambil data instruktur berdasarkan status (Menggunakan versi Incoming)
     public function instructors()
     {
         $instructors = User::where('role', 'instructor')->get();
-
         $approvedInstructors = User::where('role', 'instructor')
-                                ->where('status_instructor', 'approved')
-                                ->get();
-
+                                    ->where('status_instructor', 'approved')
+                                    ->get();
         $rejectedInstructors = User::where('role', 'instructor')
-                                ->where('status_instructor', 'rejected')
-                                ->get();
+                                    ->where('status_instructor', 'rejected')
+                                    ->get();
 
         return view('admin.instructors', compact('instructors', 'approvedInstructors', 'rejectedInstructors'));
     }
 
+    // Dipertahankan dari HEAD (Jika Anda masih membutuhkan route/view ini)
+    public function manageUsers()
+    {
+        $students = User::where('role', 'student')->get();
+        $allApprovedInstructors = User::where('role', 'instructor')
+                                      ->where('status_instructor', 'approved')
+                                      ->get();
+
+        return view('admin.users', compact('students', 'allApprovedInstructors'));
+    }
+
+    // Manajemen Kursus / Courses (Dari Incoming)
     public function courses()
     {
         $pendingCourses = Course::with('instructor')->where('status', 'pending')->get();
@@ -31,15 +60,16 @@ class AdminController extends Controller
         return view('admin.courses', compact('pendingCourses', 'publishedCourses'));
     }
 
+    // Menyetujui Instruktur Baru
     public function approve(int $user_id)
     {
         $user = User::findOrFail($user_id);
         $user->status_instructor = 'approved';
         $user->save();
-
         return redirect()->back();
     }
 
+    // Menolak Instruktur Baru (Menggunakan versi Incoming dengan alert success)
     public function reject(Request $request, int $user_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -52,6 +82,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Instruktur berhasil ditolak.');
     }
 
+    // Menyetujui Kursus (Dari Incoming)
     public function approveCourse(int $course_id)
     {
         $course = Course::findOrFail($course_id);
@@ -61,6 +92,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    // Menolak Kursus (Dari Incoming)
     public function rejectCourse(Request $request, int $course_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -73,6 +105,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Course berhasil ditolak.');
     }
 
+    // Detail Kursus (Dari Incoming)
     public function showCourse(int $course_id)
     {
         $course = Course::with(['instructor', 'lessons'])->findOrFail($course_id);
@@ -80,24 +113,7 @@ class AdminController extends Controller
         return view('admin.courses-show', compact('course'));
     }
 
-    public function dashboard()
-    {
-        $totalStudents = User::where('role', 'student')->count();
-        $totalInstructors = User::where('role', 'instructor')->count();
-        $pendingInstructors = User::where('role', 'instructor')->where('status_instructor', 'pending')->count();
-        $totalCourses = Course::count();
-        
-        $pendingCourses = Course::where('status', 'pending')->count();
-
-        return view('admin.dashboard', compact(
-            'totalStudents', 
-            'totalInstructors', 
-            'pendingInstructors', 
-            'totalCourses',
-            'pendingCourses' 
-        ));
-    }
-
+    // Daftar Student (Dari Incoming)
     public function students()
     {
         $users = User::where('role', 'student')->latest()->get();
@@ -106,6 +122,7 @@ class AdminController extends Controller
         return view('admin.users', compact('users', 'title'));
     }
 
+    // Daftar Seluruh Instruktur (Dari Incoming)
     public function allInstructors()
     {
         $users = User::where('role', 'instructor')->latest()->get();
@@ -114,12 +131,14 @@ class AdminController extends Controller
         return view('admin.users', compact('users', 'title'));
     }
 
+    // Detail User (Dari Incoming)
     public function showUser($id)
     {
         $user = User::findOrFail($id);
         return view('admin.user-detail', compact('user'));
     }
 
+    // Fitur Ban / Update Status Aktif User (Dari Incoming)
     public function updateUserStatus(Request $request, $id)
     {
         $request->validate([
@@ -132,7 +151,6 @@ class AdminController extends Controller
         $user->status = $request->status;
 
         if ($request->status === 'banned') {
-
             $user->ban_reason = $request->ban_reason;
     
             if ($request->ban_duration == 9999) {
@@ -141,7 +159,6 @@ class AdminController extends Controller
                 $user->banned_until = now()->addDays((int) $request->ban_duration);
             }
         } else {
-
             $user->banned_until = null;
             $user->ban_reason = null;
         }
