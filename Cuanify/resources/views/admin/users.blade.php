@@ -1,8 +1,17 @@
 <x-app-layout>
-    <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
-        <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
+    <div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
+        
+        @include('admin.partials.sidebar')
+        
+        <div class="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 w-full space-y-8">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 custom-header-spacing">
+                <a href="{{ route('admin.dashboard') }}" class="inline-block text-indigo-600 hover:text-indigo-800 font-medium transition-all text-sm sm:text-base">
+                    ← Kembali ke Dashboard
+                </a>
+            </div>
 
-            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[180px] flex items-center">
+            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[180px] flex items-center w-full">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
                 <div class="absolute bottom-[-20px] right-[5%] w-32 h-32 border-[15px] border-white/5 rounded-full"></div>
                 <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-10 md:px-16 py-6">
@@ -20,12 +29,10 @@
                             Pantau hak akses, kelola data akun murid, serta instruktur aktif yang terdaftar di dalam platform ekosistem digital.
                         </p>
                     </div>
-                    <div class="hidden md:flex flex-col items-center justify-center opacity-15 select-none">
-                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
 
                 <div class="bg-white rounded-[30px] shadow-xl border border-purple-100/30 overflow-hidden flex flex-col h-full">
                     <div class="p-5 bg-gradient-to-r from-purple-700 to-indigo-700 flex items-center justify-between">
@@ -40,7 +47,7 @@
                         </div>
                     </div>
 
-                    <div class="overflow-x-auto flex-grow">
+                    <div class="overflow-x-auto flex-grow w-full">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -100,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="overflow-x-auto flex-grow">
+                    <div class="overflow-x-auto flex-grow w-full">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
@@ -119,7 +126,7 @@
                                             {{ $inst->email }}
                                         </td>
                                         <td class="p-4 text-center pr-6">
-                                            <form action="/admin/instructors/revoke/{{ $inst->user_id }}" method="POST">
+                                            <form action="/admin/instructors/revoke/{{ $inst->user_id }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mencabut akses instruktur ini?')">
                                                 @csrf
                                                 <button class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-bold transition">
                                                     Revoke Access
@@ -147,8 +154,7 @@
                 </div>
 
             </div>
-
-        </div>
+        </div> 
     </div>
 
     <style>

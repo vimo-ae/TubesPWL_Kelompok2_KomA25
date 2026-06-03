@@ -3,6 +3,16 @@
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
 
+            @if(session('error'))
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-5 rounded-2xl shadow-sm flex items-start gap-4 transition-all">
+                    <span class="text-2xl mt-0.5">🚨</span>
+                    <div>
+                        <h3 class="font-bold text-lg mb-1">Perhatian!</h3>
+                        <p class="text-sm opacity-90 leading-relaxed">{!! session('error') !!}</p>
+                    </div>
+                </div>
+            @endif
+
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[240px] flex items-center">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
                 <div class="absolute bottom-[-20px] right-[10%] w-40 h-40 border-[20px] border-white/5 rounded-full"></div>

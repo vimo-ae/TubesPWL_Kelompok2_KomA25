@@ -69,4 +69,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class, 'user_id', 'user_id');
     }
+
+public function lessons()
+{
+    return $this->belongsToMany(
+        Lesson::class,
+        'lesson_user',
+        'user_id',     // foreign key di pivot untuk user
+        'lesson_id'    // foreign key di pivot untuk lesson
+    )->withTimestamps();
+}
 }
