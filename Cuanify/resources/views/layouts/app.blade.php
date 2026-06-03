@@ -30,7 +30,13 @@
                     </div>
                     
                     <nav class="px-4 space-y-1.5">
-                        @include('layouts.sidebar')
+                        @if(auth()->check())
+                            @if(auth()->user()->role === 'admin')
+                                @include('layouts.sidebar-admin')
+                            @else
+                                @include('layouts.sidebar-students')
+                            @endif
+                        @endif
                     </nav>
                 </div>
             </aside>

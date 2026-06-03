@@ -23,6 +23,20 @@
                 Passing Score: {{ $quiz->passing_score }}
             </p>
 
+            @if($quiz->best_score !== null)
+
+                <p class="text-green-600 font-semibold">
+                    Skor Terbaik: {{ $quiz->best_score }}/100
+                </p>
+            
+            @else
+            
+                <p class="text-gray-500">
+                    Belum pernah mengerjakan quiz
+                </p>
+            
+            @endif
+
             <p class="text-gray-600 mb-3">
                 Time Limit: {{ $quiz->time_limit }} menit
             </p>
