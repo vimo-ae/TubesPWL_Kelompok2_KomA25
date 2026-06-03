@@ -71,14 +71,16 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg py-3 px-4 space-y-1">
         
         <div class="flex items-center gap-3 px-3 py-2 mb-2 bg-pink-50/40 dark:bg-gray-800 rounded-xl">
-            <img 
-                src="{{ 
-                    Auth::user()->profile && Auth::user()->profile->profile_photo
-                        ? asset('storage/' . Auth::user()->profile->profile_photo)
+            <img
+                src="{{
+                    auth()->check() &&
+                    auth()->user()->profile &&
+                    auth()->user()->profile->profile_photo
+                        ? asset('storage/' . auth()->user()->profile->profile_photo)
                         : asset('images/profile-default.jpg')
                 }}"
-                alt="Avatar" 
-                class="w-9 h-9 rounded-full object-cover border border-pink-200"
+                alt="Avatar"
+                class="w-full h-full object-cover"
             >
             <div>
                 <div class="text-sm font-black text-gray-700 dark:text-gray-200">
