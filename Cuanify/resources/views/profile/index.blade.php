@@ -1,7 +1,7 @@
 <x-app-layout>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght=600;700;800&family=DM+Sans:wght=400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
 .pf { font-family:'DM Sans',sans-serif; max-width:960px; margin:0 auto; padding:0 0 32px; }
 
@@ -157,241 +157,226 @@
 .prog-bar-label { display:flex; justify-content:space-between; font-size:10px; color:#9ca3af; margin-bottom:3px; }
 </style>
 
-{{-- Struktur Pembungkus Sidebar khusus Admin dari Versi Kedua --}}
-<div class="{{ auth()->user()->role === 'admin' ? 'flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6' : '' }}">
-    
-    @if(auth()->user()->role === 'admin')
-        @include('admin.partials.sidebar')
+<div class="pf">
+
+    @if(session('success'))
+    <div style="background:#dcfce7;color:#166534;border:1px solid #bbf7d0;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13px;font-weight:600;">
+        {{ session('success') }}
+    </div>
     @endif
 
-    <div class="{{ auth()->user()->role === 'admin' ? 'flex-1 p-6 lg:p-10' : 'p-6' }} w-full">
+    <h1 class="pf-title">Profil Saya</h1>
+    <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
 
-        <div class="pf">
-
-            @if(session('success'))
-            <div style="background:#dcfce7;color:#166534;border:1px solid #bbf7d0;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13px;font-weight:600;">
-                {{ session('success') }}
-            </div>
-            @endif
-
-            <h1 class="pf-title">Profil Saya</h1>
-            <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
-
-            {{-- HERO --}}
-            <div class="hero-card">
-                <div class="avatar-wrap">
-                    <img src="{{ 
-                        Auth::user()->profile && Auth::user()->profile->profile_photo
-                        ? asset('storage/' . Auth::user()->profile->profile_photo)
-                        : asset('images/profile-default.jpg')
-                    }}" class="avatar-img" alt="Foto Profil">
-                    <a href="{{ route('profile.edit') }}" class="avatar-edit" onclick="event.preventDefault(); document.getElementById('editProfileModal').classList.remove('hidden')">
-                        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    </a>
+    {{-- HERO --}}
+    <div class="hero-card">
+        <div class="avatar-wrap">
+            <img src="{{ $profile->photo_url }}" class="avatar-img" alt="Foto Profil">
+            <a href="{{ route('profile.edit') }}" class="avatar-edit">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </a>
+        </div>
+        <div class="hero-info">
+            <h2 class="hero-name">
+                {{ $profile->full_name ?? $user->username }}
+                <span class="role-badge role-{{ $user->role }}">{{ ucfirst($user->role) }}</span>
+            </h2>
+            <p class="hero-bio">"{{ $profile->bio ?? 'Belum ada bio.' }}"</p>
+            <div class="hero-meta">
+                <div class="meta-row">
+                    <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    {{ $user->email }}
                 </div>
-                <div class="hero-info">
-                    <h2 class="hero-name">
-                        {{ $profile->full_name ?? $user->username }}
-                        <span class="role-badge role-{{ $user->role }}">{{ ucfirst($user->role) }}</span>
-                    </h2>
-                    <p class="hero-bio">"{{ $profile->bio ?? 'Belum ada bio.' }}"</p>
-                    <div class="hero-meta">
-                        <div class="meta-row">
-                            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            {{ $user->email }}
-                        </div>
-                        <div class="meta-row">
-                            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            Bergabung {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}
-                        </div>
-                    </div>
-                    <button class="btn-edit-hero" onclick="document.getElementById('editProfileModal').classList.remove('hidden')">
-                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                        Edit Profil
-                    </button>
-                    @include('profile.edit')
+                <div class="meta-row">
+                    <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Bergabung {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}
                 </div>
             </div>
-
-            {{-- STAT MINI ROW --}}
-            <div class="stat-row">
-                <div class="stat-mini">
-                    <div class="stat-mini-icon si-violet">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                    <p class="stat-mini-label">Level</p>
-                    <p class="stat-mini-val">{{ $profile->level ?? 1 }}</p>
-                    <p class="stat-mini-sub">{{ ($profile->level ?? 1) <= 3 ? 'Pemula' : (($profile->level ?? 1) <= 7 ? 'Menengah' : 'Expert') }}</p>
-                </div>
-                <div class="stat-mini">
-                    <div class="stat-mini-icon si-pink">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#db2777" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p class="stat-mini-label">Total XP</p>
-                    <p class="stat-mini-val">{{ number_format($profile->xp_points ?? 0) }}</p>
-                    <p class="stat-mini-sub">XP</p>
-                </div>
-                <div class="stat-mini">
-                    <div class="stat-mini-icon si-amber">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    </div>
-                    <p class="stat-mini-label">Streak Belajar</p>
-                    <p class="stat-mini-val">{{ $profile->streak_days ?? 0 }}</p>
-                    <p class="stat-mini-sub">hari</p>
-                </div>
-                <div class="stat-mini">
-                    <div class="stat-mini-icon si-teal">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    </div>
-                    <p class="stat-mini-label">Kelas Diikuti</p>
-                    <p class="stat-mini-val">{{ $enrolledCourses->count() }}</p>
-                    <p class="stat-mini-sub">kelas</p>
-                </div>
-            </div>
-
-            {{-- PROGRESS BELAJAR --}}
-            <div class="progress-card">
-                <div class="section-head">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    <p class="section-title">Progress Belajar</p>
-                </div>
-                <div class="progress-inner">
-                    <div class="ring-wrap">
-                        <svg width="80" height="80" viewBox="0 0 80 80">
-                            <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9fe" stroke-width="7"/>
-                            <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="7"
-                                stroke-dasharray="{{ round(2 * 3.14159 * 32) }}"
-                                stroke-dashoffset="{{ round(2 * 3.14159 * 32 * (1 - $persentaseTotal/100)) }}"
-                                stroke-linecap="round"/>
-                        </svg>
-                        <div class="ring-center">
-                            <span class="ring-pct">{{ $persentaseTotal }}%</span>
-                            <span class="ring-lbl">Selesai</span>
-                        </div>
-                    </div>
-                    <div class="progress-right">
-                        <p class="prog-encourage">Terus tingkatkan progresmu!</p>
-                        <div class="prog-stat-grid">
-                            <div class="prog-stat-box">
-                                <p class="psb-label">Materi Selesai</p>
-                                <p class="psb-val">{{ $materiSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
-                                <span class="psb-sub">materi</span>
-                            </div>
-                            <div class="prog-stat-box">
-                                <p class="psb-label">Kuis Selesai</p>
-                                <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
-                                <span class="psb-sub">kuis</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- TWO COL: INFO + HISTORY --}}
-            <div class="two-col">
-
-                {{-- INFORMASI PROFIL --}}
-                <div class="info-card">
-                    <div class="section-head">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <p class="section-title">Informasi Profil</p>
-                    </div>
-                    <div class="info-row">
-                        <p class="info-label">Nama Lengkap</p>
-                        <p class="info-val">{{ $profile->full_name }}</p>
-                    </div>
-                    <div class="info-row">
-                        <p class="info-label">Username</p>
-                        <p class="info-val">{{ $user->username }}</p>
-                    </div>
-                    <div class="info-row">
-                        <p class="info-label">Bio</p>
-                        <p class="info-val">{{ $profile->bio ?? '-' }}</p>
-                    </div>
-                    <div class="info-row">
-                        <p class="info-label">Email</p>
-                        <p class="info-val">{{ $user->email }}</p>
-                    </div>
-                    <div class="info-row">
-                        <p class="info-label">Bergabung Sejak</p>
-                        <p class="info-val">{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}</p>
-                    </div>
-                </div>
-
-                {{-- HISTORY XP --}}
-                <div class="info-card">
-                    <div class="section-head">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                        <p class="section-title">History XP</p>
-                    </div>
-                    @if($progress->isEmpty())
-                        <div class="empty-box">
-                            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
-                            <p style="font-weight:600;color:#6b7280;margin:8px 0 4px">Belum ada riwayat XP</p>
-                            <p style="font-size:11px">Selesaikan lesson untuk mendapatkan XP!</p>
-                        </div>
-                    @else
-                        <div style="overflow-x:auto">
-                            <table class="hist-table">
-                                <thead>
-                                    <tr>
-                                        <th>Lesson</th>
-                                        <th>XP</th>
-                                        <th>Tanggal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($progress as $p)
-                                    <tr>
-                                        <td style="font-weight:600">{{ $p->lesson->title ?? '-' }}</td>
-                                        <td><span class="xp-pill">+{{ $p->xp_earned ?? 10 }} XP</span></td>
-                                        <td style="color:#9ca3af;font-size:11px">
-                                            {{ $p->completed_at ? \Carbon\Carbon::parse($p->completed_at)->format('d M Y') : '-' }}
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-                </div>
-
-            </div>
-
-            {{-- KELAS YANG DIIKUTI --}}
-            <div class="courses-card">
-                <div class="section-head">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    <p class="section-title">Kelas yang Sedang Diikuti</p>
-                </div>
-                @if($enrolledCourses->isEmpty())
-                    <div class="empty-box">
-                        <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                        <p style="font-weight:600;color:#6b7280;margin:8px 0 4px">Kamu belum mendaftar di kelas manapun.</p>
-                        <a href="{{ route('courses.index') }}" style="font-size:12px;color:#7c3aed;font-weight:600">Yuk cari kelas seru di Daftar Course!</a>
-                    </div>
-                @else
-                    <div class="course-grid">
-                        @foreach($enrolledCourses as $course)
-                            <a href="{{ route('courses.show', $course->pivot->course_id) }}" class="course-item" style="text-decoration: none; color: inherit; display: block;">
-                                <p class="course-name">{{ $course->title }}</p>
-                                <span class="course-status-pill cs-{{ $course->pivot->status }}">
-                                    {{ $course->pivot->status === 'completed' ? 'Selesai' : ($course->pivot->status === 'active' ? 'Aktif' : 'Dropped') }}
-                                </span>
-                                <div class="prog-bar-label">
-                                    <span>Progress</span>
-                                    <span>{{ number_format($course->pivot->completion_percentage, 0) }}%</span>
-                                </div>
-                                <div class="prog-bar-wrap">
-                                    <div class="prog-bar-fill" style="width:{{ $course->pivot->completion_percentage }}%"></div>
-                                </div>
-                            </a>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-
+            <a href="{{ route('profile.edit') }}" class="btn-edit-hero">
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Edit Profil
+            </a>
         </div>
     </div>
+
+    {{-- STAT MINI ROW --}}
+    <div class="stat-row">
+        <div class="stat-mini">
+            <div class="stat-mini-icon si-violet">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <p class="stat-mini-label">Level</p>
+            <p class="stat-mini-val">{{ $profile->level ?? 1 }}</p>
+            <p class="stat-mini-sub">{{ ($profile->level ?? 1) <= 3 ? 'Pemula' : (($profile->level ?? 1) <= 7 ? 'Menengah' : 'Expert') }}</p>
+        </div>
+        <div class="stat-mini">
+            <div class="stat-mini-icon si-pink">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#db2777" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="stat-mini-label">Total XP</p>
+            <p class="stat-mini-val">{{ number_format($profile->xp_points ?? 0) }}</p>
+            <p class="stat-mini-sub">XP</p>
+        </div>
+        <div class="stat-mini">
+            <div class="stat-mini-icon si-amber">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <p class="stat-mini-label">Streak Belajar</p>
+            <p class="stat-mini-val">{{ $profile->streak_days ?? 0 }}</p>
+            <p class="stat-mini-sub">hari</p>
+        </div>
+        <div class="stat-mini">
+            <div class="stat-mini-icon si-teal">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <p class="stat-mini-label">Kelas Diikuti</p>
+            <p class="stat-mini-val">{{ $enrolledCourses->count() }}</p>
+            <p class="stat-mini-sub">kelas</p>
+        </div>
+    </div>
+
+    {{-- PROGRESS BELAJAR --}}
+    <div class="progress-card">
+        <div class="section-head">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <p class="section-title">Progress Belajar</p>
+        </div>
+        <div class="progress-inner">
+            <div class="ring-wrap">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9fe" stroke-width="7"/>
+                    <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="7"
+                        stroke-dasharray="{{ round(2 * 3.14159 * 32) }}"
+                        stroke-dashoffset="{{ round(2 * 3.14159 * 32 * (1 - $persentaseTotal/100)) }}"
+                        stroke-linecap="round"/>
+                </svg>
+                <div class="ring-center">
+                    <span class="ring-pct">{{ $persentaseTotal }}%</span>
+                    <span class="ring-lbl">Selesai</span>
+                </div>
+            </div>
+            <div class="progress-right">
+                <p class="prog-encourage">Terus tingkatkan progresmu!</p>
+                <div class="prog-stat-grid">
+                    <div class="prog-stat-box">
+                        <p class="psb-label">Materi Selesai</p>
+                        <p class="psb-val">{{ $materiSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
+                        <span class="psb-sub">materi</span>
+                    </div>
+                    <div class="prog-stat-box">
+                        <p class="psb-label">Kuis Selesai</p>
+                        <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
+                        <span class="psb-sub">kuis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- TWO COL: INFO + HISTORY --}}
+    <div class="two-col">
+
+        {{-- INFORMASI PROFIL --}}
+        <div class="info-card">
+            <div class="section-head">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <p class="section-title">Informasi Profil</p>
+            </div>
+            <div class="info-row">
+                <p class="info-label">Nama Lengkap</p>
+                <p class="info-val">{{ $profile->full_name }}</p>
+            </div>
+            <div class="info-row">
+                <p class="info-label">Username</p>
+                <p class="info-val">{{ $user->username }}</p>
+            </div>
+            <div class="info-row">
+                <p class="info-label">Bio</p>
+                <p class="info-val">{{ $profile->bio ?? '-' }}</p>
+            </div>
+            <div class="info-row">
+                <p class="info-label">Email</p>
+                <p class="info-val">{{ $user->email }}</p>
+            </div>
+            <div class="info-row">
+                <p class="info-label">Bergabung Sejak</p>
+                <p class="info-val">{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}</p>
+            </div>
+        </div>
+
+        {{-- HISTORY XP --}}
+        <div class="info-card">
+            <div class="section-head">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <p class="section-title">History XP</p>
+            </div>
+            @if($progress->isEmpty())
+                <div class="empty-box">
+                    <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
+                    <p style="font-weight:600;color:#6b7280;margin:8px 0 4px">Belum ada riwayat XP</p>
+                    <p style="font-size:11px">Selesaikan lesson untuk mendapatkan XP!</p>
+                </div>
+            @else
+                <div style="overflow-x:auto">
+                    <table class="hist-table">
+                        <thead>
+                            <tr>
+                                <th>Lesson</th>
+                                <th>XP</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($progress as $p)
+                            <tr>
+                                <td style="font-weight:600">{{ $p->lesson->title ?? '-' }}</td>
+                                <td><span class="xp-pill">+{{ $p->xp_earned ?? 10 }} XP</span></td>
+                                <td style="color:#9ca3af;font-size:11px">
+                                    {{ $p->completed_at ? \Carbon\Carbon::parse($p->completed_at)->format('d M Y') : '-' }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+
+    </div>
+
+    {{-- KELAS YANG DIIKUTI --}}
+    <div class="courses-card">
+        <div class="section-head">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <p class="section-title">Kelas yang Sedang Diikuti</p>
+        </div>
+        @if($enrolledCourses->isEmpty())
+            <div class="empty-box">
+                <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <p style="font-weight:600;color:#6b7280;margin:8px 0 4px">Kamu belum mendaftar di kelas manapun.</p>
+                <a href="{{ route('courses.index') }}" style="font-size:12px;color:#7c3aed;font-weight:600">Yuk cari kelas seru di Daftar Course!</a>
+            </div>
+        @else
+            <div class="course-grid">
+                @foreach($enrolledCourses as $course)
+                    <a href="{{ route('courses.show', $course->pivot->course_id) }}" class="course-item" style="text-decoration: none; color: inherit; display: block;">
+                        <p class="course-name">{{ $course->title }}</p>
+                        <span class="course-status-pill cs-{{ $course->pivot->status }}">
+                            {{ $course->pivot->status === 'completed' ? 'Selesai' : ($course->pivot->status === 'active' ? 'Aktif' : 'Dropped') }}
+                        </span>
+                        <div class="prog-bar-label">
+                            <span>Progress</span>
+                            <span>{{ number_format($course->pivot->completion_percentage, 0) }}%</span>
+                        </div>
+                        <div class="prog-bar-wrap">
+                            <div class="prog-bar-fill" style="width:{{ $course->pivot->completion_percentage }}%"></div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
 </div>
+
 </x-app-layout>
