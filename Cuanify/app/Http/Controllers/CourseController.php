@@ -18,23 +18,30 @@ class CourseController extends Controller
         $query->where('category_id', $request->category);
     }
 
+    $enrolledCourseIds = [];
+
+    if (auth()->check() && auth()->user()->role === 'student') {
+        $enrolledCourseIds = auth()->user()->courses()->pluck('courses.course_id')->toArray();
+    }
+
     $courses = $query->latest()->get();
 
-    return view('courses.index', compact('courses', 'categories'));
+    return view('courses.index', compact('courses', 'categories', 'enrolledCourseIds'));
 }
 
     public function show($id)
-    {
-        $course = Course::with('lessons')->findOrFail($id);
-        $user = auth()->user();
+{
+    $course = \App\Models\Course::with(['reviews.user', 'lessons'])->findOrFail($id);
     
+    $user = auth()->user();
     
-    $userLevel = $user->profile->level ?? 1;
-    $requiredLevel = $course->getRequiredLevel();
+    if ($user && $user->role === 'student') {
+        $userLevel = $user->profile->level ?? 1;
+        $requiredLevel = $course->getRequiredLevel();
 
-    // Satpam: Cek akses
-    if ($userLevel < $requiredLevel) {
-        return back()->with('error', 'Ups! Kamu butuh minimal **Level ' . $requiredLevel . '** untuk mengakses kursus ini.');
+        if ($userLevel < $requiredLevel) {
+            return back()->with('error', 'Ups! Kamu butuh minimal **Level ' . $requiredLevel . '** untuk mengakses kursus ini.');
+        }
     }
 
     return view('courses.show', compact('course'));

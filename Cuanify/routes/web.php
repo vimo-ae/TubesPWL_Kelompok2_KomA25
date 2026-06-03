@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
         ->name('settings.destroy');
 
     Route::get('/my-courses', [MyCourseController::class, 'index'])->name('my-courses.index');
+
+    Route::post('/courses/{course_id}/review', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
