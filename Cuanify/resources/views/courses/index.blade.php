@@ -138,7 +138,7 @@
                             </div>
                             
                             {{-- Card Body --}}
-                            <div class="p-5">
+                            <div class="p-5 flex flex-col h-40">
                             
                                 <h3 class="font-bold text-gray-800 dark:text-gray-200 text-base line-clamp-2 mb-1">
                                     {{ $course->title }}
@@ -148,7 +148,7 @@
                                     {{ $course->category->category_name ?? 'No Category' }}
                                 </p>
                             
-                                <div class="flex justify-between items-center text-xs">
+                                <div class="flex justify-between items-center text-xs mt-auto">
                                 
                                     {{-- Rating --}}
                                     <span class="flex items-center gap-1 text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">
