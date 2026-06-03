@@ -46,6 +46,29 @@ class DatabaseSeeder extends Seeder
         ]);
         $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
 
+        $user4 = User::create([
+            'username' => 'Guru 2',
+            'email' => 'guru2@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+            'status_instructor' => 'approved',          
+        ]);
+        $user4->profile()->firstOrCreate(['user_id' => $user4->user_id]);
+
+        $user5 = User::create([
+            'username' => 'Guru 3',
+            'email' => 'guru3@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+            'status_instructor' => 'approved',          
+        ]);
+        $user5->profile()->firstOrCreate(['user_id' => $user5->user_id]);
+
+        $instructorIds = [$user2->user_id, $user4->user_id, $user5->user_id];
 
         $this->call([
             CategorySeeder::class,
@@ -53,6 +76,9 @@ class DatabaseSeeder extends Seeder
             LessonSeeder::class,
             QuizSeeder::class,
             ReviewSeeder::class,
+            QuestionSeeder::class,
+            AnswerOptionSeeder::class,
+            QuizResultSeeder::class, // optional
         ]);
         
     }

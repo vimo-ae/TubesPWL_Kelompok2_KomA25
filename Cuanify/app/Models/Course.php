@@ -19,6 +19,7 @@ class Course extends Model
         'difficulty_level',
         'estimated_duration',
         'status',
+        'rejection_reason',
     ];
 
     /*

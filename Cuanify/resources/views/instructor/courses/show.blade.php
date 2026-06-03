@@ -95,11 +95,13 @@
 
         <div class="flex items-center gap-3 mt-4">
 
-            @if($course->status == 'draft')
+            @if($course->status == 'draft' || $course->status == 'published')
                 <a href="{{ route('instructor.lessons.create', $course->course_id) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all">
                     + Tambah Lesson
                 </a>
+            @endif
 
+            @if($course->status == 'draft')
                 <form action="{{ route('instructor.courses.submit', $course->course_id) }}" 
                       method="POST"
                       onsubmit="return confirm('Yakin ingin mengajukan verifikasi? Setelah diajukan, detail course dan seluruh materi lesson tidak dapat diedit atau dihapus lagi.');">
@@ -127,7 +129,7 @@
                 </div>
 
                 <div class="flex gap-2">
-                    @if($course->status == 'draft')
+                    @if($course->status == 'draft' || $course->status == 'published')
                         <a href="{{ route('instructor.lessons.edit', ['course' => $course->course_id, 'lesson' => $lesson->lesson_id]) }}" 
                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-all">
                             Edit
@@ -143,9 +145,15 @@
                                 Delete
                             </button>
                         </form>
+
+                        <a href="{{ route('instructor.lessons.preview', ['course' => $course->course_id,'lesson' => $lesson->lesson_id]) }}" 
+                           class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm transition-all" target="_blank"> 
+                            Preview
+                        </a>
+
                     @else
                         <span class="text-gray-400 text-sm font-medium bg-gray-100 px-2.5 py-1 rounded flex items-center gap-1">
-                            <i class="fas fa-lock text-xs"></i> Terkunci
+                            <i class="fas fa-lock text-xs"></i> Terkunci (Sedang Direview)
                         </span>
                     @endif
                 </div>

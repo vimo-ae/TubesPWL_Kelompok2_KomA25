@@ -18,7 +18,53 @@ class LessonSeeder extends Seeder
         Lesson::create([
             'course_id' => 1,
             'title' => 'Apa Itu Finansial Pribadi?',
-            'content' => 'Pengenalan konsep finansial pribadi, pentingnya mengelola keuangan sejak dini, dan bagaimana kebiasaan finansial mempengaruhi kualitas hidup.',
+            'content' => '
+            <h2>Pengertian Finansial Pribadi</h2>
+
+<p>
+    Finansial pribadi adalah ilmu yang mempelajari cara seseorang mengelola pendapatan,
+    pengeluaran, tabungan, investasi, dan utang untuk mencapai tujuan keuangan yang
+    diinginkan. Pengelolaan keuangan yang baik membantu seseorang memenuhi kebutuhan
+    saat ini tanpa mengabaikan persiapan untuk masa depan.
+</p>
+
+<h2>Pentingnya Mengelola Keuangan Sejak Dini</h2>
+
+<p>
+    Mengelola keuangan sejak dini merupakan langkah penting untuk membangun kebiasaan
+    finansial yang sehat. Dengan memahami cara mengatur uang, seseorang dapat belajar
+    membedakan kebutuhan dan keinginan, membuat anggaran yang tepat, serta menghindari
+    perilaku konsumtif yang berlebihan.
+</p>
+
+<h2>Kebiasaan Finansial yang Baik</h2>
+
+<p>
+    Beberapa kebiasaan finansial yang baik antara lain mencatat pengeluaran, menabung
+    secara rutin, menyisihkan dana darurat, dan menggunakan uang sesuai prioritas.
+    Kebiasaan-kebiasaan tersebut membantu menjaga kestabilan kondisi keuangan dan
+    mempermudah pencapaian tujuan finansial.
+</p>
+
+<h2>Dampak terhadap Kualitas Hidup</h2>
+
+<p>
+    Kebiasaan finansial yang baik dapat meningkatkan kualitas hidup karena memberikan
+    rasa aman dan mengurangi risiko masalah keuangan. Seseorang yang mampu mengelola
+    keuangannya dengan baik cenderung lebih siap menghadapi kebutuhan mendadak,
+    memiliki perencanaan masa depan yang jelas, dan dapat mencapai tujuan hidup
+    dengan lebih terarah.
+</p>
+
+<h2>Manfaat Mempelajari Finansial Pribadi</h2>
+
+<ul>
+    <li>Mengontrol pengeluaran dengan lebih efektif</li>
+    <li>Membantu mencapai tujuan keuangan</li>
+    <li>Membangun kebiasaan menabung secara konsisten</li>
+    <li>Mengurangi risiko utang yang tidak diperlukan</li>
+    <li>Meningkatkan kualitas hidup dan kesejahteraan finansial</li>
+</ul>',
             'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
             'pdf_file' => 'pdf/apa-itu-finansial-pribadi.pdf',
             'xp_reward' => 100,
