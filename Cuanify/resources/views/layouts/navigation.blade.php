@@ -1,6 +1,30 @@
 <nav x-data="{ open: false }" class="w-full bg-[#fff5f8] dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between md:justify-end">
+        <div class="hidden md:flex items-center mr-auto">
+
+            <!-- Burger -->
+            <button
+                @click="sidebarOpen = !sidebarOpen"
+                class="p-2 rounded-xl hover:bg-pink-100 transition">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-6 h-6 text-purple-600"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"/>
+
+                </svg>
+            
+            </button>
         
+        </div>
+        
+        <!-- Profile -->
         <div class="flex items-center md:hidden">
             <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
         </div>
