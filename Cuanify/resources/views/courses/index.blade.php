@@ -72,7 +72,16 @@
                 @foreach($courses as $course)
                     
                     @php
-                        // 1. Tentukan banner default berdasarkan kategori jika thumbnail kosong
+                        // --- Logika dari branch: fitur-exp (Leveling & Enrollment) ---
+                        $requiredLevel = method_exists($course, 'getRequiredLevel') ? $course->getRequiredLevel() : 1; 
+                        $userLevel = (auth()->check() && auth()->user()->role === 'student') ? (auth()->user()->profile->level ?? 1) : 0;
+                        $isLocked = (auth()->check() && auth()->user()->role === 'student' && $userLevel < $requiredLevel);
+                        
+                        // Proteksi jika $enrolledCourseIds tidak terdefinisi dari controller
+                        $enrolledIds = isset($enrolledCourseIds) ? $enrolledCourseIds : (auth()->check() ? auth()->user()->courses->pluck('course_id')->toArray() : []);
+                        $isEnrolled = (auth()->check() && auth()->user()->role === 'student') ? in_array($course->course_id, $enrolledIds) : false;
+
+                        // --- Logika dari branch: main (Fallback Banner Image) ---
                         $defaultBanner = match($course->category_id) {
                             1 => 'images/courses/literasi-keuangan.jpg',
                             2 => 'images/courses/umkm-kewirausahaan.jpg',
@@ -82,7 +91,6 @@
                             default => null,
                         };
 
-                        // 2. Cek hierarki image yang tersedia
                         if ($course->thumbnail) {
                             $imageSrc = asset('storage/' . $course->thumbnail);
                         } elseif ($defaultBanner && file_exists(public_path($defaultBanner))) {
@@ -92,12 +100,20 @@
                         }
                     @endphp
 
-                    <a href="{{ route('courses.show', $course->course_id) }}"
-                       class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block relative flex flex-col justify-between">
+                    <a href="{{ $isLocked ? '#' : route('courses.show', $course->course_id) }}"
+                       class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block relative flex flex-col justify-between {{ $isLocked ? 'opacity-80' : '' }}">
                         
                         <div>
                             {{-- Image Container --}}
                             <div class="h-40 overflow-hidden relative">
+                                {{-- Overlay Lock Screen jika level tidak mencukupi --}}
+                                @if($isLocked)
+                                    <div class="absolute inset-0 bg-black/40 z-20 flex flex-col items-center justify-center text-white backdrop-blur-sm">
+                                        <i class="fas fa-lock text-2xl mb-2"></i>
+                                        <span class="text-[10px] font-bold uppercase">Butuh Level {{ $requiredLevel }}</span>
+                                    </div>
+                                @endif
+
                                 <img src="{{ $imageSrc }}"
                                      alt="{{ $course->title }}"
                                      class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
@@ -106,6 +122,13 @@
                                 <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm z-10">
                                     📚 {{ $course->difficulty_level }}
                                 </span>
+
+                                {{-- Badge Sudah Enroll (Kanan Atas) --}}
+                                @if($isEnrolled)
+                                    <span class="absolute top-3 right-3 bg-green-500/95 text-white px-3 py-1 rounded-full text-[10px] font-bold shadow-sm backdrop-blur-md border border-green-400 z-10">
+                                        ✅ Diikuti
+                                    </span>
+                                @endif
                             </div>
 
                             {{-- Card Body --}}
@@ -125,28 +148,19 @@
                                         ⏱ {{ $course->estimated_duration }} jam
                                     </span>
                                 </div>
-
-                                {{-- Status Pendaftaran Student --}}
-                                @auth
-                                    @if(auth()->user()->role === 'student')
-                                        @if(auth()->user()->courses->contains('course_id', $course->course_id))
-                                            <p class="text-green-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                                ✅ Sudah Enroll
-                                            </p>
-                                        @else
-                                            <p class="text-indigo-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                                📌 Belum Enroll
-                                            </p>
-                                        @endif
-                                    @endif
-                                @endauth
                             </div>
                         </div>
 
                         {{-- Card Footer Action --}}
                         <div class="p-5 pt-0 mt-4">
-                            <div class="text-center text-sm font-bold text-purple-600 group-hover:text-purple-800 transition">
-                                Lihat Course →
+                            <div class="text-center text-sm font-bold transition {{ $isEnrolled ? 'text-green-600 dark:text-green-400' : 'text-purple-600' }}">
+                                @if($isLocked)
+                                    Terkunci 🔒
+                                @elseif($isEnrolled)
+                                    Lanjut Belajar 🚀
+                                @else
+                                    Lihat Course →
+                                @endif
                             </div>
                         </div>
 

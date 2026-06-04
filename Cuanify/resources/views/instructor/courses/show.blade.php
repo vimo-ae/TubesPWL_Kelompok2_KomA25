@@ -160,6 +160,35 @@
             </div>
         @endforeach
 
+        <div class="mt-12 bg-gray-50 p-6 rounded-[30px] border border-gray-100">
+            <h3 class="text-2xl font-extrabold text-gray-800 mb-6">⭐ Ulasan dari Siswa</h3>
+            
+            <div class="space-y-4">
+                @forelse($course->reviews as $review)
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-600 shrink-0">
+                            {{ substr($review->user->name, 0, 1) }}
+                        </div>
+                        
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-gray-800">{{ $review->user->name }}</span>
+                                <span class="text-yellow-400 font-bold">
+                                    {{ $review->rating }} ★
+                                </span>
+                            </div>
+                            <p class="text-gray-600 text-sm">{{ $review->comment }}</p>
+                            <span class="text-[10px] text-gray-400 mt-2 block">{{ $review->created_at->diffForHumans() }}</span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-6 text-gray-500 italic">
+                        Belum ada ulasan untuk kursus ini.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
     </div>
 
 </x-app-layout>

@@ -53,68 +53,59 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         
             @foreach($courses as $course)
-
-            <a href="{{ route('courses.show', $course->course_id) }}"
-               class="block group">
+    <a href="{{ route('courses.show', $course->course_id) }}" class="block group">
+        <div class="bg-white rounded-2xl overflow-hidden border border-purple-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
             
-                <div class="bg-white rounded-2xl overflow-hidden border border-purple-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-                
-                    <!-- Thumbnail -->
-                    <div class="relative h-36 overflow-hidden">
-                    
-                        @if($course->thumbnail)
-                    
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    
-                        @else
-                    
-                            <div class="w-full h-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-4xl">
-                                📚
-                            </div>
-                        
-                        @endif
-                        
-                        <div class="absolute top-3 left-3 bg-white/95 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full shadow">
-                            {{ ucfirst($course->difficulty_level) }}
-                        </div>
-                    
+            <div class="relative h-36 overflow-hidden">
+                @if($course->thumbnail)
+                    <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                @else
+                    <div class="w-full h-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-4xl">
+                        📚
                     </div>
-                
-                    <!-- Content -->
-                    <div class="p-4">
-                    
-                        <p class="text-[10px] uppercase tracking-[2px] font-bold text-purple-500 mb-2">
-                            {{ $course->category->category_name ?? 'Course' }}
-                        </p>
-                    
-                        <h2 class="text-lg font-bold text-gray-800 leading-snug line-clamp-2 mb-2">
-                            {{ $course->title }}
-                        </h2>
-                    
-                        <p class="text-sm text-gray-500 line-clamp-2 mb-4">
-                            {{ $course->description }}
-                        </p>
-                    
-                        <div class="flex items-center justify-between text-xs">
-                        
-                            <div class="text-purple-600 font-semibold">
-                                📚 {{ $course->lessons->count() }} Lesson
-                            </div>
-                        
-                            <div class="text-gray-400">
-                                ⏱ {{ $course->estimated_duration }} Jam
-                            </div>
-                        
-                        </div>
-                    
-                    </div>
-                
+                @endif
+                <div class="absolute top-3 left-3 bg-white/95 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full shadow">
+                    {{ ucfirst($course->difficulty_level) }}
                 </div>
-            
-            </a>
-            
-            @endforeach
+            </div>
+
+            <div class="p-4">
+                <p class="text-[10px] uppercase tracking-[2px] font-bold text-purple-500 mb-2">
+                    {{ $course->category->category_name ?? 'Course' }}
+                </p>
+
+                <h2 class="text-lg font-bold text-gray-800 leading-snug line-clamp-2 mb-2">
+                    {{ $course->title }}
+                </h2>
+
+                <p class="text-sm text-gray-500 line-clamp-2 mb-4">
+                    {{ $course->description }}
+                </p>
+
+                <div class="flex items-center justify-between text-xs mb-4">
+                    <div class="text-purple-600 font-semibold">
+                        📚 {{ $course->lessons->count() }} Lesson
+                    </div>
+                    <div class="text-gray-400">
+                        ⏱ {{ $course->estimated_duration }} Jam
+                    </div>
+                </div>
+
+                <div class="mt-2 border-t pt-3">
+                    <div class="flex justify-between items-center text-[10px] font-bold text-gray-500 mb-1">
+                        <span>Progress Belajar</span>
+                        <span class="text-purple-600">{{ number_format($course->pivot->completion_percentage ?? 0, 0) }}%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden shadow-inner">
+                        <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full transition-all duration-500" 
+                            style="width: {{ $course->pivot->completion_percentage ?? 0 }}%">
+                        </div>
+                    </div>
+                </div>
+                
+            </div> </div> </a>
+@endforeach
         
         </div>
 

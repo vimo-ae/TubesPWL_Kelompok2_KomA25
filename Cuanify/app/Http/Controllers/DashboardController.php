@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
+use App\Models\Progress;
+use App\Models\Lesson;
+use App\Models\Category;
+
+class DashboardController extends Controller
+{
+    public function index()
+{
+    $user = Auth::user();
+
+    if ($user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if ($user->role === 'instructor') {
+        $courseIds = $user->createdCourses()->pluck('course_id');
+        
+        $totalCourses = $courseIds->count();
+        
+        $totalStudents = \App\Models\Enrollment::whereIn('course_id', $courseIds)->count();
+
+        $averageRating = \App\Models\Review::whereIn('course_id', $courseIds)->avg('rating') ?? 0;
+        $averageRating = number_format($averageRating, 1); 
+        
+        $recentCourses = $user->createdCourses()->latest()->take(4)->get();
+
+        return view('dashboard-instructor', compact('totalCourses', 'totalStudents', 'averageRating', 'recentCourses'));
+    }
+
+    $profile = $user->profile;
+
+    $xp = $profile->xp_points ?? 0;
+    $level = $profile->level ?? 1;
+    $xpPercentage = ($xp % 500) / 500 * 100; 
+
+    $completedLessons = \App\Models\Progress::where('profile_id', $profile->profile_id ?? null)
+                                ->where('is_completed', true)->count();
+    $totalLessons = \App\Models\Lesson::count();
+    $progressPercentage = $totalLessons > 0 ? ($completedLessons / $totalLessons) * 100 : 0;
+
+    $recentAchievements = \App\Models\Progress::where('profile_id', $profile->profile_id ?? null)
+                                ->where('is_completed', true)
+                                ->latest('completed_at')
+                                ->take(5)
+                                ->get();
+
+    $recommendedCourses = \App\Models\Category::has('courses')
+        ->with(['courses' => function($query) {
+            $query->limit(1); 
+        }])
+        ->get();
+
+    return view('dashboard', compact(
+        'profile', 'level', 'xp', 'xpPercentage', 
+        'completedLessons', 'totalLessons', 'progressPercentage', 'recentAchievements',
+        'recommendedCourses'
+    ));
+}
+}
