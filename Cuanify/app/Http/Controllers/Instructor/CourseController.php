@@ -13,10 +13,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::where(
-            'user_id',
-            Auth::user()->user_id
-        )->get();
+        $courses = Course::all();
 
         return view('instructor.courses.index', compact('courses'));
     }
@@ -40,7 +37,6 @@ class CourseController extends Controller
         ]);
 
         Course::create([
-            'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,

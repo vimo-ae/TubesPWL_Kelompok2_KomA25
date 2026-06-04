@@ -16,7 +16,7 @@
                 <div>
 
                     <div class="inline-flex items-center gap-2 bg-white/15 border border-white/10 backdrop-blur-md text-white text-[11px] uppercase tracking-[3px] font-bold px-4 py-2 rounded-full mb-4">
-                        📚 Learning Space
+                        Learning Space
                     </div>
 
                     <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
@@ -25,7 +25,7 @@
 
                     <p class="text-sm md:text-base text-purple-100 leading-relaxed max-w-2xl">
                         Semua course yang sudah kamu enroll akan tampil di sini.
-                        Yuk lanjutkan progress belajar kamu 🚀
+                        Yuk lanjutkan progress belajar kamu 
                     </p>
 
                 </div>
