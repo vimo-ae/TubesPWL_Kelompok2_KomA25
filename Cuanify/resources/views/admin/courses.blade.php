@@ -1,14 +1,47 @@
 <x-app-layout>
     <div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6" x-data="{ showRejectModal: false, selectedCourseId: null, selectedCourseTitle: '' }">
         
+        {{-- Sidebar Section --}}
         @include('admin.partials.sidebar')
         
+        {{-- Main Content Container --}}
         <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0">
             
-            <h1 class="text-2xl sm:text-3xl font-extrabold mb-6 text-indigo-700">
-                Verifikasi Course Baru
-            </h1>
+            <!-- Banner Section (SAMA PERSIS DENGAN image_69a8c8.png) -->
+            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-8">
+                
+                <!-- Dekorasi Lingkaran Bulat Solid (Sisi Kanan) -->
+                <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none flex items-center justify-end">
+                    <!-- Bulatan Besar Atas -->
+                    <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
+                    <!-- Bulatan Kecil Bawah -->
+                    <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
+                </div>
 
+                <div class="relative z-10 w-full flex flex-col justify-center px-10 py-8 text-white">
+                    <!-- Badge Kapsul dengan Ikon Users/Kelola -->
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4 border border-white/20 w-fit text-white/95">
+                        <svg class="w-3.5 h-3.5 text-white/90" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0-2.625.372 9.337 9.337 0 0 0-4.121-1.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                        </svg>
+                        KELOLA COURSE
+                    </div>
+
+                    <!-- Judul Utama -->
+                    <h1 class="text-3xl font-semibold tracking-normal mb-3 text-white">
+                        Verifikasi Course <span class="text-[#f7e06d] font-bold">Cuanify</span>
+                    </h1>
+
+                    <!-- Deskripsi Tipis Halus -->
+                    <p class="text-white/90 text-[13px] max-w-4xl font-normal tracking-normal leading-relaxed opacity-95">
+                        Tinjau course yang dikirim instruktur, lakukan approve atau reject sebelum course dipublikasikan ke platform pembelajaran.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ==================== SECTION: PENDING COURSES ==================== -->
+            
+            {{-- Pending Courses: Mobile View (Card Layout) --}}
             <div class="grid grid-cols-1 gap-4 sm:hidden mb-10">
                 @forelse ($pendingCourses as $course)
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-indigo-100 flex flex-col gap-3">
@@ -58,6 +91,7 @@
                 @endforelse
             </div>
 
+            {{-- Pending Courses: Desktop View (Table Layout) --}}
             <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-10">
                 <table class="w-full">
                     <thead class="bg-indigo-50 border-b border-indigo-100">
@@ -84,12 +118,14 @@
                                     <a href="{{ route('admin.courses.show', $course->course_id) }}" class="bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-lg text-sm font-bold transition">
                                         Detail
                                     </a>
+                                    
                                     <form action="{{ route('admin.courses.approve', $course->course_id) }}" method="POST" onsubmit="return confirm('Yakin publish course ini?');">
                                         @csrf
                                         <button class="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-1.5 rounded-lg text-sm font-bold transition">
                                             Approve
                                         </button>
                                     </form>
+                                    
                                     <button type="button" 
                                         @click="showRejectModal = true; selectedCourseId = {{ $course->course_id }}; selectedCourseTitle = '{{ addslashes($course->title) }}'"
                                         class="bg-red-100 text-red-700 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg text-sm font-bold transition">
@@ -106,10 +142,19 @@
                 </table>
             </div>
 
-            <h1 class="text-2xl sm:text-3xl font-extrabold mb-6 text-emerald-600">
-                Course Ter-Publish
-            </h1>
+            <!-- ==================== SECTION: PUBLISHED COURSES ==================== -->
+            
+            {{-- Published Heading --}}
+            <div class="mb-6">
+                <h2 class="text-3xl font-extrabold text-emerald-600">
+                    Course Ter-Publish
+                </h2>
+                <p class="text-gray-500 mt-1">
+                    Daftar course yang telah disetujui dan dipublikasikan.
+                </p>
+            </div>  
 
+            {{-- Published Courses: Mobile View (Card Layout) --}}
             <div class="grid grid-cols-1 gap-4 sm:hidden mb-6">
                 @forelse ($publishedCourses as $course)
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-emerald-100 flex flex-col gap-3">
@@ -140,6 +185,7 @@
                 @endforelse
             </div>
 
+            {{-- Published Courses: Desktop View (Table Layout) --}}
             <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <table class="w-full">
                     <thead class="bg-emerald-50 border-b border-emerald-100">
@@ -175,6 +221,7 @@
                 </table>
             </div>
 
+            <!-- ==================== MODAL: REJECT COURSE ==================== -->
             <div x-show="showRejectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm" x-cloak>
                 <div class="bg-white p-6 rounded-2xl w-full max-w-md shadow-xl" @click.away="showRejectModal = false">
                     <h2 class="text-xl font-bold mb-2 text-gray-800">Reject Course</h2>

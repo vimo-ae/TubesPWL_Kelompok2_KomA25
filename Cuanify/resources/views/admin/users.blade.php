@@ -3,38 +3,84 @@
         
         @include('admin.partials.sidebar')
         
-        <div class="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 w-full space-y-8">
+        <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0 w-full space-y-6 cat-wrap">
             
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 custom-header-spacing">
-                <a href="{{ route('admin.dashboard') }}" class="inline-block text-indigo-600 hover:text-indigo-800 font-medium transition-all text-sm sm:text-base">
+            <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+            .cat-wrap { font-family:'DM Sans', sans-serif; }
+
+            /* HERO BANNER UNIFORM STYLE */
+            .admin-hero { 
+                background: linear-gradient(135deg, #a855f7, #ec4899); 
+                border-radius: 24px; 
+                padding: 36px 40px; 
+                margin-bottom: 24px; 
+                position: relative; 
+                overflow: hidden; 
+                box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.15);
+            }
+            .admin-hero::before { content:''; position:absolute; width:180px; height:180px; background:rgba(255,255,255,.08); border-radius:50%; top:-50px; right:40px; }
+            .admin-hero::after  { content:''; position:absolute; width:100px; height:100px; background:rgba(255,255,255,.06); border-radius:50%; bottom:-20px; right:160px; }
+            
+            .hero-badge { 
+                display: inline-flex; 
+                align-items: center; 
+                gap: 6px; 
+                background: rgba(255,255,255,.18); 
+                border: 1px solid rgba(255,255,255,.25); 
+                backdrop-filter: blur(4px); 
+                padding: 6px 14px; 
+                border-radius: 99px; 
+                font-size: 11px; 
+                font-weight: 700; 
+                color: #fff; 
+                text-transform: uppercase; 
+                letter-spacing: .06em; 
+                margin-bottom: 14px; 
+            }
+            .hero-title { 
+                font-family: 'DM Sans', sans-serif; 
+                font-size: 32px; 
+                font-weight: 800; 
+                color: #fff; 
+                margin: 0 0 8px; 
+                position: relative; 
+                z-index: 1; 
+                letter-spacing: -0.02em;
+            }
+            .hero-title span { color:#fde68a; }
+            .hero-desc { 
+                font-size: 14px; 
+                color: rgba(255,255,255,.85); 
+                margin: 0; 
+                position: relative; 
+                z-index: 1; 
+                font-weight: 400;
+            }
+            </style>
+
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <a href="{{ route('admin.dashboard') }}" class="inline-block text-purple-600 hover:text-purple-800 font-medium transition-all text-sm sm:text-base">
                     ← Kembali ke Dashboard
                 </a>
             </div>
 
-            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[180px] flex items-center w-full">
-                <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
-                <div class="absolute bottom-[-20px] right-[5%] w-32 h-32 border-[15px] border-white/5 rounded-full"></div>
-                <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-10 md:px-16 py-6">
-                    <div class="w-full md:w-2/3 text-white">
-                        <div class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 border border-white/30">
-                            <svg class="w-3 h-3 text-purple-200" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                            </svg>
-                            User Management
-                        </div>
-                        <h1 class="text-3xl font-extrabold tracking-tight mb-2">
-                            Kelola Pengguna <span class="text-yellow-300">Cuanify</span>
-                        </h1>
-                        <p class="text-purple-100 text-xs max-w-md opacity-90 leading-relaxed">
-                            Pantau hak akses, kelola data akun murid, serta instruktur aktif yang terdaftar di dalam platform ekosistem digital.
-                        </p>
-                    </div>
+            {{-- HERO BANNER --}}
+            <div class="admin-hero">
+                <div class="hero-badge">
+                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline; margin-right:2px; vertical-align:text-top;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                    </svg>
+                    Kelola Pengguna
                 </div>
+                <h1 class="hero-title">Verifikasi Pengguna <span>Cuanify</span></h1>
+                <p class="hero-desc">Pantau hak akses, kelola data akun murid, serta instruktur aktif yang terdaftar di dalam platform ekosistem digital.</p>
             </div>
 
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
 
-                <div class="bg-white rounded-[30px] shadow-xl border border-purple-100/30 overflow-hidden flex flex-col h-full">
+                {{-- DAFTAR MURID UTAMA --}}
+                <div class="bg-white rounded-[24px] shadow-xl border border-purple-100/40 overflow-hidden flex flex-col h-full">
                     <div class="p-5 bg-gradient-to-r from-purple-700 to-indigo-700 flex items-center justify-between">
                         <div>
                             <h2 class="text-base font-extrabold text-white flex items-center gap-2">
@@ -55,7 +101,7 @@
                                     <th class="p-4">Email</th>
                                     <th class="p-4 text-center pr-6">Tindakan</th>
                                 </tr>
-                            </thead>
+                            </table>
                             <tbody class="divide-y divide-gray-50 text-xs text-gray-700">
                                 @forelse ($students ?? [] as $student)
                                     <tr class="hover:bg-pink-50/20 transition">
@@ -94,7 +140,8 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-[30px] shadow-xl border border-purple-100/30 overflow-hidden flex flex-col h-full">
+                {{-- INSTRUKTUR TERVERIFIKASI --}}
+                <div class="bg-white rounded-[24px] shadow-xl border border-purple-100/40 overflow-hidden flex flex-col h-full">
                     <div class="p-5 bg-gradient-to-r from-purple-700 to-indigo-700 flex items-center justify-between">
                         <div>
                             <h2 class="text-base font-extrabold text-white flex items-center gap-2">
