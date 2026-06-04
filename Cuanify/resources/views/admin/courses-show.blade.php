@@ -26,13 +26,22 @@
                 
                 <p class="text-gray-600 mb-6 leading-relaxed">{{ $course->description }}</p>
                 
-                <div class="flex flex-wrap items-center gap-4 text-sm font-medium text-gray-600 bg-gray-50 p-4 rounded-xl">
-                    <span class="flex items-center gap-2"><i class="fas fa-user-tie text-indigo-500"></i> Instruktur: {{ $course->instructor->username }}</span>
-                    <span class="text-gray-300">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-layer-group text-indigo-500"></i> Level: <span class="capitalize">{{ $course->difficulty_level }}</span></span>
-                    <span class="text-gray-300">|</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-clock text-indigo-500"></i> Estimasi: {{ $course->estimated_duration }} Jam</span>
-                </div>
+            <div class="flex flex-wrap items-center gap-4 text-sm font-medium text-gray-600 bg-gray-50 p-4 rounded-xl">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-user-tie text-indigo-500"></i> 
+                    Instruktur: {{ $course->instructor->username ?? 'No Instructor' }}
+                </span>
+                <span class="text-gray-300">|</span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-layer-group text-indigo-500"></i> 
+                    Level: <span class="capitalize">{{ $course->difficulty_level }}</span>
+                </span>
+                <span class="text-gray-300">|</span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-clock text-indigo-500"></i> 
+                    Estimasi: {{ $course->estimated_duration }} Jam
+                </span>
+            </div>
             </div>
 
             @if($course->status == 'pending')

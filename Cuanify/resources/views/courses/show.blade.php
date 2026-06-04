@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen bg-[#f7eef7] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
+    <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-6xl mx-auto">
             @php
             $isOwner = auth()->check() && auth()->user()->role === 'instructor' && $course->user_id === auth()->id();
