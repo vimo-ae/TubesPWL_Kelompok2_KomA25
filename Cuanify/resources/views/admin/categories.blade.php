@@ -9,57 +9,6 @@
         <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
         .cat-wrap { font-family:'DM Sans', sans-serif; }
-
-        /* HERO */
-        .admin-hero { 
-            background: linear-gradient(135deg, #a855f7, #ec4899); 
-            border-radius: 24px; 
-            padding: 36px 40px; 
-            margin-bottom: 24px; 
-            position: relative; 
-            overflow: hidden; 
-            box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.15);
-        }
-        .admin-hero::before { content:''; position:absolute; width:180px; height:180px; background:rgba(255,255,255,.08); border-radius:50%; top:-50px; right:40px; }
-        .admin-hero::after  { content:''; position:absolute; width:100px; height:100px; background:rgba(255,255,255,.06); border-radius:50%; bottom:-20px; right:160px; }
-        
-        .hero-badge { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 6px; 
-            background: rgba(255,255,255,.18); 
-            border: 1px solid rgba(255,255,255,.25); 
-            backdrop-filter: blur(4px); 
-            padding: 6px 14px; 
-            border-radius: 99px; 
-            font-size: 11px; 
-            font-weight: 700; 
-            color: #fff; 
-            text-transform: uppercase; 
-            letter-spacing: .06em; 
-            margin-bottom: 14px; 
-        }
-        .hero-title { 
-            font-family: 'DM Sans', sans-serif; 
-            font-size: 32px; 
-            font-weight: 800; 
-            color: #fff; 
-            margin: 0 0 8px; 
-            position: relative; 
-            z-index: 1; 
-            letter-spacing: -0.02em;
-        }
-        .hero-title span { color:#fde68a; }
-        .hero-desc { 
-            font-size: 14px; 
-            color: rgba(255,255,255,.85); 
-            margin: 0; 
-            position: relative; 
-            z-index: 1; 
-            font-weight: 400;
-        }
-
-        /* TABLES & COMPONENTS */
         .btn-add { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:11px; background:linear-gradient(135deg,#ec4899,#a855f7); color:#fff; font-size:13px; font-weight:700; border:none; cursor:pointer; transition:opacity .2s, transform .2s; }
         .btn-add:hover { opacity:.88; transform:translateY(-1px); }
         .alert-success { background:#dcfce7; color:#166534; border:1px solid #bbf7d0; border-radius:10px; padding:10px 16px; margin-bottom:16px; font-size:13px; font-weight:600; }
@@ -75,7 +24,6 @@
         .cat-table tr:last-child td { border-bottom:none; }
         .cat-table tr:hover td { background:#faf5ff; }
         .cat-table td.center { text-align:center; }
-        .cat-icon-cell { width:40px; height:40px; border-radius:10px; background:#fef3c7; display:flex; align-items:center; justify-content:center; font-size:18px; }
         .cat-name { font-weight:600; color:#1e1b4b; } .cat-desc { color:#6b7280; }
         .course-pill { background:#ede9fe; color:#7c3aed; font-weight:700; font-size:11px; padding:3px 10px; border-radius:99px; display:inline-block; white-space:nowrap; }
         .btn-edit { padding:5px 14px; border-radius:8px; background:#ede9fe; color:#7c3aed; border:1px solid #ddd6fe; font-size:11px; font-weight:700; cursor:pointer; transition:background .15s, transform .15s; }
@@ -84,8 +32,6 @@
         .btn-hapus:hover { background:#dc2626; color:#fff; transform:translateY(-1px); }
         .action-wrap { display:flex; gap:6px; justify-content:center; }
         .empty-row td { text-align:center; padding:32px; color:#9ca3af; font-size:13px; }
-        
-        /* MODALS */
         .modal-header { background:linear-gradient(135deg,#ec4899,#a855f7); padding:18px 22px; }
         .modal-header h3 { font-family:'DM Sans',sans-serif; font-size:16px; font-weight:800; color:#fff; margin:0 0 3px; }
         .modal-header p  { font-size:11px; color:rgba(255,255,255,.75); margin:0; }
@@ -104,18 +50,29 @@
 
         <div class="cat-wrap">
 
-            {{-- HERO --}}
-            <div class="admin-hero">
-                <div class="hero-badge">
-                    <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline; margin-right:4px; vertical-align:text-top;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                    Kelola Kategori
+            {{-- HERO BANNER --}}
+            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-6">
+                <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
+                    <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
+                    <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
                 </div>
-                <h1 class="hero-title">Kategori Course <span>Cuanify</span></h1>
-                <p class="hero-desc">Kelola dan organisir kategori course yang tersedia di platform pembelajaran.</p>
+                <div class="relative z-10 w-full flex flex-col justify-center px-10 py-8 text-white">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4 border border-white/20 w-fit">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v8.25" />
+                        </svg>
+                        Kelola Kategori
+                    </div>
+                    <h1 class="text-3xl font-semibold tracking-normal mb-3 text-white">
+                        Kategori Course <span class="text-[#f7e06d] font-bold">Cuanify</span>
+                    </h1>
+                    <p class="text-white/90 text-[13px] max-w-4xl font-normal leading-relaxed">
+                        Kelola dan organisir kategori course yang tersedia di platform pembelajaran.
+                    </p>
+                </div>
             </div>
 
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-                <div></div>
+            <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:20px;">
                 <button @click="showAddModal = true" class="btn-add">
                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     Tambah Kategori
@@ -127,20 +84,23 @@
 
             <div class="tbl-card">
                 <div class="tbl-head">
-                    <div class="tbl-head-left">
-                        <div class="tbl-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
-                        <div>
-                            <p style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#1e1b4b;margin:0 0 2px;">Semua Kategori</p>
-                            <p style="font-size:11px;color:#9ca3af;margin:0;">{{ $categories->count() }} kategori tersedia</p>
-                        </div>
+                    <div>
+                        <p style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#1e1b4b;margin:0 0 2px;">Semua Kategori</p>
+                        <p style="font-size:11px;color:#9ca3af;margin:0;">{{ $categories->count() }} kategori tersedia</p>
                     </div>
                 </div>
                 <table class="cat-table">
-                    <thead><tr><th>Icon</th><th>Nama Kategori</th><th>Deskripsi</th><th class="center">Jumlah Course</th><th class="center">Aksi</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Nama Kategori</th>
+                            <th>Deskripsi</th>
+                            <th class="center">Jumlah Course</th>
+                            <th class="center">Aksi</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @forelse($categories as $category)
                         <tr>
-                            <td><div class="cat-icon-cell">{{ $category->icon ?? '📁' }}</div></td>
                             <td class="cat-name">{{ $category->category_name }}</td>
                             <td class="cat-desc" style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ $category->description ?? '-' }}</td>
                             <td class="center"><span class="course-pill">{{ $category->courses_count }} Course</span></td>
@@ -156,10 +116,9 @@
                             </td>
                         </tr>
                         @empty
-                        <tr class="empty-row"><td colspan="5">
-                            <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto 8px;display:block"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                            Belum ada kategori.
-                        </td></tr>
+                        <tr class="empty-row">
+                            <td colspan="4">Belum ada kategori.</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
