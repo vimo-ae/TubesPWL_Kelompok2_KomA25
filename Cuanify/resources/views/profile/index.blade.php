@@ -5,11 +5,9 @@
 
 .pf { font-family:'DM Sans',sans-serif; max-width:960px; margin:0 auto; padding:0 0 32px; }
 
-/* ---- PAGE TITLE ---- */
 .pf-title { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:#1e1b4b; margin:0 0 4px; }
 .pf-subtitle { font-size:13px; color:#9ca3af; margin:0 0 24px; }
 
-/* ---- HERO ---- */
 .hero-card {
     background:#fff; border:1px solid #ede9fe; border-radius:20px;
     padding:28px 32px; margin-bottom:16px;
@@ -124,7 +122,7 @@
 }
 .btn-ubah:hover { background:#ede9fe; color:#7c3aed; }
 
-/* ---- HISTORY TABLE ---- */
+
 .hist-table { width:100%; border-collapse:collapse; font-size:13px; }
 .hist-table th {
     text-align:left; padding:8px 10px;
@@ -139,7 +137,6 @@
 .empty-box { text-align:center; padding:20px 10px; }
 .empty-box p { font-size:12px; color:#9ca3af; margin:8px 0 0; }
 
-/* ---- COURSES ---- */
 .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
 .course-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 @media(max-width:700px){ .course-grid { grid-template-columns:1fr; } }
@@ -168,7 +165,6 @@
     <h1 class="pf-title">Profil Saya</h1>
     <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
 
-    {{-- HERO --}}
     <div class="hero-card">
         <div class="avatar-wrap">
             <img src="{{ $profile->photo_url }}" class="avatar-img" alt="Foto Profil">
