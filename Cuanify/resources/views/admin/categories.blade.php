@@ -1,5 +1,5 @@
 <x-app-layout>
-<div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6"
+<div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6"
      x-data="{ showAddModal: false, showEditModal: false, editId: '', editName: '', editIcon: '', editDesc: '' }">
 
     @include('admin.partials.sidebar')

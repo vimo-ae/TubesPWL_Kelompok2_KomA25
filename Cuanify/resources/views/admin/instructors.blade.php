@@ -85,7 +85,7 @@
 @media(max-width:700px){ .two-col { grid-template-columns:1fr; } }
 </style>
 
-<div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
+<div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
     @include('admin.partials.sidebar')
     <div class="flex-1 p-6 lg:p-10">
         <div class="iv-wrap">
