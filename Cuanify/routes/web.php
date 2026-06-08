@@ -59,8 +59,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
     Route::put('/admin/categories/{category_id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category_id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
-
-    Route::get('/admin/students', [AdminController::class, 'students'])->name('admin.students');
 });
 
 
