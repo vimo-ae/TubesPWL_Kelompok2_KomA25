@@ -89,10 +89,17 @@
             id="quizSection"
             class="mt-3 {{ old('has_quiz', $lesson->has_quiz ?? false) ? '' : 'hidden' }}">
 
-            <a href="#"
-               class="bg-yellow-500 text-white px-4 py-2 rounded">
-                Buat Quiz
-            </a>
+            @if ($lesson->quiz)
+    <a href="{{ route('instructor.quizzes.show', $lesson->quiz->id) }}"
+       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+        Lihat Quiz
+    </a>
+@else
+    <a href="{{ route('instructor.quizzes.create', $lesson->lesson_id) }}"
+       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+        Buat Quiz
+    </a>
+@endif
 
         </div>
 

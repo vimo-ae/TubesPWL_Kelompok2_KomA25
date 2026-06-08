@@ -5,6 +5,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\Instructor\LessonController as InstructorLessonController;
+use App\Http\Controllers\Instructor\QuizController as InstructorQuizController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
@@ -100,6 +101,10 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
     Route::put('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'update'])->name('instructor.lessons.update');
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'destroy'])->name('instructor.lessons.destroy');
     Route::patch('/instructor/courses/{course}/lessons/{lesson}/publish', [InstructorLessonController::class, 'publish'])->name('instructor.lessons.publish');
+
+    Route::get('/lessons/{lesson}/quiz/create', [InstructorQuizController::class, 'create'])->name('instructor.quizzes.create');
+    Route::post('/lessons/{lesson}/quiz', [InstructorQuizController::class, 'store'])->name('instructor.quizzes.store');
+
 });
 
 require __DIR__.'/auth.php';
