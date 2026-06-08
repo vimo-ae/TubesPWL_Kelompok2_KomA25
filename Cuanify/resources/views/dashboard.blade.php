@@ -91,7 +91,7 @@
                     <i class="fas fa-chart-pie text-purple-500 mr-1"></i> Progress
                 </h3>
                 <span class="text-[10px] font-bold tracking-wide text-purple-600 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400 px-2 py-1 rounded-lg whitespace-nowrap flex-shrink-0">
-                    🔥 Semangat!
+                    Semangat!
                 </span>
             </div>
         
