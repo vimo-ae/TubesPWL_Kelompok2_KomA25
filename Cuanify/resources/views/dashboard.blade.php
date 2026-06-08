@@ -247,13 +247,21 @@
         
         <a href="{{ url('/courses?category=1') }}" 
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
-            <span class="text-3xl mb-2">💼</span>
+            <span class="text-3xl mb-2">
+                <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 4h4v2h5a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h5V4zm-5 6v11h14V10H5z"/>
+                </svg>
+            </span>
             <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
         </a>
 
         <a href="{{ url('/courses?category=2') }}" 
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
-            <span class="text-3xl mb-2">📈</span>
+            <span class="text-3xl mb-2">
+                <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 3h2v18h16v2H3V3zm6 12h2v6H9v-6zm4-8h2v14h-2V7zm4-4h2v18h-2V3z"/>
+                </svg>
+            </span>
             <p class="font-bold text-gray-800 text-xs">Marketing</p>
         </a>
 
