@@ -86,7 +86,7 @@
 </style>
 
 <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
-    @include('admin.partials.sidebar')
+
     <div class="flex-1 p-6 lg:p-10">
         <div class="iv-wrap">
 
