@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -13,19 +13,27 @@ use App\Models\Course;
 
 #[Fillable(['username', 'email', 'password', 'role', 'is_approved', 'last_login', 'status'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
-    
+
+    protected $fillable = [
+        'username', 
+        'email', 
+        'password', 
+        'role', 
+        'is_approved', 
+        'last_login', 
+        'status'
+    ];
+
+    protected $hidden = [
+        'password', 
+        'remember_token'
+    ];
+
     protected function casts(): array
     {
         return [
@@ -75,8 +83,8 @@ public function lessons()
     return $this->belongsToMany(
         Lesson::class,
         'lesson_user',
-        'user_id',     // foreign key di pivot untuk user
-        'lesson_id'    // foreign key di pivot untuk lesson
+        'user_id',     
+        'lesson_id'    
     )->withTimestamps();
 }
 }
