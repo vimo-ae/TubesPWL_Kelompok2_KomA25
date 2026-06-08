@@ -70,6 +70,12 @@ class DatabaseSeeder extends Seeder
 
         $instructorIds = [$user2->user_id, $user4->user_id, $user5->user_id];
 
+        $user6 = User::factory()->create([
+            'username' => 'ryan fredryck',
+            'email' => 'ryan@gmail.com',
+            'password' => Hash::make('ryan123'),
+        ]);
+
         $this->call([
             CategorySeeder::class,
             CourseSeeder::class,
