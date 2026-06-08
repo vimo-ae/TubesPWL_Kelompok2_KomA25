@@ -207,10 +207,29 @@
                             <h3 class="text-2xl font-extrabold text-gray-800 mb-6">Apa kata mereka?</h3>
                             <div class="space-y-4">
                                 @forelse($course->reviews as $review)
+                                    @php
+
+                                        $reviewerProfile = $review->user->profile;
+
+                                        $reviewerName = $reviewerProfile->full_name ?? $review->user->name ?? 'Anonim';
+
+                                        $photoUrl = $reviewerProfile && $reviewerProfile->profile_photo 
+                                                    ? asset('storage/' . $reviewerProfile->profile_photo) 
+                                                    : null;
+                                    @endphp
+
                                     <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
-                                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-600 shrink-0">
-                                            {{ substr($review->user->name, 0, 1) }}
+
+                                        <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 bg-purple-100 flex items-center justify-center border border-purple-200 shadow-sm">
+                                            @if($photoUrl)
+                                                <img src="{{ $photoUrl }}" alt="{{ $reviewerName }}" class="w-full h-full object-cover">
+                                            @else
+                                                <span class="font-bold text-purple-600 text-lg">
+                                                    {{ strtoupper(substr($reviewerName, 0, 1)) }}
+                                                </span>
+                                            @endif
                                         </div>
+
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-1">
                                                 <span class="font-bold text-gray-800">{{ $review->user->name }}</span>
@@ -234,8 +253,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <p class="text-gray-600 text-sm">{{ $review->comment }}</p>
-                                            <span class="text-[10px] text-gray-400 mt-2 block">{{ $review->created_at->diffForHumans() }}</span>
+                                            <p class="text-gray-600 text-sm leading-relaxed">{{ $review->comment }}</p>
+                                            <span class="text-[10px] text-gray-400 mt-2 block font-medium">
+                                                {{ $review->created_at->diffForHumans() }}
+                                            </span>
                                         </div>
                                     </div>
                                 @empty
@@ -245,7 +266,6 @@
                         </div>
                     </div>
 
-                    <!-- KOLOM KANAN (Sidebar Mulai Belajar) -->
                     <div>
                         <div class="bg-white/90 backdrop-blur-sm border border-purple-100 rounded-3xl p-6 sticky top-6 shadow-xl">
                             <h3 class="text-2xl font-extrabold text-gray-800 mb-2">Mulai Belajar</h3>
@@ -277,7 +297,6 @@
                             
                             </div>
 
-                            <!-- Tombol Aksi -->
                             @if(auth()->check())
                                 @if(auth()->user()->role === 'student')
                                     @if($isStudentEnrolled)
@@ -301,22 +320,61 @@
 
                             <!-- Form Review -->
                             @auth
-                                @if($isStudentEnrolled && $isCompleted)
-                                    <div class="mt-6 pt-6 border-t border-purple-200">
-                                        <h4 class="font-bold text-gray-800 mb-3">Beri Ulasan</h4>
-                                        <form action="{{ url('/courses/' . $course->course_id . '/review') }}" method="POST" class="space-y-4">
-                                            @csrf
-                                            <select name="rating" class="w-full border-gray-200 rounded-xl p-3 text-sm">
-                                                <option value="5">5/5 - Luar Biasa</option>
-                                                <option value="4">4/5 - Bagus</option>
-                                                <option value="3">3/5 - Lumayan</option>
-                                                <option value="2">2/5 - Kurang</option>
-                                                <option value="1">1/5 - Buruk</option>
-                                            </select>
-                                            <textarea name="comment" rows="3" class="w-full border-gray-200 rounded-xl p-3 text-sm" placeholder="Komentar..."></textarea>
-                                            <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-xl font-bold">Kirim Ulasan</button>
-                                        </form>
-                                    </div>
+                                @if(auth()->user()->role === 'student')
+
+                                    @if($isStudentEnrolled && $isCompleted)
+
+                                        <div class="mt-6 pt-6 border-t border-purple-200">
+                                            <h4 class="font-bold text-gray-800 mb-3">Beri Ulasan</h4>
+                                        
+                                            <form action="{{ url('/courses/' . $course->course_id . '/review') }}"
+                                                  method="POST"
+                                                  class="space-y-4">
+                                            
+                                                @csrf
+                                            
+                                                <select name="rating"
+                                                        class="w-full border-gray-200 rounded-xl p-3 text-sm focus:ring-purple-500 focus:border-purple-500">
+                                                    <option value="5">⭐⭐⭐⭐⭐ (5/5) Luar Biasa!</option>
+                                                    <option value="4">⭐⭐⭐⭐ (4/5) Bagus</option>
+                                                    <option value="3">⭐⭐⭐ (3/5) Lumayan</option>
+                                                    <option value="2">⭐⭐ (2/5) Kurang</option>
+                                                    <option value="1">⭐ (1/5) Mengecewakan</option>
+                                                </select>
+                                            
+                                                <textarea
+                                                    name="comment"
+                                                    rows="3"
+                                                    class="w-full border-gray-200 rounded-xl p-3 text-sm focus:ring-purple-500 focus:border-purple-500"
+                                                    placeholder="Ceritakan pengalaman belajarmu..."></textarea>
+                                            
+                                                <button type="submit"
+                                                        class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl font-bold shadow-md transition-all duration-200">
+                                                    Kirim Ulasan
+                                                </button>
+                                            
+                                            </form>
+                                        </div>
+                                    
+                                    @elseif($isStudentEnrolled && !$isCompleted)
+                                    
+                                        <div class="mt-6 pt-6 border-t border-purple-200">
+                                            <div class="bg-orange-50 border border-orange-200 p-4 rounded-xl flex items-start gap-3">
+                                                <span class="text-orange-500 text-xl">🔒</span>
+                                                <div>
+                                                    <h4 class="font-bold text-orange-800 text-sm">
+                                                        Fitur Ulasan Terkunci
+                                                    </h4>
+                                                
+                                                    <p class="text-xs text-orange-600 mt-1">
+                                                        Kamu harus menyelesaikan 100% materi kursus ini untuk bisa memberikan ulasan.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    @endif
+                                    
                                 @endif
                             @endauth
                         </div>

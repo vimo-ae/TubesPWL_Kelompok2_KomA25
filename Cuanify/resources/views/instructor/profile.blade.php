@@ -6,14 +6,9 @@
         Profil Instruktur
     </h1>
 
-    {{-- Profil Header --}}
     <div class="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row items-center gap-6">
         
-        <img src="{{ 
-            Auth::user()->profile && Auth::user()->profile->profile_photo
-            ? asset('storage/' . Auth::user()->profile->profile_photo)
-            : asset('images/profile-default.jpg')
-        }}" 
+        <img src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
         class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
 
         <div class="flex-1 text-center md:text-left">
@@ -26,17 +21,15 @@
             <p class="text-gray-500 text-sm mb-4 italic">
                 "{{ $profile->bio ?? 'Belum ada bio. Tulis sedikit tentang keahlianmu!'}}"
             </p>
-            
-            {{-- PERBAIKAN WARNA TOMBOL DI SINI --}}
-            <button class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl shadow-md transition-all"
-                    onclick="document.getElementById('editProfileModal').classList.remove('hidden')">
-                Edit Profile
-            </button>
+
+            <a href="{{ route('profile.edit') }}" 
+               class="inline-block px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl shadow-md transition-all mt-2">
+                ✏️ Edit Profile
+            </a>
             
         </div>
     </div>
 
-    {{-- Portofolio Kursus --}}
     <div class="bg-white/80 dark:bg-gray-800/80 p-6 rounded-3xl shadow-sm border border-purple-100/50 dark:border-gray-700">
         <h2 class="font-black text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
             📚 Kursus yang Saya Buat
@@ -72,8 +65,5 @@
     </div>
 
 </div>
-
-{{-- PERBAIKAN: Modal dipindah ke luar dari semua card/container --}}
-@include('profile.edit')
 
 </x-app-layout>

@@ -69,6 +69,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -126,6 +127,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -183,6 +185,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -225,6 +228,7 @@ class LessonSeeder extends Seeder
     'xp_reward' => 150,
     'lesson_order' => 4,
     'has_quiz' => true,
+    'is_published'=> true,
 ]);
 
         Lesson::create([
@@ -272,6 +276,7 @@ class LessonSeeder extends Seeder
     'xp_reward' => 200,
     'lesson_order' => 5,
     'has_quiz' => true,
+    'is_published'=> true,
 ]);
 
         Lesson::create([
@@ -311,6 +316,7 @@ class LessonSeeder extends Seeder
     'xp_reward' => 200,
     'lesson_order' => 6,
     'has_quiz' => true,
+    'is_published'=> true,
 ]);
 
         Lesson::create([
@@ -350,6 +356,7 @@ class LessonSeeder extends Seeder
     'xp_reward' => 250,
     'lesson_order' => 7,
     'has_quiz' => true,
+    'is_published'=> true,
 ]);
 
         Lesson::create([
@@ -390,6 +397,7 @@ class LessonSeeder extends Seeder
     'xp_reward' => 500,
     'lesson_order' => 8,
     'has_quiz' => true,
+    'is_published'=> true,
 ]);
 
         // ==========================================
@@ -404,6 +412,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -415,6 +424,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -426,6 +436,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -440,6 +451,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -451,6 +463,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -462,6 +475,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -476,6 +490,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -487,6 +502,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -498,6 +514,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -512,6 +529,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -523,6 +541,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -534,6 +553,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -548,6 +568,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -559,6 +580,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -570,6 +592,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -584,6 +607,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -595,6 +619,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -606,6 +631,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -620,6 +646,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -631,6 +658,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -642,6 +670,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -656,6 +685,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -667,6 +697,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -678,6 +709,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -692,6 +724,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -703,6 +736,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -714,6 +748,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -728,6 +763,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -739,6 +775,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -750,6 +787,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -764,6 +802,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -775,6 +814,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -786,6 +826,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -800,6 +841,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -811,6 +853,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -822,6 +865,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -836,6 +880,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 100,
             'lesson_order' => 1,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -847,6 +892,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 150,
             'lesson_order' => 2,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -858,6 +904,7 @@ class LessonSeeder extends Seeder
             'xp_reward' => 200,
             'lesson_order' => 3,
             'has_quiz' => true,
+            'is_published'=> true,
         ]);
     }
 }
