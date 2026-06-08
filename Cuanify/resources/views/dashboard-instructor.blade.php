@@ -2,7 +2,6 @@
     <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
         <div class="py-6 max-w-7xl mx-auto space-y-8 w-full">
 
-            {{-- Header Hero --}}
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-indigo-700 via-purple-700 to-fuchsia-700 shadow-xl min-h-[200px] flex items-center">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
                 <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-10 md:px-12 py-8">
@@ -14,10 +13,10 @@
                             Halo Instruktur, <span class="text-yellow-300">{{ Auth::user()->username }}!</span>
                         </h1>
                         <p class="text-purple-100 text-sm max-w-lg leading-relaxed opacity-90">
-                            Waktunya berbagi ilmu dan ciptakan *impact*! Pantau performa kursusmu dan lihat seberapa banyak siswa yang telah kamu bantu hari ini.
+                            Waktunya berbagi ilmu dan ciptakan impact! Pantau performa kursusmu dan lihat seberapa banyak siswa yang telah kamu bantu hari ini.
                         </p>
                         <div class="mt-6">
-                            <a href="{{ route('instructor.courses.index') }}" class="bg-yellow-400 text-indigo-900 hover:bg-yellow-300 px-6 py-3 rounded-xl font-bold transition duration-300 inline-block shadow-md">
+                            <a href="{{ route('instructor.courses.create') }}" class="bg-yellow-400 text-indigo-900 hover:bg-yellow-300 px-6 py-3 rounded-xl font-bold transition duration-300 inline-block shadow-md">
                                 + Buat Kursus Baru
                             </a>
                         </div>
@@ -28,7 +27,6 @@
                 </div>
             </div>
 
-            {{-- Stats Grid (Metrik Instruktur) --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-5 transition hover:shadow-md">
                     <div class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-2xl">
@@ -41,27 +39,26 @@
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-5 transition hover:shadow-md">
-    <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-2xl">
-        👥
-    </div>
-    <div>
-        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Total Siswa Aktif</p>
-        <h3 class="text-3xl font-black text-gray-800 dark:text-white">{{ $totalStudents }}</h3>
-    </div>
-</div>
+                    <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-2xl">
+                        👥
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Total Siswa Aktif</p>
+                        <h3 class="text-3xl font-black text-gray-800 dark:text-white">{{ $totalStudents }}</h3>
+                    </div>
+                </div>
 
-<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-5 transition hover:shadow-md">
-    <div class="w-14 h-14 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-2xl">
-        ⭐
-    </div>
-    <div>
-        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Rata-rata Rating</p>
-        <h3 class="text-3xl font-black text-gray-800 dark:text-white">{{ $averageRating }} <span class="text-sm font-medium text-gray-400">/ 5.0</span></h3>
-    </div>
-</div>
+                <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-5 transition hover:shadow-md">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-2xl">
+                        ⭐
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Rata-rata Rating</p>
+                        <h3 class="text-3xl font-black text-gray-800 dark:text-white">{{ number_format($averageRating, 1) }} <span class="text-sm font-medium text-gray-400">/ 5.0</span></h3>
+                    </div>
+                </div>
             </div>
 
-            {{-- Kursus Terbaru Saya --}}
             <div class="mt-8">
                 <div class="flex justify-between items-center mb-5">
                     <h2 class="text-xl font-extrabold text-gray-900 dark:text-white">Kursus Terakhir Dibuat</h2>
@@ -96,7 +93,7 @@
                     @empty
                         <div class="col-span-4 bg-white dark:bg-gray-800 rounded-2xl p-8 text-center border border-dashed border-gray-300">
                             <p class="text-gray-500 mb-3">Kamu belum membuat kursus apapun.</p>
-                            <a href="#" class="text-purple-600 font-bold hover:underline">Mulai buat kursus pertamamu sekarang!</a>
+                            <a href="{{ route('instructor.courses.create') }}" class="text-purple-600 font-bold hover:underline">Mulai buat kursus pertamamu sekarang!</a>
                         </div>
                     @endforelse
                 </div>

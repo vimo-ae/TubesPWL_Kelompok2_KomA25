@@ -109,4 +109,13 @@ class LessonController extends Controller
             ->route('instructor.courses.show', $courseId)
             ->with('success', 'Lesson berhasil dihapus.');
     }
+
+    public function publish(Course $course, Lesson $lesson)
+    {
+        $lesson->update([
+            'is_published' => true
+        ]);
+
+        return back()->with('success', 'Hore! Materi lesson berhasil diterbitkan dan sekarang bisa dilihat oleh siswa. 🎉');
+    }
 }
