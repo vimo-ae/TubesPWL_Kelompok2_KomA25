@@ -16,47 +16,50 @@
         </a>
 
         {{-- Course Header Card --}}
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
-            
-            {{-- Top accent bar --}}
-            <div class="h-1.5 w-full bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393]"></div>
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
 
-            <div class="p-8 flex flex-col md:flex-row justify-between items-start gap-6">
-                <div class="flex-1 min-w-0">
-                    {{-- Title + Badge --}}
-                    <div class="flex flex-wrap items-center gap-3 mb-3">
-                        <h1 class="text-2xl font-extrabold text-gray-800">{{ $course->title }}</h1>
-                        @if($course->status == 'pending')
-                            <span class="bg-amber-50 border border-amber-200 text-amber-600 px-3 py-1 rounded-full text-xs font-bold">Menunggu Review</span>
-                        @elseif($course->status == 'published')
-                            <span class="bg-gradient-to-r from-[#b55fe6]/10 to-[#e84393]/10 border border-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span> Published
-                            </span>
-                        @else
-                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-bold">Draft</span>
-                        @endif
-                    </div>
+                    {{-- Top accent bar --}}
+                    <div class="h-1.5 w-full bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393]"></div>
 
-                    {{-- Description --}}
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ $course->description }}</p>
+                    <div class="p-8 flex flex-col md:flex-row justify-between items-start gap-6">
+                        <div class="flex-1 min-w-0">
+                            {{-- Title + Badge --}}
+                            <div class="flex flex-wrap items-center gap-3 mb-3">
+                                <h1 class="text-2xl font-extrabold text-gray-800">{{ $course->title }}</h1>
+                                @if($course->status == 'pending')
+                                    <span class="bg-amber-50 border border-amber-200 text-amber-600 px-3 py-1 rounded-full text-xs font-bold">Menunggu Review</span>
+                                @elseif($course->status == 'published')
+                                    <span class="bg-gradient-to-r from-[#b55fe6]/10 to-[#e84393]/10 border border-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span> Published
+                                    </span>
+                                @else
+                                    <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-bold">Draft</span>
+                                @endif
+                            </div>
 
-                    {{-- Meta Info --}}
-                    <div class="flex flex-wrap items-center gap-3 text-sm">
-                        <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
-                            <i class="fas fa-user-tie text-purple-400 text-xs"></i>
-                            {{ $course->instructor->username }}
-                        </div>
-                        <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
-                            <i class="fas fa-layer-group text-purple-400 text-xs"></i>
-                            <span class="capitalize">{{ $course->difficulty_level }}</span>
-                        </div>
-                        <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
-                            <i class="fas fa-clock text-purple-400 text-xs"></i>
-                            {{ $course->estimated_duration }} Jam
+                            {{-- Description --}}
+                            <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ $course->description }}</p>
+
+                            {{-- Meta Info --}}
+                            <div class="flex flex-wrap items-center gap-3 text-sm">
+                                <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
+                                    <i class="fas fa-user-tie text-purple-400 text-xs"></i>
+                                    {{-- Menggunakan null-coalescing dari branch main agar tidak crash jika relasi kosong --}}
+                                    {{ $course->instructor->username ?? 'No Instructor' }}
+                                </div>
+                                <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
+                                    <i class="fas fa-layer-group text-purple-400 text-xs"></i>
+                                    <span class="capitalize">{{ $course->difficulty_level }}</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
+                                    <i class="fas fa-clock text-purple-400 text-xs"></i>
+                                    {{ $course->estimated_duration }} Jam
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                
                 {{-- Action Buttons --}}
                 @if($course->status == 'pending')
                 <div class="flex flex-col gap-3 min-w-[160px]">

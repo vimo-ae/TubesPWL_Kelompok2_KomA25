@@ -79,6 +79,7 @@
         </div>
 
         <div class="edit-body">
+            {{-- Menampilkan pesan error validasi dari server laravel --}}
             @if($errors->any())
             <div style="background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px;">
                 @foreach($errors->all() as $e) <div>{{ $e }}</div> @endforeach
@@ -89,9 +90,13 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Foto --}}
+                {{-- Foto Profil dengan Fitur Live-Preview --}}
                 <div class="avatar-row">
-                    <img id="photoPreview" src="{{ $profile->photo_url }}" class="avatar-img" alt="Foto">
+                    @if($profile->profile_photo)
+                        <img id="photoPreview" src="{{ asset('storage/' . $profile->profile_photo) }}" class="avatar-img" alt="Foto Profil">
+                    @else
+                        <img id="photoPreview" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" class="avatar-img" alt="Foto Default">
+                    @endif
                     <div>
                         <label class="upload-btn">
                             <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -106,7 +111,7 @@
                     </div>
                 </div>
 
-                {{-- Nama --}}
+                {{-- Input Nama Lengkap --}}
                 <div class="field">
                     <label>Nama Lengkap</label>
                     <input type="text" name="full_name"
@@ -114,13 +119,14 @@
                            placeholder="Masukkan nama lengkap">
                 </div>
 
-                {{-- Bio --}}
+                {{-- Input Deskripsi / Bio --}}
                 <div class="field">
                     <label>Bio</label>
                     <textarea name="bio" rows="4"
                               placeholder="Ceritakan sedikit tentang dirimu...">{{ old('bio', $profile->bio) }}</textarea>
                 </div>
 
+                {{-- Tombol Aksi --}}
                 <div class="btn-row">
                     <a href="{{ route('profile') }}" class="btn-cancel">Batal</a>
                     <button type="submit" class="btn-save">Simpan Perubahan</button>
@@ -130,6 +136,7 @@
     </div>
 </div>
 
+{{-- Javascript untuk mengubah gambar secara realtime saat file dipilih --}}
 <script>
 function previewPhoto(event) {
     const file = event.target.files[0];

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="min-h-screen w-full bg-[#f7eef7] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
+    <div class="min-h-screen w-full -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-7xl mx-auto">
 
             {{-- Header Section --}}
@@ -72,7 +72,15 @@
                 @foreach($courses as $course)
                     
                     @php
-                        // 1. Tentukan banner default berdasarkan kategori jika thumbnail kosong
+                        // --- Logika Leveling & Enrollment ---
+                        $requiredLevel = method_exists($course, 'getRequiredLevel') ? $course->getRequiredLevel() : 1; 
+                        $userLevel = (auth()->check() && auth()->user()->role === 'student') ? (auth()->user()->profile->level ?? 1) : 0;
+                        $isLocked = (auth()->check() && auth()->user()->role === 'student' && $userLevel < $requiredLevel);
+                        
+                        $enrolledIds = isset($enrolledCourseIds) ? $enrolledCourseIds : (auth()->check() ? auth()->user()->courses->pluck('course_id')->toArray() : []);
+                        $isEnrolled = (auth()->check() && auth()->user()->role === 'student') ? in_array($course->course_id, $enrolledIds) : false;
+
+                        // --- Logika Fallback Banner Image ---
                         $defaultBanner = match($course->category_id) {
                             1 => 'images/courses/literasi-keuangan.jpg',
                             2 => 'images/courses/umkm-kewirausahaan.jpg',
@@ -82,7 +90,6 @@
                             default => null,
                         };
 
-                        // 2. Cek hierarki image yang tersedia
                         if ($course->thumbnail) {
                             $imageSrc = asset('storage/' . $course->thumbnail);
                         } elseif ($defaultBanner && file_exists(public_path($defaultBanner))) {
@@ -92,61 +99,89 @@
                         }
                     @endphp
 
-                    <a href="{{ route('courses.show', $course->course_id) }}"
-                       class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block relative flex flex-col justify-between">
+                    <a href="{{ $isLocked ? '#' : route('courses.show', $course->course_id) }}"
+                       class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300 block relative flex flex-col justify-between {{ $isLocked ? 'opacity-80' : '' }}">
                         
                         <div>
-                            {{-- Image Container --}}
-                            <div class="h-40 overflow-hidden relative">
+                            {{-- Image Container (Menggunakan h-32 ringkas sesuai request) --}}
+                            <div class="h-32 overflow-hidden relative">
+                                {{-- Overlay Blur Layar Terkunci jika level mahasiswa kurang --}}
+                                @if($isLocked)
+                                    <div class="absolute inset-0 bg-black/40 z-20 flex flex-col items-center justify-center text-white backdrop-blur-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                        <span class="text-[10px] font-bold uppercase tracking-wider">Butuh Level {{ $requiredLevel }}</span>
+                                    </div>
+                                @endif
+
                                 <img src="{{ $imageSrc }}"
                                      alt="{{ $course->title }}"
                                      class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                                 
-                                {{-- Badge Tingkat Kesulitan mengambang di atas gambar --}}
-                                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm z-10">
-                                    📚 {{ $course->difficulty_level }}
+                                {{-- Badge Tingkat Kesulitan --}}
+                                <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm z-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5S19.832 5.483 21 6.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
+                                    </svg>
+                                    {{ $course->difficulty_level }}
+                                </span>
+
+                                {{-- Badge Durasi --}}
+                                <span class="absolute bottom-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-semibold text-gray-700 shadow-sm z-10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v5l3 3"/>
+                                    </svg>
+                                    {{ $course->estimated_duration }} jam
                                 </span>
                             </div>
-
+                            
                             {{-- Card Body --}}
-                            <div class="p-5 pb-0">
+                            <div class="p-5 flex flex-col h-40">
+                                
                                 <h3 class="font-bold text-gray-800 dark:text-gray-200 text-base line-clamp-2 mb-1">
                                     {{ $course->title }}
                                 </h3>
-
+                                
                                 <p class="text-xs text-gray-500 mb-3 font-medium">
                                     {{ $course->category->category_name ?? 'No Category' }}
                                 </p>
-
-                                {{-- Informasi Rating & Durasi --}}
-                                <div class="flex justify-between items-center text-xs mb-4">
-                                    <span class="text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">⭐ 4.8</span>
-                                    <span class="text-gray-500 font-medium bg-gray-50 dark:bg-gray-700 dark:text-gray-300 px-2 py-1 rounded-md">
-                                        ⏱ {{ $course->estimated_duration }} jam
+                                
+                                {{-- Baris Kaki di dalam Badan Kartu (Rating & Status Pendaftaran) --}}
+                                <div class="flex justify-between items-center text-xs mt-auto">
+                                    
+                                    {{-- Rating --}}
+                                    <span class="flex items-center gap-1 text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/>
+                                        </svg>
+                                        4.8
                                     </span>
-                                </div>
-
-                                {{-- Status Pendaftaran Student --}}
-                                @auth
-                                    @if(auth()->user()->role === 'student')
-                                        @if(auth()->user()->courses->contains('course_id', $course->course_id))
-                                            <p class="text-green-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                                ✅ Sudah Enroll
-                                            </p>
-                                        @else
-                                            <p class="text-indigo-600 text-xs font-bold mb-3 flex items-center gap-1">
-                                                📌 Belum Enroll
-                                            </p>
+                                    
+                                    {{-- Status Enroll Terintegrasi (Menyatu di Badan Kartu) --}}
+                                    @auth
+                                        @if(auth()->user()->role === 'student')
+                                            @if($isLocked)
+                                                <span class="flex items-center gap-1 text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-md">
+                                                    Terkunci 🔒
+                                                </span>
+                                            @elseif($isEnrolled)
+                                                <span class="flex items-center gap-1 text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                    Sudah Enroll
+                                                </span>
+                                            @else
+                                                <span class="flex items-center gap-1 text-indigo-600 font-semibold bg-indigo-50 px-2 py-1 rounded-md">
+                                                    Belum Enroll
+                                                </span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endauth
-                            </div>
-                        </div>
-
-                        {{-- Card Footer Action --}}
-                        <div class="p-5 pt-0 mt-4">
-                            <div class="text-center text-sm font-bold text-purple-600 group-hover:text-purple-800 transition">
-                                Lihat Course →
+                                    @endauth
+                                    
+                                </div>
                             </div>
                         </div>
 

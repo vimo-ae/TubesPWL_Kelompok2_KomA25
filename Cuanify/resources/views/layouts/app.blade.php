@@ -14,10 +14,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased text-gray-900 bg-[#fff5f8] dark:bg-gray-900">
-        <div class="min-h-screen flex bg-[#fff5f8]">
+        <div x-data="{ sidebarOpen: true }"class="min-h-screen flex bg-[#fff5f8]">
 
             @if(auth()->check() && auth()->user()->role !== 'admin')
-            <aside class="w-64 bg-[#fff5f8] dark:bg-gray-800 h-screen hidden md:flex flex-col justify-between sticky top-0 z-50 overflow-y-auto border-r border-gray-100 dark:border-gray-700">
+            <aside
+                x-show="sidebarOpen"
+                x-transition
+                class="w-64 bg-[#fff5f8] dark:bg-gray-800 h-screen hidden md:flex flex-col justify-between sticky top-0 z-50 overflow-y-auto border-r border-gray-100 dark:border-gray-700">
+                
                 <div class="py-6">
                     <div class="px-6 pt-4 mb-6 bg-[#fff5f8]">
                         <a href="{{ route('dashboard') }}" class="logo-link inline-flex items-center">
