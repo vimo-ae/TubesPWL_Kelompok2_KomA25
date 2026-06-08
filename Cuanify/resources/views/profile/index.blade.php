@@ -1,7 +1,7 @@
-<x-app-layout>
+<x-app-layout>  
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+(@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
 .pf { font-family:'DM Sans',sans-serif; max-width:960px; margin:0 auto; padding:0 0 32px; }
 
@@ -151,7 +151,7 @@
 .cs-dropped   { background:#fee2e2; color:#991b1b; }
 .prog-bar-wrap { background:#e9d5ff; border-radius:99px; height:6px; overflow:hidden; }
 .prog-bar-fill { height:100%; border-radius:99px; background:linear-gradient(to right,#a855f7,#ec4899); }
-.prog-bar-label { display:flex; justify-content:space-between; font-size:10px; color:#9ca3af; margin-bottom:3px; }
+.prog-bar-label { display:flex; justify-content:space-between; font-size:10px; color:#9ca3af; margin-bottom:3px; })
 </style>
 
 <div class="pf">
