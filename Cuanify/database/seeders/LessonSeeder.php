@@ -18,32 +18,387 @@ class LessonSeeder extends Seeder
         Lesson::create([
             'course_id' => 1,
             'title' => 'Apa Itu Finansial Pribadi?',
-            'content' => 'Pengenalan konsep finansial pribadi, pentingnya mengelola keuangan sejak dini, dan bagaimana kebiasaan finansial mempengaruhi kualitas hidup.',
+            'content' => '
+            <h2>Pengertian Finansial Pribadi</h2>
+
+            <p>
+                Finansial pribadi adalah ilmu yang mempelajari cara seseorang mengelola pendapatan,
+                pengeluaran, tabungan, investasi, dan utang untuk mencapai tujuan keuangan yang
+                diinginkan. Pengelolaan keuangan yang baik membantu seseorang memenuhi kebutuhan
+                saat ini tanpa mengabaikan persiapan untuk masa depan.
+            </p>
+
+            <h2>Pentingnya Mengelola Keuangan Sejak Dini</h2>
+
+            <p>
+                Mengelola keuangan sejak dini merupakan langkah penting untuk membangun kebiasaan
+                finansial yang sehat. Dengan memahami cara mengatur uang, seseorang dapat belajar
+                membedakan kebutuhan dan keinginan, membuat anggaran yang tepat, serta menghindari
+                perilaku konsumtif yang berlebihan.
+            </p>
+
+            <h2>Kebiasaan Finansial yang Baik</h2>
+
+            <p>
+                Beberapa kebiasaan finansial yang baik antara lain mencatat pengeluaran, menabung
+                secara rutin, menyisihkan dana darurat, dan menggunakan uang sesuai prioritas.
+                Kebiasaan-kebiasaan tersebut membantu menjaga kestabilan kondisi keuangan dan
+                mempermudah pencapaian tujuan finansial.
+            </p>
+
+            <h2>Dampak terhadap Kualitas Hidup</h2>
+
+            <p>
+                Kebiasaan finansial yang baik dapat meningkatkan kualitas hidup karena memberikan
+                rasa aman dan mengurangi risiko masalah keuangan. Seseorang yang mampu mengelola
+                keuangannya dengan baik cenderung lebih siap menghadapi kebutuhan mendadak,
+                memiliki perencanaan masa depan yang jelas, dan dapat mencapai tujuan hidup
+                dengan lebih terarah.
+            </p>
+
+            <h2>Manfaat Mempelajari Finansial Pribadi</h2>
+
+            <ul>
+                <li>Mengontrol pengeluaran dengan lebih efektif</li>
+                <li>Membantu mencapai tujuan keuangan</li>
+                <li>Membangun kebiasaan menabung secara konsisten</li>
+                <li>Mengurangi risiko utang yang tidak diperlukan</li>
+                <li>Meningkatkan kualitas hidup dan kesejahteraan finansial</li>
+            </ul>',
             'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
-            'pdf_file' => 'pdf/apa-itu-finansial-pribadi.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
             'course_id' => 1,
             'title' => 'Membuat Anggaran Bulanan dengan Metode 50/30/20',
-            'content' => 'Cara menyusun anggaran bulanan yang realistis menggunakan metode 50/30/20 untuk kebutuhan, keinginan, dan tabungan.',
+            'content' => '
+<h2>Apa Itu Anggaran Bulanan?</h2>
+
+<p>
+    Anggaran bulanan merupakan rencana pengelolaan keuangan yang dibuat untuk
+    mengatur bagaimana pendapatan akan digunakan selama satu bulan. Dengan
+    membuat anggaran, seseorang dapat mengetahui ke mana uangnya digunakan,
+    mengontrol pengeluaran, serta memastikan kebutuhan penting tetap terpenuhi.
+</p>
+
+<h2>Mengenal Metode 50/30/20</h2>
+
+<p>
+    Metode 50/30/20 adalah salah satu cara sederhana dalam mengelola keuangan.
+    Metode ini membagi pendapatan menjadi tiga kategori utama, yaitu 50%
+    untuk kebutuhan, 30% untuk keinginan, dan 20% untuk tabungan atau
+    investasi. Pembagian ini membantu seseorang mengelola uang secara lebih
+    seimbang dan terencana.
+</p>
+
+<h2>Pembagian Anggaran</h2>
+
+<p>
+    Sebanyak 50% dari pendapatan digunakan untuk kebutuhan pokok seperti
+    makanan, tempat tinggal, transportasi, pendidikan, dan tagihan rutin.
+    Kemudian 30% digunakan untuk memenuhi keinginan seperti hiburan,
+    rekreasi, atau pembelian barang yang tidak bersifat mendesak. Sisanya,
+    yaitu 20%, dialokasikan untuk tabungan, investasi, atau dana darurat.
+</p>
+
+<h2>Manfaat Membuat Anggaran</h2>
+
+<p>
+    Dengan memiliki anggaran yang jelas, seseorang dapat mengurangi risiko
+    pengeluaran berlebihan, meningkatkan disiplin dalam menggunakan uang,
+    serta lebih mudah mencapai tujuan keuangan jangka pendek maupun jangka
+    panjang.
+</p>
+
+<h2>Keuntungan Metode 50/30/20</h2>
+
+<ul>
+    <li>Membantu mengontrol pengeluaran secara lebih efektif</li>
+    <li>Mempermudah penyusunan prioritas keuangan</li>
+    <li>Mendorong kebiasaan menabung secara konsisten</li>
+    <li>Mengurangi risiko kehabisan uang sebelum akhir bulan</li>
+    <li>Membantu mencapai tujuan keuangan dengan lebih terencana</li>
+</ul>',
             'video_url' => 'https://www.youtube.com/watch?v=QTGfkdHv9tg',
-            'pdf_file' => 'pdf/anggaran-bulanan.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
             'course_id' => 1,
             'title' => 'Membangun Dana Darurat',
-            'content' => 'Pentingnya dana darurat, berapa jumlah ideal yang harus disiapkan, dan di mana sebaiknya menyimpan dana darurat.',
+            'content' => '
+<h2>Pengertian Dana Darurat</h2>
+
+<p>
+    Dana darurat adalah sejumlah uang yang disisihkan dan disimpan khusus
+    untuk menghadapi situasi tak terduga seperti kehilangan pekerjaan,
+    kebutuhan medis mendadak, kerusakan kendaraan, atau kondisi darurat
+    lainnya. Dana ini berfungsi sebagai perlindungan finansial agar tidak
+    perlu berutang ketika menghadapi masalah mendesak.
+</p>
+
+<h2>Mengapa Dana Darurat Penting?</h2>
+
+<p>
+    Kehidupan sering kali menghadirkan kejadian yang tidak dapat diprediksi.
+    Dengan memiliki dana darurat, seseorang dapat menghadapi kondisi tersebut
+    dengan lebih tenang tanpa mengganggu anggaran kebutuhan sehari-hari atau
+    tujuan keuangan yang sedang dijalankan.
+</p>
+
+<h2>Jumlah Dana Darurat yang Disarankan</h2>
+
+<p>
+    Besarnya dana darurat yang ideal bergantung pada kondisi masing-masing
+    individu. Secara umum, dana darurat disarankan setara dengan tiga hingga
+    enam bulan biaya hidup. Bagi seseorang yang memiliki tanggungan keluarga
+    atau pekerjaan dengan pendapatan tidak tetap, jumlah tersebut dapat
+    ditingkatkan untuk memberikan perlindungan yang lebih baik.
+</p>
+
+<h2>Tempat Menyimpan Dana Darurat</h2>
+
+<p>
+    Dana darurat sebaiknya disimpan pada instrumen yang aman dan mudah
+    dicairkan kapan saja, seperti rekening tabungan atau deposito jangka
+    pendek. Tujuannya adalah agar dana tetap tersedia saat dibutuhkan tanpa
+    risiko kehilangan nilai yang besar.
+</p>
+
+<h2>Manfaat Memiliki Dana Darurat</h2>
+
+<ul>
+    <li>Memberikan rasa aman dalam menghadapi situasi tak terduga</li>
+    <li>Mengurangi ketergantungan pada utang saat keadaan darurat</li>
+    <li>Menjaga stabilitas kondisi keuangan pribadi</li>
+    <li>Membantu fokus pada tujuan keuangan jangka panjang</li>
+    <li>Meningkatkan kesiapan menghadapi risiko kehidupan</li>
+</ul>',
             'video_url' => 'https://www.youtube.com/watch?v=kwkR-x31VVs',
-            'pdf_file' => 'pdf/dana-darurat.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
+
+        Lesson::create([
+    'course_id' => 1,
+    'title' => 'Menabung dan Mencapai Tujuan Keuangan',
+    'content' => '
+    <h2>Pentingnya Menabung</h2>
+
+    <p>
+        Menabung adalah kebiasaan menyisihkan sebagian pendapatan untuk
+        digunakan di masa depan. Kebiasaan ini membantu seseorang
+        mempersiapkan berbagai kebutuhan tanpa harus bergantung pada utang.
+    </p>
+
+    <h2>Menentukan Tujuan Keuangan</h2>
+
+    <p>
+        Tujuan keuangan dapat berupa membeli kendaraan, biaya pendidikan,
+        liburan, atau persiapan pensiun. Dengan memiliki tujuan yang jelas,
+        seseorang akan lebih termotivasi untuk menabung secara konsisten.
+    </p>
+
+    <h2>Strategi Menabung yang Efektif</h2>
+
+    <p>
+        Menentukan target tabungan, menyisihkan uang di awal setelah menerima
+        pendapatan, dan menggunakan rekening khusus tabungan dapat membantu
+        meningkatkan keberhasilan dalam mencapai tujuan keuangan.
+    </p>
+
+    <h2>Manfaat Menabung</h2>
+
+    <ul>
+        <li>Membantu mencapai tujuan keuangan</li>
+        <li>Meningkatkan disiplin finansial</li>
+        <li>Mengurangi ketergantungan pada utang</li>
+        <li>Mempersiapkan kebutuhan masa depan</li>
+    </ul>',
+    'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
+    'xp_reward' => 150,
+    'lesson_order' => 4,
+    'has_quiz' => true,
+    'is_published'=> true,
+]);
+
+        Lesson::create([
+    'course_id' => 1,
+    'title' => 'Mengenal Dasar-Dasar Investasi',
+    'content' => '
+    <h2>Apa Itu Investasi?</h2>
+
+    <p>
+        Investasi adalah kegiatan menempatkan sejumlah dana pada aset tertentu
+        dengan harapan memperoleh keuntungan di masa depan.
+    </p>
+
+    <h2>Tujuan Investasi</h2>
+
+    <p>
+        Investasi dilakukan untuk meningkatkan nilai kekayaan, melawan inflasi,
+        dan membantu mencapai tujuan keuangan jangka panjang.
+    </p>
+
+    <h2>Jenis Investasi</h2>
+
+    <p>
+        Beberapa jenis investasi yang umum dikenal antara lain deposito,
+        reksa dana, obligasi, saham, dan emas.
+    </p>
+
+    <h2>Risiko dan Keuntungan</h2>
+
+    <p>
+        Setiap investasi memiliki risiko dan potensi keuntungan yang berbeda.
+        Semakin tinggi potensi keuntungan, biasanya semakin tinggi pula
+        tingkat risikonya.
+    </p>
+
+    <h2>Manfaat Investasi</h2>
+
+    <ul>
+        <li>Mengembangkan nilai uang</li>
+        <li>Mengalahkan inflasi</li>
+        <li>Membantu mencapai tujuan jangka panjang</li>
+        <li>Membangun kekayaan secara bertahap</li>
+    </ul>',
+    'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
+    'xp_reward' => 200,
+    'lesson_order' => 5,
+    'has_quiz' => true,
+    'is_published'=> true,
+]);
+
+        Lesson::create([
+    'course_id' => 1,
+    'title' => 'Mengelola Utang dengan Bijak',
+    'content' => '
+    <h2>Memahami Utang</h2>
+
+    <p>
+        Utang adalah kewajiban yang harus dibayar kembali kepada pihak lain
+        sesuai kesepakatan yang telah dibuat.
+    </p>
+
+    <h2>Utang Produktif dan Konsumtif</h2>
+
+    <p>
+        Utang produktif digunakan untuk menghasilkan nilai tambah, sedangkan
+        utang konsumtif digunakan untuk memenuhi keinginan sesaat.
+    </p>
+
+    <h2>Risiko Utang Berlebihan</h2>
+
+    <p>
+        Terlalu banyak utang dapat menyebabkan kesulitan keuangan dan
+        mengganggu pencapaian tujuan finansial.
+    </p>
+
+    <h2>Tips Mengelola Utang</h2>
+
+    <ul>
+        <li>Meminjam sesuai kebutuhan</li>
+        <li>Membayar tepat waktu</li>
+        <li>Menghindari utang konsumtif berlebihan</li>
+        <li>Menyusun prioritas pembayaran</li>
+    </ul>',
+    'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
+    'xp_reward' => 200,
+    'lesson_order' => 6,
+    'has_quiz' => true,
+    'is_published'=> true,
+]);
+
+        Lesson::create([
+    'course_id' => 1,
+    'title' => 'Melindungi Keuangan dengan Manajemen Risiko',
+    'content' => '
+    <h2>Apa Itu Risiko Finansial?</h2>
+
+    <p>
+        Risiko finansial adalah kemungkinan terjadinya peristiwa yang dapat
+        menyebabkan kerugian keuangan.
+    </p>
+
+    <h2>Contoh Risiko Finansial</h2>
+
+    <p>
+        Kehilangan pekerjaan, kecelakaan, biaya kesehatan, dan bencana alam
+        merupakan contoh risiko yang dapat memengaruhi kondisi keuangan.
+    </p>
+
+    <h2>Cara Mengelola Risiko</h2>
+
+    <p>
+        Risiko dapat dikelola melalui dana darurat, asuransi, dan perencanaan
+        keuangan yang matang.
+    </p>
+
+    <h2>Manfaat Manajemen Risiko</h2>
+
+    <ul>
+        <li>Mengurangi dampak kerugian finansial</li>
+        <li>Meningkatkan rasa aman</li>
+        <li>Menjaga stabilitas keuangan</li>
+        <li>Membantu mencapai tujuan finansial</li>
+    </ul>',
+    'video_url' => 'https://www.youtube.com/watch?v=DxIHmfVdkBw',
+    'xp_reward' => 250,
+    'lesson_order' => 7,
+    'has_quiz' => true,
+    'is_published'=> true,
+]);
+
+        Lesson::create([
+    'course_id' => 1,
+    'title' => 'Ujian Akhir Finansial Pribadi',
+    'content' => '
+    <h2>Ujian Akhir Course</h2>
+
+    <p>
+        Selamat, Anda telah menyelesaikan seluruh materi dalam course
+        Finansial Pribadi untuk Pemula.
+    </p>
+
+    <p>
+        Ujian akhir ini bertujuan untuk mengukur pemahaman Anda mengenai
+        konsep-konsep yang telah dipelajari, mulai dari pengelolaan keuangan,
+        penyusunan anggaran, dana darurat, menabung, investasi, pengelolaan
+        utang, hingga manajemen risiko.
+    </p>
+
+    <p>
+        Kerjakan soal dengan teliti dan manfaatkan pengetahuan yang telah
+        diperoleh dari setiap lesson sebelumnya.
+    </p>
+
+    <h2>Cakupan Materi Ujian</h2>
+
+    <ul>
+        <li>Finansial pribadi</li>
+        <li>Anggaran 50/30/20</li>
+        <li>Dana darurat</li>
+        <li>Menabung</li>
+        <li>Investasi</li>
+        <li>Utang dan kredit</li>
+        <li>Manajemen risiko</li>
+    </ul>',
+    'video_url' => null,
+    'xp_reward' => 500,
+    'lesson_order' => 8,
+    'has_quiz' => true,
+    'is_published'=> true,
+]);
 
         // ==========================================
         // COURSE 2: Smart Money Management
@@ -56,6 +411,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/psikologi-finansial.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -66,6 +423,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/tracking-pengeluaran.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -76,6 +435,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/evaluasi-keuangan.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -89,6 +450,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/tujuan-keuangan.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -99,6 +462,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/asuransi-perencanaan.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -109,6 +474,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/manajemen-net-worth.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -122,6 +489,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/mengenal-investasi.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -132,6 +501,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/reksadana-pemula.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -142,6 +513,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/mulai-investasi-saham.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -155,6 +528,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/mulai-usaha-modal-kecil.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -165,6 +540,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/legalitas-umkm.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -175,6 +552,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/bisnis-sampingan.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -188,6 +567,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/mindset-wirausaha.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -198,6 +579,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/business-model-canvas.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -208,6 +591,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/bisnis-kuliner-growth.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -221,6 +606,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/scaleup-umkm-digital.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -231,6 +618,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/jualan-marketplace.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -241,6 +630,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/ekspor-umkm.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -254,6 +645,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/intro-digital-marketing.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -264,6 +657,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/digital-marketing-dari-nol.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -274,6 +669,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/seo-sosmed-strategi.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -287,6 +684,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/smm-platform.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -297,6 +696,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/mulai-belajar-dmkt.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -307,6 +708,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/dasar-smm.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -320,6 +723,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/strategi-pertumbuhan.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -330,6 +735,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/brand-digital.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -340,6 +747,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/optimasi-growth.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -353,6 +762,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/personal-branding-intro.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -363,6 +774,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/linkedin-personal-brand.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -373,6 +786,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/personal-branding-karier.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -386,6 +801,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/pondasi-leadership.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -396,6 +813,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/komunikasi-profesional.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -406,6 +825,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/leadership-generasi-muda.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -419,6 +840,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/finansial-generasi-muda.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -429,6 +852,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/bonus-demografi-sdgs.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -439,6 +864,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/inovasi-ekonomi-sdgs.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         // ==========================================
@@ -452,6 +879,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/ekonomi-digital-intro.pdf',
             'xp_reward' => 100,
             'lesson_order' => 1,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -462,6 +891,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/transaksi-digital.pdf',
             'xp_reward' => 150,
             'lesson_order' => 2,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
 
         Lesson::create([
@@ -472,6 +903,8 @@ class LessonSeeder extends Seeder
             'pdf_file' => 'pdf/fintech-inklusi.pdf',
             'xp_reward' => 200,
             'lesson_order' => 3,
+            'has_quiz' => true,
+            'is_published'=> true,
         ]);
     }
 }

@@ -13,10 +13,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::where(
-            'user_id',
-            Auth::user()->user_id
-        )->get();
+        $courses = Course::all();
 
         return view('instructor.courses.index', compact('courses'));
     }
@@ -40,7 +37,6 @@ class CourseController extends Controller
         ]);
 
         Course::create([
-            'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
@@ -61,36 +57,6 @@ class CourseController extends Controller
         return view(
             'instructor.courses.show',
             compact('course')
-        );
-    }
-
-    public function createLesson($courseId)
-    {
-        $course = Course::findOrFail($courseId);
-
-        return view(
-            'instructor.lessons.create',
-            compact('course')
-        );
-    }
-
-    public function storeLesson(Request $request, $courseId)
-    {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        Lesson::create([
-            'course_id' => $courseId,
-            'title' => $request->title,
-            'content' => $request->content,
-            'xp_reward' => 10,
-        ]);
-
-        return redirect()->route(
-            'instructor.courses.show',
-            $courseId
         );
     }
 
@@ -156,37 +122,4 @@ class CourseController extends Controller
             ->with('success', 'Course berhasil dihapus.');
     }
 
-    public function editLesson($courseId, $lessonId)
-    {
-        $course = Course::findOrFail($courseId);
-        $lesson = Lesson::findOrFail($lessonId);
-
-        return view('instructor.lessons.edit', compact('course', 'lesson'));
-    }
-
-    public function updateLesson(Request $request, $courseId, $lessonId)
-    {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        $lesson = Lesson::findOrFail($lessonId);
-        $lesson->update([
-            'title' => $request->title,
-            'content' => $request->content,
-        ]);
-
-        return redirect()->route('instructor.courses.show', $courseId)
-            ->with('success', 'Lesson berhasil diperbarui.');
-    }
-
-    public function destroyLesson($courseId, $lessonId)
-    {
-        $lesson = Lesson::findOrFail($lessonId);
-        $lesson->delete();
-
-        return redirect()->route('instructor.courses.show', $courseId)
-            ->with('success', 'Lesson berhasil dihapus.');
-    }
 }

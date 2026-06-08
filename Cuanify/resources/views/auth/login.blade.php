@@ -67,6 +67,11 @@
                 class="mb-4"
                 :status="session('status')"
             />
+            @if ($errors->any())
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    {{ $errors->first() }}
+                </div>
+            @endif
 
             <!-- FORM -->
             <form method="POST" action="{{ route('login') }}">
@@ -95,30 +100,30 @@
                 </div>
 
                 <!-- Password -->
-                <div class="mt-4">
+                <div class="mt-3">
                     <label class="block text-sm font-semibold text-gray-700">
                         Password
                     </label>
-                
-                    <div class="relative">
+                    <div class="relative mt-2">
                         <input
                             id="password"
                             type="password"
                             name="password"
                             placeholder="Masukkan password"
                             required
-                            class="w-full mt-2 px-4 py-2.5 pr-12 rounded-xl
+                            class="w-full px-4 py-2.5 pr-12 rounded-xl
                                    border border-gray-300 bg-white
                                    focus:border-[#7F00FF]
                                    focus:ring-4 focus:ring-purple-100
                                    hover:border-yellow-400
                                    transition duration-300"
                         >
+                        <x-input-error :messages="$errors->get('password')"class="mt-1 text-red-500 text-xs"/>
                     
                         <button
                             type="button"
-                            onclick="togglePassword('password')"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-600"
+                            onclick="togglePassword('password', this)"
+                            class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 hover:text-purple-600"
                         >
                             <svg id="eye-open"
                                  xmlns="http://www.w3.org/2000/svg"

@@ -82,6 +82,9 @@ class DatabaseSeeder extends Seeder
             LessonSeeder::class,
             QuizSeeder::class,
             ReviewSeeder::class,
+            QuestionSeeder::class,
+            AnswerOptionSeeder::class,
+            QuizResultSeeder::class, // optional
         ]);
         
     }

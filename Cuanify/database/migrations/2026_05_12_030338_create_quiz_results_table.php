@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('score')->default(0);
             $table->bigInteger('total_correct')->default(0);
             $table->timestamp('completed_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

@@ -21,17 +21,29 @@ class ProfileController extends Controller
             ['full_name' => $user->username]
         );
 
+        // ==========================================
+        // 🎯 LOGIKA FILTER UNTUK INSTRUKTUR
+        // ==========================================
+        if ($user->role === 'instructor') {
+            // Tarik data kursus yang dibuat instruktur ini + jumlah siswa (enrollments)
+            $createdCourses = $user->createdCourses()->withCount('enrollments')->get();
+            
+            // Arahkan ke file blade instruktur
+            return view('instructor.profile', compact('user', 'profile', 'createdCourses'));
+        }
+        // ==========================================
+
+
+        // ==========================================
+        // 📚 LOGIKA HITUNG PROGRESS STUDENT
+        // ==========================================
+        
         // 1. Ambil ID semua course yang di-enroll oleh user
         $enrolledCourseIds = $user->courses()->pluck('courses.course_id');
 
         // 2. HITUNG PENYEBUT (Total seluruh Materi & Kuis dari course yang diikuti)
-        // Ambil model Lesson & Quiz melalui kecocokan course_id
         $totalMateri = Lesson::whereIn('course_id', $enrolledCourseIds)->count();
-        
-        //Ambil semua lesson_id dari course yang di-enroll (Jembatan untuk ke tabel quizzes)
         $enrolledLessonIds = Lesson::whereIn('course_id', $enrolledCourseIds)->pluck('lesson_id');
-        
-        // Sesuaikan nama model Quiz kamu jika berbeda (misal: App\Models\Quiz)
         $totalKuis = Quiz::whereIn('lesson_id', $enrolledLessonIds)->count();
 
         // 3. HITUNG PEMBILANG (Materi & Kuis yang sudah diselesaikan user)
@@ -45,13 +57,36 @@ class ProfileController extends Controller
             })
             ->count();
 
-        // 4. HITUNG PERSENTASE TOTAL (Untuk lingkaran ungu)
+        // 4. HITUNG PERSENTASE TOTAL (Untuk komponen grafik/lingkaran progress)
         $totalPenyebut = $totalMateri + $totalKuis;
         $totalPembilang = $materiSelesai + $kuisSelesai;
         
         $persentaseTotal = $totalPenyebut > 0 ? round(($totalPembilang / $totalPenyebut) * 100) : 0;
 
-        // Ambil progress lengkap untuk kebutuhan list di bawah (kode lamamu)
+        $enrolledCoursesRaw = $user->courses; 
+
+        foreach ($enrolledCoursesRaw as $course) {
+            $totalMateriDiCourse = Lesson::where('course_id', $course->course_id)->count();
+
+            $materiSelesaiDiCourse = Progress::where('profile_id', $profile->profile_id)
+                ->where('is_completed', true)
+                ->whereIn('lesson_id', function($query) use ($course) {
+                    $query->select('lesson_id')->from('lessons')->where('course_id', $course->course_id);
+                })
+                ->count();
+
+            $persentaseCourse = $totalMateriDiCourse > 0 
+                ? round(($materiSelesaiDiCourse / $totalMateriDiCourse) * 100) 
+                : 0;
+
+            $statusBaru = $persentaseCourse >= 100 ? 'completed' : 'active';
+
+            $user->courses()->updateExistingPivot($course->course_id, [
+                'completion_percentage' => $persentaseCourse,
+                'status' => $statusBaru
+            ]);
+        }
+
         $progress = Progress::with('lesson')
             ->where('profile_id', $profile->profile_id)
             ->where('is_completed', true)
@@ -61,6 +96,7 @@ class ProfileController extends Controller
         $enrolledCourses = $user->courses()->withPivot('status', 'completion_percentage')->get();
 
         return view('profile.index', compact(
+            'user',
             'profile',
             'progress',
             'enrolledCourses',
@@ -72,39 +108,45 @@ class ProfileController extends Controller
         ));    
     }
 
+    // Method untuk menampilkan halaman edit profil (dari branch main)
+    public function edit()
+    {
+        $user    = Auth::user();
+        $profile = $user->profile()->firstOrCreate(
+            ['user_id' => $user->user_id],
+            ['full_name' => $user->username]
+        );
+
+        return view('profile.edit', compact('user', 'profile'));
+    }
+
+    // Method untuk memproses update data profil (dari branch main)
     public function update(Request $request)
     {
-        $user = Auth::user();
-
+        $user    = Auth::user();
         $profile = $user->profile;
 
         $request->validate([
-            'full_name' => 'required|string|max:255',
-            'bio' => 'nullable|string|max:1000',
+            'full_name'     => 'required|string|max:255',
+            'bio'           => 'nullable|string|max:1000',
             'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // update basic data
         $profile->full_name = $request->full_name;
-        $profile->bio = $request->bio;
+        $profile->bio       = $request->bio;
 
-        // handle foto
         if ($request->hasFile('profile_photo')) {
+            // Hapus foto lama jika ada agar storage tidak penuh (opsional tapi bagus)
+            if ($profile->profile_photo && Storage::disk('public')->exists($profile->profile_photo)) {
+                Storage::disk('public')->delete($profile->profile_photo);
+            }
 
-            // if ($profile->profile_photo) {
-            //     Storage::disk('public')->delete($profile->profile_photo);
-            // }
-
-            $path = $request->file('profile_photo')
-                ->store('profile_photos', 'public');
-
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $profile->profile_photo = $path;
         }
 
         $profile->save();
 
-        return redirect()
-            ->route('profile')
-            ->with('success', 'Profil berhasil diperbarui');
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
     }
 }
