@@ -85,8 +85,12 @@
                                              x-transition:enter="transition ease-out duration-200"
                                              x-transition:enter-start="opacity-0 transform scale-95"
                                              x-transition:enter-end="opacity-100 transform scale-100"
-                                             class="p-5 bg-white border-t border-purple-100 text-gray-700 text-sm whitespace-pre-line leading-relaxed shadow-inner">
-                                            {{ $lesson->content }}
+                                             class="p-5 bg-white border-t border-purple-100 text-gray-700 text-sm leading-relaxed shadow-inner">
+                                                <div class="[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-2 
+                                                            [&_p]:mb-3 [&_p]:leading-relaxed 
+                                                            [&_ul]:list-disc [&_ul]:ml-5 [&_ol]:list-decimal [&_ol]:ml-5">
+                                                    {!! $lesson->content !!}
+                                                </div>
                                         </div>
                                     </div>
                                 @empty
