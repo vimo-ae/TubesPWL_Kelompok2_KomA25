@@ -4,7 +4,7 @@
             <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
         </div>
         <span class="text-[11px] font-bold tracking-wide text-gray-450 dark:text-gray-400 pl-1 opacity-90 block mt-2">
-            #BelajarJadiCuan <span class="animate-pulse">🚀</span>
+            #BelajarJadiCuan 
         </span>
     </div>
 

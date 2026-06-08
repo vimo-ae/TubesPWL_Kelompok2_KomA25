@@ -1,24 +1,56 @@
-<footer class="w-full py-6 px-6 bg-[#1e1b4b] text-white relative overflow-hidden">
+<footer class="bg-white border-t border-purple-200 mt-10">
 
-    <!-- GLOW -->
-    <div class="absolute w-[140px] h-[140px] bg-purple-500/5 blur-[80px] rounded-full -top-16 -left-16"></div>
+    <div class="max-w-7xl mx-auto px-8 py-8">
 
-    <div class="absolute w-[120px] h-[120px] bg-pink-500/5 blur-[80px] rounded-full -bottom-16 -right-10"></div>
-
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
-
-        <!-- LOGO -->
-        <div class="flex items-center gap-3">
+        <div class="flex flex-col items-center text-center">
 
             <img src="{{ asset('images/logo1.png') }}"
-                 class="w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-md">
+                 class="w-28 mb-3">
+
+            <p class="text-gray-600 max-w-xl text-sm leading-relaxed">
+                Platform edukasi ekonomi dan pengembangan diri untuk membantu
+                generasi muda Indonesia meningkatkan literasi finansial,
+                karier, dan kewirausahaan.
+            </p>
+
+            <!-- Kontak -->
+            <div class="mt-4">
+                <p class="text-sm text-gray-600">
+                    Hubungi Kami:
+                </p>
+                <a href="mailto:cuanify.tiusu25@gmail.com"
+                   class="text-purple-600 hover:text-purple-700 font-medium">
+                    cuanify.tiusu25@gmail.com
+                </a>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-8 mt-6 text-sm">
+
+                <a href="/dashboard"
+                   class="text-gray-600 hover:text-purple-600">
+                    Dashboard
+                </a>
+
+                <a href="/courses"
+                   class="text-gray-600 hover:text-purple-600">
+                    Semua Course
+                </a>
+
+                <a href="/my-courses"
+                   class="text-gray-600 hover:text-purple-600">
+                    Course Saya
+                </a>
+
+            </div>
+
+            <div class="w-full border-t border-gray-200 mt-6 pt-4">
+                <p class="text-gray-500 text-sm">
+                    © 2026 Cuanify — Platform edukasi ekonomi untuk generasi muda Indonesia.
+                </p>
+            </div>
 
         </div>
 
-        <!-- TEXT -->
-        <p class="text-sm text-purple-200 text-center md:text-right leading-relaxed">
-            © 2026 Cuanify — Platform edukasi ekonomi untuk generasi muda Indonesia.
-        </p>
-
     </div>
+
 </footer>

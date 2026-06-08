@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
@@ -6,7 +6,16 @@
             {{-- Alert Error --}}
             @if(session('error'))
                 <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-5 rounded-2xl shadow-sm flex items-start gap-4 transition-all">
-                    <span class="text-2xl mt-0.5">🚨</span>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-7 h-7 text-red-500 mt-0.5 flex-shrink-0"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 9v2m0 4h.01M10.29 3.86l-7.5 13A1 1 0 003.66 18h16.68a1 1 0 00.87-1.5l-7.5-13a1 1 0 00-1.74 0z"/>
+                    </svg>
                     <div>
                         <h3 class="font-bold text-lg mb-1">Perhatian!</h3>
                         <p class="text-sm opacity-90 leading-relaxed">{!! session('error') !!}</p>
@@ -44,35 +53,35 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <div class="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-3xl p-5 text-white shadow-xl flex flex-col justify-between transition-all duration-300 hover:scale-[1.02]">
-    <div>
-        <p class="text-[10px] font-bold tracking-widest uppercase text-purple-200 mb-1">Level Kamu</p>
-        <div class="flex items-center justify-between mb-3">
-            <h3 class="text-2xl font-extrabold">Level {{ $level }}</h3>
-            <span class="bg-yellow-400 text-indigo-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
-                {{ $profile->level_title }}
-            </span>
-        </div>
-    </div>
-    
-    <div class="mt-2">
-        <div class="flex justify-between text-[10px] text-purple-200 mb-1">
-            <span>Progress Level</span>
-            <span>500 XP</span>
-        </div>
-        
-        <div class="w-full bg-white/20 rounded-full h-5 relative overflow-hidden">
-            <div class="bg-yellow-400 h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500" 
-                style="width: {{ $xpPercentage }}%">
-                
-                <span class="text-[10px] font-black text-indigo-900 truncate">
-                    {{ $xp % 500 }} XP
-                </span>
-            </div>
-        </div>
-        
-        <p class="text-[10px] text-purple-200 mt-1">{{ 500 - ($xp % 500) }} XP lagi ke Level {{ $level + 1 }}</p>
-    </div>
-</div>
+                    <div>
+                        <p class="text-[10px] font-bold tracking-widest uppercase text-purple-200 mb-1">Level Kamu</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-2xl font-extrabold">Level {{ $level }}</h3>
+                            <span class="bg-yellow-400 text-indigo-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                                {{ $profile->level_title }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="flex justify-between text-[10px] text-purple-200 mb-1">
+                            <span>Progress Level</span>
+                            <span>500 XP</span>
+                        </div>
+
+                        <div class="w-full bg-white/20 rounded-full h-5 relative overflow-hidden">
+                            <div class="bg-yellow-400 h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500" 
+                                style="width: {{ $xpPercentage }}%">
+
+                                <span class="text-[10px] font-black text-indigo-900 truncate">
+                                    {{ $xp % 500 }} XP
+                                </span>
+                            </div>
+                        </div>
+
+                        <p class="text-[10px] text-purple-200 mt-1">{{ 500 - ($xp % 500) }} XP lagi ke Level {{ $level + 1 }}</p>
+                    </div>
+                </div>
 
                 {{-- Progress Belajar --}}
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
@@ -93,30 +102,80 @@
                             </div>
                         </div>
                         <div class="text-[11px] text-gray-600 dark:text-gray-400 flex-1">
-                            <div>✅ Selesai: <strong>{{ $completedLessons }} / {{ $totalLessons }}</strong></div>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="w-4 h-4 text-green-500"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="3"
+                                          d="M5 13l4 4L19 7"/>
+                                </svg>
+                            
+                                <span>
+                                    Selesai:
+                                    <strong>{{ $completedLessons }} / {{ $totalLessons }}</strong>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                @php
+                    $badgeClass = match(true) {
+                        $profile->streak_days >= 90 => 'bg-purple-100 text-purple-600',
+                        $profile->streak_days >= 30 => 'bg-yellow-100 text-yellow-600',
+                        $profile->streak_days >= 14 => 'bg-blue-100 text-blue-600',
+                        $profile->streak_days >= 7  => 'bg-green-100 text-green-600',
+                        default => 'bg-orange-100 text-orange-600'
+                    };
+                @endphp
+
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-1">
-                        <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm flex items-center gap-2">
-                            {{ $profile->streak_days > 0 ? '🔥 Streak Belajar' : '💤 Streak Belajar' }}
-                        </h3>
-        
-                        <span class="font-extrabold text-sm {{ $profile->streak_days > 0 ? 'text-orange-500' : 'text-gray-400' }}">
-                            {{ $profile->streak_days ?? 0 }} hari
+                    <div class="flex flex-col items-center justify-center text-center h-full">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-10 h-10 text-orange-500 mb-2"
+                             fill="currentColor"
+                             viewBox="0 0 24 24">
+                            <path d="M13.5 2s1 3-1 5c-2 2-4 3-4 7a5.5 5.5 0 0011 0c0-5-4-6-6-12z"/>
+                        </svg>
+                    
+                        <span class="text-3xl font-extrabold text-orange-500">
+                            {{ $profile->streak_days ?? 0 }}
                         </span>
+                    
+                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                            Hari Berturut-turut
+                        </span>
+
+                        <span class="mt-2 px-3 py-1 rounded-full text-[10px] font-bold {{ $badgeClass }}">
+                            @php
+                                $streakTitle = match(true) {
+                                    ($profile->streak_days ?? 0) >= 90 => 'Legendary',
+                                    ($profile->streak_days ?? 0) >= 30 => 'Master',
+                                    ($profile->streak_days ?? 0) >= 14 => 'Advanced',
+                                    ($profile->streak_days ?? 0) >= 7  => 'Consistent',
+                                    default => 'Beginner',
+                                };
+                            @endphp
+                            
+                            {{ $streakTitle }}
+                        </span>
+                    
+                        <p class="text-[10px] text-gray-500 mt-2 max-w-[180px]">
+                            @if($profile->streak_days > 0)
+                                Pertahankan konsistensimu untuk mendapatkan XP dan level lebih cepat.
+                            @else
+                                Mulai belajar hari ini untuk membangun streak pertamamu.
+                            @endif
+                        </p>
+                        
                     </div>
 
-                <div class="text-[11px] text-gray-500 mt-2">
-                    @if($profile->streak_days > 0)
-                        Kamu sudah rajin belajar selama <strong>{{ $profile->streak_days }} hari</strong> berturut-turut! Pertahankan! 🚀
-                    @else
-                        Belum ada streak nih. Ayo mulai belajar hari ini buat bangun streak kamu! 📚
-                    @endif
                 </div>
-            </div>
 
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
                     <div class="flex justify-between items-center mb-2">
@@ -125,7 +184,18 @@
                     <div class="space-y-1.5 max-h-[80px] overflow-y-auto no-scrollbar">
                         @forelse($recentAchievements as $ach)
                             <div class="flex items-center justify-between text-[10px] bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl">
-                                <span class="truncate pr-1 text-gray-700 dark:text-gray-300">🎯 {{ $ach->lesson->title }}</span>
+                                <span class="flex items-center gap-1 truncate pr-1 text-gray-700 dark:text-gray-300">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="w-3 h-3 text-purple-500 flex-shrink-0"
+                                         fill="currentColor"
+                                         viewBox="0 0 20 20">
+                                        <path d="M10 2a8 8 0 108 8h-2a6 6 0 11-6-6V2z"/>
+                                        <circle cx="10" cy="10" r="2"/>
+                                    </svg>
+                                
+                                    {{ $ach->lesson->title }}
+                                </span>
                                 <span class="font-extrabold text-purple-600 flex-shrink-0">+{{ $ach->xp_earned }} XP</span>
                             </div>
                         @empty
@@ -139,55 +209,174 @@
                 <h2 class="text-xl font-extrabold text-gray-900 dark:text-white mb-4">Kategori Populer</h2>
                 <div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar">
                     <div class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm">
-                        <span class="text-3xl mb-2">💼</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-8 h-8 text-purple-600 mb-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 6V4h6v2m-9 3h12v10H6V9z"/>
+                        </svg>
                         <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
                     </div>
                     <div class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm">
-                        <span class="text-3xl mb-2">📈</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-8 h-8 text-purple-600 mb-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M7 17l4-4 3 3 5-7"/>
+                        </svg>
                         <p class="font-bold text-gray-800 text-xs">Marketing</p>
                     </div>
                     </div>
             </div>
 
             <div class="mb-6">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-extrabold text-gray-900 dark:text-white">Rekomendasi Kursus untuk Kamu</h2>
-        <a href="{{ route('courses.index') }}" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-800 hover:underline">Lihat Semua</a>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        @forelse($recommendedCourses as $category)
-            @php $course = $category->courses->first(); @endphp
             
-            <a href="{{ route('courses.show', $course->course_id) }}" class="group bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-xl transition duration-300">
-                <div class="h-40 relative overflow-hidden">
-                    <img src="{{ $course->thumbnail ? asset('storage/' . $course->thumbnail) : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400' }}" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-2 left-2 bg-white/90 px-2 py-0.5 rounded-full text-[9px] font-bold text-purple-700 shadow-sm">
-                        {{ $category->category_name }}
-                    </span>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-extrabold text-gray-900 dark:text-white">
+                        Rekomendasi Kursus untuk Kamu
+                    </h2>
+                
+                    <a href="{{ route('courses.index') }}"
+                       class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-800 hover:underline">
+                        Lihat Semua
+                    </a>
                 </div>
-                <div class="p-4">
-                    <h3 class="font-bold text-gray-800 dark:text-gray-200 text-sm leading-tight mb-1 line-clamp-2">
-                        {{ $course->title }}
-                    </h3>
-                    <p class="text-xs text-gray-400 mb-2 line-clamp-1">{{ $course->description }}</p>
-                    <div class="flex justify-between items-center text-xs">
-                        <span class="text-purple-600 font-bold">📚 {{ $course->lessons->count() }} Lesson</span>
-                    </div>
+            
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                    @forelse($recommendedCourses as $category)
+
+                        @php
+                            $course = $category->courses->first();
+
+                            $defaultBanner = match($course->category_id) {
+                                1 => asset('images/courses/literasi-keuangan.jpg'),
+                                2 => asset('images/courses/umkm-kewirausahaan.jpg'),
+                                3 => asset('images/courses/digital-marketing.jpg'),
+                                4 => asset('images/courses/pengembangan-diri.jpg'),
+                                5 => asset('images/courses/ekonomi-berkelanjutan.jpg'),
+                                default => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
+                            };
+
+                            $imageSrc = $course->thumbnail
+                                ? asset('storage/'.$course->thumbnail)
+                                : $defaultBanner;
+                            @endphp
+
+                        <a href="{{ route('courses.show', $course->course_id) }}"
+                           class="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300 block">
+                        
+                            {{-- Thumbnail --}}
+                            <div class="h-32 overflow-hidden relative">
+                            
+                                <img 
+                                    src="{{ $imageSrc }}" 
+                                    alt="{{ $course->title }}" 
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            
+                                <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 shadow-sm">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="w-3 h-3"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5S19.832 5.483 21 6.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
+                                    </svg>
+                                
+                                    {{ $course->difficulty_level }}
+                                </span>
+                            
+                                <span class="absolute bottom-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-semibold text-gray-700 shadow-sm">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="w-3 h-3"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor">
+
+                                        <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M12 7v5l3 3"/>
+                                    </svg>
+                                
+                                    {{ $course->estimated_duration }} jam
+                                </span>
+                            
+                            </div>
+                        
+                            {{-- Body --}}
+                            <div class="p-5 flex flex-col h-40">
+                            
+                                <h3 class="font-bold text-gray-800 text-base line-clamp-2 mb-1">
+                                    {{ $course->title }}
+                                </h3>
+                            
+                                <p class="text-xs text-gray-500 mb-3 font-medium">
+                                    {{ $category->category_name }}
+                                </p>
+                            
+                                <div class="flex justify-between items-center text-xs mt-auto">
+                                
+                                    <span class="flex items-center gap-1 text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="w-4 h-4"
+                                             fill="currentColor"
+                                             viewBox="0 0 20 20">
+
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/>
+                                        </svg>
+                                    
+                                        4.8
+                                    </span>
+                                
+                                    <span class="flex items-center gap-1 text-purple-600 font-semibold bg-purple-50 px-2 py-1 rounded-md">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="w-4 h-4"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5s3.332.483 4.5 1.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
+                                        </svg>
+                                    
+                                        {{ $course->lessons->count() }} Lesson
+                                    </span>
+                                
+                                </div>
+                            
+                            </div>
+                        
+                        </a>
+                    
+                    @empty
+                    
+                        <div class="col-span-3 text-center py-8 text-gray-500">
+                            Belum ada rekomendasi kursus untuk saat ini.
+                        </div>
+                    
+                    @endforelse
+                    
                 </div>
-            </a>
-        @empty
-            <div class="col-span-3 bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center text-gray-500 italic">
-                Belum ada kursus yang tersedia saat ini.
+            
             </div>
-        @endforelse
-    </div>
-</div>
-
-        </div>
-    </div>
-
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
