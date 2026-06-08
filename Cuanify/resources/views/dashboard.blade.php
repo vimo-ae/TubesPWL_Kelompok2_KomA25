@@ -74,29 +74,82 @@
     </div>
 </div>
 
-                {{-- Progress Belajar --}}
-                <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm">Progress Belajar</h3>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="relative w-16 h-16 flex-shrink-0">
-                            <svg class="w-16 h-16 -rotate-90" viewBox="0 0 80 80">
-                                <circle cx="40" cy="40" r="32" fill="none" stroke="#e5e7eb" stroke-width="8"/>
-                                <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="8"
-                                    stroke-dasharray="201.06" 
-                                    stroke-dashoffset="{{ 201.06 - (201.06 * $progressPercentage / 100) }}" 
-                                    stroke-linecap="round"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-sm font-extrabold text-gray-800 dark:text-gray-200">{{ number_format($progressPercentage, 0) }}%</span>
-                            </div>
-                        </div>
-                        <div class="text-[11px] text-gray-600 dark:text-gray-400 flex-1">
-                            <div>✅ Selesai: <strong>{{ $completedLessons }} / {{ $totalLessons }}</strong></div>
-                        </div>
+                {{-- Progress Belajar (Versi Compact + Link Profil) --}}
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between gap-4">
+    
+    <div class="flex justify-between items-center gap-2">
+        <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm whitespace-nowrap truncate">
+            <i class="fas fa-chart-pie text-purple-500 mr-1"></i> Progress
+        </h3>
+        <span class="text-[10px] font-bold tracking-wide text-purple-600 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400 px-2 py-1 rounded-lg whitespace-nowrap flex-shrink-0">
+            🔥 Semangat!
+        </span>
+    </div>
+
+    <div class="flex items-center gap-4">
+        
+        <div class="relative w-16 h-16 flex-shrink-0">
+            <svg class="w-16 h-16 -rotate-90" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#f3f4f6" stroke-width="8" class="dark:stroke-gray-700"/>
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="8"
+                    stroke-dasharray="201.06" 
+                    stroke-dashoffset="{{ 201.06 - (201.06 * $progressPercentage / 100) }}" 
+                    stroke-linecap="round"
+                    class="transition-all duration-1000 ease-out"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-sm font-black text-gray-800 dark:text-gray-200 leading-none">
+                    {{ number_format($progressPercentage, 0) }}%
+                </span>
+            </div>
+        </div>
+
+        <div class="flex-1 w-full min-w-0">
+            
+            <div class="w-full">
+                <div class="flex justify-between items-end text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1.5">
+                    <span class="whitespace-nowrap truncate flex-1">
+                        <i class="fas fa-book-open text-fuchsia-500 mr-1"></i> Materi
+                    </span>
+                    <span class="whitespace-nowrap flex-shrink-0 ml-2">
+                        {{ $completedLessons }} <span class="text-gray-400 font-normal">/ {{ $totalLessons }}</span>
+                    </span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-purple-500 to-fuchsia-500 h-full rounded-full transition-all duration-1000" 
+                        style="width: {{ $totalLessons > 0 ? ($completedLessons / $totalLessons) * 100 : 0 }}%">
                     </div>
                 </div>
+            </div>
+
+            @if(isset($kuisSelesai) && isset($totalKuis))
+            <div class="w-full mt-3">
+                <div class="flex justify-between items-end text-[11px] font-bold text-gray-600 dark:text-gray-400 mb-1.5">
+                    <span class="whitespace-nowrap truncate flex-1">
+                        <i class="fas fa-tasks text-pink-500 mr-1"></i> Kuis
+                    </span>
+                    <span class="whitespace-nowrap flex-shrink-0 ml-2">
+                        {{ $kuisSelesai }} <span class="text-gray-400 font-normal">/ {{ $totalKuis }}</span>
+                    </span>
+                </div>
+                <div class="w-full bg-gray-100 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-pink-500 to-rose-500 h-full rounded-full transition-all duration-1000" 
+                        style="width: {{ $totalKuis > 0 ? ($kuisSelesai / $totalKuis) * 100 : 0 }}%">
+                    </div>
+                </div>
+            </div>
+            @endif
+
+        </div>
+    </div>
+
+    <div class="mt-1 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-end">
+        <a href="{{ url('/profile') }}" class="text-[11px] font-bold text-purple-600 dark:text-purple-400 hover:text-purple-800 hover:underline transition-all flex items-center gap-1.5">
+            Lihat Detail Progress <i class="fas fa-arrow-right text-[9px]"></i>
+        </a>
+    </div>
+
+</div>
 
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
                     <div class="flex justify-between items-center mb-1">
@@ -136,18 +189,23 @@
             </div>
 
             <div>
-                <h2 class="text-xl font-extrabold text-gray-900 dark:text-white mb-4">Kategori Populer</h2>
-                <div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar">
-                    <div class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm">
-                        <span class="text-3xl mb-2">💼</span>
-                        <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
-                    </div>
-                    <div class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm">
-                        <span class="text-3xl mb-2">📈</span>
-                        <p class="font-bold text-gray-800 text-xs">Marketing</p>
-                    </div>
-                    </div>
-            </div>
+    <h2 class="text-xl font-extrabold text-gray-900 dark:text-white mb-4">Kategori Populer</h2>
+    <div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar">
+        
+        <a href="{{ url('/courses?category=1') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">💼</span>
+            <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
+        </a>
+
+        <a href="{{ url('/courses?category=2') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">📈</span>
+            <p class="font-bold text-gray-800 text-xs">Marketing</p>
+        </a>
+
+    </div>
+</div>
 
             <div class="mb-6">
     <div class="flex justify-between items-center mb-4">
