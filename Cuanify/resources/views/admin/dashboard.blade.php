@@ -1,18 +1,29 @@
 <x-app-layout>
-    <div class="flex min-h-screen bg-[#fcf9fe] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
-        
-        {{-- Sidebar Admin --}}
-        @include('admin.partials.sidebar')
+    <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8">
 
         {{-- Main Content Area --}}
         <div class="flex-1 p-6 lg:p-10">
             
             {{-- Welcome Hero Banner --}}
-            <div class="bg-gradient-to-r from-purple-600 to-fuchsia-500 rounded-[30px] p-8 md:p-10 text-white mb-8 shadow-lg relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                <div class="absolute bottom-0 right-32 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl mb-4"></div>
-                <h1 class="text-3xl font-extrabold mb-2 relative z-10">Selamat datang di Cuanify</h1>
-                <p class="text-purple-100 relative z-10 text-sm">Kelola platform belajar mengajar dengan mudah dan efisien.</p>
+            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-8">
+                <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
+                    <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
+                    <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
+                </div>
+                <div class="relative z-10 w-full flex flex-col justify-center px-10 py-8 text-white">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4 border border-white/20 w-fit">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                        </svg>
+                        ADMIN DASHBOARD
+                    </div>
+                    <h1 class="text-3xl font-semibold tracking-normal mb-3 text-white">
+                        Selamat datang di <span class="text-[#f7e06d] font-bold">Cuanify</span>
+                    </h1>
+                    <p class="text-white/90 text-[13px] max-w-4xl font-normal leading-relaxed">
+                        Kelola platform belajar mengajar dengan mudah dan efisien.
+                    </p>
+                </div>
             </div>
 
             {{-- Stats Grid Card --}}
@@ -20,6 +31,7 @@
                 
                 {{-- Total Student --}}
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-purple-500 rounded-r-3xl"></div>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Student</p>
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
@@ -27,11 +39,11 @@
                         </div>
                         <h3 class="text-3xl font-black text-gray-800">{{ $totalStudents }}</h3>
                     </div>
-                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Aktif</span>
+                    <span class="text-[10px] font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Aktif</span>
                 </div>
 
-                {{-- Total Instructor --}}
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-pink-400 rounded-r-3xl"></div>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Instructor</p>
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-10 h-10 rounded-xl bg-pink-50 text-pink-500 flex items-center justify-center text-lg">
@@ -39,11 +51,11 @@
                         </div>
                         <h3 class="text-3xl font-black text-gray-800">{{ $totalInstructors }}</h3>
                     </div>
-                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Terdaftar</span>
+                    <span class="text-[10px] font-bold text-pink-500 bg-pink-50 px-3 py-1 rounded-full">Terdaftar</span>
                 </div>
 
-                {{-- Total Course --}}
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-50 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-teal-400 rounded-r-3xl"></div>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Total Course</p>
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-500 flex items-center justify-center text-lg">
@@ -51,12 +63,11 @@
                         </div>
                         <h3 class="text-3xl font-black text-gray-800">{{ $totalCourses }}</h3>
                     </div>
-                    <span class="text-[10px] font-bold text-blue-500 bg-blue-50 px-3 py-1 rounded-full">Tersedia</span>
+                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Tersedia</span>
                 </div>
 
-                {{-- Pending Verification --}}
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-amber-100 text-center flex flex-col items-center justify-center relative overflow-hidden transition hover:shadow-md">
-                    <div class="absolute top-0 right-0 w-2 h-full bg-amber-400"></div>
+                    <div class="absolute top-0 right-0 w-2 h-full bg-amber-400 rounded-r-3xl"></div>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Pending Verifikasi</p>
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-lg">

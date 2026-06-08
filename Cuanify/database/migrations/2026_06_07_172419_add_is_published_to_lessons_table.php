@@ -6,17 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    /**
+     * Run the migrations.
+     */
+    public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->boolean('has_quiz')->default(false);
+            $table->boolean('is_published')->default(false)->after('title');
         });
     }
 
-    public function down(): void
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->dropColumn('has_quiz');
+            $table->dropColumn('is_published');
         });
     }
 };
