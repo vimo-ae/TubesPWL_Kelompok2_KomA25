@@ -157,8 +157,17 @@
         @else
 
         <div class="bg-white border border-purple-100 rounded-[35px] p-14 text-center shadow-sm">
-            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center text-white text-5xl shadow-xl mb-6">
-                📖
+            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-fuchsia-500 via-purple-500 to-indigo-600 flex items-center justify-center shadow-xl mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-12 h-12 text-white"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422A12.083 12.083 0 0118 17.5c0 1.105-2.686 2-6 2s-6-.895-6-2a12.083 12.083 0 01-.16-6.922L12 14z"/>
+                </svg>
             </div>
 
             <h2 class="text-3xl font-extrabold text-gray-800 mb-3">

@@ -9,18 +9,6 @@
             ← Kembali ke Lesson
         </a>
 
-<<<<<<< HEAD
-        <!-- Header -->
-        <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-8 shadow-xl mb-8">
-
-    <h1 class="text-2xl font-bold mb-4">
-        Quiz {{ $lesson->title }}
-    </h1>
-
-    @if ($lesson->quiz)
-
-        @php $quiz = $lesson->quiz; @endphp
-=======
         <div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-8 shadow-xl mb-8">
 
             <div class="absolute -top-20 -right-16 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -45,7 +33,6 @@
         {{-- Logika Pengecekan Kuis Tunggal dari branch `main` --}}
         @if ($lesson->quiz)
             @php $quiz = $lesson->quiz; @endphp
->>>>>>> 8f19681954a25e08801f1da0c5c3f84dbc4a7f28
 
             <div class="bg-white rounded-[28px] border border-purple-100 shadow-lg p-6 mb-6 hover:shadow-xl transition duration-300">
 
@@ -83,14 +70,6 @@
                             </div>
 
                             <div class="mt-4">
-<<<<<<< HEAD
-
-            @if($quiz->best_score !== null)
-                <p class="text-green-600 font-semibold">
-                    Skor Terbaik: {{ $quiz->best_score }}/100
-                </p>
-            @else
-=======
                                 {{-- Logika Skor Terbaik dari branch `main` --}}
                                 @if($quiz->best_score !== null)
                                     <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-xl font-bold">
@@ -153,36 +132,12 @@
                 <h3 class="text-xl font-bold text-gray-800 mb-2">
                     Belum Ada Quiz
                 </h3>
->>>>>>> 8f19681954a25e08801f1da0c5c3f84dbc4a7f28
                 <p class="text-gray-500">
                     Belum pernah mengerjakan quiz
                 </p>
-<<<<<<< HEAD
-            @endif
-
-            <p class="text-gray-600 mb-3">
-                Time Limit: {{ $quiz->time_limit }} menit
-            </p>
-
-            <a href="{{ route('quizzes.take', $quiz->quiz_id) }}"
-               class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">
-                Mulai Quiz
-            </a>
-
-        </div>
-
-    @else
-
-        <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded mt-4">
-            Belum ada quiz untuk lesson ini.
-        </div>
-
-    @endif
-=======
             </div>
 
         @endif
->>>>>>> 8f19681954a25e08801f1da0c5c3f84dbc4a7f28
 
     </div>
 

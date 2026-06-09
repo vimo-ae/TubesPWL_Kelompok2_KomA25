@@ -34,14 +34,7 @@
         {{-- Menggunakan loop forelse dari hubungan model $lesson->quizzes --}}
         @forelse($lesson->quizzes as $quiz)
 
-<<<<<<< HEAD
-    <div class="p-6">
-        <h1 class="text-2xl font-bold mb-6">
-            Tambah Course
-        </h1>
-=======
             <div class="bg-white rounded-[28px] border border-purple-100 shadow-lg p-6 mb-6 hover:shadow-xl transition duration-300">
->>>>>>> 8f19681954a25e08801f1da0c5c3f84dbc4a7f28
 
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
