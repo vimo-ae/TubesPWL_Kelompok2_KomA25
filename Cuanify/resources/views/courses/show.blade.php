@@ -144,65 +144,80 @@
                                 </div>
                             </div>
                             <div class="space-y-3">
-                                @forelse($course->lessons as $lesson)
-                                    @if($canViewLessons)
-                                        <a href="{{ route('lessons.show', $lesson->lesson_id) }}"
-                                           class="block group">
-                                            <div class="bg-white border border-purple-100 rounded-2xl p-5
-                                                        flex items-center justify-between
-                                                        hover:shadow-xl hover:border-purple-300
-                                                        hover:-translate-y-1
-                                                        transition-all duration-300">
-                                                                                
-                                                <div class="flex items-center gap-4">
-                                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-600
-                                                                text-white flex items-center justify-center font-bold">
-                                                        {{ $loop->iteration }}
-                                                    </div>
-                                                
-                                                    <div>
-                                                        <h4 class="font-bold text-gray-800">
-                                                            {{ $lesson->title }}
-                                                        </h4>
-                                                    
-                                                        <p class="text-sm text-gray-500">
-                                                            Lesson {{ $loop->iteration }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @else
-                                        <div class="bg-gray-100 border rounded-2xl p-5 opacity-75">
-                                            <h4 class="font-bold text-gray-500">{{ $lesson->title }}</h4>
-                                            @if(auth()->check() && auth()->user()->role === 'student')
-                                                <p class="text-red-500 text-sm mt-2">Enroll course terlebih dahulu untuk membuka lesson.</p>
-                                            @else
-                                                <div class="flex items-center gap-2 text-amber-600 text-sm font-medium">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke="currentColor"
-                                                        class="w-4 h-4">
-                                                    <path stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 11c1.657 0 3-1.343
-                                                        3-3s-1.343-3-3-3-3 1.343-3
-                                                        3 1.343 3 3 3zm0 0v2m-6
-                                                        8h12a2 2 0 002-2v-3a6 6 0
-                                                        00-12 0v3a2 2 0 002 2z"/>
-                                                    </svg>
-                                                
-                                                    <span>Hanya dapat diakses oleh siswa yang terdaftar.</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                @empty
-                                    <div class="bg-gray-50 rounded-2xl p-6 text-gray-400 text-center">Belum ada lesson.</div>
-                                @endforelse
+    @forelse($course->lessons as $lesson)
+        @if($canViewLessons)
+            
+            {{-- Pengecekan apakah user ini sudah menyelesaikan lesson ini --}}
+            @php
+                $isCompleted = $lesson->progress
+                    ->where('profile_id', auth()->user()->profile->profile_id)
+                    ->where('is_completed', true)
+                    ->first();
+            @endphp
+
+            @if($isCompleted)
+                <a href="{{ route('lessons.show', $lesson->lesson_id) }}" class="block group opacity-75 hover:opacity-100 transition-opacity duration-300">
+                    <div class="bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex items-center justify-between hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center font-bold">
+                                {{ $loop->iteration }}
                             </div>
+                            <div>
+                                <h4 class="font-bold text-gray-500 decoration-gray-400 dark:text-gray-400">
+                                    {{ $lesson->title }}
+                                </h4>
+                                <p class="text-sm text-gray-400">
+                                    Lesson {{ $loop->iteration }}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-1.5 bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-200 dark:border-green-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Selesai
+                        </div>
+                    </div>
+                </a>
+            @else
+                <a href="{{ route('lessons.show', $lesson->lesson_id) }}" class="block group">
+                    <div class="bg-white dark:bg-gray-800 border border-purple-100 dark:border-gray-700 rounded-2xl p-5 flex items-center justify-between hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-500 hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white flex items-center justify-center font-bold">
+                                {{ $loop->iteration }}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200">
+                                    {{ $lesson->title }}
+                                </h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    Lesson {{ $loop->iteration }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endif
+        @else
+            <div class="bg-gray-100 dark:bg-gray-800/50 border dark:border-gray-700 rounded-2xl p-5 opacity-75">
+                <h4 class="font-bold text-gray-500 dark:text-gray-400">{{ $lesson->title }}</h4>
+                @if(auth()->check() && auth()->user()->role === 'student')
+                    <p class="text-red-500 text-sm mt-2">Enroll course terlebih dahulu untuk membuka lesson.</p>
+                @else
+                    <div class="flex items-center gap-2 text-amber-600 text-sm font-medium mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 0v2m-6 8h12a2 2 0 002-2v-3a6 6 0 00-12 0v3a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Hanya dapat diakses oleh siswa yang terdaftar.</span>
+                    </div>
+                @endif
+            </div>
+        @endif
+    @empty
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 text-gray-400 text-center border border-dashed dark:border-gray-700">Belum ada lesson.</div>
+    @endforelse
+</div>
                         </div>
 
                         <!-- BAGIAN ULASAN (Review Section) -->
@@ -224,18 +239,20 @@
                                     <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex gap-4">
 
                                         <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 bg-purple-100 flex items-center justify-center border border-purple-200 shadow-sm">
-                                            @if($photoUrl)
-                                                <img src="{{ $photoUrl }}" alt="{{ $reviewerName }}" class="w-full h-full object-cover">
-                                            @else
-                                                <span class="font-bold text-purple-600 text-lg">
-                                                    {{ strtoupper(substr($reviewerName, 0, 1)) }}
-                                                </span>
-                                            @endif
+                                            <img 
+    src="{{ 
+        $review->user->profile && $review->user->profile->profile_photo && file_exists(public_path('storage/' . $review->user->profile->profile_photo))
+            ? asset('storage/' . $review->user->profile->profile_photo)
+            : asset('images/profile-default.jpg') 
+    }}"
+    alt="{{ $review->user->name }}" 
+    class="w-full h-full object-cover"
+>
                                         </div>
 
                                         <div class="flex-1">
                                             <div class="flex items-center justify-between mb-1">
-                                                <span class="font-bold text-gray-800">{{ $review->user->name }}</span>
+                                                <span class="font-bold text-gray-800">{{ $review->user->username }}</span>
                                                 <div class="flex items-center gap-1 text-yellow-500">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                          fill="currentColor"
@@ -257,7 +274,7 @@
                                                 </div>
                                             </div>
                                             <p class="text-gray-600 text-sm leading-relaxed">{{ $review->comment }}</p>
-                                            <span class="text-[10px] text-gray-400 mt-2 block font-medium">
+                                            <span class="text-[12px] text-gray-400 mt-2 block font-medium">
                                                 {{ $review->created_at->diffForHumans() }}
                                             </span>
                                         </div>

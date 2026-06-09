@@ -32,39 +32,39 @@
             <div class="flex-1 w-full">
                 {{-- Avatar: Menggunakan gradasi linear khas Cuanify --}}
                 <div class="w-24 h-24 bg-gradient-to-br from-[#b55fe6]/20 to-[#e84393]/20 text-purple-700 rounded-3xl flex items-center justify-center text-4xl font-extrabold mb-5 shadow-inner">
-                    {{ strtoupper(substr($user->username, 0, 1)) }}
+                    {{ strtoupper(substr($userDetail->username, 0, 1)) }}
                 </div>
                 
-                <h1 class="text-3xl font-extrabold text-gray-800 mb-1 tracking-tight">{{ $user->username }}</h1>
+                <h1 class="text-3xl font-extrabold text-gray-800 mb-1 tracking-tight">{{ $userDetail->username }}</h1>
                 <p class="text-gray-400 text-sm mb-6 flex items-center gap-1.5">
-                    <i class="fas fa-envelope text-purple-300"></i> {{ $user->email }}
+                    <i class="fas fa-envelope text-purple-300"></i> {{ $userDetail->email }}
                 </p>
                 
                 <div class="border-t border-gray-50 pt-5 space-y-3.5 text-sm text-gray-600">
                     <div class="flex justify-between sm:justify-start sm:gap-10 border-b border-gray-50 pb-2">
                         <span class="text-gray-400 w-28">Role Akun</span>
-                        <span class="capitalize font-bold bg-purple-50 text-purple-700 px-2.5 py-0.5 rounded-lg text-xs border border-purple-100">{{ $user->role }}</span>
+                        <span class="capitalize font-bold bg-purple-50 text-purple-700 px-2.5 py-0.5 rounded-lg text-xs border border-purple-100">{{ $userDetail->role }}</span>
                     </div>
                     <div class="flex justify-between sm:justify-start sm:gap-10 border-b border-gray-50 pb-2">
                         <span class="text-gray-400 w-28">Terdaftar</span>
-                        <span class="font-semibold text-gray-700">{{ $user->created_at->format('d M Y') }}</span>
+                        <span class="font-semibold text-gray-700">{{ $userDetail->created_at->format('d M Y') }}</span>
                     </div>
                     <div class="flex justify-between sm:justify-start sm:gap-10 pb-1">
                         <span class="text-gray-400 w-28">Terakhir Login</span>
                         <span class="font-semibold text-gray-700">
-                            {{ $user->last_login ? \Carbon\Carbon::parse($user->last_login)->diffForHumans() : 'Belum pernah login' }}
+                            {{ $userDetail->last_login ? \Carbon\Carbon::parse($userDetail->last_login)->diffForHumans() : 'Belum pernah login' }}
                         </span>
                     </div>
                 </div>
             </div>
 
             {{-- SISI KANAN: Panel Manajemen Status Akun --}}
-            <div class="w-full md:w-[400px] bg-purple-50/40 p-6 rounded-2xl border border-purple-100/60" x-data="{ selectedStatus: '{{ $user->status }}' }">
+            <div class="w-full md:w-[400px] bg-purple-50/40 p-6 rounded-2xl border border-purple-100/60" x-data="{ selectedStatus: '{{ $userDetail->status }}' }">
                 <h3 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <i class="fas fa-user-shield text-purple-500"></i> Kontrol Akses Akun
                 </h3>
                 
-                <form action="{{ route('admin.users.update_status', $user->user_id) }}" method="POST" class="space-y-4">
+                <form action="{{ route('admin.users.update_status', $userDetail->user_id) }}" method="POST" class="space-y-4">
                     @csrf
                     @method('PUT')
                     
@@ -102,12 +102,12 @@
                     </div>
 
                     {{-- Info Banner jika User sedang berstatus Banned --}}
-                    @if($user->banned_until && $user->banned_until > now())
+                    @if($userDetail->banned_until && $userDetail->banned_until > now())
                         <div class="p-3.5 bg-red-50 border border-red-100 text-red-700 text-xs rounded-xl flex items-start gap-2.5">
                             <i class="fas fa-exclamation-triangle mt-0.5 shrink-0 text-red-500"></i>
                             <div>
                                 <span class="font-bold block mb-0.5">Akun Sedang Ditangguhkan</span>
-                                Terkunci hingga: {{ \Carbon\Carbon::parse($user->banned_until)->format('d M Y (H:i)') }}
+                                Terkunci hingga: {{ \Carbon\Carbon::parse($userDetail->banned_until)->format('d M Y (H:i)') }}
                             </div>
                         </div>
                     @endif

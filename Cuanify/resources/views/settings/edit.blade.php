@@ -17,9 +17,25 @@
     font-family: inherit;
 }
 
-.st-wrap { max-width:700px; margin:0 auto; padding:0 0 32px; }
-.st-title { font-size:22px; font-weight:600; color:#1e1b4b; margin:0 0 4px; } /* Diubah ke 600 agar tidak terlalu bold */
-.st-subtitle { font-size:13px; color:#9ca3af; margin:0 0 24px; }
+.st-wrap {
+    max-width:960px;
+    margin:0 auto;
+    padding:32px 16px;
+}
+
+/* CSS Setting */
+.st-title {
+    font-size:28px;
+    font-weight:700;
+    color:#1e1b4b;
+    margin:0 0 4px;
+}
+
+.st-subtitle {
+    font-size:14px;
+    color:#6b7280;
+    margin:0 0 24px;
+}
 
 .st-card {
     background:#fff; border:1px solid #ede9fe;
@@ -39,8 +55,17 @@
 .ic-violet { background:#ede9fe; }
 .ic-amber  { background:#fef3c7; }
 .ic-red    { background:#fee2e2; }
-.st-card-title { font-size:14px; font-weight:600; color:#1e1b4b; margin:0 0 2px; } /* Diubah ke 600 */
-.st-card-sub { font-size:11px; color:#9ca3af; margin:0; }
+.st-card-title {
+    font-size:18px;
+    font-weight:700;
+    color:#1e1b4b;
+    margin:0 0 2px;
+}
+.st-card-sub {
+    font-size:12px;
+    color:#9ca3af;
+    margin:0;
+}
 .st-card-body { padding:20px 24px; }
 
 /* FIELDS */

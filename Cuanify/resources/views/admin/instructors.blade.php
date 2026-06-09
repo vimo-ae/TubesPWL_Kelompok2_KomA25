@@ -101,16 +101,28 @@
     <div class="flex-1 p-6 sm:p-8 lg:p-10">
         <div class="iv-wrap">
 
-            <div class="admin-hero">
-                <div class="hero-badge">
-                    <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline; margin-right:4px; vertical-align:text-top;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Verifikasi Instruktur
+            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
+                <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
+                    <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
+                    <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
                 </div>
-                <h1 class="hero-title">Kelola Instruktur <span>Cuanify</span></h1>
-                <p class="hero-desc">Tinjau dan kelola status verifikasi akun instruktur yang mendaftar di platform.</p>
+                <div class="relative z-10 w-full flex flex-col justify-center px-10 py-8 text-white">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4 border border-white/20 w-fit">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Verifikasi Instruktur
+                    </div>
+                    <h1 class="text-3xl font-semibold tracking-normal mb-3 text-white">
+                        Kelola Instruktur <span class="text-[#f7e06d] font-bold">Cuanify</span>
+                    </h1>
+                    <p class="text-white/90 text-[13px] max-w-4xl font-normal leading-relaxed">
+                        Tinjau dan kelola status verifikasi akun instruktur yang mendaftar di platform untuk menjaga kualitas pengajar.
+                    </p>
+                </div>
             </div>
 
-            <div class="iv-card">
+            <div class="iv-card mt-8">
                 <div class="iv-card-header">
                     <div class="iv-card-icon ic-amber">
                         <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
