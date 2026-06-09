@@ -22,51 +22,46 @@ class ProfileController extends Controller
             ['user_id' => $user->user_id],
             ['full_name' => $user->username]
         );
-
-        // ==========================================
-        // 👑 LOGIKA FILTER UNTUK ADMIN
-        // ==========================================
+      
         if ($user->role === 'admin') {
-            $totalUsers = User::count();
-            $totalInstructors = User::where('role', 'instructor')->count();
-            $totalCourses = Course::count(); 
-            $pendingApprovals = Course::where('status', 'pending')->count();
-            $recentLogs = []; 
 
-            return view('admin.profile', [
-                'user' => $user,
-                'profile' => $profile, // Menggunakan variabel $profile yang sudah dibuat di atas
-                'totalUsers' => $totalUsers,
-                'totalInstructors' => $totalInstructors,
-                'totalCourses' => $totalCourses,
-                'pendingApprovals' => $pendingApprovals,
-                'recentLogs' => $recentLogs
-            ]);
-        }
+        $totalUsers = \App\Models\User::count();
+        $totalInstructors = \App\Models\User::where('role', 'instructor')->count();
+        $totalCourses = \App\Models\Course::count(); 
 
-        // ==========================================
-        // 🎯 LOGIKA FILTER UNTUK INSTRUKTUR
-        // ==========================================
+        $pendingApprovals = \App\Models\Course::where('status', 'pending')->count();
+
+        $recentLogs = []; 
+
+        return view('admin.profile', [
+            'user' => $user,
+            'profile' => $user->profile,
+            'totalUsers' => $totalUsers,
+            'totalInstructors' => $totalInstructors,
+            'totalCourses' => $totalCourses,
+            'pendingApprovals' => $pendingApprovals,
+            'recentLogs' => $recentLogs
+        ]);
+    }if ($user->role === 'admin') {
+        return view('admin.profile', [
+            'user' => $user,
+            'profile' => $user->profile 
+        ]);
+    }
+
         if ($user->role === 'instructor') {
-            // Tarik data kursus yang dibuat instruktur ini + jumlah siswa (enrollments)
             $createdCourses = $user->createdCourses()->withCount('enrollments')->get();
-            
+
             return view('instructor.profile', compact('user', 'profile', 'createdCourses'));
         }
 
-        // ==========================================
-        // 📚 LOGIKA HITUNG PROGRESS STUDENT (Default)
-        // ==========================================
-        
-        // 1. Ambil ID semua course yang di-enroll oleh user
+
         $enrolledCourseIds = $user->courses()->pluck('courses.course_id');
 
-        // 2. HITUNG PENYEBUT (Total seluruh Materi & Kuis dari course yang diikuti)
         $totalMateri = Lesson::whereIn('course_id', $enrolledCourseIds)->count();
         $enrolledLessonIds = Lesson::whereIn('course_id', $enrolledCourseIds)->pluck('lesson_id');
         $totalKuis = Quiz::whereIn('lesson_id', $enrolledLessonIds)->count();
 
-        // 3. HITUNG PEMBILANG (Materi & Kuis yang sudah diselesaikan user)
         $materiSelesai = Progress::where('profile_id', $profile->profile_id)
             ->where('is_completed', true)
             ->count();
@@ -76,8 +71,6 @@ class ProfileController extends Controller
                 $query->select('quiz_id')->from('quizzes')->whereIn('lesson_id', $enrolledLessonIds);
             })
             ->count();
-
-        // 4. HITUNG PERSENTASE TOTAL
         $totalPenyebut = $totalMateri + $totalKuis;
         $totalPembilang = $materiSelesai + $kuisSelesai;
         
@@ -128,7 +121,6 @@ class ProfileController extends Controller
         ));    
     }
 
-    // Method untuk menampilkan halaman edit profil
     public function edit()
     {
         $user    = Auth::user();
@@ -140,7 +132,6 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'profile'));
     }
 
-    // Method untuk memproses update data profil
     public function update(Request $request)
     {
         $user    = Auth::user();
@@ -156,6 +147,7 @@ class ProfileController extends Controller
         $profile->bio       = $request->bio;
 
         if ($request->hasFile('profile_photo')) {
+
             if ($profile->profile_photo && Storage::disk('public')->exists($profile->profile_photo)) {
                 Storage::disk('public')->delete($profile->profile_photo);
             }

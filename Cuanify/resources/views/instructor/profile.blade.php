@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Profile - Cuanify')
+
 <div class="p-6 max-w-5xl mx-auto space-y-6">
 
     <h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">

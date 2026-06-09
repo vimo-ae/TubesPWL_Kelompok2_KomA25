@@ -10,9 +10,6 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    /**
-     * 📌 TAMPILKAN QUIZ DALAM 1 LESSON
-     */
     public function show($lesson_id)
     {
         $lesson = Lesson::with('quiz.questions.options')
@@ -34,9 +31,6 @@ class QuizController extends Controller
         return view('quizzes.show', compact('lesson'));
     }
 
-    /**
-     * 📌 HALAMAN MENGERJAKAN QUIZ
-     */
     public function take($quiz_id)
     {
         $quiz = Quiz::with('questions.options')
@@ -46,9 +40,6 @@ class QuizController extends Controller
         return view('quizzes.take', compact('quiz'));
     }
 
-    /**
-     * 📌 SUBMIT QUIZ
-     */
     public function submit(Request $request, $quiz_id)
     {
         $quiz = Quiz::with('questions.options')
@@ -115,7 +106,6 @@ class QuizController extends Controller
             $isNewBestScore = true;
 
         } else {
-
             $bestScore = $result->score;
             $bestCorrect = $result->total_correct;
         }

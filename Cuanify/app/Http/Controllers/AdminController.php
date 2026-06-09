@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // <-- Pastikan ini di-import!
+use Illuminate\Support\Facades\Auth; 
 
 class AdminController extends Controller
 {
-    // Method pembantu (helper) biar kodenya gak berulang-ulang
     private function getAdminProfile($user)
     {
         return $user->profile()->firstOrCreate(
@@ -17,8 +16,7 @@ class AdminController extends Controller
             ['full_name' => $user->username]
         );
     }
-
-    // Mengambil data dashboard (Sudah Fix Kirim Profile)
+  
     public function dashboard()
     {
         $user = Auth::user();
@@ -31,8 +29,8 @@ class AdminController extends Controller
         $pendingCourses = Course::where('status', 'pending')->count();
 
         return view('admin.dashboard', compact(
-            'user', // Kirim user
-            'profile', // Kirim profile biar navbar gak kosong!
+            'user', 
+            'profile', 
             'totalStudents', 
             'totalInstructors', 
             'pendingInstructors', 
@@ -41,7 +39,6 @@ class AdminController extends Controller
         ));
     }
 
-    // Mengambil data instruktur berdasarkan status (Sudah Fix Kirim Profile)
     public function instructors()
     {
         $user = Auth::user();
@@ -58,7 +55,6 @@ class AdminController extends Controller
         return view('admin.instructors', compact('user', 'profile', 'instructors', 'approvedInstructors', 'rejectedInstructors'));
     }
 
-    // Manajemen User (Sudah Fix Kirim Profile)
     public function manageUsers()
     {
         $user = Auth::user();
@@ -72,7 +68,6 @@ class AdminController extends Controller
         return view('admin.users', compact('user', 'profile', 'students', 'allApprovedInstructors'));
     }
 
-    // Manajemen Kursus / Courses (Sudah Fix Kirim Profile)
     public function courses()
     {
         $user = Auth::user();
@@ -84,7 +79,6 @@ class AdminController extends Controller
         return view('admin.courses', compact('user', 'profile', 'pendingCourses', 'publishedCourses'));
     }
 
-    // Menyetujui Instruktur Baru
     public function approve(int $user_id)
     {
         $user = User::findOrFail($user_id);
@@ -93,7 +87,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    // Menolak Instruktur Baru
     public function reject(Request $request, int $user_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -106,7 +99,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Instruktur berhasil ditolak.');
     }
 
-    // Menyetujui Kursus
     public function approveCourse(int $course_id)
     {
         $course = Course::findOrFail($course_id);
@@ -116,7 +108,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    // Menolak Kursus
     public function rejectCourse(Request $request, int $course_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -129,7 +120,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Course berhasil ditolak.');
     }
 
-    // Detail Kursus (Sudah Fix Kirim Profile)
     public function showCourse(int $course_id)
     {
         $user = Auth::user();
@@ -140,7 +130,6 @@ class AdminController extends Controller
         return view('admin.courses-show', compact('user', 'profile', 'course'));
     }
 
-    // Daftar Student (Sudah Fix Kirim Profile)
     public function students()
     {
         $user = Auth::user();
@@ -152,7 +141,6 @@ class AdminController extends Controller
         return view('admin.users', compact('user', 'profile', 'users', 'title'));
     }
 
-    // Daftar Seluruh Instruktur (Sudah Fix Kirim Profile)
     public function allInstructors()
     {
         $user = Auth::user();
@@ -164,17 +152,15 @@ class AdminController extends Controller
         return view('admin.users', compact('user', 'profile', 'users', 'title'));
     }
 
-    // Detail User (Sudah Fix Kirim Profile)
     public function showUser($id)
     {
         $user = Auth::user();
         $profile = $this->getAdminProfile($user);
 
-        $userDetail = User::findOrFail($id); // Diubah jadi $userDetail agar tidak tabrakan dengan $user milik admin yang login
+        $userDetail = User::findOrFail($id); 
         return view('admin.user-detail', compact('user', 'profile', 'userDetail'));
     }
 
-    // Fitur Ban / Update Status Aktif User
     public function updateUserStatus(Request $request, $id)
     {
         $request->validate([
