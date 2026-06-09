@@ -47,7 +47,7 @@ class AdminController extends Controller
         $allApprovedInstructors = User::where('role', 'instructor')
                                       ->where('status_instructor', 'approved')
                                       ->get();
-
+        
         return view('admin.users', compact('students', 'allApprovedInstructors'));
     }
 

@@ -121,7 +121,7 @@
             <x-responsive-nav-link :href="route('admin.instructors')" :active="request()->routeIs('admin.instructors')">Verifikasi Instruktur</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">Kelola Kategori</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.courses')" :active="request()->routeIs('admin.courses')">Kelola Course</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.students')" :active="request()->routeIs('admin.students')">Kelola Pengguna</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">Kelola Pengguna</x-responsive-nav-link>
 
         @else
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>

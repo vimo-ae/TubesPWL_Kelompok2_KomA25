@@ -27,10 +27,10 @@ class Lesson extends Model
         return $this->belongsTo(Course::class, 'course_id', 'course_id');
     }
 
-    public function quizzes()
-    {
-        return $this->hasMany(Quiz::class, 'lesson_id', 'lesson_id');
-    }
+    public function quiz()
+{
+    return $this->hasOne(Quiz::class, 'lesson_id', 'lesson_id');
+}
 
     public function progress()
     {

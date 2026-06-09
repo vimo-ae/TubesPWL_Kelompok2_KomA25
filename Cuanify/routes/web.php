@@ -60,8 +60,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
     Route::put('/admin/categories/{category_id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category_id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
-
-    Route::get('/admin/students', [AdminController::class, 'students'])->name('admin.students');
 });
 
 
@@ -102,8 +100,11 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'destroy'])->name('instructor.lessons.destroy');
     Route::patch('/instructor/courses/{course}/lessons/{lesson}/publish', [InstructorLessonController::class, 'publish'])->name('instructor.lessons.publish');
 
-    Route::get('/lessons/{lesson}/quiz/create', [InstructorQuizController::class, 'create'])->name('instructor.quizzes.create');
-    Route::post('/lessons/{lesson}/quiz', [InstructorQuizController::class, 'store'])->name('instructor.quizzes.store');
+    Route::get('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'upsert'])
+    ->name('instructor.quizzes.upsert');
+
+Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'storeOrUpdate'])
+    ->name('instructor.quizzes.storeOrUpdate');
 
 });
 

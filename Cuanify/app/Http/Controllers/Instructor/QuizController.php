@@ -11,65 +11,109 @@ use App\Models\AnswerOption;
 
 class QuizController extends Controller
 {
-    public function create(Lesson $lesson)
+    /**
+     * HALAMAN CREATE / EDIT (UPSERT)
+     */
+    public function upsert(Lesson $lesson)
     {
-        return view('instructor.quizzes.create', compact('lesson'));
+        $quiz = Quiz::where('lesson_id', $lesson->lesson_id)
+            ->with('questions.options')
+            ->first();
+
+        return view('instructor.quizzes.upsert', compact('lesson', 'quiz'));
     }
 
-    public function store(Request $request, Lesson $lesson)
+    /**
+     * SIMPAN / REBUILD QUIZ
+     */
+    public function storeOrUpdate(Request $request, Lesson $lesson)
     {
+        $request->validate([
+            'title' => 'required|string',
+        ]);
+
+        /**
+         * HAPUS QUIZ LAMA (REBUILD SYSTEM)
+         */
+        $oldQuiz = Quiz::where('lesson_id', $lesson->lesson_id)->first();
+
+        if ($oldQuiz) {
+            foreach ($oldQuiz->questions as $q) {
+                $q->options()->delete();
+            }
+            $oldQuiz->questions()->delete();
+            $oldQuiz->delete();
+        }
+
+        /**
+         * CREATE QUIZ BARU
+         */
         $quiz = Quiz::create([
             'lesson_id' => $lesson->lesson_id,
             'title' => $request->title,
-            'passing_score' => $request->passing_score,
+            'passing_score' => $request->passing_score ?? 70,
             'time_limit' => $request->time_limit,
         ]);
 
-        foreach ($request->questions as $questionData) {
+        /**
+         * CREATE QUESTIONS + OPTIONS
+         */
+        if ($request->questions) {
 
-            $question = Question::create([
-                'quiz_id' => $quiz->quiz_id,
-                'question_text' => $questionData['question_text'],
-                'question_type' => $questionData['question_type'],
-                'points' => 1,
-            ]);
+            foreach ($request->questions as $qIndex => $qData) {
 
-            // TRUE FALSE
-            if ($questionData['question_type'] == 'true_false') {
-
-                AnswerOption::create([
-                    'question_id' => $question->question_id,
-                    'option_text' => 'True',
-                    'is_correct' => $questionData['correct_answer'] == 'True',
+                $question = Question::create([
+                    'quiz_id' => $quiz->quiz_id,
+                    'question_text' => $qData['question_text'],
+                    'question_type' => $qData['question_type'],
+                    'points' => 1,
                 ]);
 
-                AnswerOption::create([
-                    'question_id' => $question->question_id,
-                    'option_text' => 'False',
-                    'is_correct' => $questionData['correct_answer'] == 'False',
-                ]);
-            }
-
-            // MULTIPLE CHOICE
-            else {
-
-                foreach ($questionData['options'] as $index => $optionText) {
+                // TRUE / FALSE
+                if ($qData['question_type'] === 'true_false') {
 
                     AnswerOption::create([
                         'question_id' => $question->question_id,
-                        'option_text' => $optionText,
-                        'is_correct' => $index == $questionData['correct_answer'],
+                        'option_text' => 'True',
+                        'is_correct' => ($qData['correct_answer'] ?? null) === 'True',
                     ]);
+
+                    AnswerOption::create([
+                        'question_id' => $question->question_id,
+                        'option_text' => 'False',
+                        'is_correct' => ($qData['correct_answer'] ?? null) === 'False',
+                    ]);
+                }
+
+                // MULTIPLE CHOICE
+                else {
+
+                    if (!isset($qData['options'])) continue;
+
+                    foreach ($qData['options'] as $oIndex => $optionData) {
+
+                        $text = is_array($optionData)
+                            ? ($optionData['text'] ?? '')
+                            : $optionData;
+
+                        if ($text === '') continue;
+
+                        AnswerOption::create([
+                            'question_id' => $question->question_id,
+                            'option_text' => $text,
+                            'is_correct' => isset($qData['correct_answer'])
+                                && $qData['correct_answer'] == $oIndex,
+                        ]);
+                    }
                 }
             }
         }
 
-        return redirect()->route(
-            'instructor.lessons.edit',
-            [
-                'course' => $lesson->course_id,
-                'lesson' => $lesson->lesson_id,
-            ]
-        )->with('success', 'Quiz berhasil dibuat');
+        return redirect()
+    ->route('instructor.lessons.edit', [
+        'course' => $lesson->course_id,
+        'lesson' => $lesson->lesson_id
+    ])
+    ->with('success', 'Quiz berhasil disimpan');
     }
 }
