@@ -8,6 +8,7 @@
             .cat-wrap { font-family:'DM Sans', sans-serif; }
             </style>
 
+            {{-- Banner Header Gradient --}}
             <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
@@ -49,9 +50,9 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                                    <th class="p-4 pl-6">Username / Nama</th>
+                                    <th class="p-4 pl-6">Username</th>
                                     <th class="p-4">Email</th>
-                                    <th class="p-4 text-center pr-6">Tindakan</th>
+                                    <th class="p-4 text-center pr-6">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 text-xs text-gray-700">
@@ -61,14 +62,11 @@
                                             {{ $student->username ?? $student->name }}
                                         </td>
                                         <td class="p-4 text-gray-500">{{ $student->email }}</td>
-                                        <td class="p-4 text-center pr-6">
-                                            <form action="/admin/users/delete/{{ $student->id }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan pengguna ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="px-3 py-1.5 bg-gray-50 hover:bg-rose-50 text-gray-500 hover:text-rose-600 rounded-lg text-[11px] font-bold transition">
-                                                    Suspended
-                                                </button>
-                                            </form>
+                                        <td class="p-4 text-center pr-6 flex items-center justify-center gap-2">
+                                            {{-- TOMBOL DETAIL MURID (Dengan pengaman ID) --}}
+                                            <a href="/admin/users/{{ $student->id ?? $student->user_id }}" class="inline-block bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition shadow-sm">
+                                                Detail
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty
@@ -101,7 +99,7 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-100 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                                    <th class="p-4 pl-6">Username / Nama</th>
+                                    <th class="p-4 pl-6">Username</th>
                                     <th class="p-4">Email</th>
                                     <th class="p-4 text-center pr-6">Aksi</th>
                                 </tr>
@@ -109,15 +107,13 @@
                             <tbody class="divide-y divide-gray-50 text-xs text-gray-700">
                                 @forelse ($allApprovedInstructors ?? [] as $inst)
                                     <tr class="hover:bg-purple-50/20 transition">
-                                        <td class="p-4 pl-6 font-semibold text-gray-800">{{ $inst->username }}</td>
+                                        <td class="p-4 pl-6 font-semibold text-gray-800">{{ $inst->username ?? $inst->name }}</td>
                                         <td class="p-4 text-gray-500">{{ $inst->email }}</td>
-                                        <td class="p-4 text-center pr-6">
-                                            <form action="/admin/instructors/revoke/{{ $inst->user_id }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mencabut akses instruktur ini?')">
-                                                @csrf
-                                                <button class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-bold transition">
-                                                    Revoke Access
-                                                </button>
-                                            </form>
+                                        <td class="p-4 text-center pr-6 flex items-center justify-center gap-2">
+                                            {{-- TOMBOL DETAIL INSTRUKTUR --}}
+                                            <a href="/admin/users/{{ $inst->id ?? $inst->user_id }}" class="inline-block bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition shadow-sm">
+                                                Detail
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty
