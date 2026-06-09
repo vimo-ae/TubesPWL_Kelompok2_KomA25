@@ -5,11 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
 
 class AdminController extends Controller
 {
+    private function getAdminProfile($user)
+    {
+        return $user->profile()->firstOrCreate(
+            ['user_id' => $user->user_id],
+            ['full_name' => $user->username]
+        );
+    }
+  
     public function dashboard()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $totalStudents = User::where('role', 'student')->count();
         $totalInstructors = User::where('role', 'instructor')->count();
         $pendingInstructors = User::where('role', 'instructor')->where('status_instructor', 'pending')->count();
@@ -17,6 +29,8 @@ class AdminController extends Controller
         $pendingCourses = Course::where('status', 'pending')->count();
 
         return view('admin.dashboard', compact(
+            'user', 
+            'profile', 
             'totalStudents', 
             'totalInstructors', 
             'pendingInstructors', 
@@ -27,6 +41,9 @@ class AdminController extends Controller
 
     public function instructors()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $instructors = User::where('role', 'instructor')->get();
         $approvedInstructors = User::where('role', 'instructor')
                                     ->where('status_instructor', 'approved')
@@ -35,25 +52,31 @@ class AdminController extends Controller
                                     ->where('status_instructor', 'rejected')
                                     ->get();
 
-        return view('admin.instructors', compact('instructors', 'approvedInstructors', 'rejectedInstructors'));
+        return view('admin.instructors', compact('user', 'profile', 'instructors', 'approvedInstructors', 'rejectedInstructors'));
     }
 
     public function manageUsers()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $students = User::where('role', 'student')->get();
         $allApprovedInstructors = User::where('role', 'instructor')
                                       ->where('status_instructor', 'approved')
                                       ->get();
-
-        return view('admin.users', compact('students', 'allApprovedInstructors'));
+        
+        return view('admin.users', compact('user', 'profile', 'students', 'allApprovedInstructors'));
     }
 
     public function courses()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $pendingCourses = Course::with('instructor')->where('status', 'pending')->get();
         $publishedCourses = Course::with('instructor')->where('status', 'published')->get();
 
-        return view('admin.courses', compact('pendingCourses', 'publishedCourses'));
+        return view('admin.courses', compact('user', 'profile', 'pendingCourses', 'publishedCourses'));
     }
 
     public function approve(int $user_id)
@@ -99,31 +122,43 @@ class AdminController extends Controller
 
     public function showCourse(int $course_id)
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $course = Course::with(['instructor', 'lessons'])->findOrFail($course_id);
         
-        return view('admin.courses-show', compact('course'));
+        return view('admin.courses-show', compact('user', 'profile', 'course'));
     }
 
     public function students()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $users = User::where('role', 'student')->latest()->get();
         $title = 'Daftar Student';
         
-        return view('admin.users', compact('users', 'title'));
+        return view('admin.users', compact('user', 'profile', 'users', 'title'));
     }
 
     public function allInstructors()
     {
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
         $users = User::where('role', 'instructor')->latest()->get();
         $title = 'Daftar Seluruh Instruktur';
         
-        return view('admin.users', compact('users', 'title'));
+        return view('admin.users', compact('user', 'profile', 'users', 'title'));
     }
 
     public function showUser($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.user-detail', compact('user'));
+        $user = Auth::user();
+        $profile = $this->getAdminProfile($user);
+
+        $userDetail = User::findOrFail($id); 
+        return view('admin.user-detail', compact('user', 'profile', 'userDetail'));
     }
 
     public function updateUserStatus(Request $request, $id)

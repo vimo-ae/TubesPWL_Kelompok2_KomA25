@@ -6,6 +6,8 @@ use App\Models\Lesson;
 use App\Models\Progress;
 use App\Models\Quiz;
 use App\Models\QuizResult;
+use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +22,7 @@ class ProfileController extends Controller
             ['user_id' => $user->user_id],
             ['full_name' => $user->username]
         );
-
+      
         if ($user->role === 'admin') {
 
         $totalUsers = \App\Models\User::count();

@@ -137,7 +137,11 @@
 
         <div class="avatar-wrap">
 
-            <img src="{{ $profile->photo_url ?? asset('images/profile-default.jpg') }}" class="avatar-img" alt="Admin">
+           <img 
+    src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
+    alt="Avatar" 
+    class="w-full h-full object-cover"
+>
 
         </div>
 

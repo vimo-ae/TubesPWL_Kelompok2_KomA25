@@ -5,6 +5,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\Instructor\LessonController as InstructorLessonController;
+use App\Http\Controllers\Instructor\QuizController as InstructorQuizController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
@@ -59,8 +60,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/categories', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
     Route::put('/admin/categories/{category_id}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('/admin/categories/{category_id}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
-
-    Route::get('/admin/students', [AdminController::class, 'students'])->name('admin.students');
 });
 
 
@@ -100,6 +99,13 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
     Route::put('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'update'])->name('instructor.lessons.update');
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'destroy'])->name('instructor.lessons.destroy');
     Route::patch('/instructor/courses/{course}/lessons/{lesson}/publish', [InstructorLessonController::class, 'publish'])->name('instructor.lessons.publish');
+
+    Route::get('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'upsert'])
+    ->name('instructor.quizzes.upsert');
+
+Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'storeOrUpdate'])
+    ->name('instructor.quizzes.storeOrUpdate');
+
 });
 
 require __DIR__.'/auth.php';
