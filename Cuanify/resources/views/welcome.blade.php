@@ -252,9 +252,12 @@
             <!-- KIRI -->
             <div class="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
 
-                <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl text-white">
-                    🎓
-                </div>
+<div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M11.645 20.91l-.007-.003-.003-.001a11.54 11.54 0 01-6.79-1.89l-.234-.154.526-5.13 5.053 2.807a3 3 0 002.92 0l5.053-2.806.526 5.129a11.54 11.54 0 01-6.79 1.891l-.003.001-.008.003-.193.053zm0-8.91L1.242 6.41a1 1 0 010-1.72L11.645.742a1 1 0 01.71 0L22.758 4.69a1 1 0 010 1.72L12.355 12a1 1 0 01-.71 0z"/>
+        <path d="M22.5 10.5a.5.5 0 00-.5.5v4.236l-1.382 2.764a.5.5 0 00.447.724h2.87a.5.5 0 00.447-.724L23 15.236V11a.5.5 0 00-.5-.5z"/>
+    </svg>
+</div>
 
                 <div>
 
