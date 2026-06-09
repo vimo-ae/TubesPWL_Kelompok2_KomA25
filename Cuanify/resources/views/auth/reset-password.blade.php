@@ -1,4 +1,7 @@
 <x-guest-layout>
+
+    @section('title', 'Reset Password - Cuanify')
+
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 

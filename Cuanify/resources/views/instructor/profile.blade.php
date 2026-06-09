@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Profile - Cuanify')
+
 <div class="p-6 max-w-5xl mx-auto space-y-6">
 
     <h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
@@ -8,8 +10,7 @@
 
     <div class="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row items-center gap-6">
         
-        <img src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
-        class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
+        <img src="{{ $user->$profile->photo_url }}" class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
 
         <div class="flex-1 text-center md:text-left">
             <h2 class="text-2xl font-black text-gray-800 dark:text-white">

@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Courses - Cuanify')
+
     <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6" x-data="{ showRejectModal: false, selectedCourseId: null, selectedCourseTitle: '' }">
         
         {{-- Main Content Container --}}

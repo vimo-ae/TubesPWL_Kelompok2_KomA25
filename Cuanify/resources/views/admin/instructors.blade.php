@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Instructors - Cuanify')
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
