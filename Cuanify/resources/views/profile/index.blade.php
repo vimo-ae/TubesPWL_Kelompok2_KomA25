@@ -103,26 +103,25 @@
 .section-title { font-size:18px; font-weight:700; color:#1e1b4b; margin:0; }
 .progress-inner { display:flex; align-items:center; gap:28px; }
 
-.ring-wrap { position:relative; width:110px; height:110px; flex-shrink:0; }
+.ring-wrap { position:relative; width:150px; height:150px; flex-shrink:0; }
 .ring-wrap svg { transform:rotate(-90deg); }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
-.ring-pct { font-size:20px; font-weight:800; color:#7c3aed; line-height:1; margin-bottom: 2px; }
-.ring-lbl { font-size:12px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
+.ring-pct { font-size:28px; font-weight:700; color:#7c3aed; line-height:1; margin-bottom: 2px; }
+.ring-lbl { font-size:10px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
 
 .progress-right { flex:1; }
-.prog-encourage { font-size:16px; font-weight: 500; color:#6b7280; margin:0 0 12px; }
+.prog-encourage { font-size:16px; font-weight: 400; color:#6b7280; margin:0 0 12px; }
 .prog-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 .prog-stat-box { background:#faf5ff; border-radius:10px; padding:10px 14px; }
 .psb-label {
     font-size: 14px;            
     color: #000000;             
-    font-weight: 700;           
-    margin: 0 0 6px; 
+    font-weight: 600;            
     display: inline-block;            
 }
 .psb-val { 
-    font-size: 26px;          
+    font-size: 28px;          
     font-weight: 800; 
     color: #1e1b4b; 
     margin: 0 0 2px;
@@ -283,9 +282,9 @@
         <div class="progress-inner">
             
             <div class="ring-wrap">
-                <svg width="110" height="110" viewBox="0 0 110 110">
-                    <circle cx="55" cy="55" r="46" fill="none" stroke="#ede9fe" stroke-width="9"/>
-                    <circle cx="55" cy="55" r="46" fill="none" stroke="#a855f7" stroke-width="9"
+                <svg width="150" height="150" viewBox="0 0 110 110">
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#ede9fe" stroke-width="6"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#a855f7" stroke-width="6"
                         stroke-dasharray="{{ round(2 * 3.14159 * 46) }}"
                         stroke-dashoffset="{{ round(2 * 3.14159 * 46 * (1 - $persentaseTotal/100)) }}"
                         stroke-linecap="round"/>
