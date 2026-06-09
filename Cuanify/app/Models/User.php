@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -11,21 +11,27 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Course;
 
-#[Fillable(['username', 'email', 'password', 'role', 'is_approved'])]
-#[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
-    
+
+    protected $fillable = [
+        'username', 
+        'email', 
+        'password', 
+        'role', 
+        'is_approved', 
+        'last_login', 
+        'status'
+    ];
+
+    protected $hidden = [
+        'password', 
+        'remember_token'
+    ];
+
     protected function casts(): array
     {
         return [
@@ -70,13 +76,17 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'user_id', 'user_id');
     }
 
-public function lessons()
-{
-    return $this->belongsToMany(
-        Lesson::class,
-        'lesson_user',
-        'user_id',     // foreign key di pivot untuk user
-        'lesson_id'    // foreign key di pivot untuk lesson
-    )->withTimestamps();
-}
+    public function lessons()
+    {
+        return $this->belongsToMany(
+            Lesson::class,
+            'lesson_user',
+            'user_id',     
+            'lesson_id' 
+        )->withTimestamps();
+    }
+
+    public function instructorProfile() {
+        return $this->hasOne(ProfileInstructor::class, 'user_id');
+    }
 }

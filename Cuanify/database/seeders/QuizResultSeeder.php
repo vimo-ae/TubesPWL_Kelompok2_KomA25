@@ -17,13 +17,5 @@ class QuizResultSeeder extends Seeder
         if (!$user || !$quiz) {
             return;
         }
-
-        QuizResult::create([
-            'user_id' => $user->user_id,
-            'quiz_id' => $quiz->quiz_id,
-            'score' => 80,
-            'total_correct' => 2,
-            'completed_at' => now(),
-        ]);
     }
 }

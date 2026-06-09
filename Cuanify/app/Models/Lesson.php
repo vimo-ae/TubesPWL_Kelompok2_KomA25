@@ -7,10 +7,9 @@ use Laravel\Prompts\Progress;
 
 class Lesson extends Model
 {
-    // Primary key custom
+
     protected $primaryKey = 'lesson_id';
 
-    // Field yang boleh diisi
     protected $fillable = [
         'course_id',
         'title',
@@ -23,23 +22,15 @@ class Lesson extends Model
         'is_published',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONSHIPS
-    |--------------------------------------------------------------------------
-    */
-
-    // Lesson belongs to Course
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'course_id');
     }
 
-    // Lesson has many Quizzes
-    public function quizzes()
-    {
-        return $this->hasMany(Quiz::class, 'lesson_id', 'lesson_id');
-    }
+    public function quiz()
+{
+    return $this->hasOne(Quiz::class, 'lesson_id', 'lesson_id');
+}
 
     public function progress()
     {
@@ -56,16 +47,13 @@ class Lesson extends Model
             return null;
         }
 
-        // Cari ID unik video YouTube dari berbagai format link
         $regExp = '/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/';
         preg_match($regExp, $this->video_url, $matches);
 
-        // Jika ID video ketemu (panjang ID YouTube biasanya 11 karakter)
         if (isset($matches[2]) && strlen($matches[2]) == 11) {
             return 'https://www.youtube.com/embed/' . $matches[2];
         }
 
-        // Kalau bukan link YouTube (misal link mp4 langsung), kembalikan aslinya
         return $this->video_url;
     }
 

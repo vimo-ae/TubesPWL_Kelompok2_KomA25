@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::table('lessons', function (Blueprint $table) {
             $table->boolean('has_quiz')->default(false);
-            $table->boolean('is_published')->default(false);
         });
     }
 
@@ -18,7 +17,6 @@ return new class extends Migration
     {
         Schema::table('lessons', function (Blueprint $table) {
             $table->dropColumn('has_quiz');
-            $table->dropColumn('is_published');
         });
     }
 };

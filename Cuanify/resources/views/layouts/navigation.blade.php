@@ -1,5 +1,27 @@
 <nav x-data="{ open: false }" class="w-full bg-[#fff5f8] dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between md:justify-end">
+        <div class="hidden md:flex items-center mr-auto">
+
+            <button
+                @click="sidebarOpen = !sidebarOpen"
+                class="p-2 rounded-xl hover:bg-pink-100 transition">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-6 h-6 text-purple-600"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"/>
+
+                </svg>
+            
+            </button>
+        
+        </div>
         
         <div class="flex items-center md:hidden">
             <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
@@ -10,12 +32,13 @@
                 <x-slot name="trigger">
                     <button class="inline-flex items-center gap-3 px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-xl text-gray-500 dark:text-gray-400 bg-[#fff5f8] dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150 group">
                         
+                        {{-- 💻 FOTO PROFIL UNTUK DESKTOP (Sudah Diperbaiki & Diberi Pengaman) --}}
                         <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm group-hover:scale-105 transition duration-200">
                             <img 
                                 src="{{ 
-                                    Auth::user()->profile && Auth::user()->profile->profile_photo
-                                        ? asset('storage/' . Auth::user()->profile->profile_photo)
-                                        : asset('images/profile-default.jpg')
+                                    auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
+                                        ? asset('storage/' . auth()->user()->profile->profile_photo)
+                                        : asset('images/profile-default.jpg') 
                                 }}"
                                 alt="Avatar" 
                                 class="w-full h-full object-cover"
@@ -24,7 +47,7 @@
 
                         <div class="text-left hidden lg:block">
                             <div class="text-md font-black text-gray-700 dark:text-gray-300">
-                                {{ Auth::user()->profile->full_name ?? Auth::user()->username }}
+                                {{ Auth::user()->profile?->full_name ?? Auth::user()->username }}
                             </div>
                             <div class="text-[10px] text-gray-400 font-medium">
                                 {{ '@' . Auth::user()->username }}
@@ -68,23 +91,25 @@
         </div>
     </div>
 
+    {{-- MENU MOBILE NAVIGATION --}}
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg py-3 px-4 space-y-1">
         
         <div class="flex items-center gap-3 px-3 py-2 mb-2 bg-pink-50/40 dark:bg-gray-800 rounded-xl">
-            <img
-                src="{{
-                    auth()->check() &&
-                    auth()->user()->profile &&
-                    auth()->user()->profile->profile_photo
-                        ? asset('storage/' . auth()->user()->profile->profile_photo)
-                        : asset('images/profile-default.jpg')
-                }}"
-                alt="Avatar"
-                class="w-full h-full object-cover"
-            >
+            {{-- 📱 FOTO PROFIL UNTUK MOBILE (Sudah Diperbaiki, Ukuran Box Diperketat via w-10 h-10) --}}
+            <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm shrink-0">
+                <img
+                    src="{{ 
+                        auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
+                            ? asset('storage/' . auth()->user()->profile->profile_photo)
+                            : asset('images/profile-default.jpg') 
+                    }}"
+                    alt="Avatar"
+                    class="w-full h-full object-cover"
+                >
+            </div>
             <div>
                 <div class="text-sm font-black text-gray-700 dark:text-gray-200">
-                    {{ Auth::user()->profile->full_name ?? Auth::user()->username }}
+                    {{ Auth::user()->profile?->full_name ?? Auth::user()->username }}
                 </div>
                 <div class="text-xs text-purple-600 font-bold">
                     {{ '@' . Auth::user()->username }}
@@ -97,7 +122,7 @@
             <x-responsive-nav-link :href="route('admin.instructors')" :active="request()->routeIs('admin.instructors')">Verifikasi Instruktur</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">Kelola Kategori</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.courses')" :active="request()->routeIs('admin.courses')">Kelola Course</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.students')" :active="request()->routeIs('admin.students')">Kelola Pengguna</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">Kelola Pengguna</x-responsive-nav-link>
 
         @else
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-responsive-nav-link>
