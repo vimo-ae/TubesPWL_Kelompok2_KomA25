@@ -2,13 +2,11 @@
 
     @section('title', 'Courses - Cuanify')
 
-    <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6" x-data="{ showRejectModal: false, selectedCourseId: null, selectedCourseTitle: '' }">
-        
-        {{-- Main Content Container --}}
-        <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0">
-            
-            <!-- Banner Section -->
-            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-8">
+    <div class="flex min-h-screen" x-data="{ showRejectModal: false, selectedCourseId: null, selectedCourseTitle: '' }">
+
+        <div class="flex-1 p-6 sm:p-8 lg:p-10 min-w-0 w-full space-y-6">
+
+            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-8">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none flex items-center justify-end">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
                     <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
@@ -29,9 +27,6 @@
                 </div>
             </div>
 
-            <!-- ==================== SECTION: PENDING COURSES ==================== -->
-
-            {{-- Section Heading --}}
             <div class="mb-5">
                 <div class="inline-flex items-center gap-2 mb-1">
                     <div class="w-1 h-6 rounded-full bg-gradient-to-b from-[#b55fe6] to-[#e84393]"></div>
@@ -40,7 +35,6 @@
                 <p class="text-gray-400 text-sm ml-3">Course yang dikirim instruktur dan belum ditinjau.</p>
             </div>
 
-            {{-- Pending Courses: Mobile View --}}
             <div class="grid grid-cols-1 gap-4 sm:hidden mb-10">
                 @forelse ($pendingCourses as $course)
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-purple-100 flex flex-col gap-3">
@@ -80,7 +74,6 @@
                 @endforelse
             </div>
 
-            {{-- Pending Courses: Desktop View --}}
             <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-10">
                 <table class="w-full">
                     <thead>
@@ -151,9 +144,7 @@
                 </table>
             </div>
 
-            <!-- ==================== SECTION: PUBLISHED COURSES ==================== -->
 
-            {{-- Section Heading --}}
             <div class="mb-5">
                 <div class="inline-flex items-center gap-2 mb-1">
                     <div class="w-1 h-6 rounded-full bg-gradient-to-b from-[#b55fe6] to-[#e84393]"></div>
@@ -162,7 +153,6 @@
                 <p class="text-gray-400 text-sm ml-3">Daftar course yang telah disetujui dan dipublikasikan.</p>
             </div>
 
-            {{-- Published Courses: Mobile View --}}
             <div class="grid grid-cols-1 gap-4 sm:hidden mb-6">
                 @forelse ($publishedCourses as $course)
                     <div class="bg-white p-5 rounded-2xl shadow-sm border border-purple-100 flex flex-col gap-3">
@@ -191,7 +181,6 @@
                 @endforelse
             </div>
 
-            {{-- Published Courses: Desktop View --}}
             <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <table class="w-full">
                     <thead>
@@ -243,7 +232,6 @@
                 </table>
             </div>
 
-            <!-- ==================== MODAL: REJECT COURSE ==================== -->
             <div x-show="showRejectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" x-cloak>
                 <div class="bg-white p-6 rounded-2xl w-full max-w-md shadow-2xl border border-purple-100" @click.away="showRejectModal = false">
                     
