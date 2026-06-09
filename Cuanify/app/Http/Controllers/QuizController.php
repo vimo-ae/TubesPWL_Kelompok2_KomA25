@@ -12,22 +12,22 @@ class QuizController extends Controller
 {
     public function show($lesson_id)
     {
-        $lesson = Lesson::with('quizzes.questions')
+        $lesson = Lesson::with('quiz.questions.options')
             ->where('lesson_id', $lesson_id)
             ->firstOrFail();
-    
+
         $user = auth()->user();
-    
-        foreach ($lesson->quizzes as $quiz) {
-    
+
+        if ($lesson->quiz) {
+
             $bestResult = QuizResult::where('user_id', $user->user_id)
-                ->where('quiz_id', $quiz->quiz_id)
+                ->where('quiz_id', $lesson->quiz->quiz_id)
                 ->orderByDesc('score')
                 ->first();
-    
-            $quiz->best_score = $bestResult?->score;
+
+            $lesson->quiz->best_score = $bestResult?->score;
         }
-    
+
         return view('quizzes.show', compact('lesson'));
     }
 
@@ -52,9 +52,7 @@ class QuizController extends Controller
 
         foreach ($quiz->questions as $question) {
 
-            $answerId = $request->input(
-                'question_' . $question->question_id
-            );
+            $answerId = $request->input('question_' . $question->question_id);
 
             if (!$answerId) {
                 continue;
@@ -126,4 +124,4 @@ class QuizController extends Controller
                 'new_best' => $isNewBestScore,
             ]);
     }
-};
+}
