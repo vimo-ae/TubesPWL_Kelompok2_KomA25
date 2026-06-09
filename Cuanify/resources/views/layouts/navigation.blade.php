@@ -1,26 +1,13 @@
 <nav x-data="{ open: false }" class="w-full bg-[#fff5f8] dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between md:justify-end">
         <div class="hidden md:flex items-center mr-auto">
-
             <button
                 @click="sidebarOpen = !sidebarOpen"
                 class="p-2 rounded-xl hover:bg-pink-100 transition">
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-6 h-6 text-purple-600"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor">
-
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4 6h16M4 12h16M4 18h16"/>
-
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
-            
             </button>
-        
         </div>
         
         <div class="flex items-center md:hidden">
@@ -32,11 +19,11 @@
                 <x-slot name="trigger">
                     <button class="inline-flex items-center gap-3 px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-xl text-gray-500 dark:text-gray-400 bg-[#fff5f8] dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150 group">
                         
-                        {{-- 💻 FOTO PROFIL UNTUK DESKTOP (Sudah Diperbaiki & Diberi Pengaman) --}}
+                        {{-- 💻 FOTO PROFIL DESKTOP --}}
                         <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm group-hover:scale-105 transition duration-200">
                             <img 
                                 src="{{ 
-                                    auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
+                                    auth()->user()->role !== 'admin' && auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
                                         ? asset('storage/' . auth()->user()->profile->profile_photo)
                                         : asset('images/profile-default.jpg') 
                                 }}"
@@ -47,10 +34,11 @@
 
                         <div class="text-left hidden lg:block">
                             <div class="text-md font-black text-gray-700 dark:text-gray-300">
-                                {{ Auth::user()->profile?->full_name ?? Auth::user()->username }}
+                                {{-- Jika admin, langsung tampilkan username tanpa cek relasi profile --}}
+                                {{ auth()->user()->role === 'admin' ? 'Admin' : (auth()->user()->profile?->full_name ?? auth()->user()->username) }}
                             </div>
                             <div class="text-[10px] text-gray-400 font-medium">
-                                {{ '@' . Auth::user()->username }}
+                                {{ '@' . auth()->user()->username }}
                             </div>
                         </div>
 
@@ -63,9 +51,12 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('profile')">
-                        {{ __('Profil Saya') }}
-                    </x-dropdown-link>
+                    {{-- Sembunyikan 'Profil Saya' jika user adalah admin --}}
+                    @if(auth()->user()->role !== 'admin')
+                        <x-dropdown-link :href="route('profile')">
+                            {{ __('Profil Saya') }}
+                        </x-dropdown-link>
+                    @endif
                     
                     <x-dropdown-link :href="route('settings.edit')">
                         {{ __('Pengaturan Akun') }}
@@ -95,11 +86,11 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg py-3 px-4 space-y-1">
         
         <div class="flex items-center gap-3 px-3 py-2 mb-2 bg-pink-50/40 dark:bg-gray-800 rounded-xl">
-            {{-- 📱 FOTO PROFIL UNTUK MOBILE (Sudah Diperbaiki, Ukuran Box Diperketat via w-10 h-10) --}}
+            {{-- 📱 FOTO PROFIL MOBILE --}}
             <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm shrink-0">
                 <img
                     src="{{ 
-                        auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
+                        auth()->user()->role !== 'admin' && auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo))
                             ? asset('storage/' . auth()->user()->profile->profile_photo)
                             : asset('images/profile-default.jpg') 
                     }}"
@@ -109,10 +100,10 @@
             </div>
             <div>
                 <div class="text-sm font-black text-gray-700 dark:text-gray-200">
-                    {{ Auth::user()->profile?->full_name ?? Auth::user()->username }}
+                    {{ auth()->user()->role === 'admin' ? 'Admin' : (auth()->user()->profile?->full_name ?? auth()->user()->username) }}
                 </div>
                 <div class="text-xs text-purple-600 font-bold">
-                    {{ '@' . Auth::user()->username }}
+                    {{ '@' . auth()->user()->username }}
                 </div>
             </div>
         </div>
@@ -138,7 +129,11 @@
         
         <hr class="my-2 border-gray-100 dark:border-gray-800">
         
-        <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')">Profil Saya</x-responsive-nav-link>
+        {{-- Sembunyikan link 'Profil Saya' di menu mobile jika role admin --}}
+        @if(auth()->user()->role !== 'admin')
+            <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')">Profil Saya</x-responsive-nav-link>
+        @endif
+        
         <x-responsive-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.edit')">Pengaturan Akun</x-responsive-nav-link>
         
         <form method="POST" action="{{ route('logout') }}" class="pt-2 border-t border-gray-100 dark:border-gray-800">

@@ -18,44 +18,52 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        // Mengambil atau membuat profil user dasar (Student/Umum)
         $profile = $user->profile()->firstOrCreate(
             ['user_id' => $user->user_id],
             ['full_name' => $user->username]
         );
       
+        // ==========================================
+        // 1. KONDISI JIKA USER ADALAH ADMIN
+        // ==========================================
         if ($user->role === 'admin') {
+            $totalUsers = User::count();
+            $totalInstructors = User::where('role', 'instructor')->count();
+            $totalCourses = Course::count(); 
+            $pendingApprovals = Course::where('status', 'pending')->count();
+            $recentLogs = []; // Siapkan wadah untuk log jika nanti dibutuhkan
 
-        $totalUsers = \App\Models\User::count();
-        $totalInstructors = \App\Models\User::where('role', 'instructor')->count();
-        $totalCourses = \App\Models\Course::count(); 
-
-        $pendingApprovals = \App\Models\Course::where('status', 'pending')->count();
-
-        $recentLogs = []; 
-
-        return view('admin.profile', [
-            'user' => $user,
-            'profile' => $user->profile,
-            'totalUsers' => $totalUsers,
-            'totalInstructors' => $totalInstructors,
-            'totalCourses' => $totalCourses,
-            'pendingApprovals' => $pendingApprovals,
-            'recentLogs' => $recentLogs
-        ]);
-    }if ($user->role === 'admin') {
-        return view('admin.profile', [
-            'user' => $user,
-            'profile' => $user->profile 
-        ]);
-    }
-
-        if ($user->role === 'instructor') {
-            $createdCourses = $user->createdCourses()->withCount('enrollments')->get();
-
-            return view('instructor.profile', compact('user', 'profile', 'createdCourses'));
+            return view('admin.profile', [
+                'user' => $user,
+                'profile' => $profile,
+                'totalUsers' => $totalUsers,
+                'totalInstructors' => $totalInstructors,
+                'totalCourses' => $totalCourses,
+                'pendingApprovals' => $pendingApprovals,
+                'recentLogs' => $recentLogs
+            ]);
         }
 
+        // ==========================================
+        // 2. KONDISI JIKA USER ADALAH INSTRUCTOR
+        // ==========================================
+        if ($user->role === 'instructor') {
+            // Eager load kualifikasi profil instruktur untuk menghindari penulisan manual berulang
+            $instructor = User::with('instructorProfile')->findOrFail($user->user_id);
 
+            // Mengambil daftar kursus yang dibuat instruktur ini beserta jumlah siswa terdaftar
+            $createdCourses = Course::where('user_id', $user->user_id)
+                                    ->withCount('enrollments')
+                                    ->get();
+
+            // Variabel '$instructor' dioper agar sinkron dengan template blade detail profil instruktur
+            return view('instructor.profile', compact('user', 'profile', 'instructor', 'createdCourses'));
+        }
+
+        // ==========================================
+        // 3. KONDISI DEFAULT: USER ADALAH STUDENT
+        // ==========================================
         $enrolledCourseIds = $user->courses()->pluck('courses.course_id');
 
         $totalMateri = Lesson::whereIn('course_id', $enrolledCourseIds)->count();
@@ -71,6 +79,7 @@ class ProfileController extends Controller
                 $query->select('quiz_id')->from('quizzes')->whereIn('lesson_id', $enrolledLessonIds);
             })
             ->count();
+            
         $totalPenyebut = $totalMateri + $totalKuis;
         $totalPembilang = $materiSelesai + $kuisSelesai;
         
@@ -104,7 +113,7 @@ class ProfileController extends Controller
             ->where('profile_id', $profile->profile_id)
             ->where('is_completed', true)
             ->latest('completed_at')
-            ->get();
+            ->paginate(5);
 
         $enrolledCourses = $user->courses()->withPivot('status', 'completion_percentage')->get();
 
@@ -147,7 +156,6 @@ class ProfileController extends Controller
         $profile->bio       = $request->bio;
 
         if ($request->hasFile('profile_photo')) {
-
             if ($profile->profile_photo && Storage::disk('public')->exists($profile->profile_photo)) {
                 Storage::disk('public')->delete($profile->profile_photo);
             }

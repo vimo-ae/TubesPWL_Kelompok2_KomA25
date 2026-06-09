@@ -40,7 +40,7 @@ class Profile extends Model
 
     public function progress()
     {
-        return $this->hasMany(Progress::class, 'profile_id', 'profile_id');
+        return $this->hasMany(\App\Models\Progress::class, 'profile_id', 'profile_id');
     }
 
     protected function levelTitle(): Attribute

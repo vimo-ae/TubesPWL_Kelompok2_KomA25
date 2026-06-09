@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
 
     @section('title', 'Dashboard - Cuanify')
 
@@ -217,31 +217,38 @@
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm">Pencapaian</h3>
-                    </div>
-                    <div class="space-y-1.5 max-h-[80px] overflow-y-auto no-scrollbar">
-                        @forelse($recentAchievements as $ach)
-                            <div class="flex items-center justify-between text-[10px] bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl">
-                                <span class="flex items-center gap-1 truncate pr-1 text-gray-700 dark:text-gray-300">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="w-3 h-3 text-purple-500 flex-shrink-0"
-                                         fill="currentColor"
-                                         viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 108 8h-2a6 6 0 11-6-6V2z"/>
-                                        <circle cx="10" cy="10" r="2"/>
-                                    </svg>
-                                
-                                    {{ $ach->lesson->title }}
-                                </span>
-                                <span class="font-extrabold text-purple-600 flex-shrink-0">+{{ $ach->xp_earned }} XP</span>
-                            </div>
-                        @empty
-                            <p class="text-[10px] text-gray-400">Belum ada data.</p>
-                        @endforelse
-                    </div>
+    <div>
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm">Pencapaian</h3>
+        </div>
+        
+        <div class="space-y-1.5 max-h-[80px] overflow-y-auto no-scrollbar">
+            @forelse($recentAchievements->reverse() as $ach)
+                <div class="flex items-center justify-between text-[10px] bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl">
+                    <span class="flex items-center gap-1 truncate pr-1 text-gray-700 dark:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-3 h-3 text-purple-500 flex-shrink-0"
+                             fill="currentColor"
+                             viewBox="0 0 20 20">
+                            <path d="M10 2a8 8 0 108 8h-2a6 6 0 11-6-6V2z"/>
+                            <circle cx="10" cy="10" r="2"/>
+                        </svg>
+                        {{ $ach->lesson->title }}
+                    </span>
+                    <span class="font-extrabold text-purple-600 flex-shrink-0">+{{ $ach->xp_earned }} XP</span>
                 </div>
+            @empty
+                <p class="text-[10px] text-gray-400">Belum ada data.</p>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="mt-1 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-end">
+        <a href="{{ url('/profile') }}" class="text-[11px] font-bold text-purple-600 dark:text-purple-400 hover:text-purple-800 hover:underline transition-all flex items-center gap-1.5">
+            Lihat Detail Progress <i class="fas fa-arrow-right text-[9px]"></i>
+        </a>
+    </div>
+</div>
             </div>
 
             <div>
