@@ -22,9 +22,10 @@
     </a>
 
     <a href="{{ route('admin.users') }}" 
-       class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.students') || request()->routeIs('admin.all_instructors') ? 'bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-md font-medium' : 'text-gray-600 hover:bg-purple-50 hover:text-purple-600 font-medium' }}">
-        <i class="fas fa-users w-5"></i>
-        <span class="text-sm">Kelola Pengguna</span>
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all 
+        {{ request()->routeIs('admin.users') || request()->routeIs('admin.students') || request()->routeIs('admin.all_instructors') ? 'bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white shadow-md font-medium' : 'text-gray-600 hover:bg-purple-50 hover:text-purple-600 font-medium' }}">
+            <i class="fas fa-users w-5"></i>
+            <span class="text-sm">Kelola Pengguna</span>
     </a>
 
     <a href="{{ route('admin.courses') }}" 
