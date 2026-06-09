@@ -104,7 +104,7 @@ class ProfileController extends Controller
             ->where('profile_id', $profile->profile_id)
             ->where('is_completed', true)
             ->latest('completed_at')
-            ->get();
+            ->paginate(5);
 
         $enrolledCourses = $user->courses()->withPivot('status', 'completion_percentage')->get();
 

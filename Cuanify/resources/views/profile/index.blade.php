@@ -18,8 +18,8 @@
 .pf { max-width:960px; margin:0 auto; padding:32px 16px; }
 
 /* ---- PAGE TITLE ---- */
-.pf-title { font-size:32px; font-weight:600; color:#1e1b4b; margin:0 0 4px; }
-.pf-subtitle { font-size:15px; color:#9ca3af; margin:0 0 24px; }
+.pf-title { font-size:28px; font-weight:700; color:#1e1b4b; margin:0 0 4px; }
+.pf-subtitle { font-size:14px; color:#6b7280; margin:0 0 24px; }
 
 /* ---- HERO ---- */
 .hero-card {
@@ -55,17 +55,17 @@
     text-decoration:none;
 }
 .hero-info { flex:1; position:relative; z-index:1; }
-.hero-name { font-size:22px; font-weight:600; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.hero-name { font-size:24px; font-weight:700; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
 .role-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:99px; }
 .role-admin      { background:#ede9fe; color:#7c3aed; }
 .role-student    { background:#ccfbf1; color:#0d9488; }
 .role-instructor { background:#fce7f3; color:#db2777; }
-.hero-bio { font-size:13px; color:#6b7280; font-style:italic; margin:0 0 12px; }
+.hero-bio { font-size:14px; color:#6b7280; font-style:italic; line-height: 1.6; margin:0 0 12px; }
 .hero-meta { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
-.meta-row { display:flex; align-items:center; gap:7px; font-size:12px; color:#6b7280; }
+.meta-row { display:flex; align-items:center; gap:7px; font-size:14px; color:#6b7280; }
 .btn-edit-hero {
     display:inline-flex; align-items:center; gap:6px;
-    padding:8px 16px; border-radius:9px;
+    padding:8px 14px; border-radius:9px;
     background:#f5f3ff; color:#7c3aed;
     font-size:12px; font-weight:600;
     text-decoration:none; border:1px solid #ddd6fe;
@@ -90,9 +90,9 @@
 .si-pink   { background:#fce7f3; }
 .si-amber  { background:#fef3c7; }
 .si-teal   { background:#ccfbf1; }
-.stat-mini-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
-.stat-mini-val { font-size:30px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
-.stat-mini-sub { font-size:13px; color:#9ca3af; font-weight: 500; }
+.stat-mini-label { font-size:12px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
+.stat-mini-val { font-size:24px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
+.stat-mini-sub { font-size:12px; color:#9ca3af; font-weight: 500; }
 
 /* ---- PROGRESS ---- */
 .progress-card {
@@ -100,15 +100,15 @@
     padding:22px; margin-bottom:16px;
 }
 .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-.section-title { font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
+.section-title { font-size:18px; font-weight:700; color:#1e1b4b; margin:0; }
 .progress-inner { display:flex; align-items:center; gap:28px; }
 
 .ring-wrap { position:relative; width:110px; height:110px; flex-shrink:0; }
 .ring-wrap svg { transform:rotate(-90deg); }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
-.ring-pct { font-size:22px; font-weight:800; color:#7c3aed; line-height:1; margin-bottom: 2px; }
-.ring-lbl { font-size:11px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
+.ring-pct { font-size:20px; font-weight:800; color:#7c3aed; line-height:1; margin-bottom: 2px; }
+.ring-lbl { font-size:12px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
 
 .progress-right { flex:1; }
 .prog-encourage { font-size:16px; font-weight: 500; color:#6b7280; margin:0 0 12px; }
@@ -134,7 +134,7 @@
 }
 
 /* ---- TWO COL ---- */
-.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; align-items: start;}
 @media(max-width:700px){ .two-col { grid-template-columns:1fr; } .stat-row { grid-template-columns:repeat(2,1fr); } }
 
 /* ---- INFO CARD ---- */
@@ -148,24 +148,33 @@
     width:100%; margin-top:16px;
     padding:10px; border-radius:10px;
     background:#f5f3ff; color:#7c3aed;
-    font-size:13px; font-weight:600;
+    font-size:14px; font-weight:600;
     text-decoration:none; border:1px solid #ddd6fe;
     transition:background .15s;
 }
 .btn-ubah:hover { background:#ede9fe; color:#7c3aed; }
 
-/* ---- HISTORY TABLE ---- */
-.hist-table { width:100%; border-collapse:collapse; font-size:13px; }
+.hist-table { width:100%; border-collapse:collapse; font-size:14px; table-layout: auto;}
 .hist-table th {
     text-align:left; padding:8px 10px;
-    font-size:10px; font-weight:700; text-transform:uppercase;
+    font-size:12px; font-weight:700; text-transform:uppercase;
     letter-spacing:.05em; color:#9ca3af;
     border-bottom:1px solid #ede9fe;
 }
+.hist-table th:nth-child(2), .hist-table td:nth-child(2),
+.hist-table th:nth-child(3), .hist-table td:nth-child(3) {
+    white-space: nowrap; 
+    width: 1%; 
+}
+
+.hist-table td:first-child {
+    word-break: break-word;
+}
+
 .hist-table td { padding:10px 10px; border-bottom:1px solid #f5f3ff; color:#374151; vertical-align:middle; }
 .hist-table tr:last-child td { border-bottom:none; }
 .hist-table tr:hover td { background:#faf5ff; }
-.xp-pill { background:#ede9fe; color:#7c3aed; font-weight:700; font-size:11px; padding:2px 8px; border-radius:99px; display:inline-block; }
+.xp-pill { background:#ede9fe; color:#7c3aed; font-weight:700; font-size:12px; padding:2px 8px; border-radius:99px; display:inline-block; }
 .empty-box { text-align:center; padding:20px 10px; }
 .empty-box p { font-size:12px; color:#9ca3af; margin:8px 0 0; }
 
@@ -337,7 +346,7 @@
         </div>
 
         {{-- HISTORY XP --}}
-        <div class="info-card">
+        <div class="info-card" id="history-xp">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
                 <p class="section-title">History XP</p>
@@ -368,8 +377,11 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>               
                     </table>
+                    <div class="mt-4 flex justify-center">
+                        {{ $progress->appends(request()->query())->fragment('history-xp')->links() }}
+                    </div>
                 </div>
             @endif
         </div>
