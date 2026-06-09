@@ -22,10 +22,13 @@
                     <div class="flex flex-col md:flex-row gap-8 items-start">
                         
                         <!-- Perbaikan Foto Profil menggunakan Storage::url jika upload dinamis -->
-                        <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-100 border-2 border-purple-100 flex-shrink-0 mx-auto md:mx-0">
-                            <img src="{{ !empty($instructor->instructorProfile->profile_photo) ? Storage::url($instructor->instructorProfile->profile_photo) : asset('images/profile-default.jpg') }}" alt="Foto Profil" class="w-full h-full object-cover">
+                        <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-100 border-2 border-purple-100 flex-shrink-0 mx-auto md:mx-0">
+                            @if($instructor->instructorProfile && $instructor->instructorProfile->profile_photo && Storage::disk('public')->exists($instructor->instructorProfile->profile_photo))
+                                <img src="{{ Storage::url($instructor->instructorProfile->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover">
+                            @else
+                                <img src="{{ asset('images/profile-default.jpg') }}" alt="Foto Profil Default" class="w-full h-full object-cover">
+                            @endif
                         </div>
-
                         <div class="flex-1 text-center md:text-left w-full">
                             <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 font-bold text-[10px] uppercase tracking-wider rounded-full mb-2">
                                 Status: {{ $instructor->status_instructor }}
