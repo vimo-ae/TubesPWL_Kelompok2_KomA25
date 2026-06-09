@@ -142,32 +142,40 @@
 
                 <div class="field">
                     <label>Username</label>
-                    <input type="text" name="name" value="{{ old('name', $user->username) }}" required autofocus autocomplete="name">
-                    @error('name')<p class="field-error">{{ $message }}</p>@enderror
+                    <input type="text" name="username" value="{{ old('username', $user->username) }}" required autofocus autocomplete="name">
+                    @error('username')<p class="field-error">{{ $message }}</p>@enderror
                 </div>
 
                 <div class="field">
-                    <label>Email</label>
-                    <input type="email" name="email" value="{{ old('email', $user->email) }}" required autocomplete="username">
-                    @error('email')<p class="field-error">{{ $message }}</p>@enderror
+    <label>Email</label>
+    
+    <input type="email" 
+           name="email" 
+           value="{{ old('email', $user->email) }}" 
+           style="background: #f9fafb; color: #9ca3af; cursor: not-allowed;" 
+           readonly 
+           required 
+           autocomplete="username">
+    
+    @error('email')<p class="field-error">{{ $message }}</p>@enderror
 
-                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                    <div style="margin-top:8px;background:#fef3c7;border-radius:8px;padding:8px 12px;font-size:12px;color:#92400e;">
-                        Email belum terverifikasi.
-                        <button form="send-verification" style="font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer;color:#d97706;">
-                            Kirim ulang verifikasi
-                        </button>
-                        @if (session('status') === 'verification-link-sent')
-                        <span style="color:#166534;font-weight:600;display:block;margin-top:4px;">Link verifikasi telah dikirim!</span>
-                        @endif
-                    </div>
-                    @endif
-                </div>
+    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+    <div style="margin-top:8px;background:#fef3c7;border-radius:8px;padding:8px 12px;font-size:12px;color:#92400e;">
+        Email belum terverifikasi.
+        <button form="send-verification" style="font-weight:600;text-decoration:underline;background:none;border:none;cursor:pointer;color:#d97706;">
+            Kirim ulang verifikasi
+        </button>
+        @if (session('status') === 'verification-link-sent')
+        <span style="color:#166534;font-weight:600;display:block;margin-top:4px;">Link verifikasi telah dikirim!</span>
+        @endif
+    </div>
+    @endif
+</div>
 
                 <div style="display:flex;align-items:center;gap:12px;">
                     <button type="submit" class="btn-save">Simpan Perubahan</button>
                     @if (session('status') === 'settings-updated')
-                    <span class="saved-msg" x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show=false,2000)">Tersimpan!</span>
+                    <span class="saved-msg" x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show=false,3000)">Tersimpan!</span>
                     @endif
                 </div>
             </form>
@@ -209,7 +217,7 @@
                 <div style="display:flex;align-items:center;gap:12px;">
                     <button type="submit" class="btn-save">Simpan Password</button>
                     @if (session('status') === 'password-updated')
-                    <span class="saved-msg">Password diperbarui!</span>
+                    <span class="saved-msg" x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show=false,3000>Password diperbarui!</span>
                     @endif
                 </div>
             </form>
