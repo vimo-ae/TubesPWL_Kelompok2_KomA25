@@ -9,20 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('lessons', function (Blueprint $table) {
-            $table->boolean('is_published')->default(false)->after('title');
-        });
+        if (!Schema::hasColumn('lessons', 'is_published')) {
+
+            Schema::table('lessons', function (Blueprint $table) {
+                $table->boolean('is_published')
+                    ->default(false)
+                    ->after('title');
+            });
+
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
+    public function down(): void
     {
-        Schema::table('lessons', function (Blueprint $table) {
-            $table->dropColumn('is_published');
-        });
+        if (Schema::hasColumn('lessons', 'is_published')) {
+
+            Schema::table('lessons', function (Blueprint $table) {
+                $table->dropColumn('is_published');
+            });
+
+        }
     }
 };

@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Edit Course - Cuanify')
+
     <div class="p-6">
         <h1 class="text-2xl font-bold mb-6">
             Edit Course - {{ $course->title }}
