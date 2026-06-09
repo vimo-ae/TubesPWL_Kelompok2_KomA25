@@ -90,11 +90,11 @@
             class="mt-3 {{ old('has_quiz', $lesson->has_quiz ?? false) ? '' : 'hidden' }}">
 
             <a href="{{ route('instructor.quizzes.upsert', $lesson->lesson_id) }}"
-   class="px-4 py-2 bg-blue-600 text-white rounded">
-
-    {{ $lesson->quiz ? 'Kelola Quiz' : 'Buat Quiz' }}
-
-</a>
+               class="px-4 py-2 bg-blue-600 text-white rounded">
+                        
+                {{ $lesson->quiz ? 'Kelola Quiz' : 'Buat Quiz' }}
+                        
+            </a>
     
 
         </div>

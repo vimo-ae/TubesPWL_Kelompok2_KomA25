@@ -50,7 +50,6 @@
 
             <div class="p-8">
 
-                {{-- STATUS --}}
                 @if($result->score >= $quiz->passing_score)
 
                     <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6">
@@ -131,7 +130,6 @@
 
                 @endif
 
-                {{-- SCORE CARD --}}
                 <div class="grid md:grid-cols-3 gap-4 mb-8">
 
                     <div class="bg-purple-50 border border-purple-100 rounded-2xl p-5">
@@ -212,7 +210,6 @@
                 
                 </div>
 
-                {{-- BUTTON --}}
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
 
                     <a href="{{ route('quizzes.take', $quiz->quiz_id) }}"

@@ -11,9 +11,6 @@ use App\Models\AnswerOption;
 
 class QuizController extends Controller
 {
-    /**
-     * HALAMAN CREATE / EDIT (UPSERT)
-     */
     public function upsert(Lesson $lesson)
     {
         $quiz = Quiz::where('lesson_id', $lesson->lesson_id)
@@ -23,18 +20,12 @@ class QuizController extends Controller
         return view('instructor.quizzes.upsert', compact('lesson', 'quiz'));
     }
 
-    /**
-     * SIMPAN / REBUILD QUIZ
-     */
     public function storeOrUpdate(Request $request, Lesson $lesson)
     {
         $request->validate([
             'title' => 'required|string',
         ]);
 
-        /**
-         * HAPUS QUIZ LAMA (REBUILD SYSTEM)
-         */
         $oldQuiz = Quiz::where('lesson_id', $lesson->lesson_id)->first();
 
         if ($oldQuiz) {
@@ -45,9 +36,6 @@ class QuizController extends Controller
             $oldQuiz->delete();
         }
 
-        /**
-         * CREATE QUIZ BARU
-         */
         $quiz = Quiz::create([
             'lesson_id' => $lesson->lesson_id,
             'title' => $request->title,
@@ -55,9 +43,6 @@ class QuizController extends Controller
             'time_limit' => $request->time_limit,
         ]);
 
-        /**
-         * CREATE QUESTIONS + OPTIONS
-         */
         if ($request->questions) {
 
             foreach ($request->questions as $qIndex => $qData) {
@@ -69,7 +54,6 @@ class QuizController extends Controller
                     'points' => 1,
                 ]);
 
-                // TRUE / FALSE
                 if ($qData['question_type'] === 'true_false') {
 
                     AnswerOption::create([
@@ -85,7 +69,6 @@ class QuizController extends Controller
                     ]);
                 }
 
-                // MULTIPLE CHOICE
                 else {
 
                     if (!isset($qData['options'])) continue;

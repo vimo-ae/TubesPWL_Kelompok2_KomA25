@@ -4,7 +4,6 @@
 
     <div class="max-w-5xl mx-auto">
 
-        {{-- Header --}}
         <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-700 p-8 shadow-xl mb-8">
 
             <div class="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
@@ -46,7 +45,6 @@
 
         </div>
 
-        {{-- Timer --}}
         <div class="bg-red-50 border border-red-200 rounded-3xl p-5 mb-8 shadow-sm">
 
             <div class="flex items-center justify-between">
@@ -137,7 +135,6 @@
 
             @endforeach
 
-            {{-- Submit --}}
             <div class="sticky bottom-6">
 
                 <div class="flex justify-end">

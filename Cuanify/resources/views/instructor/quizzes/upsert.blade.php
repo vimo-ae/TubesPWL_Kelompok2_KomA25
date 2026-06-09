@@ -11,7 +11,6 @@
 
         @csrf
 
-        {{-- QUIZ INFO --}}
         <input type="text"
                name="title"
                value="{{ $quiz->title ?? '' }}"
@@ -32,7 +31,6 @@
 
         <hr class="mb-6">
 
-        {{-- QUESTIONS --}}
         <div id="questions-container">
 
             @if($quiz)
@@ -41,13 +39,11 @@
 
                     <div class="border p-4 mb-5 rounded">
 
-                        {{-- QUESTION TEXT --}}
                         <input type="text"
                                name="questions[{{ $qIndex }}][question_text]"
                                value="{{ $question->question_text }}"
                                class="w-full border p-2 mb-2">
 
-                        {{-- TYPE --}}
                         <select name="questions[{{ $qIndex }}][question_type]"
                                 class="w-full border p-2 mb-3">
 
@@ -63,7 +59,6 @@
 
                         </select>
 
-                        {{-- MULTIPLE CHOICE --}}
                         @if($question->question_type === 'multiple_choice')
 
                             @foreach($question->options as $oIndex => $option)
@@ -86,7 +81,6 @@
 
                         @else
 
-                            {{-- TRUE FALSE --}}
                             <select name="questions[{{ $qIndex }}][correct_answer]"
                                     class="w-full border p-2">
 
@@ -128,74 +122,74 @@
 </div>
 
 <script>
-let index = {{ $quiz ? count($quiz->questions) : 0 }};
+    let index = {{ $quiz ? count($quiz->questions) : 0 }};
 
-function addQuestion() {
+    function addQuestion() {
 
-    let html = `
-    <div class="border p-4 mb-5 rounded question-box">
-
-        <input type="text"
-               name="questions[${index}][question_text]"
-               class="w-full border p-2 mb-2"
-               placeholder="Pertanyaan">
-
-        <select name="questions[${index}][question_type]"
-                class="w-full border p-2 mb-2">
-
-            <option value="multiple_choice">Multiple Choice</option>
-            <option value="true_false">True / False</option>
-
-        </select>
-
-        <div class="options">
+        let html = `
+        <div class="border p-4 mb-5 rounded question-box">
 
             <input type="text"
-                   name="questions[${index}][options][0]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi A">
-
-            <input type="text"
-                   name="questions[${index}][options][1]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi B">
-
-            <input type="text"
-                   name="questions[${index}][options][2]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi C">
-
-            <input type="text"
-                   name="questions[${index}][options][3]"
+                   name="questions[${index}][question_text]"
                    class="w-full border p-2 mb-2"
-                   placeholder="Opsi D">
+                   placeholder="Pertanyaan">
+
+            <select name="questions[${index}][question_type]"
+                    class="w-full border p-2 mb-2">
+
+                <option value="multiple_choice">Multiple Choice</option>
+                <option value="true_false">True / False</option>
+
+            </select>
+
+            <div class="options">
+
+                <input type="text"
+                       name="questions[${index}][options][0]"
+                       class="w-full border p-2 mb-1"
+                       placeholder="Opsi A">
+
+                <input type="text"
+                       name="questions[${index}][options][1]"
+                       class="w-full border p-2 mb-1"
+                       placeholder="Opsi B">
+
+                <input type="text"
+                       name="questions[${index}][options][2]"
+                       class="w-full border p-2 mb-1"
+                       placeholder="Opsi C">
+
+                <input type="text"
+                       name="questions[${index}][options][3]"
+                       class="w-full border p-2 mb-2"
+                       placeholder="Opsi D">
+
+            </div>
+
+            <label class="text-sm font-semibold">Jawaban Benar (index)</label>
+
+            <select name="questions[${index}][correct_answer]"
+                    class="w-full border p-2">
+
+                <option value="0">A</option>
+                <option value="1">B</option>
+                <option value="2">C</option>
+                <option value="3">D</option>
+
+            </select>
 
         </div>
+        `;
 
-        <label class="text-sm font-semibold">Jawaban Benar (index)</label>
+        document.getElementById('questions-container')
+            .insertAdjacentHTML('beforeend', html);
 
-        <select name="questions[${index}][correct_answer]"
-                class="w-full border p-2">
+        index++;
+    }
 
-            <option value="0">A</option>
-            <option value="1">B</option>
-            <option value="2">C</option>
-            <option value="3">D</option>
-
-        </select>
-
-    </div>
-    `;
-
-    document.getElementById('questions-container')
-        .insertAdjacentHTML('beforeend', html);
-
-    index++;
-}
-
-function addOption(qIndex) {
-    alert("Untuk versi ini, tambah opsi dilakukan lewat refresh form (rebuild system)");
-}
+    function addOption(qIndex) {
+        alert("Untuk versi ini, tambah opsi dilakukan lewat refresh form (rebuild system)");
+    }
 </script>
 
 </x-app-layout>

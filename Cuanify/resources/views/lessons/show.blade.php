@@ -91,6 +91,7 @@
                 @endif
 
                 @if($completed)
+
                     <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-6 py-3 rounded-2xl font-bold border border-emerald-200">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -98,29 +99,72 @@
                         </svg>
                         Sudah Selesai
                     </div>
+                
+                @elseif(!$canComplete)
+                
+                    <button type="button"
+                            onclick="Swal.fire({
+                                icon: 'warning',
+                                title: 'Belum Lulus Quiz',
+                                text: 'Kamu harus lulus quiz terlebih dahulu sebelum menandai lesson selesai.',
+                                confirmButtonText: 'Mengerti'
+                            })"
+                            class="bg-gray-300 text-gray-600 px-6 py-3 rounded-2xl font-bold shadow-md flex items-center gap-2">
+                
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 15v2m-6 4h12a2 2 0 002-2V9a2 2 0 00-2-2h-1V5a5 5 0 00-10 0v2H6a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                
+                        </svg>
+                    
+                        Tandai Selesai
+                    
+                    </button>
+                
                 @else
+                
                     <form method="POST" action="/lessons/{{ $lesson->lesson_id }}/complete">
                         @csrf
-                        <button type="submit" 
-                                class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                    
+                        <button type="submit"
+                                class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer flex items-center gap-2">
+                    
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-5 h-5"
+                                 viewBox="0 0 24 24"
+                                 fill="none">
+                    
                                 <path d="M20 6L9 17l-5-5"
                                       stroke="currentColor"
                                       stroke-width="2.5"
                                       stroke-linecap="round"
                                       stroke-linejoin="round"/>
+                    
                             </svg>
+                        
                             Tandai Selesai
+                        
                         </button>
+                    
                     </form>
+                
                 @endif
-
+                
             </div>
 
         </div>
 
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </x-app-layout>
 
