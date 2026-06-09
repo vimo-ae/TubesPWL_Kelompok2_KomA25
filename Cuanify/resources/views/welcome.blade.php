@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <title>Home - Cuanify</title> <link rel="icon" type="image/x-icon" href="{{ asset('favicon-16x16.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuanify</title>

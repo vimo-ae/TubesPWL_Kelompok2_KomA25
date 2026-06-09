@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Users - Cuanify')
+
     <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
         
         <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0 w-full space-y-6 cat-wrap">

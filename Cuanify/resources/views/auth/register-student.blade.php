@@ -1,5 +1,7 @@
 <x-guest-layout>
 
+    @section('title', 'Register - Cuanify')
+
     <div class="min-h-screen flex flex-col items-center justify-center
                 bg-[#f6f7fb] relative overflow-hidden px-4 py-10">
 
@@ -197,6 +199,9 @@
 
                 <!-- Confirm Password -->
                 <div class="relative mt-2">
+                    <label class="block text-sm font-semibold text-gray-700">
+                        Confirm Password
+                    </label>
                     <input
                         id="password_confirmation"
                         type="password"

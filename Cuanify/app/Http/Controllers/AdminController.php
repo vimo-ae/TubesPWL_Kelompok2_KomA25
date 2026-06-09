@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // Mengambil data dashboard (Menggunakan versi Incoming yang lebih akurat menghitung total data)
     public function dashboard()
     {
         $totalStudents = User::where('role', 'student')->count();
@@ -26,7 +25,6 @@ class AdminController extends Controller
         ));
     }
 
-    // Mengambil data instruktur berdasarkan status (Menggunakan versi Incoming)
     public function instructors()
     {
         $instructors = User::where('role', 'instructor')->get();
@@ -40,7 +38,6 @@ class AdminController extends Controller
         return view('admin.instructors', compact('instructors', 'approvedInstructors', 'rejectedInstructors'));
     }
 
-    // Dipertahankan dari HEAD (Jika Anda masih membutuhkan route/view ini)
     public function manageUsers()
     {
         $students = User::where('role', 'student')->get();
@@ -51,7 +48,6 @@ class AdminController extends Controller
         return view('admin.users', compact('students', 'allApprovedInstructors'));
     }
 
-    // Manajemen Kursus / Courses (Dari Incoming)
     public function courses()
     {
         $pendingCourses = Course::with('instructor')->where('status', 'pending')->get();
@@ -60,7 +56,6 @@ class AdminController extends Controller
         return view('admin.courses', compact('pendingCourses', 'publishedCourses'));
     }
 
-    // Menyetujui Instruktur Baru
     public function approve(int $user_id)
     {
         $user = User::findOrFail($user_id);
@@ -69,7 +64,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    // Menolak Instruktur Baru (Menggunakan versi Incoming dengan alert success)
     public function reject(Request $request, int $user_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -82,7 +76,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Instruktur berhasil ditolak.');
     }
 
-    // Menyetujui Kursus (Dari Incoming)
     public function approveCourse(int $course_id)
     {
         $course = Course::findOrFail($course_id);
@@ -92,7 +85,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    // Menolak Kursus (Dari Incoming)
     public function rejectCourse(Request $request, int $course_id)
     {
         $request->validate(['reason' => 'required|string|max:255']);
@@ -105,7 +97,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Course berhasil ditolak.');
     }
 
-    // Detail Kursus (Dari Incoming)
     public function showCourse(int $course_id)
     {
         $course = Course::with(['instructor', 'lessons'])->findOrFail($course_id);
@@ -113,7 +104,6 @@ class AdminController extends Controller
         return view('admin.courses-show', compact('course'));
     }
 
-    // Daftar Student (Dari Incoming)
     public function students()
     {
         $users = User::where('role', 'student')->latest()->get();
@@ -122,7 +112,6 @@ class AdminController extends Controller
         return view('admin.users', compact('users', 'title'));
     }
 
-    // Daftar Seluruh Instruktur (Dari Incoming)
     public function allInstructors()
     {
         $users = User::where('role', 'instructor')->latest()->get();
@@ -131,14 +120,12 @@ class AdminController extends Controller
         return view('admin.users', compact('users', 'title'));
     }
 
-    // Detail User (Dari Incoming)
     public function showUser($id)
     {
         $user = User::findOrFail($id);
         return view('admin.user-detail', compact('user'));
     }
 
-    // Fitur Ban / Update Status Aktif User (Dari Incoming)
     public function updateUserStatus(Request $request, $id)
     {
         $request->validate([

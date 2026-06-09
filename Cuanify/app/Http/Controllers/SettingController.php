@@ -11,9 +11,6 @@ use Illuminate\View\View;
 
 class SettingController extends Controller
 {
-    /**
-     * Display the user's setting form.
-     */
     public function edit(Request $request): View
     {
         return view('settings.edit', [
@@ -21,9 +18,6 @@ class SettingController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's setting information.
-     */
     public function update(SettingUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -37,9 +31,6 @@ class SettingController extends Controller
         return Redirect::route('settings.edit')->with('status', 'settings-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
