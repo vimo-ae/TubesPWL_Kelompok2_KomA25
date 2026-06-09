@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿<x-app-layout>
+=======
+<x-app-layout>
+>>>>>>> 8f19681954a25e08801f1da0c5c3f84dbc4a7f28
 
     @section('title', 'Dashboard - Cuanify')
 
