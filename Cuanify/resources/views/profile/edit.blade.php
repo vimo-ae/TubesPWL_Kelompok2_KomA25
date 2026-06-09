@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Profile - Cuanify')
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
 .edit-wrap { font-family:'DM Sans',sans-serif; max-width:560px; margin:0 auto; padding:8px 0; }

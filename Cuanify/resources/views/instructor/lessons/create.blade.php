@@ -1,4 +1,6 @@
 <x-app-layout>
+
+    @section('title', 'Create Lessons - Cuanify')
     
     <a href="{{ route('instructor.courses.show', $course->course_id ?? $course->id) }}" 
     class="inline-block mb-4 text-indigo-600 hover:text-indigo-800 font-medium transition-all">

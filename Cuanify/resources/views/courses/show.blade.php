@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Course Detail - Cuanify')
+
     <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-6xl mx-auto">
             @php
