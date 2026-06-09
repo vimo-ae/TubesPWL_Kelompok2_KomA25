@@ -30,6 +30,12 @@ class AnswerOptionSeeder extends Seeder
             'is_correct' => false
         ]);
 
+        AnswerOption::create([
+            'question_id' => 1,
+            'option_text' => 'Beli BMW',
+            'is_correct' => false
+        ]);
+
         // Question 2 (True/False)
         AnswerOption::create([
             'question_id' => 2,

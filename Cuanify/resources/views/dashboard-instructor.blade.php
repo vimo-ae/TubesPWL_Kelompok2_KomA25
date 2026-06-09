@@ -1,4 +1,7 @@
 <x-app-layout>
+
+    @section('title', 'Instructor Dashboard - Cuanify')
+
     <div class="min-h-screen w-full transition-all duration-300 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-4 sm:p-6 lg:p-8">
         <div class="py-6 max-w-7xl mx-auto space-y-8 w-full">
 

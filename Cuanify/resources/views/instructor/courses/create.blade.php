@@ -1,29 +1,11 @@
 <x-app-layout>
-    <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
 
-    <div class="max-w-7xl mx-auto">
+    @section('title', 'Create Course - Cuanify')
 
-        <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-700 p-10 mb-8 shadow-xl">
-
-            <div class="absolute right-0 top-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-
-            <div class="relative z-10">
-
-                <span class="bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs text-white font-semibold">
-                    Instructor Panel
-                </span>
-
-                <h1 class="text-4xl font-black text-white mt-4">
-                    Tambah Course Baru
-                </h1>
-
-                <p class="text-purple-100 mt-2 max-w-2xl">
-                    Buat pengalaman belajar terbaik untuk para siswa dengan course yang menarik dan terstruktur.
-                </p>
-
-            </div>
-
-        </div>
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-6">
+            Tambah Course
+        </h1>
 
         <form action="{{ route('instructor.courses.store') }}" method="POST">
             @csrf

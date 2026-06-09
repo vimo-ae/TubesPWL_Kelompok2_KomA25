@@ -1,5 +1,7 @@
 <x-app-layout>  
 
+    @section('title', 'Profile - Cuanify')
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
@@ -82,7 +84,8 @@
 
     <div class="hero-card">
         <div class="avatar-wrap">
-            <img src="{{ $profile->photo_url }}" class="avatar-img" alt="Foto Profil">
+            <img src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
+        class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
             <a href="{{ route('profile.edit') }}" class="avatar-edit">
                 <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </a>

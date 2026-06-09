@@ -20,11 +20,17 @@ class Profile extends Model
         'streak_days',
     ];
 
-    public function getPhotoUrlAttribute()
+    protected function photoUrl(): Attribute
     {
-        return $this->profile_photo
-            ? asset('storage/' . $this->profile_photo)
-            : asset('images/profile-default.jpg');
+        return Attribute::make(
+            get: function () {
+                if ($this->profile_photo && trim($this->profile_photo) !== '') {
+                    return asset('storage/' . $this->profile_photo);
+                }
+                
+                return asset('images/profile-default.jpg');
+            }
+        );
     }
 
     public function user()

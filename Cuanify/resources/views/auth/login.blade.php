@@ -1,4 +1,6 @@
 <x-guest-layout>
+
+    @section('title', 'Login - Cuanify')
     
     <div class="min-h-screen flex flex-col items-center justify-center
     bg-[#f5f7fb]
