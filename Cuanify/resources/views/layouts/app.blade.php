@@ -16,23 +16,40 @@
     </head>
     <body class="font-sans antialiased text-gray-900 bg-[#fff5f8] dark:bg-gray-900">
         
-        <div x-data="{ sidebarOpen: true }" class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900">
+        <div
+            x-data="{ sidebarOpen: true }"
+            @toggle-sidebar.window="sidebarOpen = !sidebarOpen"
+            class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900"
+        >
 
             {{-- 1. SIDEBAR DIIZINKAN UNTUK SEMUA ROLE YANG SUDAH LOGIN --}}
             @auth
+                <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-40 bg-black/40 md:hidden" @click="sidebarOpen = false"></div>
                 <aside
-                    x-show="sidebarOpen"
-                    x-transition
-                    class="w-64 bg-white dark:bg-gray-800 h-screen hidden md:flex flex-col justify-between sticky top-0 z-50 overflow-y-auto border-r border-purple-50 dark:border-gray-700">
+                    :class="sidebarOpen ? 'w-64' : 'w-20'"
+                    class="fixed inset-y-0 left-0 z-50
+                           bg-white dark:bg-gray-800
+                           h-screen
+                           flex flex-col justify-between
+                           overflow-y-auto
+                           border-r border-purple-50
+                           dark:border-gray-700
+                           transition-all duration-300">
                     
                     <div class="py-6 flex flex-col h-full">
                         {{-- Header Sidebar (Logo Cuanify) --}}
-                        <div class="px-6 pt-4 mb-6">
+                        <div
+                            class="pt-4 mb-6 flex flex-col items-center"
+                            :class="sidebarOpen ? 'px-6' : 'px-2'"
+                        >
                             <a href="{{ route('dashboard') }}" class="logo-link inline-flex items-center">
-                                <img src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
+                                <img x-show="sidebarOpen" src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
                             </a>
-                            <span class="text-[11px] font-bold tracking-wide text-gray-450 dark:text-gray-400 pl-1 opacity-90 block mt-2">
-                                #BelajarJadiCuan <span class="animate-pulse">🚀</span>
+                            <span
+                                x-show="sidebarOpen"
+                                class="text-[11px] font-bold tracking-wide text-gray-500 mt-2"
+                            >
+                                #BelajarJadiCuan 🚀
                             </span>
                         </div>
                         
@@ -45,7 +62,7 @@
             @endauth
 
             {{-- 2. SISI KANAN (NAVBAR, KONTEN UTAMA, & FOOTER) --}}
-            <div class="flex-1 min-w-0 flex flex-col bg-[#fff5f8] dark:bg-gray-900">
+            <div :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'" class="flex-1 min-w-0 flex flex-col bg-[#fff5f8] dark:bg-gray-900 transition-all duration-300">
                 
                 {{-- Navigation/Topbar --}}
                 @include('layouts.navigation')
