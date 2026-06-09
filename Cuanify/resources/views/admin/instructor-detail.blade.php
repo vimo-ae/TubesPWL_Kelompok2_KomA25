@@ -21,8 +21,9 @@
                 <div class="profile-card">
                     <div class="flex flex-col md:flex-row gap-8 items-start">
                         
+                        <!-- Perbaikan Foto Profil menggunakan Storage::url jika upload dinamis -->
                         <div class="w-32 h-32 rounded-2xl overflow-hidden bg-gray-100 border-2 border-purple-100 flex-shrink-0 mx-auto md:mx-0">
-                            <img src="{{ asset($instructor->instructorProfile->profile_photo ?? 'images/profile-default.jpg') }}" alt="Foto Profil" class="w-full h-full object-cover">
+                            <img src="{{ !empty($instructor->instructorProfile->profile_photo) ? Storage::url($instructor->instructorProfile->profile_photo) : asset('images/profile-default.jpg') }}" alt="Foto Profil" class="w-full h-full object-cover">
                         </div>
 
                         <div class="flex-1 text-center md:text-left w-full">
@@ -57,7 +58,8 @@
                                 <div class="p-4 border border-gray-100 rounded-xl bg-pink-50/30 text-left">
                                     <h4 class="text-xs font-700 text-pink-400 uppercase tracking-wider mb-1">Curriculum Vitae (CV)</h4>
                                     @if(!empty($instructor->instructorProfile->cv))
-                                        <a href="{{ asset($instructor->instructorProfile->cv) }}" target="_blank" class="text-sm font-600 text-pink-700 hover:underline inline-flex items-center gap-1">
+                                        <!-- PERBAIKAN DI SINI: Menggunakan Storage::url -->
+                                        <a href="{{ Storage::url($instructor->instructorProfile->cv) }}" target="_blank" class="text-sm font-600 text-pink-700 hover:underline inline-flex items-center gap-1">
                                             Buka / Unduh Berkas CV
                                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                                         </a>
