@@ -13,7 +13,8 @@
 /* HERO */
 .admin-hero {
     background: linear-gradient(135deg, #a855f7, #ec4899);
-    border-radius: 24px; 
+    /* MODIFIKASI: Diubah jadi 35px agar serasi dengan banner dashboard */
+    border-radius: 35px; 
     padding: 36px 40px; 
     margin-bottom: 24px;
     position: relative; 
@@ -65,7 +66,7 @@
 .iv-card-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .ic-amber { background:#fef3c7; } .ic-green { background:#dcfce7; } .ic-red { background:#fee2e2; }
 .iv-card-title { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0 0 2px; }
-.iv-card-sub   { font-size:11px; color:#9ca3af; margin:0; }
+.iv-card-sub    { font-size:11px; color:#9ca3af; margin:0; }
 
 .iv-table { width:100%; border-collapse:collapse; font-size:13px; }
 .iv-table th { text-align:left; padding:10px 20px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; border-bottom:1px solid #f5f3ff; }
@@ -87,12 +88,11 @@
 @media(max-width:700px){ .two-col { grid-template-columns:1fr; } }
 </style>
 
-<div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
+<div class="flex min-h-screen">
 
-    <div class="flex-1 p-6 lg:p-10">
+    <div class="flex-1 p-6 sm:p-8 lg:p-10">
         <div class="iv-wrap">
 
-            {{-- HERO --}}
             <div class="admin-hero">
                 <div class="hero-badge">
                     <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline; margin-right:4px; vertical-align:text-top;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -102,7 +102,6 @@
                 <p class="hero-desc">Tinjau dan kelola status verifikasi akun instruktur yang mendaftar di platform.</p>
             </div>
 
-            {{-- PENDING --}}
             <div class="iv-card">
                 <div class="iv-card-header">
                     <div class="iv-card-icon ic-amber">
@@ -126,7 +125,7 @@
                                 <td class="center"><span class="pill pill-pending">Pending</span></td>
                                 <td class="center">
                                     <div class="action-wrap" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-    
+        
     <div style="display: flex; gap: 8px; align-items: center;">
         <form action="{{ url('/admin/approve/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
             @csrf

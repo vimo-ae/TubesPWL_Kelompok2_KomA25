@@ -2,17 +2,16 @@
 
     @section('title', 'Users - Cuanify')
 
-    <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
+    <div class="flex min-h-screen">
         
-        <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0 w-full space-y-6 cat-wrap">
+        <div class="flex-1 p-6 sm:p-8 lg:p-10 min-w-0 w-full space-y-6 cat-wrap">
             
             <style>
             @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
             .cat-wrap { font-family:'DM Sans', sans-serif; }
             </style>
 
-            {{-- Banner Header Gradient --}}
-            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
+            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
                     <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
@@ -35,7 +34,6 @@
 
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
 
-                {{-- DAFTAR MURID UTAMA --}}
                 <div class="bg-white rounded-[24px] shadow-xl border border-purple-100/40 overflow-hidden flex flex-col h-full">
                     <div class="p-5 bg-gradient-to-r from-[#b55fe6] to-[#e84393] flex items-center justify-between">
                         <div>
@@ -66,7 +64,6 @@
                                         </td>
                                         <td class="p-4 text-gray-500">{{ $student->email }}</td>
                                         <td class="p-4 text-center pr-6 flex items-center justify-center gap-2">
-                                            {{-- TOMBOL DETAIL MURID (Dengan pengaman ID) --}}
                                             <a href="/admin/users/{{ $student->id ?? $student->user_id }}" class="inline-block bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition shadow-sm">
                                                 Detail
                                             </a>
@@ -84,7 +81,6 @@
                     </div>
                 </div>
 
-                {{-- INSTRUKTUR TERVERIFIKASI --}}
                 <div class="bg-white rounded-[24px] shadow-xl border border-purple-100/40 overflow-hidden flex flex-col h-full">
                     <div class="p-5 bg-gradient-to-r from-[#b55fe6] to-[#e84393] flex items-center justify-between">
                         <div>
@@ -113,7 +109,6 @@
                                         <td class="p-4 pl-6 font-semibold text-gray-800">{{ $inst->username ?? $inst->name }}</td>
                                         <td class="p-4 text-gray-500">{{ $inst->email }}</td>
                                         <td class="p-4 text-center pr-6 flex items-center justify-center gap-2">
-                                            {{-- TOMBOL DETAIL INSTRUKTUR --}}
                                             <a href="/admin/users/{{ $inst->id ?? $inst->user_id }}" class="inline-block bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition shadow-sm">
                                                 Detail
                                             </a>
