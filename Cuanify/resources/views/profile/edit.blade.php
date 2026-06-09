@@ -161,11 +161,8 @@
 
                 {{-- Foto Profil dengan Fitur Live-Preview --}}
                 <div class="avatar-row">
-                    @if($profile->profile_photo)
-                        <img id="photoPreview" src="{{ asset('storage/' . $profile->profile_photo) }}" class="avatar-img" alt="Foto Profil">
-                    @else
-                        <img id="photoPreview" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" class="avatar-img" alt="Foto Default">
-                    @endif
+                        <img id="photoPreview" src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
+                    
                     <div>
                         <label class="upload-btn">
                             <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
