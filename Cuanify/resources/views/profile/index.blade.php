@@ -104,56 +104,18 @@
     /* ---- PROGRESS ---- */
     .progress-card {
         background:#fff; border:1px solid #ede9fe; border-radius:16px;
-        padding:22px; margin-bottom:16px;
+        padding:28px 32px; margin-bottom:16px;
     }
     .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-    .section-title { font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
-    .progress-inner { display:flex; align-items:center; gap:28px; }
-
-    .ring-wrap { position:relative; width:110px; height:110px; flex-shrink:0; }
-    .ring-wrap svg { transform:rotate(-90deg); }
-    .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-
-    .ring-pct { font-size:22px; font-weight:800; color:#7c3aed; line-height:1; margin-bottom: 2px; }
-    .ring-lbl { font-size:11px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    .progress-right { flex:1; }
-    .prog-encourage { font-size:16px; font-weight: 500; color:#6b7280; margin:0 0 12px; }
-    .prog-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .prog-stat-box { background:#faf5ff; border-radius:10px; padding:10px 14px; }
-    .psb-label {
-        font-size: 14px;            
-        color: #000000;             
-        font-weight: 700;           
-        margin: 0 0 6px; 
-        display: inline-block;            
-    }
-    .psb-val { 
-        font-size: 26px;          
-        font-weight: 800; 
-        color: #1e1b4b; 
-        margin: 0 0 2px;
-    }
-    .psb-sub { 
-        font-size: 13px; 
-        color: #7c3aed;       
-        font-weight: 600;
-    }
-</style>
-
-    .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-    .stat-mini { background:#fff; border:1px solid #ede9fe; border-radius:14px; padding:16px; text-align:center; }
-    .stat-mini-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 8px; background:#f5f3ff; }
-    .stat-mini-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; margin-bottom:3px; }
-    .stat-mini-val { font-family:'Outfit',sans-serif; font-size:20px; font-weight:800; color:#1e1b4b; line-height:1; }
-
-    /* INI DIA PENYELAMAT PROGRESS CARD-NYA FRED 👇 */
-    .progress-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:28px 32px; margin-bottom:16px; }
+    .section-title { font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
+    
     .progress-inner { display:flex; align-items:center; gap:32px; margin-top:16px; }
     .ring-wrap { position:relative; width:80px; height:80px; flex-shrink:0; }
+    .ring-wrap svg { transform:rotate(-90deg); }
     .ring-center { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
     .ring-pct { font-family:'Outfit',sans-serif; font-size:18px; font-weight:800; color:#1e1b4b; line-height:1; }
     .ring-lbl { font-size:9px; font-weight:700; color:#9ca3af; text-transform:uppercase; margin-top:2px; }
+    
     .progress-right { flex:1; }
     .prog-encourage { font-size:14px; font-weight:600; color:#4f46e5; margin:0 0 12px; }
     .prog-stat-grid { display:flex; gap:24px; }
@@ -161,14 +123,24 @@
     .psb-label { font-size:11px; color:#9ca3af; font-weight:600; text-transform:uppercase; margin-bottom:4px; }
     .psb-val { font-family:'Outfit',sans-serif; font-size:18px; font-weight:800; color:#1e1b4b; line-height:1; }
     .psb-sub { font-size:11px; color:#6b7280; }
-    /* 👆 SAMPAI SINI */
 
+    /* ---- DATA CARDS & TABLE ---- */
     .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
-    .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-    .section-title { font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
     .info-row { padding:10px 0; border-bottom:1px solid #f5f3ff; }
     .info-val { font-size:13px; font-weight:600; color:#1e1b4b; }
+
+    .empty-box {
+        text-align:center; padding:24px;
+        border:1px dashed #ddd6fe; border-radius:12px; background:#faf5ff;
+    }
+    .hist-table { width:100%; border-collapse:collapse; }
+    .hist-table th { text-align:left; padding:10px; border-bottom:1px solid #ede9fe; font-size:12px; color:#6b7280; }
+    .hist-table td { padding:10px; border-bottom:1px solid #f3f4f6; }
+    .xp-pill {
+        display:inline-block; padding:4px 10px; border-radius:999px;
+        background:#ede9fe; color:#7c3aed; font-size:11px; font-weight:700;
+    }
 
     .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; margin-top:16px; }
     .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
@@ -178,6 +150,7 @@
     .course-status-pill { font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; margin-bottom:12px; display:inline-block; }
     .cs-active { background:#e0e7ff; color:#4f46e5; }
     .cs-completed { background:#dcfce7; color:#166534; }
+    
     .prog-bar-wrap { background:#f3f4f6; height:6px; border-radius:99px; overflow:hidden; }
     .prog-bar-fill { background:linear-gradient(to right,#a855f7,#d946ef); height:100%; border-radius:99px; }
     .prog-bar-label { display:flex; justify-content:space-between; font-size:11px; font-weight:600; color:#6b7280; margin-bottom:4px; }
@@ -201,12 +174,18 @@
     <h1 class="pf-title">Profil Saya</h1>
     <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
 
+    {{-- HERO CARD --}}
     <div class="hero-card">
         <div class="avatar-wrap">
-            <img src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
-        class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
+            <img src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}"
+                 alt="Foto Profil"
+                 class="avatar-img">
+
             <a href="{{ route('profile.edit') }}" class="avatar-edit">
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
             </a>
         </div>
         <div class="hero-info">
@@ -225,7 +204,7 @@
                     Bergabung {{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->translatedFormat('d F Y') : '-' }}
                 </div>
             </div>
-            <a href="{{ route('profile.edit') }}" class="btn-edit-hero">
+            <a href="{{ route('profile.edit') }}" class="btn-edit-hero my-4">
                 <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 Edit Profil
             </a>
@@ -277,11 +256,11 @@
         <div class="progress-inner">
             
             <div class="ring-wrap">
-                <svg width="110" height="110" viewBox="0 0 110 110">
+                <svg width="80" height="80" viewBox="0 0 110 110">
                     <circle cx="55" cy="55" r="46" fill="none" stroke="#ede9fe" stroke-width="9"/>
                     <circle cx="55" cy="55" r="46" fill="none" stroke="#a855f7" stroke-width="9"
                         stroke-dasharray="{{ round(2 * 3.14159 * 46) }}"
-                        stroke-dashoffset="{{ round(2 * 3.14159 * 46 * (1 - $persentaseTotal/100)) }}"
+                        stroke-dashoffset="{{ round(2 * 3.14159 * 46 * (1 - (($persentaseTotal ?? 0) / 100))) }}"
                         stroke-linecap="round"/>
                 </svg>
                 <div class="ring-center">
