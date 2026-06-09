@@ -11,26 +11,26 @@ use Illuminate\Http\Request;
 class QuizController extends Controller
 {
     /**
-     * 📌 LIST QUIZ DALAM LESSON
+     * 📌 TAMPILKAN QUIZ DALAM 1 LESSON
      */
     public function show($lesson_id)
     {
-        $lesson = Lesson::with('quizzes.questions')
+        $lesson = Lesson::with('quiz.questions.options')
             ->where('lesson_id', $lesson_id)
             ->firstOrFail();
-    
+
         $user = auth()->user();
-    
-        foreach ($lesson->quizzes as $quiz) {
-    
+
+        if ($lesson->quiz) {
+
             $bestResult = QuizResult::where('user_id', $user->user_id)
-                ->where('quiz_id', $quiz->quiz_id)
+                ->where('quiz_id', $lesson->quiz->quiz_id)
                 ->orderByDesc('score')
                 ->first();
-    
-            $quiz->best_score = $bestResult?->score;
+
+            $lesson->quiz->best_score = $bestResult?->score;
         }
-    
+
         return view('quizzes.show', compact('lesson'));
     }
 
@@ -61,9 +61,7 @@ class QuizController extends Controller
 
         foreach ($quiz->questions as $question) {
 
-            $answerId = $request->input(
-                'question_' . $question->question_id
-            );
+            $answerId = $request->input('question_' . $question->question_id);
 
             if (!$answerId) {
                 continue;
@@ -78,14 +76,12 @@ class QuizController extends Controller
             }
         }
 
-        // Hitung skor dalam bentuk persentase (0 - 100)
         $totalQuestions = $quiz->questions->count();
 
         $score = $totalQuestions > 0
             ? round(($correct / $totalQuestions) * 100)
             : 0;
 
-        // Cari hasil quiz sebelumnya
         $result = QuizResult::where('user_id', $user->user_id)
             ->where('quiz_id', $quiz_id)
             ->first();
@@ -94,7 +90,6 @@ class QuizController extends Controller
 
         if (!$result) {
 
-            // Percobaan pertama
             QuizResult::create([
                 'user_id' => $user->user_id,
                 'quiz_id' => $quiz_id,
@@ -109,7 +104,6 @@ class QuizController extends Controller
 
         } elseif ($score > $result->score) {
 
-            // Update jika skor baru lebih tinggi
             $result->update([
                 'score' => $score,
                 'total_correct' => $correct,
@@ -122,12 +116,10 @@ class QuizController extends Controller
 
         } else {
 
-            // Pertahankan skor terbaik lama
             $bestScore = $result->score;
             $bestCorrect = $result->total_correct;
         }
 
-        // Cek lulus berdasarkan skor terbaik
         $passed = $bestScore >= $quiz->passing_score;
 
         return redirect()
@@ -142,4 +134,4 @@ class QuizController extends Controller
                 'new_best' => $isNewBestScore,
             ]);
     }
-};
+}
