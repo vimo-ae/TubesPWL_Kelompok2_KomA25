@@ -10,6 +10,9 @@ class ProfileInstructor extends Model
 {
     use HasFactory;
     
+    protected $table = 'profile_instructors'; 
+    protected $primaryKey = 'profile_id';
+
     protected $fillable = [
         'user_id',
         'deskripsi',

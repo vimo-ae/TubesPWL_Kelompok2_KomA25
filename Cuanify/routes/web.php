@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/all-instructors', [AdminController::class, 'allInstructors'])->name('admin.all_instructors');
     Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve'])->name('admin.approve');
     Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject'])->name('admin.reject');
+    Route::get('/admin/instructor/{id}', [AdminController::class, 'showInstructor'])->name('admin.instructor.detail');
 
     Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
     Route::get('/admin/course/{course_id}', [AdminController::class, 'showCourse'])->name('admin.courses.show');

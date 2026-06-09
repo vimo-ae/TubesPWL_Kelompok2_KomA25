@@ -99,6 +99,13 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Instruktur berhasil ditolak.');
     }
 
+    public function showInstructor($id)
+    {
+        $instructor = User::with('instructorProfile')->findOrFail($id);
+// dd($instructor->profile->toArray());
+        return view('admin.instructor-detail', compact('instructor'));
+    }
+
     public function approveCourse(int $course_id)
     {
         $course = Course::findOrFail($course_id);
