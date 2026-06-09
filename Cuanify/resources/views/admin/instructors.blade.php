@@ -123,10 +123,40 @@
                                 <td class="email-muted">{{ $instructor->email }}</td>
                                 <td class="center"><span class="pill pill-pending">Pending</span></td>
                                 <td class="center">
-                                    <div class="action-wrap">
-                                        <form action="/admin/approve/{{ $instructor->user_id }}" method="POST">@csrf<button type="submit" class="btn-approve">Setujui</button></form>
-                                        <form action="/admin/reject/{{ $instructor->user_id }}" method="POST">@csrf<button type="submit" class="btn-reject">Tolak</button></form>
-                                    </div>
+                                    <div class="action-wrap" style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+    
+    <div style="display: flex; gap: 8px; align-items: center;">
+        <form action="{{ url('/admin/approve/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
+            @csrf
+            <button type="submit" class="btn-approve">Setujui</button>
+        </form>
+        
+        <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.toggle('hidden')" class="btn-reject">
+            Tolak
+        </button>
+    </div>
+
+    <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-60">
+        <form action="{{ url('/admin/reject/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
+            @csrf
+            <label class="block text-[11px] text-gray-500 mb-1 font-bold uppercase tracking-wider">
+                Alasan Penolakan:
+            </label>
+            
+            <input type="text" name="reason" placeholder="Ketik alasan di sini..." required class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 mb-3 focus:outline-none focus:border-red-400">
+            
+            <div class="flex gap-2">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-bold w-full transition-all">
+                    Kirim
+                </button>
+                <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs font-bold w-full transition-all">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
                                 </td>
                             </tr>
                             @endif

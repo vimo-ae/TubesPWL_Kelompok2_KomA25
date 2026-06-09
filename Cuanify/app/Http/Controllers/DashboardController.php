@@ -54,8 +54,10 @@ class DashboardController extends Controller
             }])
             ->get();
 
+        $categories = \App\Models\Category::all();
+
         return view('dashboard', compact(
-            'profile', 'level', 'xp', 'xpPercentage', 
+            'profile', 'level', 'xp', 'categories', 'xpPercentage', 
             'completedLessons', 'totalLessons', 'progressPercentage', 'recentAchievements',
             'recommendedCourses'
         ));

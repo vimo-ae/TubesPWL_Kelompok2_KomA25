@@ -21,6 +21,35 @@ class ProfileController extends Controller
             ['full_name' => $user->username]
         );
 
+        if ($user->role === 'admin') {
+        
+        // Ambil data dari database (Pastikan Model-nya sudah di-use di atas file ya)
+        $totalUsers = \App\Models\User::count();
+        $totalInstructors = \App\Models\User::where('role', 'instructor')->count();
+        $totalCourses = \App\Models\Course::count(); 
+        
+        // Asumsi kamu punya kolom status 'pending' di tabel Course. Sesuaikan kalau beda!
+        $pendingApprovals = \App\Models\Course::where('status', 'pending')->count();
+        
+        // Kalau belum punya sistem log activity, dikosongin dulu array-nya biar gak error
+        $recentLogs = []; 
+
+        return view('admin.profile', [
+            'user' => $user,
+            'profile' => $user->profile,
+            'totalUsers' => $totalUsers,
+            'totalInstructors' => $totalInstructors,
+            'totalCourses' => $totalCourses,
+            'pendingApprovals' => $pendingApprovals,
+            'recentLogs' => $recentLogs
+        ]);
+    }if ($user->role === 'admin') {
+        return view('admin.profile', [
+            'user' => $user,
+            'profile' => $user->profile 
+        ]);
+    }
+
         // ==========================================
         // 🎯 LOGIKA FILTER UNTUK INSTRUKTUR
         // ==========================================
