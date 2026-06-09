@@ -197,14 +197,32 @@
         
         <a href="{{ url('/courses?category=1') }}" 
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
-            <span class="text-3xl mb-2">💼</span>
-            <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
+            <span class="text-3xl mb-2">💰</span>
+            <p class="font-bold text-gray-800 text-xs">Literasi Keuangan</p>
         </a>
 
         <a href="{{ url('/courses?category=2') }}" 
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">💼</span>
+            <p class="font-bold text-gray-800 text-xs">UMKM & Kewirausahaan</p>
+        </a>
+
+        <a href="{{ url('/courses?category=3') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
             <span class="text-3xl mb-2">📈</span>
-            <p class="font-bold text-gray-800 text-xs">Marketing</p>
+            <p class="font-bold text-gray-800 text-xs">Digital Marketing</p>
+        </a>
+
+        <a href="{{ url('/courses?category=4') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">🚀</span>
+            <p class="font-bold text-gray-800 text-xs">Karier & Pengembangan Diri</p>
+        </a>
+
+        <a href="{{ url('/courses?category=5') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">🌱</span>
+            <p class="font-bold text-gray-800 text-xs">Ekonomi Berkelanjutan</p>
         </a>
 
     </div>
