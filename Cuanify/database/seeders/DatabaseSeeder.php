@@ -40,11 +40,14 @@ class DatabaseSeeder extends Seeder
         ]);
         $user2->profile()->firstOrCreate(['user_id' => $user2->user_id]);
 
-        $user3 = User::factory()->create([
+        $user3 = User::firstOrCreate([
             'username' => 'Test User',
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
-        ]);
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'role' => 'instructor',
+            ]);
         $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
 
         $user4 = User::firstOrCreate([
