@@ -1,6 +1,13 @@
 <x-app-layout>
     <div class="flex min-h-screen">
 
+<<<<<<< HEAD
+    @section('title', 'Admin Dashboard - Cuanify')
+
+    <div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8">
+
+=======
+>>>>>>> 7a4172445615f7ea6a0597499457c7e911f6e5b0
         <div class="flex-1 p-6 sm:p-8 lg:p-10">
             
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[200px] flex items-center w-full mb-8">
