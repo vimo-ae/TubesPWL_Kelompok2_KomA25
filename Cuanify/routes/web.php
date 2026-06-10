@@ -112,10 +112,14 @@ Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::clas
 });
 
 Route::get('/test-mail', function () {
-    Mail::raw('Test email dari Railway', function ($message) {
-        $message->to('cuanify.tiusu25@gmail.com')->subject('Test');
-    });
-    return 'Email terkirim!';
+    try {
+        Mail::raw('Test email dari Railway', function ($message) {
+            $message->to('test@example.com')->subject('Test');
+        });
+        return 'Email terkirim!';
+    } catch (\Exception $e) {
+        return $e->getMessage();
+    }
 });
 
 Route::get('/cek-user', function () {
