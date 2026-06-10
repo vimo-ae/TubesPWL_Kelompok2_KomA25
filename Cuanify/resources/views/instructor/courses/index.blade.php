@@ -23,23 +23,25 @@
                         </p>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <div class="flex flex-col sm:flex-row items-stretch gap-4 w-full sm:w-auto min-h-[108px]">
+    
                         <a href="{{ route('instructor.courses.create') }}"
-                           class="w-full sm:w-auto bg-white text-purple-700 hover:bg-purple-50 px-6 py-4 rounded-2xl font-bold shadow-lg transition duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]">
+                        class="w-full sm:w-auto flex-1 bg-white text-purple-700 hover:bg-purple-50 px-6 rounded-3xl font-bold shadow-lg transition duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                             </svg>
                             Tambah Course
                         </a>
-                    
-                        <div class="bg-white/10 border border-white/10 backdrop-blur-md rounded-3xl px-8 py-4 text-center min-w-[140px] shadow-lg w-full sm:w-auto">
+
+                        <div class="bg-white/10 border border-white/10 backdrop-blur-md rounded-3xl px-8 py-4 text-center min-w-[140px] shadow-lg flex flex-col justify-center">
                             <p class="text-xs uppercase tracking-[2px] text-purple-100 mb-1">
                                 Total Course
                             </p>
-                            <h2 class="text-4xl font-extrabold text-white">
+                            <h2 class="text-4xl font-extrabold text-white leading-none">
                                 {{ $courses->count() }}
                             </h2>
                         </div>
+
                     </div>
                 </div>
             </div>
