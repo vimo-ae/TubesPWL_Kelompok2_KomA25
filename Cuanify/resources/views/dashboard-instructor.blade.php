@@ -105,14 +105,35 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    
                     @forelse($recentCourses as $course)
+                    
                         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg transition flex flex-col">
                             <div class="h-32 bg-gray-200 relative">
-                                @if($course->thumbnail)
-                                    <img src="{{ asset('storage/' . $course->thumbnail) }}" class="w-full h-full object-cover">
-                                @else
-                                    <div class="w-full h-full bg-gradient-to-r from-indigo-400 to-purple-400"></div>
-                                @endif
+                                @php
+                                    $banner = match($course->category_id) {
+                                        1 => 'images/courses/literasi-keuangan.jpg',
+                                        2 => 'images/courses/umkm-kewirausahaan.jpg',
+                                        3 => 'images/courses/digital-marketing.jpg',
+                                        4 => 'images/courses/pengembangan-diri.jpg',
+                                        5 => 'images/courses/ekonomi-berkelanjutan.jpg',
+                                        default => 'images/courses/default-course.jpg',
+                                    };
+                                
+                                    if ($course->thumbnail) {
+                                        $imageSrc = asset('storage/' . $course->thumbnail);
+                                    } elseif ($banner && file_exists(public_path($banner))) {
+                                        $imageSrc = asset($banner);
+                                    } else {
+                                        $imageSrc = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400';
+                                    }
+                                @endphp
+                                
+                                <img
+                                    src="{{ $imageSrc }}"
+                                    alt="{{ $course->title }}"
+                                    class="w-full h-full object-cover"
+                                >
                                 <span class="absolute top-2 left-2 bg-white/90 px-2 py-0.5 rounded-full text-[9px] font-bold text-purple-700 shadow-sm capitalize">
                                     {{ $course->difficulty_level }}
                                 </span>

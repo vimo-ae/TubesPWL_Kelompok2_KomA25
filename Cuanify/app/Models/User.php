@@ -11,11 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Course;
 
-#[Fillable(['username', 'email', 'password', 'role', 'is_approved', 'last_login', 'status'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
-use HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
 
@@ -63,7 +61,8 @@ use HasFactory, Notifiable;
     {
         static::created(function ($user) {
             $user->profile()->create([
-                'user_id' => $user->user_id
+                'user_id'   => $user->user_id,
+                'full_name' => request('name') ?? $user->username, // Menjawab eror di database
             ]);
         });
     }
@@ -78,13 +77,17 @@ use HasFactory, Notifiable;
         return $this->hasMany(Course::class, 'user_id', 'user_id');
     }
 
-public function lessons()
-{
-    return $this->belongsToMany(
-        Lesson::class,
-        'lesson_user',
-        'user_id',     
-        'lesson_id'    
-    )->withTimestamps();
-}
+    public function lessons()
+    {
+        return $this->belongsToMany(
+            Lesson::class,
+            'lesson_user',
+            'user_id',     
+            'lesson_id' 
+        )->withTimestamps();
+    }
+
+    public function instructorProfile() {
+        return $this->hasOne(ProfileInstructor::class, 'user_id');
+    }
 }

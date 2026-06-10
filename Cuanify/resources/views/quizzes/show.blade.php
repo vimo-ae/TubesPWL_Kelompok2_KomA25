@@ -71,7 +71,7 @@
 
                                 @if($quiz->best_score !== null)
                                     <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-xl font-bold">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg xmlns="http://www.w3.org/2000/xl"
                                              class="w-5 h-5"
                                              fill="currentColor"
                                              viewBox="0 0 20 20">
@@ -131,10 +131,9 @@
                     Belum Ada Quiz
                 </h3>
                 <p class="text-gray-500">
-                    Quiz untuk lesson ini belum tersedia.
+                    Belum pernah mengerjakan quiz
                 </p>
             </div>
-
         @endif
 
     </div>
