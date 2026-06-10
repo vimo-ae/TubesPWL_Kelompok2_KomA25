@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Login;
 use App\Listeners\UpdateUserStreak;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(
-            Login::class,
-            UpdateUserStreak::class,
-        );
+        URL::forceScheme('https');
     }
 }
