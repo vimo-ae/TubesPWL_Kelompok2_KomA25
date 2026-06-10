@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $user3 = User::factory()->create([
             'username' => 'Test User',
             'email' => 'test@example.com',
+            'password' => Hash::make('password'),
         ]);
         $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
 
