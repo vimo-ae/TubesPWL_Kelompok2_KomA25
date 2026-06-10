@@ -128,7 +128,7 @@
                     Belum Ada Quiz
                 </h3>
                 <p class="text-gray-500">
-                    Quiz untuk lesson ini belum tersedia.
+                    Belum pernah mengerjakan quiz
                 </p>
             </div>
         @endif

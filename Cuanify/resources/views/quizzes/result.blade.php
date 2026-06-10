@@ -174,7 +174,7 @@
                                 <div class="flex items-end gap-2">
                                 
                                     <h2 class="text-4xl font-black text-amber-600">
-                                        {{ $result->correct_answers }}
+                                        {{ $result->total_correct }}
                                     </h2>
                                 
                                     <span class="text-gray-400 text-lg mb-1">

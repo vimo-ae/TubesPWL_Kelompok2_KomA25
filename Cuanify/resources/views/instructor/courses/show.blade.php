@@ -86,11 +86,35 @@
         @if($course->status == 'draft')
             @if($course->lessons->count() < 3)
                 <p class="text-sm text-amber-600 mt-1 font-medium">
-                    ⚠️ Minimal memasukkan 3 lesson sebelum mengajukan verifikasi.
+                    <p class="text-sm text-amber-600 mt-1 font-medium flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 9v2m0 4h.01M10.29 3.86l-8.1 14A1 1 0 003.05 19h17.9a1 1 0 00.86-1.5l-8.1-14a1 1 0 00-1.72 0z"/>
+                        </svg>
+                        Minimal memasukkan 3 lesson sebelum mengajukan verifikasi.
+                    </p>
                 </p>
             @else
                 <p class="text-sm text-green-600 mt-1 font-medium">
-                    ✅ Syarat minimum terpenuhi. Anda sudah bisa mengajukan verifikasi.
+                    <p class="text-sm text-green-600 mt-1 font-medium flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Syarat minimum terpenuhi. Anda sudah bisa mengajukan verifikasi.
+                    </p>
                 </p>
             @endif
         @endif
@@ -117,7 +141,16 @@
                 </form>
             @elseif($course->status == 'pending')
                 <div class="bg-amber-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-1.5 text-sm shadow-sm animate-pulse">
-                    <i class="fas fa-clock"></i> Sudah Diajukan & Menunggu Verifikasi Admin
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-4 h-4"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg> Sudah Diajukan & Menunggu Verifikasi Admin
                 </div>
             @endif
 
@@ -137,12 +170,32 @@
             @csrf
             @method('PATCH')
             <button type="submit" onclick="return confirm('Yakin ingin menerbitkan materi ini ke siswa?')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition duration-200 cursor-pointer">
-                🚀 Publish
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-4 h-4"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                <span>Publish</span>
             </button>
         </form>
     @else
         <span class="text-emerald-700 text-xs font-bold bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-100 flex items-center gap-1">
-            ✅ Published
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-4 h-4"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Published</span>
         </span>
     @endif
 
@@ -170,7 +223,16 @@
 
                     @else
                         <span class="text-gray-400 text-sm font-medium bg-gray-100 px-2.5 py-1 rounded flex items-center gap-1">
-                            <i class="fas fa-lock text-xs"></i> Terkunci (Sedang Direview)
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-4 h-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5s-3 1.343-3 3 1.343 3 3 3zm0 0c-3.314 0-6 2.686-6 6h12c0-3.314-2.686-6-6-6z"/>
+                            </svg> Terkunci (Sedang Direview)
                         </span>
                     @endif
                 </div>
