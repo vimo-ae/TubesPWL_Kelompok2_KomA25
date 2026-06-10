@@ -40,7 +40,6 @@ class QuizController extends Controller
         );
 
         if ($request->questions) {
-            dd($request->questions);
             $keptQuestionIds = [];
 
             foreach ($request->questions as $qIndex => $qData) {
