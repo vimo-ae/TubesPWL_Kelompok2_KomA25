@@ -3,6 +3,7 @@
     "php": "8.4"
   },
   "buildAptPackages": [
-    "bison"
+    "bison",
+    "re2c"
   ]
 }
