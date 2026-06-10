@@ -106,7 +106,11 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
 
 Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'storeOrUpdate'])
     ->name('instructor.quizzes.storeOrUpdate');
+});
 
+Route::get('/cek-db', function () {
+    $users = \App\Models\User::all(['email', 'role']);
+    return $users;
 });
 
 require __DIR__.'/auth.php';
