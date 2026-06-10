@@ -108,15 +108,9 @@ Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::clas
     ->name('instructor.quizzes.storeOrUpdate');
 });
 
-Route::get('/cek-db', function () {
+Route::get('/cek-dbb', function () {
     $users = \App\Models\User::all(['email', 'role']);
     return $users;
 });
 
-Route::get('/fix-questions', function () {
-    $ids = [58, 60, 61];
-    \App\Models\AnswerOption::whereIn('question_id', $ids)->delete();
-    \App\Models\Question::whereIn('question_id', $ids)->delete();
-    return 'Done';
-});
 require __DIR__.'/auth.php';
