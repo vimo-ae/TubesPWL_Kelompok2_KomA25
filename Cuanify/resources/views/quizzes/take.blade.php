@@ -8,7 +8,7 @@
             {{-- Jumbotron Header Banner --}}
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-700 p-8 shadow-xl mb-8">
                 <div class="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-                
+
                 <div class="relative z-10 flex items-center justify-between">
                     <div>
                         <span class="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">
@@ -54,7 +54,7 @@
                 <div class="space-y-6">
                     @foreach($quiz->questions as $question)
                         <div class="bg-white rounded-[30px] shadow-sm border border-purple-100 p-6 md:p-8 hover:shadow-md transition">
-                            
+
                             {{-- Baris Pertanyaan --}}
                             <div class="flex items-start gap-4 mb-6">
                                 <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
@@ -70,9 +70,9 @@
                                 <div class="grid grid-cols-1 gap-3">
                                     @foreach($question->options as $option)
                                         <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-purple-400 hover:bg-purple-50/60 transition cursor-pointer group">
-                                            <input type="radio" 
-                                                   name="questions[{{ $question->question_id }}][answer]" 
-                                                   value="{{ $option->option_id }}" 
+                                            <input type="radio"
+                                                   name="questions[{{ $question->question_id }}][answer]"
+                                                   value="{{ $option->option_id }}"
                                                    class="w-5 h-5 text-purple-600 border-gray-300 focus:ring-purple-400">
                                             <span class="font-semibold text-sm text-gray-600 group-hover:text-purple-900 transition">
                                                 {{ $option->option_text }}
@@ -85,17 +85,17 @@
                             @elseif($question->question_type === 'true_false')
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-emerald-400 hover:bg-emerald-50/40 transition cursor-pointer group">
-                                        <input type="radio" 
-                                               name="questions[{{ $question->question_id }}][answer]" 
-                                               value="True" 
+                                        <input type="radio"
+                                               name="questions[{{ $question->question_id }}][answer]"
+                                               value="True"
                                                class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-400">
                                         <span class="font-bold text-sm text-gray-600 group-hover:text-emerald-800">True (Benar)</span>
                                     </label>
 
                                     <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-rose-400 hover:bg-rose-50/40 transition cursor-pointer group">
-                                        <input type="radio" 
-                                               name="questions[{{ $question->question_id }}][answer]" 
-                                               value="False" 
+                                        <input type="radio"
+                                               name="questions[{{ $question->question_id }}][answer]"
+                                               value="False"
                                                class="w-5 h-5 text-rose-600 border-gray-300 focus:ring-rose-400">
                                         <span class="font-bold text-sm text-gray-600 group-hover:text-rose-800">False (Salah)</span>
                                     </label>

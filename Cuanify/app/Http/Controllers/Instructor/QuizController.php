@@ -11,7 +11,6 @@ use App\Models\AnswerOption;
 
 class QuizController extends Controller
 {
-
     public function upsert(Lesson $lesson)
     {
         $quiz = Quiz::where('lesson_id', $lesson->lesson_id)
@@ -28,14 +27,15 @@ class QuizController extends Controller
         ]);
 
         /**
-         * 1. UPSERT QUIZ (Gunakan updateOrCreate agar ID tidak berubah)
+         * 1. UPSERT QUIZ (Gunakan updateOrCreate agar ID tidak berubah,
+         *    sehingga riwayat nilai siswa yang berelasi ke quiz_id tetap aman)
          */
         $quiz = Quiz::updateOrCreate(
             ['lesson_id' => $lesson->lesson_id],
             [
-                'title' => $request->title,
+                'title'         => $request->title,
                 'passing_score' => $request->passing_score ?? 70,
-                'time_limit' => $request->time_limit,
+                'time_limit'    => $request->time_limit,
             ]
         );
 
@@ -43,39 +43,51 @@ class QuizController extends Controller
             $keptQuestionIds = [];
 
             foreach ($request->questions as $qIndex => $qData) {
-                
+
+                /**
+                 * 2. UPSERT QUESTION (updateOrCreate berdasarkan question_id
+                 *    yang dikirim dari hidden input form, bukan delete-recreate)
+                 */
                 $question = Question::updateOrCreate(
                     [
-                        'quiz_id' => $quiz->quiz_id,
-                        'question_id' => $qData['question_id'] ?? null 
+                        'quiz_id'     => $quiz->quiz_id,
+                        'question_id' => $qData['question_id'] ?? null,
                     ],
                     [
                         'question_text' => $qData['question_text'],
                         'question_type' => $qData['question_type'],
-                        'points' => 1,
+                        'points'        => 1,
                     ]
                 );
-             
-                $keptQuestionIds[] = $question->question_id;            
-             
+
+                $keptQuestionIds[] = $question->question_id;
+
                 if ($qData['question_type'] === 'true_false') {
+                    /**
+                     * 3a. UPSERT OPSI TRUE/FALSE
+                     *     Selalu dua opsi tetap, cukup update is_correct-nya saja
+                     */
                     AnswerOption::updateOrCreate(
                         ['question_id' => $question->question_id, 'option_text' => 'True'],
-                        ['is_correct' => ($qData['correct_answer'] ?? null) === 'True']
+                        ['is_correct'  => ($qData['correct_answer'] ?? null) === 'True']
                     );
 
                     AnswerOption::updateOrCreate(
                         ['question_id' => $question->question_id, 'option_text' => 'False'],
-                        ['is_correct' => ($qData['correct_answer'] ?? null) === 'False']
+                        ['is_correct'  => ($qData['correct_answer'] ?? null) === 'False']
                     );
-                } 
-                else {
+
+                } else {
                     if (!isset($qData['options'])) continue;
 
                     $keptOptionIds = [];
 
+                    /**
+                     * 3b. UPSERT OPSI MULTIPLE CHOICE
+                     *     Gunakan option_id dari hidden input untuk sinkronisasi
+                     */
                     foreach ($qData['options'] as $oIndex => $optionData) {
-                        $text = is_array($optionData) ? ($optionData['text'] ?? '') : $optionData;
+                        $text     = is_array($optionData) ? ($optionData['text']      ?? '') : $optionData;
                         $optionId = is_array($optionData) ? ($optionData['option_id'] ?? null) : null;
 
                         if ($text === '') continue;
@@ -83,23 +95,28 @@ class QuizController extends Controller
                         $option = AnswerOption::updateOrCreate(
                             [
                                 'question_id' => $question->question_id,
-                                'option_id' => $optionId
+                                'option_id'   => $optionId,
                             ],
                             [
                                 'option_text' => $text,
-                                'is_correct' => isset($qData['correct_answer']) && $qData['correct_answer'] == $oIndex,
+                                'is_correct'  => isset($qData['correct_answer']) && $qData['correct_answer'] == $oIndex,
                             ]
                         );
 
                         $keptOptionIds[] = $option->option_id;
                     }
 
+                    // Hapus opsi yang sudah dihilangkan dari form
                     AnswerOption::where('question_id', $question->question_id)
                         ->whereNotIn('option_id', $keptOptionIds)
                         ->delete();
                 }
             }
 
+            /**
+             * 4. HAPUS PERTANYAAN yang sudah dihapus dari form
+             *    (beserta semua opsinya, cascade manual)
+             */
             $questionsToDelete = Question::where('quiz_id', $quiz->quiz_id)
                 ->whereNotIn('question_id', $keptQuestionIds)
                 ->get();
@@ -113,7 +130,7 @@ class QuizController extends Controller
         return redirect()
             ->route('instructor.lessons.edit', [
                 'course' => $lesson->course_id,
-                'lesson' => $lesson->lesson_id
+                'lesson' => $lesson->lesson_id,
             ])
             ->with('success', 'Quiz berhasil diperbarui tanpa merusak riwayat nilai.');
     }

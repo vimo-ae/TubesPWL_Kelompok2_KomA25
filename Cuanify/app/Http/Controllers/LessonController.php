@@ -42,6 +42,20 @@ class LessonController extends Controller
             ->where('is_completed', true)
             ->exists();
 
-        return view('lessons.show', compact('lesson', 'course', 'completed'));
+        $canComplete = true;
+
+        if ($lesson->has_quiz && $lesson->quiz) {
+        
+            $bestResult = \App\Models\QuizResult::where('user_id', $user->user_id)
+                ->where('quiz_id', $lesson->quiz->quiz_id)
+                ->orderByDesc('score')
+                ->first();
+        
+            $canComplete =
+                $bestResult &&
+                $bestResult->score >= $lesson->quiz->passing_score;
+        }
+
+        return view('lessons.show', compact('lesson', 'course', 'completed', 'canComplete'));
     }
 }

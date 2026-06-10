@@ -12,7 +12,7 @@
                     {{-- HEADER GRADIENT BANNER --}}
                     <div class="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-6 md:p-8 relative overflow-hidden">
                         <div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
-                        
+
                         <div class="relative z-10 flex items-center justify-between">
                             <div>
                                 <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold tracking-wider uppercase backdrop-blur-sm">
@@ -51,7 +51,7 @@
                                             Selamat, Anda Dinyatakan Lulus!
                                         </h3>
                                         <p class="text-emerald-600 text-sm mt-0.5 leading-relaxed">
-                                            Nilai perolehan Anda berhasil melampaui standar *passing score* minimum materi ini. Kompetensi Anda siap untuk melanjutkan ke bab eksplorasi berikutnya.
+                                            Nilai perolehan Anda berhasil melampaui standar passing score minimum materi ini. Kompetensi Anda siap untuk melanjutkan ke bab eksplorasi berikutnya.
                                         </p>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                             Maaf, Belum Mencapai Passing Score
                                         </h3>
                                         <p class="text-rose-600 text-sm mt-0.5 leading-relaxed">
-                                            Nilai perolehan Anda saat ini masih berada di bawah batas ketuntasan minimum modul. Jangan berkecil hati, silakan tinjau kembali rangkuman materi materi lalu coba lagi.
+                                            Nilai perolehan Anda saat ini masih berada di bawah batas ketuntasan minimum modul. Jangan berkecil hati, silakan tinjau kembali rangkuman materi lalu coba lagi.
                                         </p>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <p class="mt-2 text-xs text-purple-500 font-medium">Berdasarkan bobot kebenaran</p>
                             </div>
-                        
+
                             <div class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-5 flex flex-col justify-between">
                                 <p class="text-xs uppercase font-black text-indigo-500 tracking-wider">
                                     Passing Score
@@ -104,7 +104,7 @@
                                 </div>
                                 <p class="mt-2 text-xs text-indigo-500 font-medium">Batas ambang batas aman kelulusan</p>
                             </div>
-                        
+
                             <div class="bg-amber-50/60 border border-amber-100 rounded-2xl p-5 flex flex-col justify-between">
                                 <p class="text-xs uppercase font-black text-amber-500 tracking-wider">
                                     Akurasi Jawaban
@@ -117,7 +117,7 @@
                                 </div>
                                 <p class="mt-2 text-xs text-amber-600 font-medium">Butir pertanyaan terjawab benar</p>
                             </div>
-                        
+
                         </div>
 
                         {{-- AKSI NAVIGASI TOMBOL KONTROL --}}

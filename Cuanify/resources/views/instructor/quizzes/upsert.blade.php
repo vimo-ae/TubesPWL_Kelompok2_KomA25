@@ -5,7 +5,7 @@
     <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-7xl mx-auto">
 
-            <a href="{{ route('instructor.courses.show', $lesson->course_id ?? $lesson->course->course_id) }}" 
+            <a href="{{ route('instructor.courses.show', $lesson->course_id ?? $lesson->course->course_id) }}"
                class="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-800 mb-6 transition">
                 ← Kembali ke Detail Course
             </a>
@@ -27,7 +27,7 @@
                     {{-- MASTER METADATA INFO QUIZ --}}
                     <div class="bg-purple-50/40 p-6 rounded-2xl border border-purple-100/70">
                         <h2 class="text-xs uppercase tracking-[2px] text-purple-700 font-bold mb-4">Konfigurasi Aturan Kuis</h2>
-                        
+
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                             <div>
                                 <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">Judul Quiz</label>
@@ -56,7 +56,7 @@
                         @if($quiz)
                             @foreach($quiz->questions as $qIndex => $question)
                                 <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box">
-                                    
+
                                     {{-- HIDDEN QUESTION ID (Kunci Utama Sinkronisasi ID) --}}
                                     <input type="hidden" name="questions[{{ $qIndex }}][question_id]" value="{{ $question->question_id }}">
 
@@ -85,7 +85,6 @@
                                                     <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
                                                         {{-- HIDDEN OPTION ID --}}
                                                         <input type="hidden" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][option_id]" value="{{ $option->option_id }}">
-                                                        
                                                         <input type="text" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][text]" value="{{ $option->option_text }}" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Isi teks opsi jawaban...">
                                                         <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition">
                                                             <input type="radio" name="questions[{{ $qIndex }}][correct_answer]" value="{{ $mcIndex }}" class="text-purple-600 focus:ring-purple-500" {{ $option->is_correct ? 'checked' : '' }}>
@@ -101,7 +100,6 @@
                                     {{-- TRUE FALSE CONTAINER --}}
                                     <div class="tf-container {{ $question->question_type === 'true_false' ? '' : 'hidden' }} pt-2">
                                         <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
-                                        {{-- Ganti name ke 'correct_answer' agar cocok dengan instruksi backend --}}
                                         <select name="questions[{{ $qIndex }}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
                                             <option value="True" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'True' ? 'selected' : '' }}>True (Benar)</option>
                                             <option value="False" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'False' ? 'selected' : '' }}>False (Salah)</option>
@@ -140,71 +138,71 @@
 </x-app-layout>
 
 <script>
-let index = {{ $quiz ? count($quiz->questions) : 0 }};
+    let index = {{ $quiz ? count($quiz->questions) : 0 }};
 
-function handleTypeChange(selectElement) {
-    const parentBox = selectElement.closest('.question-box');
-    const mcContainer = parentBox.querySelector('.mc-container');
-    const tfContainer = parentBox.querySelector('.tf-container');
-    
-    if (selectElement.value === 'multiple_choice') {
-        mcContainer.classList.remove('hidden');
-        tfContainer.classList.add('hidden');
-    } else {
-        mcContainer.classList.add('hidden');
-        tfContainer.classList.remove('hidden');
+    function handleTypeChange(selectElement) {
+        const parentBox = selectElement.closest('.question-box');
+        const mcContainer = parentBox.querySelector('.mc-container');
+        const tfContainer = parentBox.querySelector('.tf-container');
+
+        if (selectElement.value === 'multiple_choice') {
+            mcContainer.classList.remove('hidden');
+            tfContainer.classList.add('hidden');
+        } else {
+            mcContainer.classList.add('hidden');
+            tfContainer.classList.remove('hidden');
+        }
     }
-}
 
-function addQuestion() {
-    let html = `
-    <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box animate-[fadeIn_0.3s_ease-out]">
+    function addQuestion() {
+        let html = `
+        <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box">
 
-        <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan Baru</label>
-            <input type="text" name="questions[${index}][question_text]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none" placeholder="Tulis kalimat pertanyaan di sini...">
-        </div>
-
-        <div>
-            <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
-            <select name="questions[${index}][question_type]" onchange="handleTypeChange(this)" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
-                <option value="multiple_choice">Multiple Choice (Pilihan Ganda)</option>
-                <option value="true_false">True / False (Benar / Salah)</option>
-            </select>
-        </div>
-
-        <div class="mc-container space-y-2.5">
-            <label class="block text-xs font-bold text-gray-500 uppercase">Isi Pilihan & Pilih Kunci Jawaban</label>
-            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                <input type="text" name="questions[${index}][options][0]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi A">
-                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="0" checked> <span>Kunci</span></label>
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan Baru</label>
+                <input type="text" name="questions[${index}][question_text]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none" placeholder="Tulis kalimat pertanyaan di sini...">
             </div>
-            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                <input type="text" name="questions[${index}][options][1]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi B">
-                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="1"> <span>Kunci</span></label>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
+                <select name="questions[${index}][question_type]" onchange="handleTypeChange(this)" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
+                    <option value="multiple_choice">Multiple Choice (Pilihan Ganda)</option>
+                    <option value="true_false">True / False (Benar / Salah)</option>
+                </select>
             </div>
-            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                <input type="text" name="questions[${index}][options][2]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi C">
-                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="2"> <span>Kunci</span></label>
+
+            <div class="mc-container space-y-2.5">
+                <label class="block text-xs font-bold text-gray-500 uppercase">Isi Pilihan & Pilih Kunci Jawaban</label>
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="text" name="questions[${index}][options][0]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi A">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition"><input type="radio" name="questions[${index}][correct_answer]" value="0" checked> <span>Kunci</span></label>
+                </div>
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="text" name="questions[${index}][options][1]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi B">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition"><input type="radio" name="questions[${index}][correct_answer]" value="1"> <span>Kunci</span></label>
+                </div>
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="text" name="questions[${index}][options][2]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi C">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition"><input type="radio" name="questions[${index}][correct_answer]" value="2"> <span>Kunci</span></label>
+                </div>
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="text" name="questions[${index}][options][3]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi D">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition"><input type="radio" name="questions[${index}][correct_answer]" value="3"> <span>Kunci</span></label>
+                </div>
             </div>
-            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                <input type="text" name="questions[${index}][options][3]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi D">
-                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="3"> <span>Kunci</span></label>
+
+            <div class="tf-container hidden pt-2">
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
+                <select name="questions[${index}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
+                    <option value="True">True (Benar)</option>
+                    <option value="False">False (Salah)</option>
+                </select>
             </div>
+
         </div>
+        `;
 
-        <div class="tf-container hidden pt-2">
-            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
-            <select name="questions[${index}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400">
-                <option value="True">True (Benar)</option>
-                <option value="False">False (Salah)</option>
-            </select>
-        </div>
-
-    </div>
-    `;
-
-    document.getElementById('questions-container').insertAdjacentHTML('beforeend', html);
-    index++;
-}
+        document.getElementById('questions-container').insertAdjacentHTML('beforeend', html);
+        index++;
+    }
 </script>

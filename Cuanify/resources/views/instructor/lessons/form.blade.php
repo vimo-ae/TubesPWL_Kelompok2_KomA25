@@ -69,12 +69,12 @@
 
             <option value="50"
                 {{ old('xp_reward', $lesson->xp_reward ?? 30) == 50 ? 'selected' : '' }}>
-                50 XP — Materi Menengah 
+                50 XP — Materi Menengah
             </option>
 
             <option value="100"
                 {{ old('xp_reward', $lesson->xp_reward ?? 30) == 100 ? 'selected' : '' }}>
-                100 XP — Materi Kompleks & Penting 
+                100 XP — Materi Kompleks & Penting
             </option>
 
         </select>
@@ -98,6 +98,7 @@
             </div>
         </label>
 
+        {{-- Panel Quiz — muncul ketika checkbox dicentang --}}
         <div
             id="quizSection"
             class="mt-4 pt-4 border-t border-purple-100 {{ old('has_quiz', $lesson->has_quiz ?? false) ? '' : 'hidden' }}">
@@ -111,6 +112,7 @@
                     {{ isset($lesson->quiz) || ($lesson->quiz ?? false) ? 'Kelola Pertanyaan Quiz' : 'Buat Struktur Quiz Perdana' }}
                 </a>
             @else
+                {{-- Peringatan jika lesson belum disimpan (lesson baru, belum ada ID) --}}
                 <div class="text-xs text-amber-700 bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start gap-2.5 leading-relaxed">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 shrink-0 text-amber-500 mt-0.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86l-8.1 14A1 1 0 003.05 19h17.9a1 1 0 00.86-1.5l-8.1-14a1 1 0 00-1.72 0z" />
@@ -130,7 +132,7 @@
     .ck-editor__editable_inline h1 { font-size: 2.25rem !important; font-weight: 800 !important; display: block !important; margin-top: 1.5rem !important; margin-bottom: 0.5rem !important; }
     .ck-editor__editable_inline h2 { font-size: 1.875rem !important; font-weight: 700 !important; display: block !important; margin-top: 1.25rem !important; margin-bottom: 0.5rem !important; }
     .ck-editor__editable_inline h3 { font-size: 1.5rem !important; font-weight: 600 !important; display: block !important; margin-top: 1rem !important; margin-bottom: 0.5rem !important; }
-    
+
     /* Mengatur tinggi minimal editor & dekorasi border radius */
     .ck-editor__editable_inline { min-height: 280px; border-bottom-left-radius: 12px !important; border-bottom-right-radius: 12px !important; background-color: #f9fafb !important; }
     .ck-toolbar { border-top-left-radius: 12px !important; border-top-right-radius: 12px !important; border-color: #e5e7eb !important; background-color: #ffffff !important; }

@@ -47,7 +47,7 @@
                                 <h2 class="text-xl md:text-2xl font-black text-gray-800 tracking-tight">
                                     {{ $quiz->title ?? 'Mulai Evaluasi Pemahaman' }}
                                 </h2>
-                                
+
                                 <div class="flex flex-wrap gap-2 pt-1">
                                     <span class="bg-purple-50 border border-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-xl flex items-center gap-1.5">
                                         <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
