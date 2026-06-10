@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
-            'role' => 'instructor',
+            'role' => 'student',
             ]);
         $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
 
