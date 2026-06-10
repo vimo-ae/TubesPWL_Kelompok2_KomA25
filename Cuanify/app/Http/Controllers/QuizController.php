@@ -52,7 +52,7 @@ class QuizController extends Controller
 
     foreach ($quiz->questions as $question) {
 
-        $answerId = $request->input('question_' . $question->question_id);
+        $answerId = $request->input('questions.' . $question->question_id . '.answer');
 
         if (!$answerId) {
             continue;
@@ -115,11 +115,6 @@ class QuizController extends Controller
 
     // --- TETAP PAKAI WITH JIKA KAMU BUTUH DATA FLASH SESSION ---
     // Tapi pastikan di Blade kamu panggil dengan {{ session('score') }}
-    dd([
-        'total_soal' => $quiz->questions->count(),
-        'jawaban_benar' => $correct,
-        'skor_hitung' => $score
-    ]);
     return redirect()->route('quizzes.result', $quiz_id);
 }
 }

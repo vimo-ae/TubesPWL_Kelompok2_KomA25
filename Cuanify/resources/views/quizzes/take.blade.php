@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            {{-- Sticky Panel: Timer countdown (Sengaja dibuat sticky agar siswa selalu awas dengan sisa waktu) --}}
+            {{-- Sticky Panel: Timer countdown --}}
             <div class="sticky top-6 z-30 bg-red-50/95 backdrop-blur-md border border-red-200 rounded-2xl p-4 mb-8 shadow-md flex items-center justify-between transition-all">
                 <div>
                     <p class="text-[10px] uppercase font-black tracking-widest text-red-500">
@@ -53,6 +53,7 @@
 
                 <div class="space-y-6">
                     @foreach($quiz->questions as $question)
+                    
                         <div class="bg-white rounded-[30px] shadow-sm border border-purple-100 p-6 md:p-8 hover:shadow-md transition">
 
                             {{-- Baris Pertanyaan --}}
@@ -82,23 +83,22 @@
                                 </div>
 
                             {{-- KONDISI PERTANYAAN TRUE / FALSE --}}
+                            {{-- FIX: value pakai option_id (bukan hardcoded "True"/"False") agar
+                                 student controller bisa lookup: AnswerOption::where('option_id', $answerId) --}}
                             @elseif($question->question_type === 'true_false')
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-emerald-400 hover:bg-emerald-50/40 transition cursor-pointer group">
-                                        <input type="radio"
-                                               name="questions[{{ $question->question_id }}][answer]"
-                                               value="True"
-                                               class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-400">
-                                        <span class="font-bold text-sm text-gray-600 group-hover:text-emerald-800">True (Benar)</span>
-                                    </label>
-
-                                    <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 hover:border-rose-400 hover:bg-rose-50/40 transition cursor-pointer group">
-                                        <input type="radio"
-                                               name="questions[{{ $question->question_id }}][answer]"
-                                               value="False"
-                                               class="w-5 h-5 text-rose-600 border-gray-300 focus:ring-rose-400">
-                                        <span class="font-bold text-sm text-gray-600 group-hover:text-rose-800">False (Salah)</span>
-                                    </label>
+                                    @foreach($question->options as $option)
+                                        @php $isTrue = $option->option_text === 'True'; @endphp
+                                        <label class="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 bg-gray-50/50 {{ $isTrue ? 'hover:border-emerald-400 hover:bg-emerald-50/40' : 'hover:border-rose-400 hover:bg-rose-50/40' }} transition cursor-pointer group">
+                                            <input type="radio"
+                                                   name="questions[{{ $question->question_id }}][answer]"
+                                                   value="{{ $option->option_id }}"
+                                                   class="w-5 h-5 {{ $isTrue ? 'text-emerald-600 focus:ring-emerald-400' : 'text-rose-600 focus:ring-rose-400' }} border-gray-300">
+                                            <span class="font-bold text-sm text-gray-600 {{ $isTrue ? 'group-hover:text-emerald-800' : 'group-hover:text-rose-800' }}">
+                                                {{ $option->option_text }} ({{ $isTrue ? 'Benar' : 'Salah' }})
+                                            </span>
+                                        </label>
+                                    @endforeach
                                 </div>
 
                             @else
@@ -142,7 +142,6 @@
 
         timerElement.innerText = minutes + ':' + String(seconds).padStart(2, '0');
 
-        // Mengubah warna teks timer menjadi berkedip merah terang saat kritis (< 1 menit)
         if (timeLeft <= 60) {
             timerElement.classList.add('animate-pulse');
         }
