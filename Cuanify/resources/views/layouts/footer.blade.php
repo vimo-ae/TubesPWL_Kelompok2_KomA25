@@ -1,4 +1,4 @@
-<footer class="bg-white border-t border-purple-200 mt-10">
+<footer class="bg-white border-t border-purple-200">
 
     <div class="max-w-7xl mx-auto px-8 py-8">
 

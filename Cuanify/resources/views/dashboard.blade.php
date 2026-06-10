@@ -217,31 +217,38 @@
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm">Pencapaian</h3>
-                    </div>
-                    <div class="space-y-1.5 max-h-[80px] overflow-y-auto no-scrollbar">
-                        @forelse($recentAchievements as $ach)
-                            <div class="flex items-center justify-between text-[10px] bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl">
-                                <span class="flex items-center gap-1 truncate pr-1 text-gray-700 dark:text-gray-300">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         class="w-3 h-3 text-purple-500 flex-shrink-0"
-                                         fill="currentColor"
-                                         viewBox="0 0 20 20">
-                                        <path d="M10 2a8 8 0 108 8h-2a6 6 0 11-6-6V2z"/>
-                                        <circle cx="10" cy="10" r="2"/>
-                                    </svg>
-                                
-                                    {{ $ach->lesson->title }}
-                                </span>
-                                <span class="font-extrabold text-purple-600 flex-shrink-0">+{{ $ach->xp_earned }} XP</span>
-                            </div>
-                        @empty
-                            <p class="text-[10px] text-gray-400">Belum ada data.</p>
-                        @endforelse
-                    </div>
+    <div>
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="font-extrabold text-gray-800 dark:text-gray-200 text-sm">Pencapaian</h3>
+        </div>
+        
+        <div class="space-y-1.5 max-h-[80px] overflow-y-auto no-scrollbar">
+            @forelse($recentAchievements->reverse() as $ach)
+                <div class="flex items-center justify-between text-[10px] bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl">
+                    <span class="flex items-center gap-1 truncate pr-1 text-gray-700 dark:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-3 h-3 text-purple-500 flex-shrink-0"
+                             fill="currentColor"
+                             viewBox="0 0 20 20">
+                            <path d="M10 2a8 8 0 108 8h-2a6 6 0 11-6-6V2z"/>
+                            <circle cx="10" cy="10" r="2"/>
+                        </svg>
+                        {{ $ach->lesson->title }}
+                    </span>
+                    <span class="font-extrabold text-purple-600 flex-shrink-0">+{{ $ach->xp_earned }} XP</span>
                 </div>
+            @empty
+                <p class="text-[10px] text-gray-400">Belum ada data.</p>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="mt-1 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-end">
+        <a href="{{ url('/profile') }}" class="text-[11px] font-bold text-purple-600 dark:text-purple-400 hover:text-purple-800 hover:underline transition-all flex items-center gap-1.5">
+            Lihat Detail Progress <i class="fas fa-arrow-right text-[9px]"></i>
+        </a>
+    </div>
+</div>
             </div>
 
             <div>
@@ -252,20 +259,50 @@
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
             <span class="text-3xl mb-2">
                 <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M10 4h4v2h5a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h5V4zm-5 6v11h14V10H5z"/>
+                    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                 </svg>
             </span>
-            <p class="font-bold text-gray-800 text-xs">Kewirausahaan</p>
+            <p class="font-bold text-gray-800 text-xs">Literasi Keuangan</p>
         </a>
 
         <a href="{{ url('/courses?category=2') }}" 
            class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
             <span class="text-3xl mb-2">
                 <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 4h4v2h5a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h5V4zm-5 6v11h14V10H5z"/>
+                </svg>
+            </span>
+            <p class="font-bold text-gray-800 text-xs">UMKM & Kewirausahaan</p>
+        </a>
+
+        <a href="{{ url('/courses?category=3') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">
+                <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M3 3h2v18h16v2H3V3zm6 12h2v6H9v-6zm4-8h2v14h-2V7zm4-4h2v18h-2V3z"/>
                 </svg>
             </span>
-            <p class="font-bold text-gray-800 text-xs">Marketing</p>
+            <p class="font-bold text-gray-800 text-xs">Digital Marketing</p>
+        </a>
+
+        <a href="{{ url('/courses?category=4') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">
+                <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.5a14.72 14.72 0 00-4.3 9.47c.56-.23 1.17-.37 1.8-.4a8.21 8.21 0 014.5 1.34 14.73 14.73 0 00-2-10.41zm-4 13c0 .8.2 1.5.5 2.2l-2.7 2.7c-.4.4-.4 1 0 1.4s1 .4 1.4 0l2.7-2.7c.7.3 1.4.5 2.2.5h1v-4H8v.1zM16 15.5h-1v4c.8 0 1.5-.2 2.2-.5l2.7 2.7c.4.4 1 .4 1.4 0s.4-1 0-1.4l-2.7-2.7c.3-.7.5-1.4.5-2.2v-.1h-3z"/>
+                </svg>
+            </span>
+            <p class="font-bold text-gray-800 text-xs">Karier & Pengembangan Diri</p>
+        </a>
+
+        <a href="{{ url('/courses?category=5') }}" 
+           class="flex-none w-48 bg-purple-50/60 p-5 rounded-2xl border border-purple-100 flex flex-col items-center text-center shadow-sm hover:shadow-md hover:border-purple-200 transition-all cursor-pointer">
+            <span class="text-3xl mb-2">
+                <svg class="w-8 h-8 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 8C14.24 8 12.01 9.94 11.19 12.5C11.67 12.18 12.3 12 13 12C15.21 12 17 13.79 17 16C17 16.7 16.82 17.33 16.5 17.81C19.06 16.99 21 14.76 21 12C21 9.79 19.21 8 17 8ZM4 15C4 18.87 7.13 22 11 22C14.87 22 18 18.87 18 15C18 11.13 14.87 8 11 8C7.13 8 4 11.13 4 15Z"/>
+                </svg>
+            </span>
+            <p class="font-bold text-gray-800 text-xs">Ekonomi Berkelanjutan</p>
         </a>
 
     </div>

@@ -1,74 +1,198 @@
-<x-app-layout>  
-
-    @section('title', 'Profile - Cuanify')
+<x-app-layout>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+/* SET GLOBAL FONT MENGGUNAKAN UI-SANS-SERIF */
+.pf, 
+.pf h1, 
+.pf h2, 
+.pf p, 
+.pf span, 
+.pf div, 
+.pf table, 
+.pf th, 
+.pf td, 
+.pf a { 
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important; 
+}
 
-    .pf { font-family:'DM Sans',sans-serif; max-width:960px; margin:0 auto; padding:32px 16px; }
-    .pf-title { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:#1e1b4b; margin:0 0 4px; }
-    .pf-subtitle { font-size:13px; color:#9ca3af; margin:0 0 24px; }
+.pf { max-width:960px; margin:0 auto; padding:32px 16px; }
 
-    .hero-card { background:#fff; border:1px solid #ede9fe; border-radius:20px; padding:28px 32px; margin-bottom:16px; display:flex; align-items:center; gap:28px; position:relative; overflow:hidden; }
-    .hero-card::after { content:''; position:absolute; width:200px; height:200px; border-radius:50%; background: rgba(255,255,255,0.6); right:-40px; top:-40px; pointer-events:none; }
-    .hero-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(to right,#6366f1,#8b5cf6,#a855f7); }
-    .avatar-wrap { position:relative; flex-shrink:0; }
-    .avatar-img { width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid transparent; background:linear-gradient(#fff,#fff) padding-box, linear-gradient(135deg,#6366f1,#a855f7) border-box; }
-    .hero-info { flex:1; position:relative; z-index:1; }
-    .hero-name { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
-    .role-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:99px; }
-    .role-student { background:#dbeafe; color:#2563eb; }
-    .role-instructor { background:#fef3c7; color:#d97706; }
-    .hero-meta { display:flex; flex-direction:column; gap:5px; margin-top:12px; }
-    .meta-row { display:flex; align-items:center; gap:7px; font-size:12px; color:#6b7280; }
+/* ---- PAGE TITLE ---- */
+.pf-title { font-size:28px; font-weight:700; color:#1e1b4b; margin:0 0 4px; }
+.pf-subtitle { font-size:14px; color:#6b7280; margin:0 0 24px; }
 
-    .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-    .stat-mini { background:#fff; border:1px solid #ede9fe; border-radius:14px; padding:16px; text-align:center; }
-    .stat-mini-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 8px; background:#f5f3ff; }
-    .stat-mini-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; margin-bottom:3px; }
-    .stat-mini-val { font-family:'Outfit',sans-serif; font-size:20px; font-weight:800; color:#1e1b4b; line-height:1; }
+/* ---- HERO ---- */
+.hero-card {
+    background:#fff; border:1px solid #ede9fe; border-radius:20px;
+    padding:28px 32px; margin-bottom:16px;
+    display:flex; align-items:center; gap:28px;
+    position:relative; overflow:hidden;
+}
+.hero-card::after {
+    content:''; position:absolute;
+    width:200px; height:200px; border-radius:50%;
+    background: rgba(255,255,255,0.6);
+    right:-40px; top:-40px; pointer-events:none;
+}
+.hero-card::before {
+    content:''; position:absolute;
+    top:0; left:0; right:0; height:4px;
+    background:linear-gradient(to right,#ec4899,#d946ef,#a855f7);
+}
+.avatar-wrap { position:relative; flex-shrink:0; }
+.avatar-img {
+    width:100px; height:100px; border-radius:50%; object-fit:cover;
+    border:3px solid transparent;
+    background:linear-gradient(#fff,#fff) padding-box,
+               linear-gradient(135deg,#ec4899,#a855f7) border-box;
+}
+.avatar-edit {
+    position:absolute; bottom:2px; right:2px;
+    width:26px; height:26px; border-radius:50%;
+    background:linear-gradient(135deg,#ec4899,#a855f7);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; border:2px solid #fff;
+    text-decoration:none;
+}
+.hero-info { flex:1; position:relative; z-index:1; }
+.hero-name { font-size:24px; font-weight:700; color:#1e1b4b; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.role-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:99px; }
+.role-admin      { background:#ede9fe; color:#7c3aed; }
+.role-student    { background:#ccfbf1; color:#0d9488; }
+.role-instructor { background:#fce7f3; color:#db2777; }
+.hero-bio { font-size:14px; color:#6b7280; font-style:italic; line-height: 1.6; margin:0 0 12px; }
+.hero-meta { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
+.meta-row { display:flex; align-items:center; gap:7px; font-size:14px; color:#6b7280; }
+.btn-edit-hero {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 14px; border-radius:9px;
+    background:#f5f3ff; color:#7c3aed;
+    font-size:12px; font-weight:600;
+    text-decoration:none; border:1px solid #ddd6fe;
+    transition:background .15s;
+}
+.btn-edit-hero:hover { background:#ede9fe; color:#7c3aed; }
 
-    /* INI DIA PENYELAMAT PROGRESS CARD-NYA FRED 👇 */
-    .progress-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:28px 32px; margin-bottom:16px; }
-    .progress-inner { display:flex; align-items:center; gap:32px; margin-top:16px; }
-    .ring-wrap { position:relative; width:80px; height:80px; flex-shrink:0; }
-    .ring-center { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-    .ring-pct { font-family:'Outfit',sans-serif; font-size:18px; font-weight:800; color:#1e1b4b; line-height:1; }
-    .ring-lbl { font-size:9px; font-weight:700; color:#9ca3af; text-transform:uppercase; margin-top:2px; }
-    .progress-right { flex:1; }
-    .prog-encourage { font-size:14px; font-weight:600; color:#4f46e5; margin:0 0 12px; }
-    .prog-stat-grid { display:flex; gap:24px; }
-    .prog-stat-box { border-left:3px solid #ede9fe; padding-left:12px; }
-    .psb-label { font-size:11px; color:#9ca3af; font-weight:600; text-transform:uppercase; margin-bottom:4px; }
-    .psb-val { font-family:'Outfit',sans-serif; font-size:18px; font-weight:800; color:#1e1b4b; line-height:1; }
-    .psb-sub { font-size:11px; color:#6b7280; }
-    /* 👆 SAMPAI SINI */
+/* ---- STAT MINI ROW ---- */
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+.stat-mini {
+    background:#fff; border:1px solid #ede9fe; border-radius:14px;
+    padding:16px; text-align:center;
+    transition:transform .2s, box-shadow .2s;
+}
+.stat-mini:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(124,58,237,.1); }
+.stat-mini-icon {
+    width:40px; height:40px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 8px;
+}
+.si-violet { background:#ede9fe; }
+.si-pink   { background:#fce7f3; }
+.si-amber  { background:#fef3c7; }
+.si-teal   { background:#ccfbf1; }
+.stat-mini-label { font-size:12px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
+.stat-mini-val { font-size:24px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
+.stat-mini-sub { font-size:12px; color:#9ca3af; font-weight: 500; }
 
-    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
-    .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
-    .section-title { font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0; }
-    .info-row { padding:10px 0; border-bottom:1px solid #f5f3ff; }
-    .info-val { font-size:13px; font-weight:600; color:#1e1b4b; }
+/* ---- PROGRESS ---- */
+.progress-card {
+    background:#fff; border:1px solid #ede9fe; border-radius:16px;
+    padding:22px; margin-bottom:16px;
+}
+.section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
+.section-title { font-size:18px; font-weight:700; color:#1e1b4b; margin:0; }
+.progress-inner { display:flex; align-items:center; gap:28px; }
 
-    .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; margin-top:16px; }
-    .course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
-    .course-item { border:1px solid #f3f4f6; border-radius:12px; padding:16px; transition:all 0.2s; }
-    .course-item:hover { border-color:#d8b4fe; box-shadow:0 4px 12px rgba(168,85,247,0.1); }
-    .course-name { font-weight:700; font-size:14px; color:#1e1b4b; margin:0 0 8px; }
-    .course-status-pill { font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; margin-bottom:12px; display:inline-block; }
-    .cs-active { background:#e0e7ff; color:#4f46e5; }
-    .cs-completed { background:#dcfce7; color:#166534; }
-    .prog-bar-wrap { background:#f3f4f6; height:6px; border-radius:99px; overflow:hidden; }
-    .prog-bar-fill { background:linear-gradient(to right,#a855f7,#d946ef); height:100%; border-radius:99px; }
-    .prog-bar-label { display:flex; justify-content:space-between; font-size:11px; font-weight:600; color:#6b7280; margin-bottom:4px; }
-    
-    @media (max-width: 768px) {
-        .two-col { grid-template-columns: 1fr; }
-        .stat-row { grid-template-columns: repeat(2, 1fr); }
-        .hero-card, .progress-inner { flex-direction: column; text-align: center; }
-        .prog-stat-grid { justify-content: center; }
-    }
+.ring-wrap { position:relative; width:150px; height:150px; flex-shrink:0; }
+.ring-wrap svg { transform:rotate(-90deg); }
+.ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+
+.ring-pct { font-size:28px; font-weight:700; color:#7c3aed; line-height:1; margin-bottom: 2px; }
+.ring-lbl { font-size:10px; color:#9ca3af; font-weight:600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.progress-right { flex:1; }
+.prog-encourage { font-size:16px; font-weight: 400; color:#6b7280; margin:0 0 12px; }
+.prog-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.prog-stat-box { background:#faf5ff; border-radius:10px; padding:10px 14px; }
+.psb-label {
+    font-size: 14px;            
+    color: #000000;             
+    font-weight: 600;            
+    display: inline-block;            
+}
+.psb-val { 
+    font-size: 28px;          
+    font-weight: 800; 
+    color: #1e1b4b; 
+    margin: 0 0 2px;
+}
+.psb-sub { 
+    font-size: 13px; 
+    color: #7c3aed;       
+    font-weight: 600;
+}
+
+/* ---- TWO COL ---- */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; align-items: start;}
+@media(max-width:700px){ .two-col { grid-template-columns:1fr; } .stat-row { grid-template-columns:repeat(2,1fr); } }
+
+/* ---- INFO CARD ---- */
+.info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
+.info-row { padding:10px 0; border-bottom:1px solid #f5f3ff; }
+.info-row:last-of-type { border-bottom:none; }
+.info-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin:0 0 3px; }
+.info-val { font-size:13px; font-weight:600; color:#1e1b4b; margin:0; }
+.btn-ubah {
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    width:100%; margin-top:16px;
+    padding:10px; border-radius:10px;
+    background:#f5f3ff; color:#7c3aed;
+    font-size:14px; font-weight:600;
+    text-decoration:none; border:1px solid #ddd6fe;
+    transition:background .15s;
+}
+.btn-ubah:hover { background:#ede9fe; color:#7c3aed; }
+
+.hist-table { width:100%; border-collapse:collapse; font-size:14px; table-layout: auto;}
+.hist-table th {
+    text-align:left; padding:8px 10px;
+    font-size:12px; font-weight:700; text-transform:uppercase;
+    letter-spacing:.05em; color:#9ca3af;
+    border-bottom:1px solid #ede9fe;
+}
+.hist-table th:nth-child(2), .hist-table td:nth-child(2),
+.hist-table th:nth-child(3), .hist-table td:nth-child(3) {
+    white-space: nowrap; 
+    width: 1%; 
+}
+
+.hist-table td:first-child {
+    word-break: break-word;
+}
+
+.hist-table td { padding:10px 10px; border-bottom:1px solid #f5f3ff; color:#374151; vertical-align:middle; }
+.hist-table tr:last-child td { border-bottom:none; }
+.hist-table tr:hover td { background:#faf5ff; }
+.xp-pill { background:#ede9fe; color:#7c3aed; font-weight:700; font-size:12px; padding:2px 8px; border-radius:99px; display:inline-block; }
+.empty-box { text-align:center; padding:20px 10px; }
+.empty-box p { font-size:12px; color:#9ca3af; margin:8px 0 0; }
+
+/* ---- COURSES ---- */
+.courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
+.course-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:700px){ .course-grid { grid-template-columns:1fr; } }
+.course-item {
+    background:#faf5ff; border:1px solid #ede9fe;
+    border-radius:12px; padding:14px;
+}
+.course-name { font-weight:600; font-size:13px; color:#1e1b4b; margin:0 0 6px; }
+.course-status-pill { font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; display:inline-block; margin-bottom:8px; }
+.cs-completed { background:#dcfce7; color:#166534; }
+.cs-active    { background:#ede9fe; color:#7c3aed; }
+.cs-dropped   { background:#fee2e2; color:#991b1b; }
+.prog-bar-wrap { background:#e9d5ff; border-radius:99px; height:6px; overflow:hidden; }
+.prog-bar-fill { height:100%; border-radius:99px; background:linear-gradient(to right,#a855f7,#ec4899); }
+.prog-bar-label { display:flex; justify-content:space-between; font-size:10px; color:#9ca3af; margin-bottom:3px; }
 </style>
 
 <div class="pf">
@@ -82,10 +206,10 @@
     <h1 class="pf-title">Profil Saya</h1>
     <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
 
+    {{-- HERO --}}
     <div class="hero-card">
         <div class="avatar-wrap">
-            <img src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
-        class="w-32 h-32 rounded-full object-cover border-4 border-purple-100 shadow-sm">
+            <img src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
             <a href="{{ route('profile.edit') }}" class="avatar-edit">
                 <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </a>
@@ -137,7 +261,7 @@
             </div>
             <p class="stat-mini-label">Streak Belajar</p>
             <p class="stat-mini-val">{{ $profile->streak_days ?? 0 }}</p>
-            <p class="stat-mini-sub">hari</p>
+            <p class="stat-mini-sub">Hari</p>
         </div>
         <div class="stat-mini">
             <div class="stat-mini-icon si-teal">
@@ -145,7 +269,7 @@
             </div>
             <p class="stat-mini-label">Kelas Diikuti</p>
             <p class="stat-mini-val">{{ $enrolledCourses->count() }}</p>
-            <p class="stat-mini-sub">kelas</p>
+            <p class="stat-mini-sub">Kelas</p>
         </div>
     </div>
 
@@ -156,12 +280,13 @@
             <p class="section-title">Progress Belajar</p>
         </div>
         <div class="progress-inner">
+            
             <div class="ring-wrap">
-                <svg width="80" height="80" viewBox="0 0 80 80">
-                    <circle cx="40" cy="40" r="32" fill="none" stroke="#ede9fe" stroke-width="7"/>
-                    <circle cx="40" cy="40" r="32" fill="none" stroke="#a855f7" stroke-width="7"
-                        stroke-dasharray="{{ round(2 * 3.14159 * 32) }}"
-                        stroke-dashoffset="{{ round(2 * 3.14159 * 32 * (1 - $persentaseTotal/100)) }}"
+                <svg width="150" height="150" viewBox="0 0 110 110">
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#ede9fe" stroke-width="6"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="#a855f7" stroke-width="6"
+                        stroke-dasharray="{{ round(2 * 3.14159 * 46) }}"
+                        stroke-dashoffset="{{ round(2 * 3.14159 * 46 * (1 - $persentaseTotal/100)) }}"
                         stroke-linecap="round"/>
                 </svg>
                 <div class="ring-center">
@@ -169,17 +294,18 @@
                     <span class="ring-lbl">Selesai</span>
                 </div>
             </div>
+            
             <div class="progress-right">
                 <p class="prog-encourage">Terus tingkatkan progresmu!</p>
                 <div class="prog-stat-grid">
                     <div class="prog-stat-box">
                         <p class="psb-label">Materi Selesai</p>
-                        <p class="psb-val">{{ $materiSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
+                        <p class="psb-val">{{ $materiSelesai }} <span style="font-size:13px;color:#9ca3af">/ {{ $totalMateri }}</span></p>
                         <span class="psb-sub">materi</span>
                     </div>
                     <div class="prog-stat-box">
                         <p class="psb-label">Kuis Selesai</p>
-                        <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:11px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
+                        <p class="psb-val">{{ $kuisSelesai }} <span style="font-size:13px;color:#9ca3af">/ {{ $totalKuis }}</span></p>
                         <span class="psb-sub">kuis</span>
                     </div>
                 </div>
@@ -219,7 +345,7 @@
         </div>
 
         {{-- HISTORY XP --}}
-        <div class="info-card">
+        <div class="info-card" id="history-xp">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
                 <p class="section-title">History XP</p>
@@ -250,8 +376,11 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>               
                     </table>
+                    <div class="mt-4 flex justify-center">
+                        {{ $progress->appends(request()->query())->fragment('history-xp')->links() }}
+                    </div>
                 </div>
             @endif
         </div>
