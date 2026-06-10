@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $user1 = User::create([
+        $user1 = User::firstOrCreate([
             'username' => 'Admin',
             'email' => 'admin@cuanify.com',
             'email_verified_at' => now(),
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user1->profile()->firstOrCreate(['user_id' => $user1->user_id]);
 
-        $user2 = User::create([
+        $user2 = User::firstOrCreate([
             'username' => 'Guru 1',
             'email' => 'guru1@example.com',
             'email_verified_at' => now(),
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user3->profile()->firstOrCreate(['user_id' => $user3->user_id]);
 
-        $user4 = User::create([
+        $user4 = User::firstOrCreate([
             'username' => 'Guru 2',
             'email' => 'guru2@example.com',
             'email_verified_at' => now(),
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $user4->profile()->firstOrCreate(['user_id' => $user4->user_id]);
 
-        $user5 = User::create([
+        $user5 = User::firstOrCreate([
             'username' => 'Guru 3',
             'email' => 'guru3@example.com',
             'email_verified_at' => now(),
