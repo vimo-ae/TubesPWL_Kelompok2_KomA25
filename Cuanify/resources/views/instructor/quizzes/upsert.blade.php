@@ -1,201 +1,210 @@
 <x-app-layout>
 
-<div class="max-w-5xl mx-auto p-6">
+    @section('title', 'Manage Quiz - Cuanify')
 
-    <h1 class="text-2xl font-bold mb-6">
-        {{ $quiz ? 'Kelola Quiz' : 'Buat Quiz' }}
-    </h1>
+    <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
+        <div class="max-w-7xl mx-auto">
 
-    <form method="POST"
-          action="{{ route('instructor.quizzes.storeOrUpdate', $lesson->lesson_id) }}">
+            <a href="{{ route('instructor.courses.show', $lesson->course_id ?? $lesson->course->course_id) }}" 
+               class="inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-800 mb-6 transition">
+                ← Kembali ke Detail Course
+            </a>
 
-        @csrf
+            <div class="bg-white rounded-[35px] overflow-hidden shadow-xl border border-purple-100 p-8 md:p-10">
 
-        {{-- QUIZ INFO --}}
-        <input type="text"
-               name="title"
-               value="{{ $quiz->title ?? '' }}"
-               class="w-full border p-2 mb-3"
-               placeholder="Judul Quiz">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">
+                        {{ $quiz ? 'Kelola Struktur Quiz' : 'Buat Quiz Evaluasi' }}
+                    </h1>
+                    <p class="text-gray-500 text-sm mt-1">
+                        Tentukan parameter kelulusan, durasi pengerjaan, dan susunan daftar pertanyaan evaluasi untuk siswa.
+                    </p>
+                </div>
 
-        <input type="number"
-               name="passing_score"
-               value="{{ $quiz->passing_score ?? 70 }}"
-               class="w-full border p-2 mb-3"
-               placeholder="Passing Score">
+                <form method="POST" action="{{ route('instructor.quizzes.storeOrUpdate', $lesson->lesson_id) }}" class="space-y-6">
+                    @csrf
 
-        <input type="number"
-               name="time_limit"
-               value="{{ $quiz->time_limit ?? '' }}"
-               class="w-full border p-2 mb-5"
-               placeholder="Time Limit (menit)">
+                    {{-- MASTER METADATA INFO QUIZ --}}
+                    <div class="bg-purple-50/40 p-6 rounded-2xl border border-purple-100/70">
+                        <h2 class="text-xs uppercase tracking-[2px] text-purple-700 font-bold mb-4">Konfigurasi Aturan Kuis</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">Judul Quiz</label>
+                                <input type="text" name="title" value="{{ $quiz->title ?? '' }}" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none" placeholder="Contoh: Kuis Valuasi Keuangan">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">Passing Score (%)</label>
+                                <input type="number" name="passing_score" value="{{ $quiz->passing_score ?? 70 }}" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-2 uppercase">Time Limit (Menit)</label>
+                                <input type="number" name="time_limit" value="{{ $quiz->time_limit ?? '' }}" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none" placeholder="Kosongkan jika tidak dibatasi">
+                            </div>
+                        </div>
+                    </div>
 
-        <hr class="mb-6">
+                    <div class="pt-4">
+                        <h2 class="text-lg font-bold text-gray-800 tracking-tight mb-1">Daftar Pertanyaan Kuis</h2>
+                        <p class="text-xs text-gray-400">Pilihan input jawaban akan berubah dinamis berdasarkan tipe pertanyaan yang Anda tentukan.</p>
+                        <hr class="border-gray-100 mt-3 mb-6">
+                    </div>
 
-        {{-- QUESTIONS --}}
-        <div id="questions-container">
+                    {{-- DYNAMIC QUESTIONS CONTAINER --}}
+                    <div id="questions-container" class="space-y-6">
 
-            @if($quiz)
+                        @if($quiz)
+                            @foreach($quiz->questions as $qIndex => $question)
+                                <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box">
+                                    
+                                    {{-- HIDDEN QUESTION ID (Kunci Utama Sinkronisasi ID) --}}
+                                    <input type="hidden" name="questions[{{ $qIndex }}][question_id]" value="{{ $question->question_id }}">
 
-                @foreach($quiz->questions as $qIndex => $question)
+                                    {{-- QUESTION TEXT --}}
+                                    <div>
+                                        <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan #{{ $qIndex + 1 }}</label>
+                                        <input type="text" name="questions[{{ $qIndex }}][question_text]" value="{{ $question->question_text }}" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none">
+                                    </div>
 
-                    <div class="border p-4 mb-5 rounded">
+                                    {{-- TYPE SELECTOR --}}
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
+                                        <select name="questions[{{ $qIndex }}][question_type]" onchange="handleTypeChange(this)" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
+                                            <option value="multiple_choice" {{ $question->question_type == 'multiple_choice' ? 'selected' : '' }}>Multiple Choice (Pilihan Ganda)</option>
+                                            <option value="true_false" {{ $question->question_type == 'true_false' ? 'selected' : '' }}>True / False (Benar / Salah)</option>
+                                        </select>
+                                    </div>
 
-                        {{-- QUESTION TEXT --}}
-                        <input type="text"
-                               name="questions[{{ $qIndex }}][question_text]"
-                               value="{{ $question->question_text }}"
-                               class="w-full border p-2 mb-2">
+                                    {{-- MULTIPLE CHOICE CONTAINER --}}
+                                    <div class="mc-container {{ $question->question_type === 'multiple_choice' ? '' : 'hidden' }} pt-2">
+                                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Isi Pilihan & Pilih Jawaban Benar</label>
+                                        <div class="space-y-2.5">
+                                            @php $mcIndex = 0; @endphp
+                                            @foreach($question->options as $option)
+                                                @if($option->option_text !== 'True' && $option->option_text !== 'False')
+                                                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                                                        {{-- HIDDEN OPTION ID --}}
+                                                        <input type="hidden" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][option_id]" value="{{ $option->option_id }}">
+                                                        
+                                                        <input type="text" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][text]" value="{{ $option->option_text }}" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Isi teks opsi jawaban...">
+                                                        <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition">
+                                                            <input type="radio" name="questions[{{ $qIndex }}][correct_answer]" value="{{ $mcIndex }}" class="text-purple-600 focus:ring-purple-500" {{ $option->is_correct ? 'checked' : '' }}>
+                                                            <span>Kunci</span>
+                                                        </label>
+                                                    </div>
+                                                    @php $mcIndex++; @endphp
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
 
-                        {{-- TYPE --}}
-                        <select name="questions[{{ $qIndex }}][question_type]"
-                                class="w-full border p-2 mb-3">
+                                    {{-- TRUE FALSE CONTAINER --}}
+                                    <div class="tf-container {{ $question->question_type === 'true_false' ? '' : 'hidden' }} pt-2">
+                                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
+                                        {{-- Ganti name ke 'correct_answer' agar cocok dengan instruksi backend --}}
+                                        <select name="questions[{{ $qIndex }}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
+                                            <option value="True" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'True' ? 'selected' : '' }}>True (Benar)</option>
+                                            <option value="False" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'False' ? 'selected' : '' }}>False (Salah)</option>
+                                        </select>
+                                    </div>
 
-                            <option value="multiple_choice"
-                                {{ $question->question_type == 'multiple_choice' ? 'selected' : '' }}>
-                                Multiple Choice
-                            </option>
-
-                            <option value="true_false"
-                                {{ $question->question_type == 'true_false' ? 'selected' : '' }}>
-                                True / False
-                            </option>
-
-                        </select>
-
-                        {{-- MULTIPLE CHOICE --}}
-                        @if($question->question_type === 'multiple_choice')
-
-                            @foreach($question->options as $oIndex => $option)
-
-                                <div class="flex items-center mb-2">
-
-                                    <input type="text"
-                                           name="questions[{{ $qIndex }}][options][{{ $oIndex }}][text]"
-                                           value="{{ $option->option_text }}"
-                                           class="w-full border p-2">
-
-                                    <input type="radio"
-                                           name="questions[{{ $qIndex }}][correct_answer]"
-                                           value="{{ $oIndex }}"
-                                           class="ml-2"
-                                           {{ $option->is_correct ? 'checked' : '' }}>
                                 </div>
-
                             @endforeach
-
-                        @else
-
-                            {{-- TRUE FALSE --}}
-                            <select name="questions[{{ $qIndex }}][correct_answer]"
-                                    class="w-full border p-2">
-
-                                <option value="True"
-                                    {{ $question->options->firstWhere('is_correct',1)?->option_text == 'True' ? 'selected' : '' }}>
-                                    True
-                                </option>
-
-                                <option value="False"
-                                    {{ $question->options->firstWhere('is_correct',1)?->option_text == 'False' ? 'selected' : '' }}>
-                                    False
-                                </option>
-
-                            </select>
-
                         @endif
 
                     </div>
 
-                @endforeach
+                    <hr class="border-gray-100 my-8">
 
-            @endif
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button type="button" onclick="addQuestion()" class="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-purple-50 text-purple-700 border border-purple-200 px-6 py-3 rounded-xl font-bold text-sm shadow-sm transition duration-300 gap-2">
+                            <span class="text-lg font-black leading-none -mt-0.5">+</span>
+                            <span>Tambah Butir Soal</span>
+                        </button>
 
+                        <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                            <a href="{{ route('instructor.courses.show', $lesson->course_id ?? $lesson->course->course_id) }}" class="w-full sm:w-auto text-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-bold text-sm transition duration-300">Batal</a>
+                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition-all duration-300 hover:-translate-y-0.5 gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                                Simpan Struktur Quiz
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
         </div>
+    </div>
 
-        <button type="button"
-                onclick="addQuestion()"
-                class="bg-blue-600 text-white px-4 py-2 rounded">
-            + Tambah Soal
-        </button>
-
-        <button type="submit"
-                class="bg-green-600 text-white px-4 py-2 rounded ml-2">
-            Simpan Quiz
-        </button>
-
-    </form>
-
-</div>
+</x-app-layout>
 
 <script>
 let index = {{ $quiz ? count($quiz->questions) : 0 }};
 
+function handleTypeChange(selectElement) {
+    const parentBox = selectElement.closest('.question-box');
+    const mcContainer = parentBox.querySelector('.mc-container');
+    const tfContainer = parentBox.querySelector('.tf-container');
+    
+    if (selectElement.value === 'multiple_choice') {
+        mcContainer.classList.remove('hidden');
+        tfContainer.classList.add('hidden');
+    } else {
+        mcContainer.classList.add('hidden');
+        tfContainer.classList.remove('hidden');
+    }
+}
+
 function addQuestion() {
-
     let html = `
-    <div class="border p-4 mb-5 rounded question-box">
+    <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box animate-[fadeIn_0.3s_ease-out]">
 
-        <input type="text"
-               name="questions[${index}][question_text]"
-               class="w-full border p-2 mb-2"
-               placeholder="Pertanyaan">
-
-        <select name="questions[${index}][question_type]"
-                class="w-full border p-2 mb-2">
-
-            <option value="multiple_choice">Multiple Choice</option>
-            <option value="true_false">True / False</option>
-
-        </select>
-
-        <div class="options">
-
-            <input type="text"
-                   name="questions[${index}][options][0]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi A">
-
-            <input type="text"
-                   name="questions[${index}][options][1]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi B">
-
-            <input type="text"
-                   name="questions[${index}][options][2]"
-                   class="w-full border p-2 mb-1"
-                   placeholder="Opsi C">
-
-            <input type="text"
-                   name="questions[${index}][options][3]"
-                   class="w-full border p-2 mb-2"
-                   placeholder="Opsi D">
-
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan Baru</label>
+            <input type="text" name="questions[${index}][question_text]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none" placeholder="Tulis kalimat pertanyaan di sini...">
         </div>
 
-        <label class="text-sm font-semibold">Jawaban Benar (index)</label>
+        <div>
+            <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
+            <select name="questions[${index}][question_type]" onchange="handleTypeChange(this)" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
+                <option value="multiple_choice">Multiple Choice (Pilihan Ganda)</option>
+                <option value="true_false">True / False (Benar / Salah)</option>
+            </select>
+        </div>
 
-        <select name="questions[${index}][correct_answer]"
-                class="w-full border p-2">
+        <div class="mc-container space-y-2.5">
+            <label class="block text-xs font-bold text-gray-500 uppercase">Isi Pilihan & Pilih Kunci Jawaban</label>
+            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                <input type="text" name="questions[${index}][options][0]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi A">
+                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="0" checked> <span>Kunci</span></label>
+            </div>
+            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                <input type="text" name="questions[${index}][options][1]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi B">
+                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="1"> <span>Kunci</span></label>
+            </div>
+            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                <input type="text" name="questions[${index}][options][2]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi C">
+                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="2"> <span>Kunci</span></label>
+            </div>
+            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                <input type="text" name="questions[${index}][options][3]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi D">
+                <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer"><input type="radio" name="questions[${index}][correct_answer]" value="3"> <span>Kunci</span></label>
+            </div>
+        </div>
 
-            <option value="0">A</option>
-            <option value="1">B</option>
-            <option value="2">C</option>
-            <option value="3">D</option>
-
-        </select>
+        <div class="tf-container hidden pt-2">
+            <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
+            <select name="questions[${index}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400">
+                <option value="True">True (Benar)</option>
+                <option value="False">False (Salah)</option>
+            </select>
+        </div>
 
     </div>
     `;
 
-    document.getElementById('questions-container')
-        .insertAdjacentHTML('beforeend', html);
-
+    document.getElementById('questions-container').insertAdjacentHTML('beforeend', html);
     index++;
 }
-
-function addOption(qIndex) {
-    alert("Untuk versi ini, tambah opsi dilakukan lewat refresh form (rebuild system)");
-}
 </script>
-
-</x-app-layout>
