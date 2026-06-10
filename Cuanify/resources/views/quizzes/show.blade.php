@@ -18,7 +18,6 @@
                     Quiz Center
                 </span>
 
-                {{-- Title Lesson --}}
                 <h1 class="text-3xl md:text-4xl font-extrabold text-white mt-4">
                     Quiz {{ $lesson->title }}
                 </h1>
@@ -30,7 +29,6 @@
 
         </div>
 
-        {{-- Logika Pengecekan Kuis Tunggal dari branch `main` --}}
         @if ($lesson->quiz)
             @php $quiz = $lesson->quiz; @endphp
 
@@ -54,7 +52,6 @@
                         </div>
 
                         <div>
-                            {{-- Title Spesifik Kuis --}}
                             <h2 class="text-xl font-extrabold text-gray-800">
                                 {{ $quiz->title ?? 'Mulai Evaluasi' }}
                             </h2>
@@ -70,10 +67,9 @@
                             </div>
 
                             <div class="mt-4">
-                                {{-- Logika Skor Terbaik dari branch `main` --}}
                                 @if($quiz->best_score !== null)
                                     <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-xl font-bold">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg xmlns="http://www.w3.org/2000/xl"
                                              class="w-5 h-5"
                                              fill="currentColor"
                                              viewBox="0 0 20 20">
@@ -93,7 +89,6 @@
                     </div>
 
                     <div>
-                        {{-- Tombol Mulai Quiz dari branch `main` dengan style premium --}}
                         <a href="{{ route('quizzes.take', $quiz->quiz_id) }}"
                            class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +110,7 @@
             </div>
 
         @else
-
+            {{-- Tampilan Jika Kuis Kosong / Null --}}
             <div class="bg-white rounded-[28px] p-10 text-center border border-yellow-200 shadow-sm">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -133,10 +128,9 @@
                     Belum Ada Quiz
                 </h3>
                 <p class="text-gray-500">
-                    Quiz untuk lesson ini belum tersedia.
+                    Belum pernah mengerjakan quiz
                 </p>
             </div>
-
         @endif
 
     </div>

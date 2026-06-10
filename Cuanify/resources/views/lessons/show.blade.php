@@ -3,7 +3,7 @@
     @section('title', 'Lessons - Cuanify')
 
 
-<div class="min-h-screen bg-[#f7eef7] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
+<div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
 
     <div class="max-w-4xl mx-auto space-y-8">
 
@@ -102,7 +102,7 @@
                     <form method="POST" action="/lessons/{{ $lesson->lesson_id }}/complete">
                         @csrf
                         <button type="submit" 
-                                class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
+                                class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 cursor-pointer whitespace-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none">
                                 <path d="M20 6L9 17l-5-5"
                                       stroke="currentColor"

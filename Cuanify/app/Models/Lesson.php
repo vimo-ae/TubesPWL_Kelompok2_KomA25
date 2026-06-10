@@ -35,7 +35,7 @@ class Lesson extends Model
     public function progress()
     {
         return $this->hasMany(
-            Progress::class,
+            \App\Models\Progress::class,
             'lesson_id',
             'lesson_id'
         );

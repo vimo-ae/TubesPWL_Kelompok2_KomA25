@@ -13,7 +13,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::where('user_id', Auth::id())->get();
 
         return view('instructor.courses.index', compact('courses'));
     }
@@ -22,10 +22,7 @@ class CourseController extends Controller
     {
         $categories = Category::all();
 
-        return view(
-            'instructor.courses.create',
-            compact('categories')
-        );
+        return view('instructor.courses.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -37,6 +34,7 @@ class CourseController extends Controller
         ]);
 
         Course::create([
+            'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
@@ -52,20 +50,16 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::where('user_id', Auth::id())->findOrFail($id);
 
-        return view(
-            'instructor.courses.show',
-            compact('course')
-        );
+        return view('instructor.courses.show', compact('course'));
     }
 
     public function submitVerification($courseId)
     {
-        $course = Course::findOrFail($courseId);
+        $course = Course::where('user_id', Auth::id())->findOrFail($courseId);
 
         if ($course->lessons()->count() < 3) {
-
             return back()->with(
                 'error',
                 'Minimal 3 lesson sebelum mengajukan verifikasi.'
@@ -84,19 +78,15 @@ class CourseController extends Controller
 
     public function edit($id)
     {
-        $course = Course::findOrFail($id);
-
+        $course = Course::where('user_id', Auth::id())->findOrFail($id);
         $categories = Category::all();
 
-        return view(
-            'instructor.courses.edit',
-            compact('course', 'categories')
-        );
+        return view('instructor.courses.edit', compact('course', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::where('user_id', Auth::id())->findOrFail($id);
 
         $course->update([
             'title' => $request->title,
@@ -107,19 +97,17 @@ class CourseController extends Controller
         ]);
 
         return redirect()
-            ->route('instructor.courses.show', $course->course_id)
+            ->route('instructor.courses.show', $course->course_id ?? $course->id)
             ->with('success', 'Course berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
-
+        $course = Course::where('user_id', Auth::id())->findOrFail($id);
         $course->delete();
 
         return redirect()
             ->route('instructor.courses.index')
             ->with('success', 'Course berhasil dihapus.');
     }
-
 }

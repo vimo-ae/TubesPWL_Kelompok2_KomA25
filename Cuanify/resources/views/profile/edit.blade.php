@@ -3,73 +3,140 @@
     @section('title', 'Profile - Cuanify')
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
-.edit-wrap { font-family:'DM Sans',sans-serif; max-width:560px; margin:0 auto; padding:8px 0; }
+/* Menggunakan font sistem ui-sans-serif bawaan agar seragam dan ringan */
+.edit-wrap { 
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+    max-width: 560px; 
+    margin: 0 auto; 
+    padding: 8px 0; 
+}
 .edit-card {
-    background:#fff; border:1px solid #ede9fe;
-    border-radius:20px; overflow:hidden;
+    background: #fff; 
+    border: 1px solid #ede9fe;
+    border-radius: 20px; 
+    overflow: hidden;
 }
 .edit-header {
     background: linear-gradient(135deg, #ec4899, #d946ef, #a855f7);
     padding: 24px 28px;
 }
 .edit-header h1 {
-    font-family:'Outfit',sans-serif; font-size:20px;
-    font-weight:800; color:#fff; margin:0 0 4px;
+    font-family: inherit; 
+    font-size: 20px;
+    font-weight: 600; 
+    color: #fff; 
+    margin: 0 0 4px;
 }
-.edit-header p { font-size:12px; color:rgba(255,255,255,.75); margin:0; }
-.edit-body { padding:28px; }
+.edit-header p { 
+    font-size: 12px; 
+    color: rgba(255,255,255,.75); 
+    margin: 0; 
+}
+.edit-body { 
+    padding: 28px; 
+}
 
-.avatar-row { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+.avatar-row { 
+    display: flex; 
+    align-items: center; 
+    gap: 16px; 
+    margin-bottom: 24px; 
+}
 .avatar-img {
-    width:80px; height:80px; border-radius:50%; object-fit:cover;
-    border:3px solid transparent;
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 3px solid transparent;
     background: linear-gradient(#fff,#fff) padding-box,
                 linear-gradient(135deg,#ec4899,#a855f7) border-box;
 }
 .upload-btn {
-    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
-    background:#ede9fe; color:#7c3aed;
-    padding:8px 16px; border-radius:9px;
-    font-size:12px; font-weight:600;
-    transition:background .15s;
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px; 
+    cursor: pointer;
+    background: #ede9fe; 
+    color: #7c3aed;
+    padding: 8px 16px; 
+    border-radius: 9px;
+    font-size: 12px; 
+    font-weight: 600;
+    transition: background .15s;
 }
-.upload-btn:hover { background:#ddd6fe; }
+.upload-btn:hover { 
+    background: #ddd6fe; 
+}
 
-.field { margin-bottom:18px; }
+.field { 
+    margin-bottom: 18px; 
+}
 .field label {
-    display:block; font-size:11px; font-weight:700;
-    color:#6b7280; text-transform:uppercase;
-    letter-spacing:.05em; margin-bottom:7px;
+    display: block; 
+    font-size: 11px; 
+    font-weight: 600; /* Diturunkan sedikit dari 700 agar lebih clean */
+    color: #6b7280; 
+    text-transform: uppercase;
+    letter-spacing: .05em; 
+    margin-bottom: 7px;
 }
 .field input, .field textarea {
-    width:100%; padding:11px 14px;
-    border:1.5px solid #ede9fe; border-radius:10px;
-    font-size:13px; color:#1e1b4b; outline:none;
-    transition:border-color .2s; box-sizing:border-box;
-    font-family:inherit;
+    width: 100%; 
+    padding: 11px 14px;
+    border: 1.5px solid #ede9fe; 
+    border-radius: 10px;
+    font-size: 13px; 
+    color: #1e1b4b; 
+    outline: none;
+    transition: border-color .2s; 
+    box-sizing: border-box;
+    font-family: inherit;
 }
-.field input:focus, .field textarea:focus { border-color:#a855f7; }
-.field textarea { resize:none; }
+.field input:focus, .field textarea:focus { 
+    border-color: #a855f7; 
+}
+.field textarea { 
+    resize: none; 
+}
 
-.btn-row { display:flex; justify-content:flex-end; gap:10px; margin-top:8px; }
+.btn-row { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; 
+    margin-top: 8px; 
+}
 .btn-cancel {
-    padding:10px 20px; border-radius:10px;
-    font-size:13px; font-weight:600;
-    background:#f3f4f6; color:#6b7280;
-    border:none; cursor:pointer; text-decoration:none;
-    display:inline-flex; align-items:center;
-    transition:background .15s;
+    padding: 10px 20px; 
+    border-radius: 10px;
+    font-size: 13px; 
+    font-weight: 600;
+    background: #f3f4f6; 
+    color: #6b7280;
+    border: none; 
+    cursor: pointer; 
+    text-decoration: none;
+    display: inline-flex; 
+    align-items: center;
+    transition: background .15s;
 }
-.btn-cancel:hover { background:#e5e7eb; }
+.btn-cancel:hover { 
+    background: #e5e7eb; 
+}
 .btn-save {
-    padding:10px 22px; border-radius:10px;
-    font-size:13px; font-weight:700;
-    background:linear-gradient(135deg,#ec4899,#a855f7);
-    color:#fff; border:none; cursor:pointer;
-    transition:opacity .2s, transform .2s;
+    padding: 10px 22px; 
+    border-radius: 10px;
+    font-size: 13px; 
+    font-weight: 600; /* Menggunakan ketebalan medium-semibold standard Tailwind */
+    background: linear-gradient(135deg,#ec4899,#a855f7);
+    color: #fff; 
+    border: none; 
+    cursor: pointer;
+    transition: opacity .2s, transform .2s;
 }
-.btn-save:hover { opacity:.88; transform:translateY(-1px); }
+.btn-save:hover { 
+    opacity: .88; 
+    transform: translateY(-1px); 
+}
 </style>
 
 <div class="edit-wrap">
@@ -94,11 +161,8 @@
 
                 {{-- Foto Profil dengan Fitur Live-Preview --}}
                 <div class="avatar-row">
-                    @if($profile->profile_photo)
-                        <img id="photoPreview" src="{{ asset('storage/' . $profile->profile_photo) }}" class="avatar-img" alt="Foto Profil">
-                    @else
-                        <img id="photoPreview" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" class="avatar-img" alt="Foto Default">
-                    @endif
+                        <img id="photoPreview" src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
+                    
                     <div>
                         <label class="upload-btn">
                             <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
