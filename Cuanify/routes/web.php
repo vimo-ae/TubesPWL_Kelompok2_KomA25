@@ -113,7 +113,7 @@ Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::clas
 
 Route::get('/test-mail', function () {
     Mail::raw('Test email dari Railway', function ($message) {
-        $message->to('test@example.com')->subject('Test');
+        $message->to('cuanify.tiusu25@gmail.com')->subject('Test');
     });
     return 'Email terkirim!';
 });
