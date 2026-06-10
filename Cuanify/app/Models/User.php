@@ -13,7 +13,7 @@ use App\Models\Course;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-use HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
 
@@ -61,7 +61,8 @@ use HasFactory, Notifiable;
     {
         static::created(function ($user) {
             $user->profile()->create([
-                'user_id' => $user->user_id
+                'user_id'   => $user->user_id,
+                'full_name' => request('name') ?? $user->username, // Menjawab eror di database
             ]);
         });
     }
