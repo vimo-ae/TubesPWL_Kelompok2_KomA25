@@ -76,37 +76,39 @@
                                     </div>
 
                                     {{-- MULTIPLE CHOICE CONTAINER --}}
-                                    <div class="mc-container {{ $question->question_type === 'multiple_choice' ? '' : 'hidden' }} pt-2">
-                                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Isi Pilihan & Pilih Jawaban Benar</label>
-                                        <div class="space-y-2.5">
-                                            @php $mcIndex = 0; @endphp
-                                            @foreach($question->options as $option)
-                                                @if($option->option_text !== 'True' && $option->option_text !== 'False')
-                                                    <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
-                                                        {{-- HIDDEN OPTION ID --}}
-                                                        <input type="hidden" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][option_id]" value="{{ $option->option_id }}">
-                                                        <input type="text" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][text]" value="{{ $option->option_text }}" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Isi teks opsi jawaban...">
-                                                        <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs text-gray-500 cursor-pointer hover:bg-purple-50 transition">
-                                                            <input type="radio" name="questions[{{ $qIndex }}][correct_answer]" value="{{ $mcIndex }}" class="text-purple-600 focus:ring-purple-500" {{ $option->is_correct ? 'checked' : '' }}>
-                                                            <span>Kunci</span>
-                                                        </label>
-                                                    </div>
-                                                    @php $mcIndex++; @endphp
-                                                @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
+<div class="mc-container {{ $question->question_type === 'multiple_choice' ? '' : 'hidden' }} pt-2">
+    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Isi Pilihan & Pilih Jawaban Benar</label>
+    <div class="space-y-2.5">
+        @php $mcIndex = 0; @endphp
+        @foreach($question->options as $option)
+            @if($option->option_text !== 'True' && $option->option_text !== 'False')
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="hidden" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][option_id]" value="{{ $option->option_id }}">
+                    <input type="text" name="questions[{{ $qIndex }}][options][{{ $mcIndex }}][text]" value="{{ $option->option_text }}" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs cursor-pointer hover:bg-purple-50 transition">
+                        <input type="radio" name="questions[{{ $qIndex }}][correct_answer]" value="{{ $mcIndex }}" class="text-purple-600" {{ $option->is_correct ? 'checked' : '' }}>
+                        <span>Kunci</span>
+                    </label>
+                </div>
+                @php $mcIndex++; @endphp
+            @endif
+        @endforeach
 
-                                    {{-- TRUE FALSE CONTAINER --}}
-                                    <div class="tf-container {{ $question->question_type === 'true_false' ? '' : 'hidden' }} pt-2">
-                                        <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Kunci Jawaban Benar</label>
-                                        <select name="questions[{{ $qIndex }}][correct_answer]" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
-                                            <option value="True" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'True' ? 'selected' : '' }}>True (Benar)</option>
-                                            <option value="False" {{ $question->options->firstWhere('is_correct', 1)?->option_text == 'False' ? 'selected' : '' }}>False (Salah)</option>
-                                        </select>
-                                    </div>
-
-                                </div>
+        {{-- Fallback: kalau tidak ada opsi, render 4 input kosong --}}
+        @if($mcIndex === 0)
+            @for($i = 0; $i < 4; $i++)
+                <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">
+                    <input type="hidden" name="questions[{{ $qIndex }}][options][{{ $i }}][option_id]" value="">
+                    <input type="text" name="questions[{{ $qIndex }}][options][{{ $i }}][text]" class="flex-1 border-0 bg-transparent p-1 text-sm text-gray-800 outline-none focus:ring-0" placeholder="Opsi {{ chr(65 + $i) }}">
+                    <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs cursor-pointer hover:bg-purple-50 transition">
+                        <input type="radio" name="questions[{{ $qIndex }}][correct_answer]" value="{{ $i }}" class="text-purple-600" {{ $i === 0 ? 'checked' : '' }}>
+                        <span>Kunci</span>
+                    </label>
+                </div>
+            @endfor
+        @endif
+    </div>
+</div>
                             @endforeach
                         @endif
 
@@ -138,7 +140,7 @@
 </x-app-layout>
 
 <script>
-    let index = {{ $quiz ? count($quiz->questions) : 0 }};
+    let index = {{ $quiz ? $quiz->questions->max('question_id') + 1 : 0 }};
 
     function handleTypeChange(selectElement) {
         const parentBox = selectElement.closest('.question-box');
@@ -155,18 +157,19 @@
     }
 
     function addQuestion() {
+    let uniqueIndex = Date.now();
     let html = `
     <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box">
-        <input type="hidden" name="questions[${index}][question_id]" value="">
+        <input type="hidden" name="questions[${uniqueIndex}][question_id]" value="">
         
         <div>
             <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan Baru</label>
-            <input type="text" name="questions[${index}][question_text]" class="w-full p-3 rounded-xl border" placeholder="Tulis pertanyaan...">
+            <input type="text" name="questions[${uniqueIndex}][question_text]" class="w-full p-3 rounded-xl border" placeholder="Tulis pertanyaan...">
         </div>
 
         <div>
             <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
-            <select name="questions[${index}][question_type]" onchange="handleTypeChange(this)" class="w-full p-3 rounded-xl border">
+            <select name="questions[${uniqueIndex}][question_type]" onchange="handleTypeChange(this)" class="w-full p-3 rounded-xl border">
                 <option value="multiple_choice">Multiple Choice</option>
                 <option value="true_false">True / False</option>
             </select>
@@ -175,9 +178,9 @@
         <div class="mc-container space-y-2.5">
             ${[0, 1, 2, 3].map(i => `
                 <div class="flex items-center gap-3 bg-white p-2 rounded-xl border">
-                    <input type="text" name="questions[${index}][options][${i}][text]" class="flex-1 border-0" placeholder="Opsi ${String.fromCharCode(65 + i)}">
+                    <input type="text" name="questions[${uniqueIndex}][options][${i}][text]" class="flex-1 border-0" placeholder="Opsi ${String.fromCharCode(65 + i)}">
                     <label class="flex items-center gap-1.5 px-3 py-1 bg-gray-50 rounded-lg border text-xs">
-                        <input type="radio" name="questions[${index}][correct_answer]" value="${i}" ${i === 0 ? 'checked' : ''}> 
+                        <input type="radio" name="questions[${uniqueIndex}][correct_answer]" value="${i}" ${i === 0 ? 'checked' : ''}> 
                         <span>Kunci</span>
                     </label>
                 </div>
@@ -185,7 +188,7 @@
         </div>
         
         <div class="tf-container hidden pt-2">
-            <select name="questions[${index}][correct_answer]" class="w-full p-3 border rounded-xl">
+            <select name="questions[${uniqueIndex}][correct_answer]" class="w-full p-3 border rounded-xl">
                 <option value="True">True</option>
                 <option value="False">False</option>
             </select>

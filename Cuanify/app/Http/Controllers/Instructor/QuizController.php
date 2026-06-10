@@ -43,7 +43,7 @@ class QuizController extends Controller
             $keptQuestionIds = [];
 
             foreach ($request->questions as $qIndex => $qData) {
-
+            // dd($qData['question_id'] ?? 'KOSONG'); 
                 /**
                  * 2. UPSERT QUESTION — gunakan question_id dari hidden input.
                  *    Soal baru (tanpa question_id) akan di-insert fresh.
@@ -69,6 +69,7 @@ class QuizController extends Controller
                             'question_type' => $qData['question_type'],
                             'points'        => 1,
                         ]);
+                        // dd($question->question_id, $question->toArray()); // tambah ini
                     }
                 } else {
                     // Soal baru — insert
@@ -110,6 +111,8 @@ class QuizController extends Controller
                         $text     = is_array($optionData) ? ($optionData['text']      ?? '') : $optionData;
                         $optionId = is_array($optionData) ? ($optionData['option_id'] ?? null) : null;
 
+                        // dd(compact('text', 'optionId', 'oIndex', 'qData')); // tambah ini
+
                         if (is_null($text) || trim($text) === '') {
                                 continue;
                             }
@@ -137,6 +140,7 @@ class QuizController extends Controller
                                     'is_correct'  => isset($qData['correct_answer']) && $qData['correct_answer'] == $oIndex,
                                 ]);
                             }
+                            
                         } else {
                             // Opsi baru — insert fresh
                             $option = AnswerOption::create([

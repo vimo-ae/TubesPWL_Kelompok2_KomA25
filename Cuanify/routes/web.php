@@ -113,4 +113,10 @@ Route::get('/cek-db', function () {
     return $users;
 });
 
+Route::get('/fix-questions', function () {
+    $ids = [58, 60, 61];
+    \App\Models\AnswerOption::whereIn('question_id', $ids)->delete();
+    \App\Models\Question::whereIn('question_id', $ids)->delete();
+    return 'Done';
+});
 require __DIR__.'/auth.php';
