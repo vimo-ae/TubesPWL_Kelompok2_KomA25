@@ -20,11 +20,17 @@ class Profile extends Model
         'streak_days',
     ];
 
-    public function getPhotoUrlAttribute()
+    protected function photoUrl(): Attribute
     {
-        return $this->profile_photo
-            ? asset('storage/' . $this->profile_photo)
-            : asset('images/profile-default.jpg');
+        return Attribute::make(
+            get: function () {
+                if ($this->profile_photo && trim($this->profile_photo) !== '') {
+                    return asset('storage/' . $this->profile_photo);
+                }
+                
+                return asset('images/profile-default.jpg');
+            }
+        );
     }
 
     public function user()
@@ -34,7 +40,7 @@ class Profile extends Model
 
     public function progress()
     {
-        return $this->hasMany(Progress::class, 'profile_id', 'profile_id');
+        return $this->hasMany(\App\Models\Progress::class, 'profile_id', 'profile_id');
     }
 
     protected function levelTitle(): Attribute

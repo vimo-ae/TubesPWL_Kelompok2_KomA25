@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'My Courses - Cuanify')
 <div class="min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 px-6 py-8">
 
     <div class="max-w-7xl mx-auto">
@@ -64,7 +65,7 @@
 
                 <a href="{{ route('courses.show', $course->course_id) }}" class="block group">
                 
-                    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+                    <div class="bg-white rounded-[28px] shadow-lg border border-purple-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     
                         <div>
                             <div class="relative h-32 overflow-hidden">
@@ -73,7 +74,7 @@
                                      class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                  
                                 {{-- Badge Tingkat Kesulitan --}}
-                                <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-700 capitalize shadow-sm z-10">
+                                <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-purple-700 capitalize shadow-sm z-10">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5S19.832 5.483 21 6.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
                                     </svg>
@@ -106,7 +107,18 @@
                                 <div class="flex justify-between items-center text-xs mt-auto">
                                     {{-- Info Total Lesson --}}
                                     <span class="flex items-center gap-1 text-purple-600 font-semibold bg-purple-50 px-2 py-1 rounded-md">
-                                        📚 {{ $course->lessons->count() }} Lesson
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="w-4 h-4"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5s3.332.483 4.5 1.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
+                                        </svg>
+                                    
+                                        {{ $course->lessons->count() }} Lesson
                                     </span>
                                     
                                     {{-- Rating Fallback / Penyeimbang Visual --}}
@@ -126,9 +138,10 @@
                                     <span>PROGRESS BELAJAR</span>
                                     <span class="text-purple-600">{{ number_format($course->pivot->completion_percentage ?? 0, 0) }}%</span>
                                 </div>
-                                <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden shadow-inner">
+                                
+                                <div class="w-full bg-purple-100 h-3 rounded-full overflow-hidden shadow-inner">
                                     <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full transition-all duration-500" 
-                                         style="width: {{ $course->pivot->completion_percentage ?? 0 }}%">
+                                        style="width: {{ $course->pivot->completion_percentage ?? 0 }}%">
                                     </div>
                                 </div>
                             </div>

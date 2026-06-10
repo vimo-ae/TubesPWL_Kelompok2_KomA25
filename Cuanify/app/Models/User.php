@@ -11,8 +11,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Course;
 
-#[Fillable(['username', 'email', 'password', 'role', 'is_approved', 'last_login', 'status'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -85,7 +83,11 @@ class User extends Authenticatable implements MustVerifyEmail
             Lesson::class,
             'lesson_user',
             'user_id',     
-            'lesson_id'    
+            'lesson_id' 
         )->withTimestamps();
+    }
+
+    public function instructorProfile() {
+        return $this->hasOne(ProfileInstructor::class, 'user_id');
     }
 }

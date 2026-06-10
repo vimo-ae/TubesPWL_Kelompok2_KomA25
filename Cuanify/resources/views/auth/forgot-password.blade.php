@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <!-- Background Soft Purple & Font Figtree -->
+    @section('title', 'Forgot Password - Cuanify')
+    
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#fcf9fe] font-sans">
         
         <!-- Card Box Putih -->

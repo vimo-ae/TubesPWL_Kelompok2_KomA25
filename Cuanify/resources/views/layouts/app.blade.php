@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title', 'Cuanify')</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon-16x16.png') }}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -13,7 +14,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-gray-900 bg-[#fff5f8] dark:bg-gray-900">
+    <body class="font-sans antialiased text-gray-900">
         
         <div x-data="{ sidebarOpen: true }" class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900">
 
@@ -35,7 +36,6 @@
                             </span>
                         </div>
                         
-                        {{-- SEKARANG LANGSUNG PANGGIL SATU FILE SIDEBAR UTAMA --}}
                         <nav class="px-4 space-y-2 flex-1">
                             @include('layouts.sidebar')
                         </nav>
@@ -43,14 +43,13 @@
                 </aside>
             @endauth
 
-            {{-- 2. SISI KANAN (NAVBAR, KONTEN UTAMA, & FOOTER) --}}
-            <div class="flex-1 min-w-0 flex flex-col bg-[#fff5f8] dark:bg-gray-900">
+            <div class="flex-1 min-w-0 flex flex-col bg-gradient-to-br from-pink-100 via-fuchsia-100 to-purple-200 dark:bg-gray-900">
                 
                 {{-- Navigation/Topbar --}}
                 @include('layouts.navigation')
 
                 {{-- Konten Utama (Gradasi Cantik Cuanify) --}}
-                <main class="flex-1 bg-gradient-to-br from-pink-100 via-fuchsia-100 to-purple-200 p-6 md:p-8 overflow-x-hidden">
+                <main class="flex-1 p-6 md:p-8 mb-10 mx-7 overflow-x-hidden">
                     {{ $slot }}
                 </main>
 

@@ -1,8 +1,11 @@
 <x-app-layout>
-<div class="flex min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 -mt-6"
+
+    @section('title', 'Categories - Cuanify')
+    
+<div class="flex min-h-screen"
      x-data="{ showAddModal: false, showEditModal: false, editId: '', editName: '', editIcon: '', editDesc: '' }">
 
-    <div class="flex-1 p-4 sm:p-6 lg:p-10 min-w-0">
+    <div class="flex-1 p-6 sm:p-8 lg:p-10 min-w-0">
 
         <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
@@ -48,8 +51,7 @@
 
         <div class="cat-wrap">
 
-            {{-- HERO BANNER --}}
-            <div class="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-6">
+            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full mb-6">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
                     <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
@@ -123,7 +125,6 @@
             </div>
         </div>
 
-        {{-- MODAL TAMBAH --}}
         <div x-show="showAddModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
             <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden" @click.away="showAddModal=false">
                 <div class="modal-header"><h3>Tambah Kategori Baru</h3><p>Isi informasi kategori yang ingin ditambahkan</p></div>
@@ -141,7 +142,6 @@
             </div>
         </div>
 
-        {{-- MODAL EDIT --}}
         <div x-show="showEditModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
             <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden" @click.away="showEditModal=false">
                 <div class="modal-header"><h3>Edit Kategori</h3><p>Perbarui informasi kategori</p></div>

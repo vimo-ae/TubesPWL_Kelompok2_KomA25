@@ -1,42 +1,57 @@
 <x-app-layout>
+    @section('title', 'Courses - Cuanify')
 
     <div class="min-h-screen w-full -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-7xl mx-auto">
 
-            {{-- Header Section --}}
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    @if(auth()->check() && auth()->user()->role === 'instructor')
-                        <h1 class="text-3xl font-extrabold text-gray-800">
-                            Katalog Seluruh Course
-                        </h1>
-                        <p class="text-gray-500 mt-1 text-sm">
-                            Eksplorasi dan lihat referensi course yang tersedia di platform
-                        </p>
-                    @else
-                        <h1 class="text-3xl font-extrabold text-gray-800">
-                            Rekomendasi Kursus untuk Kamu
-                        </h1>
-                        <p class="text-gray-500 mt-1 text-sm">
-                            Temukan course terbaik untuk meningkatkan skill kamu
-                        </p>
-                    @endif
-                </div>
+<div class="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-7 md:p-8 shadow-xl mb-8">
+    {{-- Elemen Estetika Lingkaran Latar Belakang --}}
+    <div class="absolute -top-20 -right-16 w-80 h-80 bg-white/10 rounded-full blur-[90px]"></div>
+    <div class="absolute bottom-[-40px] left-[20%] w-52 h-52 border-[18px] border-white/10 rounded-full"></div>
 
-                @auth
-                    @if(auth()->user()->role === 'instructor')
-                        <a href="{{ route('instructor.courses.index') }}"
-                           class="text-sm font-bold text-purple-600 hover:text-purple-800 transition">
-                            Kelola Course Saya →
-                        </a>
-                    @elseif(auth()->user()->role === 'student')
-                        <a href="{{ route('my-courses.index') }}"
-                           class="text-sm font-bold text-purple-600 hover:text-purple-800 transition">
-                            Lihat My Courses →
-                        </a>
-                    @endif
-                @endauth
+    <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+            {{-- Badge Kategori Halaman --}}
+            <div class="inline-flex items-center gap-2 bg-white/15 border border-white/10 backdrop-blur-md text-white text-[11px] uppercase tracking-[3px] font-bold px-4 py-2 rounded-full mb-4">
+                Explore Market
             </div>
+
+            {{-- Judul & Deskripsi Dinamis Berdasarkan Role --}}
+            @if(auth()->check() && auth()->user()->role === 'instructor')
+                <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
+                    Katalog Seluruh Course
+                </h1>
+                <p class="text-sm md:text-base text-purple-100 leading-relaxed max-w-2xl">
+                    Eksplorasi dan lihat referensi course yang tersedia di platform untuk memetakan materi unik Anda.
+                </p>
+            @else
+                <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
+                    Rekomendasi Kursus untuk Kamu
+                </h1>
+                <p class="text-sm md:text-base text-purple-100 leading-relaxed max-w-2xl">
+                    Temukan course terbaik dari para instruktur ahli untuk mengakselerasi peningkatan keahlian digital kamu.
+                </p>
+            @endif
+        </div>
+
+        {{-- Tombol Aksi Kanan Dinamis Berdasarkan Role (Hanya Muncul Jika Sudah Login) --}}
+        @auth
+            <div>
+                @if(auth()->user()->role === 'instructor')
+                    <a href="{{ route('instructor.courses.index') }}" 
+                       class="inline-flex items-center justify-center bg-white hover:bg-purple-50 text-purple-700 font-bold text-sm px-6 py-3.5 rounded-2xl shadow-sm transition duration-200 whitespace-nowrap">
+                        Kelola Course Saya &rarr;
+                    </a>
+                @elseif(auth()->user()->role === 'student')
+                    <a href="{{ route('my-courses.index') }}" 
+                       class="inline-flex items-center justify-center bg-white hover:bg-purple-50 text-purple-700 font-bold text-sm px-6 py-3.5 rounded-2xl shadow-sm transition duration-200 whitespace-nowrap">
+                        Lihat My Courses &rarr;
+                    </a>
+                @endif
+            </div>
+        @endauth
+    </div>
+</div>
 
             {{-- Filter Kategori (Dropdown UI) --}}
             <div class="mb-6">

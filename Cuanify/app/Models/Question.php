@@ -17,11 +17,6 @@ class Question extends Model
         'question_text',
         'question_type',
         'points',
-        'option_a',
-        'option_b',
-        'option_c',
-        'option_d',
-        'correct_answer',
     ];
 
     public function quiz()

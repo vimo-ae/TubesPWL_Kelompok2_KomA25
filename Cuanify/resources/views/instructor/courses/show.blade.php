@@ -1,5 +1,7 @@
 <x-app-layout>
 
+    @section('title', 'Course Detail - Cuanify')
+
     <div class="p-6">
 
         <a href="{{ route('instructor.courses.index') }}" class="inline-block mb-4 text-indigo-600 hover:text-indigo-800 font-medium transition-all">

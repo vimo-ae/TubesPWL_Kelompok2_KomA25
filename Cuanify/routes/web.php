@@ -5,6 +5,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Instructor\CourseController as InstructorCourseController;
 use App\Http\Controllers\Instructor\LessonController as InstructorLessonController;
+use App\Http\Controllers\Instructor\QuizController as InstructorQuizController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/all-instructors', [AdminController::class, 'allInstructors'])->name('admin.all_instructors');
     Route::post('/admin/approve/{user_id}', [AdminController::class, 'approve'])->name('admin.approve');
     Route::post('/admin/reject/{user_id}', [AdminController::class, 'reject'])->name('admin.reject');
+    Route::get('/admin/instructor/{id}', [AdminController::class, 'showInstructor'])->name('admin.instructor.detail');
 
     Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
     Route::get('/admin/course/{course_id}', [AdminController::class, 'showCourse'])->name('admin.courses.show');
@@ -98,6 +100,13 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
     Route::put('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'update'])->name('instructor.lessons.update');
     Route::delete('/courses/{course}/lessons/{lesson}', [InstructorLessonController::class, 'destroy'])->name('instructor.lessons.destroy');
     Route::patch('/instructor/courses/{course}/lessons/{lesson}/publish', [InstructorLessonController::class, 'publish'])->name('instructor.lessons.publish');
+
+    Route::get('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'upsert'])
+    ->name('instructor.quizzes.upsert');
+
+Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'storeOrUpdate'])
+    ->name('instructor.quizzes.storeOrUpdate');
+
 });
 
 require __DIR__.'/auth.php';
