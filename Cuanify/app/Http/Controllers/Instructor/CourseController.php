@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\Lesson;
 
 class CourseController extends Controller
 {
@@ -15,6 +16,13 @@ class CourseController extends Controller
         $courses = Course::where('user_id', Auth::id())->get();
 
         return view('instructor.courses.index', compact('courses'));
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+
+        return view('instructor.courses.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -26,7 +34,7 @@ class CourseController extends Controller
         ]);
 
         Course::create([
-            'user_id' => Auth::id(), 
+            'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
@@ -35,8 +43,9 @@ class CourseController extends Controller
             'status' => 'draft',
         ]);
 
-        return redirect()->route('instructor.courses.index')
-                         ->with('success', 'Course berhasil dibuat.');
+        return redirect()
+            ->route('instructor.courses.index')
+            ->with('success', 'Course berhasil dibuat.');
     }
 
     public function show($id)
@@ -44,6 +53,27 @@ class CourseController extends Controller
         $course = Course::where('user_id', Auth::id())->findOrFail($id);
 
         return view('instructor.courses.show', compact('course'));
+    }
+
+    public function submitVerification($courseId)
+    {
+        $course = Course::where('user_id', Auth::id())->findOrFail($courseId);
+
+        if ($course->lessons()->count() < 3) {
+            return back()->with(
+                'error',
+                'Minimal 3 lesson sebelum mengajukan verifikasi.'
+            );
+        }
+
+        $course->update([
+            'status' => 'pending'
+        ]);
+
+        return back()->with(
+            'success',
+            'Course berhasil diajukan ke admin.'
+        );
     }
 
     public function edit($id)
@@ -58,12 +88,17 @@ class CourseController extends Controller
     {
         $course = Course::where('user_id', Auth::id())->findOrFail($id);
 
-        $course->update($request->only([
-            'title', 'description', 'category_id', 'difficulty_level', 'estimated_duration'
-        ]));
+        $course->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'difficulty_level' => $request->difficulty_level,
+            'estimated_duration' => $request->estimated_duration,
+        ]);
 
-        return redirect()->route('instructor.courses.show', $id)
-                         ->with('success', 'Course berhasil diperbarui.');
+        return redirect()
+            ->route('instructor.courses.show', $course->course_id ?? $course->id)
+            ->with('success', 'Course berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -71,7 +106,8 @@ class CourseController extends Controller
         $course = Course::where('user_id', Auth::id())->findOrFail($id);
         $course->delete();
 
-        return redirect()->route('instructor.courses.index')
-                         ->with('success', 'Course berhasil dihapus.');
+        return redirect()
+            ->route('instructor.courses.index')
+            ->with('success', 'Course berhasil dihapus.');
     }
 }
