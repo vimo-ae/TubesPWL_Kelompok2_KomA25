@@ -6,7 +6,6 @@
     bg-[#f5f7fb]
     relative overflow-hidden px-4">
     
-    <!-- LOGO DI LUAR FORM -->
     <div class="mb-6 relative z-10 text-center">
 
             <img
@@ -16,7 +15,6 @@
             >
         </div>
 
-        <!-- CARD LOGIN -->
         <div class="relative z-10
                 w-full max-w-[420px]
                 bg-white
@@ -24,8 +22,7 @@
                 shadow-[0_10px_30px_rgba(0,0,0,0.08)]
                 p-6
                 border border-gray-100">
-                
-                <!-- BACK BUTTON -->
+
                 <a href="{{ url('/') }}"
                 class="absolute top-4 left-4 flex items-center gap-2
                 px-4 py-1.5 rounded-full
@@ -47,7 +44,6 @@
                 <span>Back</span>
             </a>
 
-            <!-- TITLE -->
             <div class="text-center mb-5 mt-10">
 
                 <h1 class="text-2xl font-extrabold text-gray-800">
@@ -64,7 +60,6 @@
 
             </div>
 
-            <!-- Session Status -->
             <x-auth-session-status
                 class="mb-4"
                 :status="session('status')"
@@ -75,11 +70,9 @@
                 </div>
             @endif
 
-            <!-- FORM -->
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700">
                         Email
@@ -101,7 +94,6 @@
                     >
                 </div>
 
-                <!-- Password -->
                 <div class="mt-3">
                     <label class="block text-sm font-semibold text-gray-700">
                         Password
@@ -171,7 +163,6 @@
                     />
                 </div>
 
-                <!-- Remember -->
                 <div class="flex items-center justify-between mt-3">
 
                     <label class="flex items-center">
@@ -196,7 +187,6 @@
                 </div>
                 
                 
-                <!-- BUTTON -->
                 <button
                 type="submit"
                 class="w-full mt-7 py-3 rounded-xl
@@ -221,7 +211,6 @@
                         </div>
                     @endif
 
-                <!-- REGISTER -->
                 <p class="text-center text-sm text-gray-500 mt-6">
 
                     Belum punya akun?

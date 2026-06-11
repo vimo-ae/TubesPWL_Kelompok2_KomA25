@@ -154,8 +154,7 @@
                     </form>
                 </div>
     <div class="p-6 max-w-5xl mx-auto" x-data="{ showRejectModal: false }">
-        
-        {{-- Back Link --}}
+
         <a href="{{ route('admin.courses') }}" class="inline-flex items-center gap-2 mb-6 text-purple-600 hover:text-purple-800 font-semibold text-sm transition-all group">
             <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
@@ -163,15 +162,12 @@
             Kembali ke Verifikasi Course
         </a>
 
-        {{-- Course Header Card --}}
                 <div class="bg-white rounded-3xl shadow-sm border border-gray-100 mb-8 overflow-hidden">
 
-                    {{-- Top accent bar --}}
                     <div class="h-1.5 w-full bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393]"></div>
 
                     <div class="p-8 flex flex-col md:flex-row justify-between items-start gap-6">
                         <div class="flex-1 min-w-0">
-                            {{-- Title + Badge --}}
                             <div class="flex flex-wrap items-center gap-3 mb-3">
                                 <h1 class="text-2xl font-extrabold text-gray-800">{{ $course->title }}</h1>
                                 @if($course->status == 'pending')
@@ -185,14 +181,11 @@
                                 @endif
                             </div>
 
-                            {{-- Description --}}
                             <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ $course->description }}</p>
 
-                            {{-- Meta Info --}}
                             <div class="flex flex-wrap items-center gap-3 text-sm">
                                 <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
                                     <i class="fas fa-user-tie text-purple-400 text-xs"></i>
-                                    {{-- Menggunakan null-coalescing dari branch main agar tidak crash jika relasi kosong --}}
                                     {{ $course->instructor->username ?? 'No Instructor' }}
                                 </div>
                                 <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-3 py-2 rounded-xl text-purple-700 font-medium">
@@ -208,7 +201,6 @@
                     </div>
                 </div>
                 
-                {{-- Action Buttons --}}
                 @if($course->status == 'pending')
                 <div class="flex flex-col gap-3 min-w-[160px]">
                     <form action="{{ route('admin.courses.approve', $course->course_id) }}" method="POST" onsubmit="return confirm('Yakin publish course ini?');">
@@ -226,7 +218,6 @@
             </div>
         </div>
 
-        {{-- Reject Modal --}}
         <div x-show="showRejectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" x-cloak>
             <div class="bg-white p-6 rounded-2xl w-full max-w-md shadow-2xl border border-purple-100" @click.away="showRejectModal = false">
                 <div class="flex items-center gap-3 mb-4">
@@ -257,7 +248,6 @@
                     </div>
                 </form>
             </div>
-        {{-- Lessons Section --}}
         <div class="flex items-center gap-3 mb-6">
             <div class="w-1 h-7 rounded-full bg-gradient-to-b from-[#b55fe6] to-[#e84393]"></div>
             <h2 class="text-xl font-extrabold text-gray-800">
@@ -269,14 +259,13 @@
         <div class="space-y-4">
             @forelse($course->lessons as $lesson)
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group hover:border-purple-200 transition-colors">
-                    {{-- Lesson Header --}}
                     <div class="flex items-center gap-4 px-6 py-4 border-b border-gray-50 bg-gradient-to-r from-[#b55fe6]/5 to-transparent">
                         <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#b55fe6] to-[#e84393] flex items-center justify-center text-white text-xs font-extrabold shrink-0 shadow-sm">
                             {{ $loop->iteration }}
                         </div>
                         <h3 class="font-bold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $lesson->title }}</h3>
                     </div>
-                    {{-- Lesson Content --}}
+
                     <div class="px-6 py-5 text-gray-600 text-sm leading-relaxed whitespace-pre-line">
                         {!! $lesson->content !!}
                     </div>

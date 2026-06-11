@@ -1,7 +1,6 @@
 <x-app-layout>
 
 <style>
-/* SET GLOBAL FONT MENGGUNAKAN UI-SANS-SERIF */
 .pf, 
 .pf h1, 
 .pf h2, 
@@ -17,11 +16,9 @@
 
 .pf { max-width:960px; margin:0 auto; padding:32px 16px; }
 
-/* ---- PAGE TITLE ---- */
 .pf-title { font-size:28px; font-weight:700; color:#1e1b4b; margin:0 0 4px; }
 .pf-subtitle { font-size:14px; color:#6b7280; margin:0 0 24px; }
 
-/* ---- HERO ---- */
 .hero-card {
     background:#fff; border:1px solid #ede9fe; border-radius:20px;
     padding:28px 32px; margin-bottom:16px;
@@ -73,7 +70,6 @@
 }
 .btn-edit-hero:hover { background:#ede9fe; color:#7c3aed; }
 
-/* ---- STAT MINI ROW ---- */
 .stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
 .stat-mini {
     background:#fff; border:1px solid #ede9fe; border-radius:14px;
@@ -94,7 +90,6 @@
 .stat-mini-val { font-size:24px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
 .stat-mini-sub { font-size:12px; color:#9ca3af; font-weight: 500; }
 
-/* ---- PROGRESS ---- */
 .progress-card {
     background:#fff; border:1px solid #ede9fe; border-radius:16px;
     padding:22px; margin-bottom:16px;
@@ -132,11 +127,9 @@
     font-weight: 600;
 }
 
-/* ---- TWO COL ---- */
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; align-items: start;}
 @media(max-width:700px){ .two-col { grid-template-columns:1fr; } .stat-row { grid-template-columns:repeat(2,1fr); } }
 
-/* ---- INFO CARD ---- */
 .info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
 .info-row { padding:10px 0; border-bottom:1px solid #f5f3ff; }
 .info-row:last-of-type { border-bottom:none; }
@@ -177,7 +170,6 @@
 .empty-box { text-align:center; padding:20px 10px; }
 .empty-box p { font-size:12px; color:#9ca3af; margin:8px 0 0; }
 
-/* ---- COURSES ---- */
 .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
 .course-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 @media(max-width:700px){ .course-grid { grid-template-columns:1fr; } }
@@ -206,7 +198,6 @@
     <h1 class="pf-title">Profil Saya</h1>
     <p class="pf-subtitle">Kelola informasi profil dan lihat perkembangan belajar kamu.</p>
 
-    {{-- HERO --}}
     <div class="hero-card">
         <div class="avatar-wrap">
             <img src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
@@ -237,7 +228,6 @@
         </div>
     </div>
 
-    {{-- STAT MINI ROW --}}
     <div class="stat-row">
         <div class="stat-mini">
             <div class="stat-mini-icon si-violet">
@@ -273,7 +263,6 @@
         </div>
     </div>
 
-    {{-- PROGRESS BELAJAR --}}
     <div class="progress-card">
         <div class="section-head">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -313,10 +302,8 @@
         </div>
     </div>
 
-    {{-- TWO COL: INFO + HISTORY --}}
     <div class="two-col">
 
-        {{-- INFORMASI PROFIL --}}
         <div class="info-card">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -344,7 +331,6 @@
             </div>
         </div>
 
-        {{-- HISTORY XP --}}
         <div class="info-card" id="history-xp">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
@@ -387,7 +373,6 @@
 
     </div>
 
-    {{-- KELAS YANG DIIKUTI --}}
     <div class="courses-card">
         <div class="section-head">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0d9488" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>

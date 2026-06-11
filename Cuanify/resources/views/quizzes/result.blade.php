@@ -6,10 +6,8 @@
         <div class="max-w-7xl mx-auto">
             <div class="max-w-4xl mx-auto">
 
-                {{-- KARTU UTAMA HASIL EVALUASI --}}
                 <div class="bg-white rounded-[35px] shadow-xl border border-purple-100 overflow-hidden mb-6">
 
-                    {{-- HEADER GRADIENT BANNER --}}
                     <div class="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 p-6 md:p-8 relative overflow-hidden">
                         <div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
 
@@ -34,10 +32,8 @@
                         </div>
                     </div>
 
-                    {{-- KONTEN UTAMA NOTIFIKASI --}}
                     <div class="p-6 md:p-8">
 
-                        {{-- STATUS KONDISI KELULUSAN --}}
                         @if($result->score >= $quiz->passing_score)
                             <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 mb-6 shadow-sm">
                                 <div class="flex items-start gap-4">
@@ -76,7 +72,6 @@
                             </div>
                         @endif
 
-                        {{-- GRID DETIL INDIKATOR SKOR NYATA --}}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
                             <div class="bg-purple-50/60 border border-purple-100 rounded-2xl p-5 flex flex-col justify-between">
@@ -120,7 +115,6 @@
 
                         </div>
 
-                        {{-- AKSI NAVIGASI TOMBOL KONTROL --}}
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 border-t border-gray-100">
                             <a href="{{ route('quizzes.take', $quiz->quiz_id) }}"
                                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg shadow-purple-100 hover:shadow-xl hover:from-purple-700 hover:to-indigo-700 hover:-translate-y-0.5 transition-all duration-300">
@@ -139,7 +133,6 @@
                     </div>
                 </div>
 
-                {{-- INFORMASI REKOMENDASI BELAJAR TAMBAHAN --}}
                 <div class="bg-purple-900 rounded-[28px] p-6 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="space-y-1">
                         <h4 class="font-extrabold text-base tracking-tight text-fuchsia-300">Butuh Pendalaman Materi Instan?</h4>

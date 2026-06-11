@@ -24,7 +24,6 @@
                 <form method="POST" action="{{ route('instructor.quizzes.storeOrUpdate', $lesson->lesson_id) }}" class="space-y-6">
                     @csrf
 
-                    {{-- MASTER METADATA INFO QUIZ --}}
                     <div class="bg-purple-50/40 p-6 rounded-2xl border border-purple-100/70">
                         <h2 class="text-xs uppercase tracking-[2px] text-purple-700 font-bold mb-4">Konfigurasi Aturan Kuis</h2>
 
@@ -50,23 +49,19 @@
                         <hr class="border-gray-100 mt-3 mb-6">
                     </div>
 
-                    {{-- DYNAMIC QUESTIONS CONTAINER --}}
                     <div id="questions-container" class="space-y-6">
 
                         @if($quiz)
                             @foreach($quiz->questions as $qIndex => $question)
                                 <div class="bg-gray-50/60 border border-gray-200/80 p-6 rounded-2xl space-y-4 question-box">
 
-                                    {{-- HIDDEN QUESTION ID (Kunci Utama Sinkronisasi ID) --}}
                                     <input type="hidden" name="questions[{{ $qIndex }}][question_id]" value="{{ $question->question_id }}">
 
-                                    {{-- QUESTION TEXT --}}
                                     <div>
                                         <label class="block text-sm font-bold text-gray-700 mb-2">Pertanyaan #{{ $qIndex + 1 }}</label>
                                         <input type="text" name="questions[{{ $qIndex }}][question_text]" value="{{ $question->question_text }}" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none">
                                     </div>
 
-                                    {{-- TYPE SELECTOR --}}
                                     <div>
                                         <label class="block text-xs font-bold text-gray-500 mb-1.5 uppercase">Tipe Pertanyaan</label>
                                         <select name="questions[{{ $qIndex }}][question_type]" onchange="handleTypeChange(this)" class="w-full bg-white border border-gray-200 text-gray-800 p-3 rounded-xl text-sm focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition outline-none cursor-pointer">
@@ -75,7 +70,6 @@
                                         </select>
                                     </div>
 
-                                    {{-- MULTIPLE CHOICE CONTAINER --}}
 <div class="mc-container {{ $question->question_type === 'multiple_choice' ? '' : 'hidden' }} pt-2">
     <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Isi Pilihan & Pilih Jawaban Benar</label>
     <div class="space-y-2.5">
@@ -94,7 +88,6 @@
             @endif
         @endforeach
 
-        {{-- Fallback: kalau tidak ada opsi, render 4 input kosong --}}
         @if($mcIndex === 0)
             @for($i = 0; $i < 4; $i++)
                 <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-gray-100 shadow-sm">

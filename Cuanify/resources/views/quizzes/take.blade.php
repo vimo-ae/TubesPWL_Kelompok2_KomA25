@@ -5,7 +5,6 @@
     <div class="min-h-screen bg-[#f7eef7] -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 p-6">
         <div class="max-w-7xl mx-auto">
 
-            {{-- Jumbotron Header Banner --}}
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-700 p-8 shadow-xl mb-8">
                 <div class="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
 
@@ -30,7 +29,6 @@
                 </div>
             </div>
 
-            {{-- Sticky Panel: Timer countdown --}}
             <div class="sticky top-6 z-30 bg-red-50/95 backdrop-blur-md border border-red-200 rounded-2xl p-4 mb-8 shadow-md flex items-center justify-between transition-all">
                 <div>
                     <p class="text-[10px] uppercase font-black tracking-widest text-red-500">
@@ -47,7 +45,6 @@
                 </div>
             </div>
 
-            {{-- FORM LEMBAR JAWABAN --}}
             <form id="quizForm" method="POST" action="{{ route('quizzes.submit', $quiz->quiz_id) }}">
                 @csrf
 
@@ -56,7 +53,6 @@
                     
                         <div class="bg-white rounded-[30px] shadow-sm border border-purple-100 p-6 md:p-8 hover:shadow-md transition">
 
-                            {{-- Baris Pertanyaan --}}
                             <div class="flex items-start gap-4 mb-6">
                                 <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
                                     {{ $loop->iteration }}
@@ -66,7 +62,6 @@
                                 </h3>
                             </div>
 
-                            {{-- KONDISI PERTANYAAN PILIHAN GANDA --}}
                             @if($question->question_type === 'multiple_choice' && $question->options->count())
                                 <div class="grid grid-cols-1 gap-3">
                                     @foreach($question->options as $option)
@@ -82,9 +77,6 @@
                                     @endforeach
                                 </div>
 
-                            {{-- KONDISI PERTANYAAN TRUE / FALSE --}}
-                            {{-- FIX: value pakai option_id (bukan hardcoded "True"/"False") agar
-                                 student controller bisa lookup: AnswerOption::where('option_id', $answerId) --}}
                             @elseif($question->question_type === 'true_false')
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     @foreach($question->options as $option)
@@ -102,7 +94,6 @@
                                 </div>
 
                             @else
-                                {{-- Penanganan Fallback Jika Data Rusak --}}
                                 <div class="bg-amber-50 text-amber-700 p-4 rounded-xl border border-amber-200 text-sm font-medium flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                         <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
@@ -115,7 +106,6 @@
                     @endforeach
                 </div>
 
-                {{-- AREA ACTION SUBMIT FORM --}}
                 <div class="mt-8 mb-12">
                     <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
@@ -131,7 +121,6 @@
 
 </x-app-layout>
 
-{{-- TIMER COUNTDOWN ENGINE SCRIPT --}}
 <script>
     let timeLeft = {{ ($quiz->time_limit ?? 15) * 60 }};
     const timerElement = document.getElementById('timer');

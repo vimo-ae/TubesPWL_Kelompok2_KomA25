@@ -94,7 +94,6 @@
                 </div>
 
             @else
-                {{-- Tampilan Placeholder Kosong Jika Instruktur Belum Menaruh Butir Soal --}}
                 <div class="bg-white rounded-[35px] p-12 text-center border border-dashed border-purple-200 shadow-inner max-w-2xl mx-auto mt-12">
                     <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-500 shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">

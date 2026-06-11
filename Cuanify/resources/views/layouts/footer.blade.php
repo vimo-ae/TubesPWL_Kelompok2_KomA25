@@ -13,7 +13,6 @@
                 karier, dan kewirausahaan.
             </p>
 
-            <!-- Kontak -->
             <div class="mt-4">
                 <p class="text-sm text-gray-600">
                     Hubungi Kami:

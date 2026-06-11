@@ -1,6 +1,5 @@
 <div class="space-y-6">
 
-    {{-- Input Judul Lesson --}}
     <div>
         <label class="block text-sm font-bold text-gray-700 mb-2">
             Judul Lesson
@@ -16,7 +15,6 @@
         @enderror
     </div>
 
-    {{-- Input Isi Materi (Rich Text Editor CKEditor) --}}
     <div>
         <label class="block text-sm font-bold text-gray-700 mb-2">
             Isi Materi Pembelajaran
@@ -34,7 +32,6 @@
         @enderror
     </div>
 
-    {{-- Input Ringkasan Media Video YouTube --}}
     <div>
         <label class="block text-sm font-bold text-gray-700 mb-2">
             Link Video Pendukung (YouTube)
@@ -53,7 +50,6 @@
         @enderror
     </div>
 
-    {{-- Input Pemilihan Reward XP Gamification --}}
     <div>
         <label class="block text-sm font-bold text-gray-700 mb-2">
             Reward Batas XP Siswa
@@ -80,7 +76,6 @@
         </select>
     </div>
 
-    {{-- Kontrol Validasi Kelola Kuis Evaluasi --}}
     <div class="bg-purple-50/40 p-5 rounded-2xl border border-purple-100/70">
 
         <label class="flex items-center gap-3 cursor-pointer select-none">
