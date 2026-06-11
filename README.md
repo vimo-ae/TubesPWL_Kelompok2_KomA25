@@ -6,6 +6,7 @@
 
 * **SDG 4 – Quality Education**, dengan menyediakan materi pembelajaran ekonomi yang mudah diakses.
 * **SDG 8 – Decent Work and Economic Growth**, dengan memberikan edukasi kewirausahaan dan pengelolaan keuangan yang dapat mendukung pertumbuhan ekonomi masyarakat.
+* **SDG 9 – Industry, Innovation and Infrastructure**, dengan memanfaatkan teknologi digital sebagai sarana pembelajaran inovatif yang mendukung pengembangan keterampilan, inovasi, dan transformasi digital bagi masyarakat serta pelaku UMKM.
 
 Cuanify hadir sebagai media pembelajaran digital yang interaktif, modern, dan mudah digunakan oleh berbagai kalangan, terutama generasi muda.
 
