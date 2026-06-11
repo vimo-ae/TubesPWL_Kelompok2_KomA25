@@ -33,7 +33,6 @@
 
 <body class="bg-gradient-to-b from-[#f5f7fb] to-white relative overflow-x-hidden">
 
-    <!-- BACKGROUND BLUR -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
         <div class="absolute w-[420px] h-[420px] bg-purple-500/30 blur-[130px] rounded-full top-[-120px] right-[-120px]"></div>
 
@@ -44,14 +43,11 @@
 
     @php $isLoggedIn = auth()->check(); @endphp
 
-    <!-- NAVBAR -->
     <nav class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center backdrop-blur-xl bg-white/30 rounded-b-3xl">
 
-        <!-- LOGO -->
         <img src="{{ asset('images/logo1.png') }}"
              class="w-28 drop-shadow-lg">
 
-        <!-- BUTTON -->
         <div class="flex gap-3 items-center">
 
             @if ($isLoggedIn)
@@ -78,10 +74,8 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <header class="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center gap-12 min-h-[80vh]">
 
-        <!-- KIRI -->
         <div class="flex-1 flex flex-col justify-center">
 
             <h1 class="text-4xl md:text-5xl font-extrabold text-purple-900 leading-tight tracking-tight">
@@ -112,7 +106,6 @@
             </div>
         </div>
 
-        <!-- KANAN -->
         <div class="flex-1 hidden lg:flex justify-center">
 
             <img src="{{ asset('images/welcome.png') }}"
@@ -122,19 +115,15 @@
 
     </header>
 
-    <!-- FEATURES -->
     <section id="features"
              class="max-w-7xl mx-auto px-6 py-20 scroll-mt-12">
 
-        <!-- TITLE -->
         <h2 class="text-center text-3xl font-bold text-purple-900 tracking-tight">
             Kenapa Cuanify?
         </h2>
 
-        <!-- GRID -->
         <div class="grid md:grid-cols-4 gap-6 mt-10">
 
-            <!-- CARD 1 -->
             <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
 
                 <div class="h-44 overflow-hidden">
@@ -155,7 +144,6 @@
                 </div>
             </div>
 
-            <!-- CARD 2 -->
             <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
 
                 <div class="h-44 overflow-hidden">
@@ -176,7 +164,6 @@
                 </div>
             </div>
 
-            <!-- CARD 3 -->
             <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
 
                 <div class="h-44 overflow-hidden">
@@ -197,7 +184,6 @@
                 </div>
             </div>
 
-            <!-- CARD 4 -->
             <div class="bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 will-change-transform group cursor-pointer hover:-translate-y-2 hover:shadow-xl h-full">
 
                 <div class="h-44 overflow-hidden">
@@ -221,12 +207,10 @@
         </div>
     </section>
 
-<!-- CTA -->
 <section class="px-6 py-20">
 
     <div class="max-w-5xl mx-auto">
 
-        <!-- TITLE -->
         <div class="text-center mb-20">
 
             <h2 class="text-4xl md:text-5xl font-bold text-purple-900 tracking-tight">
@@ -248,10 +232,8 @@
 
         </div>
 
-        <!-- CARD INSTRUKTUR -->
         <div class="bg-gradient-to-r from-purple-700 to-pink-600 rounded-2xl shadow-soft p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-5">
 
-            <!-- KIRI -->
             <div class="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
 
 <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white">
@@ -274,7 +256,6 @@
                 </div>
             </div>
 
-            <!-- BUTTON -->
             <a href="{{ route('register-instructor') }}"
                class="px-6 py-3 rounded-full bg-white text-[#5b21b6] font-medium hover:bg-purple-100 hover:scale-105 transition whitespace-nowrap">
                 Daftar Instruktur

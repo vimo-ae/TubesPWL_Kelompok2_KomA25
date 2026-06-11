@@ -6,7 +6,6 @@
 
         <div class="py-6 max-w-7xl mx-auto space-y-10 w-full">
 
-            {{-- Alert Error --}}
             @if(session('error'))
                 <div class="bg-red-100 border-l-4 border-red-500 text-red-800 p-5 rounded-2xl shadow-sm flex items-start gap-4 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +25,6 @@
                 </div>
             @endif
 
-            {{-- Header Hero --}}
             <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700 shadow-2xl min-h-[240px] flex items-center">
                 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-white/10 blur-[80px] rounded-full"></div>
                 <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-10 md:px-16 py-8">
@@ -86,7 +84,6 @@
                     </div>
                 </div>
 
-                {{-- Progress Belajar (Versi Compact + Link Profil) --}}
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between gap-4">
 
             <div class="flex justify-between items-center gap-2">
@@ -345,7 +342,6 @@
                         <a href="{{ route('courses.show', $course->course_id) }}"
                            class="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300 block">
                         
-                            {{-- Thumbnail --}}
                             <div class="h-32 overflow-hidden relative">
                             
                                 <img 
@@ -389,7 +385,6 @@
                             
                             </div>
                         
-                            {{-- Body --}}
                             <div class="p-5 flex flex-col h-40">
                             
                                 <h3 class="font-bold text-gray-800 text-base line-clamp-2 mb-1">

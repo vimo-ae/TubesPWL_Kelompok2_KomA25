@@ -9,15 +9,13 @@
     </x-slot>
 
     <div class="p-6 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
-        
-        {{-- Tombol Kembali --}}
+
         <div>
             <a href="javascript:history.back()" class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 font-semibold text-sm transition-all group">
                 <span class="transform group-hover:-translate-x-1 transition-transform">←</span> Kembali ke Daftar
             </a>
         </div>
 
-        {{-- Alert Success: Didesain lebih modern & soft --}}
         @if(session('success'))
             <div class="bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl text-sm flex items-center gap-3 shadow-sm animate-fade-in">
                 <i class="fas fa-check-circle text-green-500 text-base"></i>
@@ -25,12 +23,9 @@
             </div>
         @endif
 
-        {{-- Main Container Card --}}
         <div class="bg-white p-6 sm:p-8 rounded-[30px] shadow-sm border border-purple-100/60 flex flex-col md:flex-row gap-8 items-start">
             
-            {{-- SISI KIRI: Informasi Profil Pengguna --}}
             <div class="flex-1 w-full">
-                {{-- Avatar: Menggunakan gradasi linear khas Cuanify --}}
                 <div class="w-24 h-24 bg-gradient-to-br from-[#b55fe6]/20 to-[#e84393]/20 text-purple-700 rounded-3xl flex items-center justify-center text-4xl font-extrabold mb-5 shadow-inner">
                     {{ strtoupper(substr($userDetail->username, 0, 1)) }}
                 </div>
@@ -58,7 +53,6 @@
                 </div>
             </div>
 
-            {{-- SISI KANAN: Panel Manajemen Status Akun --}}
             <div class="w-full md:w-[400px] bg-purple-50/40 p-6 rounded-2xl border border-purple-100/60" x-data="{ selectedStatus: '{{ $userDetail->status }}' }">
                 <h3 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <i class="fas fa-user-shield text-purple-500"></i> Kontrol Akses Akun
@@ -78,7 +72,6 @@
                         </select>
                     </div>
 
-                    {{-- Durasi Banned (Muncul kondisional) --}}
                     <div x-show="selectedStatus === 'banned'" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Durasi Penangguhan</label>
@@ -92,7 +85,6 @@
                             </select>
                         </div>
 
-                        {{-- Alasan Banned --}}
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Alasan Banned (Opsional)</label>
                             <textarea name="ban_reason" rows="3" 
@@ -101,7 +93,6 @@
                         </div>
                     </div>
 
-                    {{-- Info Banner jika User sedang berstatus Banned --}}
                     @if($userDetail->banned_until && $userDetail->banned_until > now())
                         <div class="p-3.5 bg-red-50 border border-red-100 text-red-700 text-xs rounded-xl flex items-start gap-2.5">
                             <i class="fas fa-exclamation-triangle mt-0.5 shrink-0 text-red-500"></i>
@@ -112,7 +103,6 @@
                         </div>
                     @endif
 
-                    {{-- Tombol Submit --}}
                     <div class="pt-2">
                         <button type="submit" 
                             class="w-full bg-gradient-to-r from-[#b55fe6] to-[#e84393] hover:from-[#a24cd3] hover:to-[#d63281] text-white px-4 py-3 rounded-xl font-bold text-sm transition shadow-md hover:shadow-lg active:scale-[0.99] transform">

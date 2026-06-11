@@ -1,7 +1,6 @@
 <x-app-layout>
 
 <style>
-/* SET GLOBAL FONT MENGGUNAKAN UI-SANS-SERIF */
 .pf, 
 .pf h1, 
 .pf h2, 
@@ -17,11 +16,11 @@
 
 .pf { max-width:960px; margin:0 auto; padding:32px 16px; }
 
-/* ---- PAGE TITLE ---- */
+
 .pf-title { font-size:28px; font-weight:700; color:#1e1b4b; margin:0 0 4px; }
 .pf-subtitle { font-size:14px; color:#6b7280; margin:0 0 24px; }
 
-/* ---- HERO ---- */
+
 .hero-card {
     background:#fff; border:1px solid #ede9fe; border-radius:20px;
     padding:28px 32px; margin-bottom:16px;
@@ -71,7 +70,6 @@
 }
 .btn-edit-hero:hover { background:#ede9fe; color:#7c3aed; }
 
-/* ---- STAT MINI ROW ---- */
 .stat-row { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:16px; }
 .stat-mini {
     background:#fff; border:1px solid #ede9fe; border-radius:14px;
@@ -91,11 +89,9 @@
 .stat-mini-val { font-size:24px; font-weight:800; color:#1e1b4b; line-height:1; margin-bottom:2px; }
 .stat-mini-sub { font-size:12px; color:#9ca3af; font-weight: 500; }
 
-/* ---- TWO COL LAYOUT ---- */
 .two-col { display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; margin-bottom:16px; align-items: start;}
 @media(max-width:768px){ .two-col { grid-template-columns:1fr; } .stat-row { grid-template-columns:1fr; } }
 
-/* ---- INFO CARD & DOC CARD ---- */
 .info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; height: 100%; box-sizing: border-box; }
 .section-head { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
 .section-title { font-size:18px; font-weight:700; color:#1e1b4b; margin:0; }
@@ -104,7 +100,6 @@
 .info-label { font-size:10px; color:#9ca3af; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin:0 0 3px; }
 .info-val { font-size:13px; font-weight:600; color:#1e1b4b; margin:0; }
 
-/* ---- DOCUMENTS SISI KANAN ---- */
 .doc-box-wrapper { display: flex; flex-direction: column; gap: 12px; }
 .doc-item-link {
     display: flex; align-items: center; gap: 14px; padding: 16px;
@@ -119,7 +114,6 @@
 .doc-title { font-size: 13px; font-weight: 700; color: #1e1b4b; margin: 0 0 2px; }
 .doc-desc { font-size: 11px; color: #9ca3af; margin: 0; }
 
-/* ---- COURSES ---- */
 .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; margin-top: 16px; }
 .course-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:12px; }
 .course-item {
@@ -151,7 +145,6 @@
     <h1 class="pf-title">Profil Instruktur</h1>
     <p class="pf-subtitle">Kelola informasi profil, biodata, beserta daftar kelas edukasi Anda.</p>
 
-    {{-- HERO --}}
     <div class="hero-card">
         <div class="avatar-wrap">
             <img src="{{ auth()->user()->profile && auth()->user()->profile->profile_photo && file_exists(public_path('storage/' . auth()->user()->profile->profile_photo)) ? asset('storage/' . auth()->user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
@@ -164,8 +157,7 @@
                 {{ $profile->full_name ?? auth()->user()->username }}
                 <span class="role-badge role-instructor">Instruktur</span>
             </h2>
-            
-            {{-- BIO DIURUTKAN DARI DESKRIPSI INSTRUCTOR PROFILE --}}
+
             <p class="hero-bio">
                 "{{ $instructor->instructorProfile->deskripsi ?? 'Belum ada deskripsi profil hangat. Tulis deskripsi keahlian Anda di halaman edit!' }}"
             </p>
@@ -187,7 +179,6 @@
         </div>
     </div>
 
-    {{-- STAT MINI ROW FOR INSTRUCTOR --}}
     <div class="stat-row">
         <div class="stat-mini">
             <div class="stat-mini-icon si-violet">
@@ -215,9 +206,7 @@
         </div>
     </div>
 
-    {{-- TWO COL LAYOUT: SISI KIRI (INFO AKUN) & SISI KANAN (LINKEDIN + CV) --}}
     <div class="two-col">
-        {{-- SISI KIRI: DATA AKUN --}}
         <div class="info-card">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -241,7 +230,6 @@
             </div>
         </div>
 
-        {{-- SISI KANAN: DOKUMEN & KUALIFIKASI --}}
         <div class="info-card">
             <div class="section-head">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#db2777" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
@@ -249,7 +237,6 @@
             </div>
             
             <div class="doc-box-wrapper">
-                {{-- LinkedIn Card --}}
                 @if(!empty($instructor->instructorProfile->linkedin))
                     <a href="{{ $instructor->instructorProfile->linkedin }}" target="_blank" class="doc-item-link">
                         <div class="doc-icon bg-linkedin">
@@ -269,7 +256,6 @@
                     </div>
                 @endif
 
-                {{-- CV Card --}}
                 @if(!empty($instructor->instructorProfile->cv))
                     <a href="{{ Storage::url($instructor->instructorProfile->cv) }}" target="_blank" class="doc-item-link">
                         <div class="doc-icon bg-cv">
@@ -292,7 +278,6 @@
         </div>
     </div>
 
-    {{-- KURSUS YANG SAYA BUAT (GRID VIEW) --}}
     <div class="courses-card">
         <div class="section-head">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#db2777" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>

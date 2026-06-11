@@ -2,12 +2,10 @@
     @section('title', 'Detail Profil Instruktur - Cuanify')
 
     <div class="p-6 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-8 relative overflow-hidden">
-        
-        {{-- Elemen Dekorasi Latar Belakang (Meriah & Estetik) --}}
+
         <div class="absolute top-0 left-1/4 w-72 h-72 bg-purple-200/30 rounded-full blur-3xl -z-10 pointer-events-none animate-pulse"></div>
         <div class="absolute bottom-10 right-10 w-60 h-60 bg-pink-200/20 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-        {{-- Tombol Kembali --}}
         <div>
             <a href="{{ url('/admin/instructors') }}" class="inline-flex items-center gap-2 text-gray-500 hover:text-purple-600 font-bold text-sm transition-all group bg-white px-4 py-2 rounded-full shadow-sm border border-purple-50/50">
                 <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -17,12 +15,10 @@
             </a>
         </div>
 
-        {{-- Main Wrapper Card --}}
         <div class="bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-[36px] shadow-md border border-purple-100/80 shadow-purple-900/[0.03] transition-all relative">
             
             <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                
-                {{-- SISI KIRI: Foto Profil Bersih dengan Bingkai Lingkaran Glow (Bulat Sempurna Tanpa Badge) --}}
+
                 <div class="relative p-1.5 rounded-full bg-gradient-to-tr from-[#b55fe6] via-[#e84393] to-[#ff758c] shadow-lg shadow-purple-500/20 flex-shrink-0 group hover:scale-105 transition-transform duration-300">
                     <div class="w-36 h-36 rounded-full overflow-hidden bg-white p-1">
                         @if($instructor->instructorProfile && $instructor->instructorProfile->profile_photo && Storage::disk('public')->exists($instructor->instructorProfile->profile_photo))
@@ -35,10 +31,8 @@
                     </div>
                 </div>
 
-                {{-- SISI KANAN: Detail Konten & Info --}}
                 <div class="flex-1 text-center md:text-left w-full space-y-6">
                     <div>
-                        {{-- Badge Status Dinamis Berwarna Cerah --}}
                         @php
                             $status = strtolower($instructor->status_instructor ?? 'pending');
                             $statusClasses = [
@@ -53,7 +47,6 @@
                             {{ $instructor->status_instructor ?? 'Pending' }}
                         </span>
 
-                        {{-- Nama User dengan Efek Gradasi Berkilau --}}
                         <h2 class="text-4xl font-black tracking-tight mb-1 bg-gradient-to-r from-[#8e44ad] via-[#e84393] to-[#ff758c] bg-clip-text text-transparent">
                             {{ $instructor->username }}
                         </h2>
@@ -68,7 +61,6 @@
 
                     <hr class="border-purple-50">
 
-                    {{-- Section: Deskripsi Biografi --}}
                     <div class="space-y-2">
                         <h4 class="text-xs font-black text-purple-900/40 uppercase tracking-widest flex items-center justify-center md:justify-start gap-1.5">
                             🚀 Tentang Instruktur
@@ -78,10 +70,8 @@
                         </div>
                     </div>
 
-                    {{-- Section: Berkas Tautan Utama --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                         
-                        {{-- LinkedIn Card --}}
                         <div class="p-4 border border-purple-100 bg-gradient-to-br from-purple-50/30 via-white to-transparent rounded-2xl text-left flex items-center gap-4 group hover:-translate-y-1 hover:shadow-md hover:border-purple-300 transition-all duration-300">
                             <div class="p-3 bg-purple-600 text-white rounded-2xl shadow-md shadow-purple-500/20">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -101,7 +91,6 @@
                             </div>
                         </div>
 
-                        {{-- CV Card --}}
                         <div class="p-4 border border-pink-100 bg-gradient-to-br from-pink-50/30 via-white to-transparent rounded-2xl text-left flex items-center gap-4 group hover:-translate-y-1 hover:shadow-md hover:border-pink-300 transition-all duration-300">
                             <div class="p-3 bg-gradient-to-r from-[#e84393] to-[#ff758c] text-white rounded-2xl shadow-md shadow-pink-500/20">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
