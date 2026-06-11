@@ -1,25 +1,25 @@
 <nav x-data="{ open: false }" class="w-full bg-[#fff5f8] dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
 
-<div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between md:justify-end">
-    <div class="hidden md:flex items-center mr-auto">
-        <button
-            @click="sidebarOpen = !sidebarOpen"
-            class="p-2 rounded-xl hover:bg-pink-100 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
-    
-    <div class="flex items-center md:hidden">
-        <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
-    </div>
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between md:justify-end">
+        <div class="hidden md:flex items-center mr-auto">
+            <button
+                @click="sidebarOpen = !sidebarOpen; localStorage.setItem('sidebar_state', sidebarOpen ? 'opened' : 'closed')"
+                class="p-2 rounded-xl hover:bg-pink-100 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="flex items-center md:hidden">
+            <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
+        </div>
 
-    <div class="hidden md:flex md:items-center">
+        <div class="hidden md:flex md:items-center">
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="inline-flex items-center gap-3 px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-xl text-gray-500 dark:text-gray-400 bg-[#fff5f8] dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150 group">
-
+                        
                         <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm group-hover:scale-105 transition duration-200">
                             <img 
                                 src="{{ 
@@ -126,7 +126,7 @@
         @endif
         
         <hr class="my-2 border-gray-100 dark:border-gray-800">
-
+        
         @if(auth()->user()->role !== 'admin')
             <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')">Profil Saya</x-responsive-nav-link>
         @endif

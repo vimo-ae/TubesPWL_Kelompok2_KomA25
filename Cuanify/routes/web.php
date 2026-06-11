@@ -16,6 +16,9 @@ use App\Http\Controllers\LessonProgressController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReviewController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -106,7 +109,29 @@ Route::prefix('instructor')->middleware('auth')->group(function () {
 
 Route::post('/instructor/lessons/{lesson}/quiz', [InstructorQuizController::class, 'storeOrUpdate'])
     ->name('instructor.quizzes.storeOrUpdate');
+});
 
+Route::get('/test-mail', function () {
+    try {
+        Mail::raw('Test email dari Railway', function ($message) {
+            $message->to('test@example.com')->subject('Test');
+        });
+        return 'Email terkirim!';
+    } catch (\Exception $e) {
+        return $e->getMessage();
+    }
+});
+
+Route::get('/cek-user', function () {
+    return [
+        'auth_id' => Auth::id(),
+        'courses' => \App\Models\Course::take(5)->get(['course_id', 'user_id', 'title']),
+    ];
+})->middleware('auth');
+
+Route::get('/reset-db', function () {
+    Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+    return Artisan::output();
 });
 
 require __DIR__.'/auth.php';

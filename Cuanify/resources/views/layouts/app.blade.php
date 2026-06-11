@@ -41,11 +41,11 @@
                             :class="sidebarOpen ? 'px-6' : 'px-2'"
                         >
                             <a href="{{ route('dashboard') }}" class="logo-link inline-flex items-center">
-                                <img x-show="sidebarOpen" src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-12 w-auto object-contain">
+                                <img x-show="sidebarOpen" src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-20 w-auto object-contain">
                             </a>
                             <span
                                 x-show="sidebarOpen"
-                                class="text-[11px] font-bold tracking-wide text-gray-500 mt-2"
+                                class="text-[11px] font-bold tracking-wide text-gray-500"
                             >
                                 #BelajarJadiCuan 🚀
                             </span>

@@ -6,6 +6,7 @@ use App\Models\Lesson;
 use App\Models\Progress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\QuizResult;
 
 class LessonProgressController extends Controller
 {
@@ -15,6 +16,24 @@ class LessonProgressController extends Controller
         $profile = $user->profile; 
         $lesson = \App\Models\Lesson::findOrFail($lessonId);
         $course = $lesson->course;
+
+        if ($lesson->has_quiz && $lesson->quiz) {
+
+            $bestResult = QuizResult::where('user_id', $user->user_id)
+                ->where('quiz_id', $lesson->quiz->quiz_id)
+                ->orderByDesc('score')
+                ->first();
+
+            if (
+                !$bestResult ||
+                $bestResult->score < $lesson->quiz->passing_score
+            ) {
+                return back()->with(
+                    'error',
+                    'Anda harus lulus quiz terlebih dahulu sebelum menyelesaikan lesson ini.'
+                );
+            }
+        }
         
         $profileId = $profile->profile_id;
 
