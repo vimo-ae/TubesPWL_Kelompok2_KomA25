@@ -221,16 +221,16 @@ http://127.0.0.1:8000
 
 ## 👨‍💻 Struktur Tim
 
-| Nama                         | Peran     |
-| ---------------------------- | --------- |
-| Ryan Fredryck Ginting        | Developer |
-| Vedder Timothy Simbolon      | Developer |
-| Alvin Benyamin Singalingging | Developer |
-| Daradira Vonna               | Developer |
-| Aliyah Briek Salem Guzhie    | Developer |
+| Nama                         | Peran           |
+| ---------------------------- | --------------- |
+| Aliyah Briek Salem Guzhie    | Front Developer |
+| Alvin Benyamin Singalingging | Back Develope r |
+| Daradira Vonna               | Front Developer |
+| Ryan Fredryck Ginting        | Back Developer  |
+| Vedder Timothy Simbolon      | Project Manager |
 
 ---
 
 ## 📄 Lisensi
 
-Proyek ini dibuat untuk memenuhi tugas mata kuliah dan tujuan pembelajaran akademik.
+Proyek ini dibuat untuk memenuhi tugas mata kuliah Pemrograman Web Lanjutan dan tujuan pembelajaran akademik.
