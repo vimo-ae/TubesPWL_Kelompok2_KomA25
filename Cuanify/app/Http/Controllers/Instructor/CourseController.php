@@ -13,7 +13,11 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::where('user_id', Auth::id())->get();
+        $courses = Course::with(['reviews', 'lessons', 'category'])
+            ->where('user_id', Auth::id())
+            ->get();
+
+    return view('instructor.courses.index', compact('courses'));
 
         return view('instructor.courses.index', compact('courses'));
     }

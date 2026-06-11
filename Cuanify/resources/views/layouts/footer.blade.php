@@ -1,6 +1,6 @@
 <footer class="bg-white border-t border-purple-200">
 
-    <div class="max-w-7xl mx-auto px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8">
 
         <div class="flex flex-col items-center text-center">
 
@@ -23,7 +23,7 @@
                 </a>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-8 mt-6 text-sm">
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-8 mt-6 text-sm">
 
                 <a href="/dashboard"
                    class="text-gray-600 hover:text-purple-600">

@@ -12,7 +12,7 @@
         </div>
         
         <div class="flex items-center md:hidden">
-            <img src="{{ asset('images/Cuanify-jukebox-bg-removed.png') }}" alt="Logo Cuanify" class="h-8 w-auto object-contain">
+            <img src="{{ asset('images/Cuanify-logo.png') }}" alt="Logo Cuanify" class="h-12 sm:h-10 w-auto object-contain">
         </div>
 
         <div class="hidden md:flex md:items-center">
@@ -32,8 +32,8 @@
                             >
                         </div>
 
-                        <div class="text-left hidden lg:block">
-                            <div class="text-md font-black text-gray-700 dark:text-gray-300">
+                        <div class="text-left hidden lg:block max-w-[180px]">
+                            <div class="truncate text-md font-black text-gray-700 dark:text-gray-300">
                                 {{ auth()->user()->role === 'admin' ? 'Admin' : (auth()->user()->profile?->full_name ?? auth()->user()->username) }}
                             </div>
                             <div class="text-[10px] text-gray-400 font-medium">

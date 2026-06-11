@@ -14,26 +14,24 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-gray-900">
+    <body class="font-sans antialiased text-gray-900 overflow-x-hidden">
         
         <div
             x-data="{ sidebarOpen: true }"
             @toggle-sidebar.window="sidebarOpen = !sidebarOpen"
-            class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900"
+            class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900 overflow-x-hidden"
         >
 
             @auth
-                <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-40 bg-black/40 md:hidden" @click="sidebarOpen = false"></div>
                 <aside
                     :class="sidebarOpen ? 'w-64' : 'w-20'"
-                    class="fixed inset-y-0 left-0 z-50
-                           bg-white dark:bg-gray-800
-                           h-screen
-                           flex flex-col justify-between
-                           overflow-y-auto
-                           border-r border-purple-50
-                           dark:border-gray-700
-                           transition-all duration-300">
+                    class="hidden md:flex fixed inset-y-0 left-0 z-50
+                        bg-white dark:bg-gray-800
+                        h-screen flex-col justify-between
+                        overflow-y-auto
+                        border-r border-purple-50
+                        dark:border-gray-700
+                        transition-all duration-300">        
                     
                     <div class="py-6 flex flex-col h-full">
                         <div
@@ -62,7 +60,7 @@
 
                 @include('layouts.navigation')
 
-                <main class="flex-1 p-6 md:p-8 mb-10 mx-7 overflow-x-hidden">
+                <main class="flex-1 p-4 md:p-8 mb-10">
                     {{ $slot }}
                 </main>
 

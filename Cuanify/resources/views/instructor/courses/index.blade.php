@@ -25,14 +25,14 @@
                     <div class="flex flex-col sm:flex-row items-stretch gap-4 w-full sm:w-auto min-h-[108px]">
     
                         <a href="{{ route('instructor.courses.create') }}"
-                        class="w-full sm:w-auto flex-1 bg-white text-purple-700 hover:bg-purple-50 px-6 rounded-3xl font-bold shadow-lg transition duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]">
+   class="w-full sm:w-auto min-h-[88px] bg-white text-purple-700 hover:bg-purple-50 px-6 rounded-3xl font-bold shadow-lg transition duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                             </svg>
                             Tambah Course
                         </a>
 
-                        <div class="bg-white/10 border border-white/10 backdrop-blur-md rounded-3xl px-8 py-4 text-center min-w-[140px] shadow-lg flex flex-col justify-center">
+                        <div class="bg-white/10 border border-white/10 backdrop-blur-md rounded-3xl px-8 py-4 text-center w-full sm:min-w-[140px] shadow-lg flex flex-col justify-center">
                             <p class="text-xs uppercase tracking-[2px] text-purple-100 mb-1">
                                 Total Course
                             </p>
@@ -135,7 +135,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/>
                                         </svg>
-                                        4.8
+                                        {{ number_format($course->reviews->avg('rating') ?? 0, 1) }}
                                     </span>
                                 </div> 
 

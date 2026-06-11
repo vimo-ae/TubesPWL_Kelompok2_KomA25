@@ -1,6 +1,6 @@
 @if(auth()->user()->role === 'admin')
 
-    <div class="flex flex-col gap-3 mt-4 items-center lg:items-stretch">
+    <div class="flex flex-col gap-3 mt-4 items-stretch">
 
         <a href="{{ route('admin.dashboard') }}"
            :class="sidebarOpen ? 'w-full px-5 py-4 rounded-3xl justify-start gap-4' : 'w-12 h-12 rounded-full justify-center gap-0'"
@@ -56,7 +56,7 @@
 
 @else
 
-    <div class="flex flex-col gap-3 mt-4 items-center lg:items-stretch">
+    <div class="flex flex-col gap-3 mt-4 items-stretch">
 
         <a href="{{ route('dashboard') }}"
            :class="sidebarOpen ? 'w-full px-5 py-4 rounded-3xl justify-start gap-4' : 'w-12 h-12 rounded-full justify-center gap-0'"

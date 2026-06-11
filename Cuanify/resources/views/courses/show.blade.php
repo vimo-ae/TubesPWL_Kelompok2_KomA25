@@ -26,7 +26,7 @@
 
             <div class="bg-white rounded-[35px] overflow-hidden shadow-xl border border-purple-100">
 
-                <div class="relative h-[320px] overflow-hidden">
+                <div class="relative h-[220px] sm:h-[280px] lg:h-[320px] overflow-hidden">
                 
                     @php
                         $defaultBanner = match($course->category_id) {
@@ -50,14 +50,14 @@
 
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-                    <span class="absolute top-5 left-5 bg-white/90 px-4 py-1 rounded-full text-xs font-bold text-purple-700 capitalize">
+                    <span class="absolute top-3 left-3 sm:top-5 sm:left-5 bg-white/90 px-3 sm:px-4 py-1 rounded-full text-[10px] sm:text-xs font-bold text-purple-700 capitalize">
                         {{ $course->difficulty_level }}
                     </span>
                     
-                    <div class="absolute bottom-8 left-8 text-white">
+                    <div class="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 text-white">
                         <p class="text-sm mb-2 opacity-90">{{ $course->category->category_name ?? 'No Category' }}</p>
-                        <h1 class="text-4xl font-extrabold mb-3">{{ $course->title }}</h1>
-                        <div class="flex items-center gap-6 text-sm text-purple-100">
+                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3">{{ $course->title }}</h1>
+                        <div class="flex flex-wrap items-center gap-3 sm:gap-6 text-xs sm:text-sm text-purple-100">
 
                             <div class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -71,7 +71,7 @@
                                     1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1
                                     1 0 00.951-.69l1.07-3.292z"/>
                                 </svg>
-                                <span>4.8 Rating</span>
+                                <span>{{ number_format($course->reviews->avg('rating') ?? 0, 1) }} Rating</span>
                             </div>
                         
                             <div class="flex items-center gap-2">
@@ -145,30 +145,36 @@
         @if($canViewLessons)
             
             @php
-                $isCompleted = $lesson->progress
-                    ->where('profile_id', auth()->user()->profile->profile_id)
-                    ->where('is_completed', true)
-                    ->first();
+                $profileId = auth()->user()->profile?->profile_id;
+
+                $isCompleted = $profileId
+                    ? $lesson->progress
+                        ->where('profile_id', $profileId)
+                        ->where('is_completed', true)
+                        ->first()
+                    : null;
             @endphp
 
             @if($isCompleted)
                 <a href="{{ route('lessons.show', $lesson->lesson_id) }}" class="block group opacity-75 hover:opacity-100 transition-opacity duration-300">
-                    <div class="bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex items-center justify-between hover:shadow-md transition-all duration-300">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center font-bold">
+                    <div class="bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:shadow-md transition-all duration-300">
+                        <div class="flex items-center gap-4 min-w-0">
+                            <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] shrink-0 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center font-bold">
                                 {{ $loop->iteration }}
                             </div>
+
                             <div>
-                                <h4 class="font-bold text-gray-500 decoration-gray-400 dark:text-gray-400">
+                                <h4 class="font-bold text-gray-500 dark:text-gray-400">
                                     {{ $lesson->title }}
                                 </h4>
+
                                 <p class="text-sm text-gray-400">
                                     Lesson {{ $loop->iteration }}
                                 </p>
                             </div>
                         </div>
                         
-                        <div class="flex items-center gap-1.5 bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-200 dark:border-green-900">
+                        <div class="shrink-0 flex items-center gap-1.5 bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold border border-green-200 dark:border-green-900">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
@@ -178,15 +184,17 @@
                 </a>
             @else
                 <a href="{{ route('lessons.show', $lesson->lesson_id) }}" class="block group">
-                    <div class="bg-white dark:bg-gray-800 border border-purple-100 dark:border-gray-700 rounded-2xl p-5 flex items-center justify-between hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-500 hover:-translate-y-1 transition-all duration-300">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white flex items-center justify-center font-bold">
+                    <div class="bg-white dark:bg-gray-800 border border-purple-100 dark:border-gray-700 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-500 hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4 min-w-0">
+                            <div class="w-12 h-12 min-w-[3rem] min-h-[3rem] shrink-0 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white flex items-center justify-center font-bold">
                                 {{ $loop->iteration }}
                             </div>
+
                             <div>
                                 <h4 class="font-bold text-gray-800 dark:text-gray-200">
                                     {{ $lesson->title }}
                                 </h4>
+
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
                                     Lesson {{ $loop->iteration }}
                                 </p>
@@ -373,7 +381,20 @@
                                     
                                         <div class="mt-6 pt-6 border-t border-purple-200">
                                             <div class="bg-orange-50 border border-orange-200 p-4 rounded-xl flex items-start gap-3">
-                                                <span class="text-orange-500 text-xl">🔒</span>
+                                                <svg 
+                                                class="text-orange-500 w-12 h-12" 
+                                                fill="none" 
+                                                stroke="currentColor" 
+                                                viewBox="0 0 24 24" 
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                <path 
+                                                    stroke-linecap="round" 
+                                                    stroke-linejoin="round" 
+                                                    stroke-width="2" 
+                                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                                ></path>
+                                                </svg>
                                                 <div>
                                                     <h4 class="font-bold text-orange-800 text-sm">
                                                         Fitur Ulasan Terkunci
