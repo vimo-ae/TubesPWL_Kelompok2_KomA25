@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    // Sesuaikan primary key kalau kamu pakai nama lain
     protected $primaryKey = 'review_id';
 
     protected $fillable = [

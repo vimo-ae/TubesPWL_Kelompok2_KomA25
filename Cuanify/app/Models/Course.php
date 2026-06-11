@@ -22,31 +22,21 @@ class Course extends Model
         'rejection_reason',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | RELATIONSHIPS
-    |--------------------------------------------------------------------------
-    */
-
-    // Course belongs to Category
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
 
-    // Course has many Lessons
     public function lessons()
     {
         return $this->hasMany(Lesson::class, 'course_id', 'course_id');
     }
 
-    // Course has many Enrollments
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class, 'course_id', 'course_id');
     }
 
-    // Course has many Reviews
     public function reviews()
     {
         return $this->hasMany(Review::class, 'course_id', 'course_id');
