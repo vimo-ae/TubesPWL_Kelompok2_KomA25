@@ -224,7 +224,7 @@ http://127.0.0.1:8000
 | Nama                         | Peran           |
 | ---------------------------- | --------------- |
 | Aliyah Briek Salem Guzhie    | Front Developer |
-| Alvin Benyamin Singalingging | Back Develope r |
+| Alvin Benyamin Singalingging | Back Developer  |
 | Daradira Vonna               | Front Developer |
 | Ryan Fredryck Ginting        | Back Developer  |
 | Vedder Timothy Simbolon      | Project Manager |
