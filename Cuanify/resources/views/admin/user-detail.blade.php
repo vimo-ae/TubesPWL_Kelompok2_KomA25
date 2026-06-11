@@ -1,6 +1,14 @@
 <x-app-layout>
 
     @section('title', 'User Detail - Cuanify')
+
+    @php
+    $roleColor = match($userDetail->role) {
+        'admin' => 'text-purple-700',
+        'instructor' => 'text-blue-700',
+        default => 'text-gray-700',
+    };
+    @endphp
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -8,11 +16,13 @@
         </h2>
     </x-slot>
 
-    <div class="p-6 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-6">
+    <div class="p-4 sm:p-6 lg:p-10 max-w-5xl mx-auto space-y-6">
 
         <div>
             <a href="javascript:history.back()" class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 font-semibold text-sm transition-all group">
-                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> Kembali ke Daftar
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg> Kembali ke Daftar
             </a>
         </div>
 
@@ -23,10 +33,10 @@
             </div>
         @endif
 
-        <div class="bg-white p-6 sm:p-8 rounded-[30px] shadow-sm border border-purple-100/60 flex flex-col md:flex-row gap-8 items-start">
+        <div class="bg-white p-6 sm:p-8 rounded-[30px] shadow-sm border border-purple-100/60 flex flex-col lg:flex-row gap-8 items-start w-full">
             
             <div class="flex-1 w-full">
-                <div class="w-24 h-24 bg-gradient-to-br from-[#b55fe6]/20 to-[#e84393]/20 text-purple-700 rounded-3xl flex items-center justify-center text-4xl font-extrabold mb-5 shadow-inner">
+                <div class="w-24 h-24 bg-gradient-to-br from-[#b55fe6]/20 to-[#e84393]/20 text-purple-700 rounded-3xl flex items-center justify-center text-4xl font-extrabold mb-5 shadow-inner ring-4 ring-purple-100">
                     {{ strtoupper(substr($userDetail->username, 0, 1)) }}
                 </div>
                 
@@ -38,7 +48,20 @@
                 <div class="border-t border-gray-50 pt-5 space-y-3.5 text-sm text-gray-600">
                     <div class="flex justify-between sm:justify-start sm:gap-10 border-b border-gray-50 pb-2">
                         <span class="text-gray-400 w-28">Role Akun</span>
-                        <span class="capitalize font-bold bg-purple-50 text-purple-700 px-2.5 py-0.5 rounded-lg text-xs border border-purple-100">{{ $userDetail->role }}</span>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-lg border text-xs font-bold capitalize {{ $roleColor }}">
+
+                            @if($userDetail->role === 'admin')
+                                <svg class="w-3 h-3 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l7 4v5c0 5-3 9-7 11-4-2-7-6-7-11V6l7-4z"/>
+                                </svg>
+                            @else
+                                <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                            @endif
+                            
+                            {{ $userDetail->role }}
+                        </span>
                     </div>
                     <div class="flex justify-between sm:justify-start sm:gap-10 border-b border-gray-50 pb-2">
                         <span class="text-gray-400 w-28">Terdaftar</span>
@@ -53,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-[400px] bg-purple-50/40 p-6 rounded-2xl border border-purple-100/60" x-data="{ selectedStatus: '{{ $userDetail->status }}' }">
+            <div class="w-full md:w-[400px] bg-purple-50/40 p-6 rounded-2xl border border-purple-100/60" x-data="{ selectedStatus: @js($userDetail->status) }">
                 <h3 class="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
                     <i class="fas fa-user-shield text-purple-500"></i> Kontrol Akses Akun
                 </h3>
@@ -64,12 +87,34 @@
                     
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Pilih Status</label>
-                        <select name="status" x-model="selectedStatus" 
+                        <select name="status" x-model="selectedStatus"
                             class="w-full border-gray-200 rounded-xl bg-white px-4 py-2.5 text-sm text-gray-700 focus:ring-2 focus:ring-purple-300 focus:border-purple-400 outline-none transition shadow-sm">
-                            <option value="active">🟢 Active (Aktif)</option>
-                            <option value="inactive">⚪ Inactive (Non-Aktif)</option>
-                            <option value="banned">🔴 Banned (Ditangguhkan)</option>
+                            <option value="active">Active (Aktif)</option>
+                            <option value="inactive">Inactive (Non-Aktif)</option>
+                            <option value="banned">Banned (Ditangguhkan)</option>
                         </select>
+                        <div class="flex gap-2 mt-2 text-xs">
+                            <span class="inline-flex items-center gap-1 text-green-600">
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                Active
+                            </span>
+                        
+                            <span class="inline-flex items-center gap-1 text-gray-500">
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                Inactive
+                            </span>
+                        
+                            <span class="inline-flex items-center gap-1 text-red-500">
+                                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                Banned
+                            </span>
+                        </div>
                     </div>
 
                     <div x-show="selectedStatus === 'banned'" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" class="space-y-4">
