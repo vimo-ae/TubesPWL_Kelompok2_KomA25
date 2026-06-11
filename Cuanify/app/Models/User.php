@@ -11,9 +11,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Course;
 
-class User extends Authenticatable implements MustVerifyEmail
+// class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    // use HasFactory, Notifiable;
+    use HasFactory;
 
     protected $primaryKey = 'user_id';
 
