@@ -10,7 +10,6 @@
     padding: 0 0 32px; 
 }
 
-/* HERO */
 .admin-hero {
     background: linear-gradient(135deg, #a855f7, #ec4899);
     border-radius: 35px; 
@@ -59,7 +58,6 @@
     font-weight: 400;
 }
 
-/* CARDS & TABLES */
 .iv-card { background:#fff; border:1px solid #ede9fe; border-radius:18px; overflow:hidden; margin-bottom:20px; }
 .iv-card-header { padding:16px 22px; border-bottom:1px solid #f5f3ff; display:flex; align-items:center; gap:10px; }
 .iv-card-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -78,10 +76,8 @@
 .pill { display:inline-block; padding:3px 10px; border-radius:99px; font-size:10px; font-weight:700; }
 .pill-pending { background:#fef3c7; color:#d97706; }
 
-/* MODIFIKASI: Ditengahkan lewat selector class utama action-wrap agar lebih konsisten */
 .action-wrap { display:flex; flex-direction: column; gap:8px; justify-content:center; align-items: center; }
 
-/* Menyamakan padding/font tombol aksi */
 .btn-detail { padding:5px 14px; border-radius:8px; background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff; font-size:11px; font-weight:700; cursor:pointer; transition:background .15s, transform .15s; }
 .btn-detail:hover { background:#7e22ce; color:#fff; transform:translateY(-1px); }
 
