@@ -26,7 +26,6 @@
 
             <div class="bg-white rounded-[35px] overflow-hidden shadow-xl border border-purple-100">
 
-                <!-- Thumbnail Section -->
                 <div class="relative h-[320px] overflow-hidden">
                 
                     @php
@@ -121,12 +120,10 @@
                 @endif
 
                 <div class="p-8 grid lg:grid-cols-3 gap-8">
-                    <!-- KOLOM KIRI (Konten) -->
                     <div class="lg:col-span-2">
                         <h2 class="text-2xl font-extrabold text-gray-800 mb-4">Tentang Course</h2>
                         <p class="text-gray-600 leading-relaxed mb-8">{{ $course->description }}</p>
 
-                        <!-- Daftar Lesson -->
                         <div>
                             <div class="flex items-center justify-between mb-5">
                                 <div>
@@ -147,7 +144,6 @@
     @forelse($course->lessons as $lesson)
         @if($canViewLessons)
             
-            {{-- Pengecekan apakah user ini sudah menyelesaikan lesson ini --}}
             @php
                 $isCompleted = $lesson->progress
                     ->where('profile_id', auth()->user()->profile->profile_id)
@@ -220,7 +216,6 @@
 </div>
                         </div>
 
-                        <!-- BAGIAN ULASAN (Review Section) -->
                         <div class="mt-12 bg-purple-50 rounded-3xl p-6">
                             <h3 class="text-2xl font-extrabold text-gray-800 mb-6">Apa kata mereka?</h3>
                             <div class="space-y-4">
@@ -291,7 +286,6 @@
                             <h3 class="text-2xl font-extrabold text-gray-800 mb-2">Mulai Belajar</h3>
                             <p class="text-sm text-gray-500 mb-6">Tingkatkan skill dan mulai perjalanan belajarmu sekarang.</p>
                             
-                            <!-- Statistik -->
                             <div class="mb-4">
                                 <span class="inline-flex items-center px-4 py-2 rounded-full
                                              bg-purple-100 text-purple-700 font-semibold text-sm">
@@ -338,7 +332,6 @@
                                 @endif
                             @endif
 
-                            <!-- Form Review -->
                             @auth
                                 @if(auth()->user()->role === 'student')
 

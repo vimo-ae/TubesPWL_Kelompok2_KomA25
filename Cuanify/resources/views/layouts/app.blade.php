@@ -22,7 +22,6 @@
             class="min-h-screen flex bg-[#fff5f8] dark:bg-gray-900"
         >
 
-            {{-- 1. SIDEBAR DIIZINKAN UNTUK SEMUA ROLE YANG SUDAH LOGIN --}}
             @auth
                 <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-40 bg-black/40 md:hidden" @click="sidebarOpen = false"></div>
                 <aside
@@ -37,7 +36,6 @@
                            transition-all duration-300">
                     
                     <div class="py-6 flex flex-col h-full">
-                        {{-- Header Sidebar (Logo Cuanify) --}}
                         <div
                             class="pt-4 mb-6 flex flex-col items-center"
                             :class="sidebarOpen ? 'px-6' : 'px-2'"
@@ -60,18 +58,14 @@
                 </aside>
             @endauth
 
-            {{-- 2. SISI KANAN (NAVBAR, KONTEN UTAMA, & FOOTER) --}}
             <div :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'" class="flex-1 min-w-0 flex flex-col bg-[#fff5f8] dark:bg-gray-900 transition-all duration-300">
-                
-                {{-- Navigation/Topbar --}}
+
                 @include('layouts.navigation')
 
-                {{-- Konten Utama (Gradasi Cantik Cuanify) --}}
                 <main class="flex-1 p-6 md:p-8 mb-10 mx-7 overflow-x-hidden">
                     {{ $slot }}
                 </main>
 
-                {{-- Footer --}}
                 @include('layouts.footer')
             </div>
 

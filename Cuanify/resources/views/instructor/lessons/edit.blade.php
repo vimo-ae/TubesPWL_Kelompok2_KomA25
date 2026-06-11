@@ -69,7 +69,6 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-// DEKLARASI VARIABEL DI PALING ATAS BIAR GAK UNDEFINED
 let isFormDirty = false;
 let editorInstance = null;
 const form = document.getElementById('lessonForm');
@@ -95,8 +94,7 @@ ClassicEditor
     })
     .then(editor => {
         editorInstance = editor;
-        
-        // Deteksi perubahan teks di CKEditor
+
         editor.model.document.on('change:data', () => {
             isFormDirty = true;
         });
@@ -105,18 +103,16 @@ ClassicEditor
         console.error(error);
     });
 
-// Deteksi perubahan input form biasa (seperti text input, checkbox, dll)
 if (form) {
     form.addEventListener('input', () => {
         isFormDirty = true;
     });
 
     form.addEventListener('submit', () => {
-        isFormDirty = false; // Matikan proteksi alert saat emang sengaja submit form draft
+        isFormDirty = false; 
     });
 }
 
-// Konfirmasi tombol kembali
 const btnBack = document.getElementById('btnBack');
 if (btnBack) {
     btnBack.addEventListener('click', function(e) {
@@ -128,8 +124,6 @@ if (btnBack) {
         }
     });
 }
-
-// Proteksi refresh/close tab sembarangan dari browser
 window.addEventListener('beforeunload', function (e) {
     if (isFormDirty) {
         e.preventDefault();
@@ -137,20 +131,17 @@ window.addEventListener('beforeunload', function (e) {
     }
 });
 
-// Handler Otomatis Simpan lewat background (Fetch) baru buka tab Preview
 const btnPreview = document.getElementById('btnPreview');
 if (btnPreview) {
     btnPreview.addEventListener('click', function() {
         const previewUrl = this.getAttribute('data-preview-url');
         
-        // Paksa sinkronisasi data CKEditor ke textarea orisinil sebelum dibaca FormData
         if (editorInstance) {
             document.querySelector('#editor').value = editorInstance.getData();
         }
 
         const formData = new FormData(form);
 
-        // Tampilkan indikator loading sederhana pada tombol
         const originalText = btnPreview.innerText;
         btnPreview.innerText = 'Saving...';
         btnPreview.disabled = true;
@@ -168,8 +159,8 @@ if (btnPreview) {
             btnPreview.disabled = false;
 
             if (response.ok) {
-                isFormDirty = false; // Reset status dirty form karena data sudah ampun di DB
-                window.open(previewUrl, '_blank'); // Eksekusi buka tab baru preview
+                isFormDirty = false; 
+                window.open(previewUrl, '_blank'); 
             } else {
                 alert('Gagal menyimpan data otomatis sebelum memuat preview. Periksa validasi input Anda.');
             }
@@ -183,7 +174,6 @@ if (btnPreview) {
     });
 }
 
-// Handler Toggle Section Quiz (Biar aman dari crash jika element tidak ada di partial form)
 const checkbox = document.getElementById('hasQuiz');
 const quizSection = document.getElementById('quizSection');
 if (checkbox && quizSection) {

@@ -151,19 +151,16 @@
                                 <td class="name-bold">{{ $instructor->username }}</td>
                                 <td class="email-muted">{{ $instructor->email }}</td>
                                 <td class="center"><span class="pill pill-pending">Pending</span></td>
-                                
-                                {{-- Kolom Profil --}}
+
                                 <td class="center">
                                     <a href="{{ url('/admin/instructor/' . $instructor->user_id) }}" class="inline-block btn-detail">
                                         Detail
                                     </a>
                                 </td>
 
-                                {{-- Kolom Aksi (SUDAH FIX TENGAH) --}}
                                 <td class="center">
                                     <div class="action-wrap">
                                         
-                                        {{-- Row Tombol Utama --}}
                                         <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
                                             <form action="{{ url('/admin/approve/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
                                                 @csrf
@@ -175,7 +172,6 @@
                                             </button>
                                         </div>
 
-                                        {{-- Form Alasan Penolakan Dropdown Semetris --}}
                                         <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-60 text-left mx-auto">
                                             <form action="{{ url('/admin/reject/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
                                                 @csrf

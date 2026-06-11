@@ -1,6 +1,5 @@
 <div class="space-y-6">
 
-    {{-- Judul --}}
     <div>
         <label class="block font-medium mb-2">
             Judul Lesson
@@ -13,7 +12,6 @@
             class="w-full border rounded-lg p-3">
     </div>
 
-    {{-- Isi --}}
     <div>
         <label class="block font-medium mb-2">
             Isi Materi
@@ -28,7 +26,6 @@
         </div>
     </div>
 
-    {{-- Video --}}
     <div>
         <label class="block font-medium mb-2">
             Link Video Youtube
@@ -41,7 +38,6 @@
             class="w-full border rounded-lg p-3">
     </div>
 
-    {{-- XP --}}
     <div>
         <label class="block font-medium mb-2">
             Reward XP
@@ -69,7 +65,6 @@
         </select>
     </div>
 
-    {{-- Quiz --}}
     <div>
 
         <label class="flex items-center gap-2">

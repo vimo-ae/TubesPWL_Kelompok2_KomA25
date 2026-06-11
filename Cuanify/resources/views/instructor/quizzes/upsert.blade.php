@@ -11,7 +11,6 @@
 
         @csrf
 
-        {{-- QUIZ INFO --}}
         <input type="text"
                name="title"
                value="{{ $quiz->title ?? '' }}"
@@ -32,7 +31,6 @@
 
         <hr class="mb-6">
 
-        {{-- QUESTIONS --}}
         <div id="questions-container">
 
             @if($quiz)
@@ -41,13 +39,11 @@
 
                     <div class="border p-4 mb-5 rounded">
 
-                        {{-- QUESTION TEXT --}}
                         <input type="text"
                                name="questions[{{ $qIndex }}][question_text]"
                                value="{{ $question->question_text }}"
                                class="w-full border p-2 mb-2">
 
-                        {{-- TYPE --}}
                         <select name="questions[{{ $qIndex }}][question_type]"
                                 class="w-full border p-2 mb-3">
 
@@ -63,7 +59,6 @@
 
                         </select>
 
-                        {{-- MULTIPLE CHOICE --}}
                         @if($question->question_type === 'multiple_choice')
 
                             @foreach($question->options as $oIndex => $option)
@@ -86,7 +81,6 @@
 
                         @else
 
-                            {{-- TRUE FALSE --}}
                             <select name="questions[{{ $qIndex }}][correct_answer]"
                                     class="w-full border p-2">
 

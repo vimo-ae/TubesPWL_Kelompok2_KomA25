@@ -19,8 +19,7 @@
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="inline-flex items-center gap-3 px-3 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-xl text-gray-500 dark:text-gray-400 bg-[#fff5f8] dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150 group">
-                        
-                        {{-- 💻 FOTO PROFIL DESKTOP --}}
+
                         <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm group-hover:scale-105 transition duration-200">
                             <img 
                                 src="{{ 
@@ -35,7 +34,6 @@
 
                         <div class="text-left hidden lg:block">
                             <div class="text-md font-black text-gray-700 dark:text-gray-300">
-                                {{-- Jika admin, langsung tampilkan username tanpa cek relasi profile --}}
                                 {{ auth()->user()->role === 'admin' ? 'Admin' : (auth()->user()->profile?->full_name ?? auth()->user()->username) }}
                             </div>
                             <div class="text-[10px] text-gray-400 font-medium">
@@ -52,7 +50,6 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    {{-- Sembunyikan 'Profil Saya' jika user adalah admin --}}
                     @if(auth()->user()->role !== 'admin')
                         <x-dropdown-link :href="route('profile')">
                             {{ __('Profil Saya') }}
@@ -85,11 +82,9 @@
         </div>
     </div>
 
-    {{-- MENU MOBILE NAVIGATION --}}
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg py-3 px-4 space-y-1">
         
         <div class="flex items-center gap-3 px-3 py-2 mb-2 bg-pink-50/40 dark:bg-gray-800 rounded-xl">
-            {{-- 📱 FOTO PROFIL MOBILE --}}
             <div class="relative w-10 h-10 rounded-full overflow-hidden border border-pink-200/60 shadow-sm shrink-0">
                 <img
                     src="{{ 
@@ -131,8 +126,7 @@
         @endif
         
         <hr class="my-2 border-gray-100 dark:border-gray-800">
-        
-        {{-- Sembunyikan link 'Profil Saya' di menu mobile jika role admin --}}
+
         @if(auth()->user()->role !== 'admin')
             <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')">Profil Saya</x-responsive-nav-link>
         @endif

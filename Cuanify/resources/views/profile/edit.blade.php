@@ -3,7 +3,6 @@
     @section('title', 'Profile - Cuanify')
 
 <style>
-/* Menggunakan font sistem ui-sans-serif bawaan agar seragam dan ringan */
 .edit-wrap { 
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
     max-width: 560px; 
@@ -74,7 +73,7 @@
 .field label {
     display: block; 
     font-size: 11px; 
-    font-weight: 600; /* Diturunkan sedikit dari 700 agar lebih clean */
+    font-weight: 600;
     color: #6b7280; 
     text-transform: uppercase;
     letter-spacing: .05em; 
@@ -126,7 +125,7 @@
     padding: 10px 22px; 
     border-radius: 10px;
     font-size: 13px; 
-    font-weight: 600; /* Menggunakan ketebalan medium-semibold standard Tailwind */
+    font-weight: 600; 
     background: linear-gradient(135deg,#ec4899,#a855f7);
     color: #fff; 
     border: none; 
@@ -148,7 +147,6 @@
         </div>
 
         <div class="edit-body">
-            {{-- Menampilkan pesan error validasi dari server laravel --}}
             @if($errors->any())
             <div style="background:#fee2e2;color:#991b1b;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:13px;">
                 @foreach($errors->all() as $e) <div>{{ $e }}</div> @endforeach
@@ -159,7 +157,6 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Foto Profil dengan Fitur Live-Preview --}}
                 <div class="avatar-row">
                         <img id="photoPreview" src="{{ Auth::user()->profile?->profile_photo && Storage::disk('public')->exists(Auth::user()->profile->profile_photo) ? Storage::url(Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" class="avatar-img" alt="Foto Profil">
                     
@@ -177,7 +174,6 @@
                     </div>
                 </div>
 
-                {{-- Input Nama Lengkap --}}
                 <div class="field">
                     <label>Nama Lengkap</label>
                     <input type="text" name="full_name"
@@ -185,14 +181,12 @@
                            placeholder="Masukkan nama lengkap">
                 </div>
 
-                {{-- Input Deskripsi / Bio --}}
                 <div class="field">
                     <label>Bio</label>
                     <textarea name="bio" rows="4"
                               placeholder="Ceritakan sedikit tentang dirimu...">{{ old('bio', $profile->bio) }}</textarea>
                 </div>
 
-                {{-- Tombol Aksi --}}
                 <div class="btn-row">
                     <a href="{{ route('profile') }}" class="btn-cancel">Batal</a>
                     <button type="submit" class="btn-save">Simpan Perubahan</button>
@@ -202,7 +196,6 @@
     </div>
 </div>
 
-{{-- Javascript untuk mengubah gambar secara realtime saat file dipilih --}}
 <script>
 function previewPhoto(event) {
     const file = event.target.files[0];

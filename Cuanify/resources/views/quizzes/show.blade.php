@@ -110,7 +110,6 @@
             </div>
 
         @else
-            {{-- Tampilan Jika Kuis Kosong / Null --}}
             <div class="bg-white rounded-[28px] p-10 text-center border border-yellow-200 shadow-sm">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg"

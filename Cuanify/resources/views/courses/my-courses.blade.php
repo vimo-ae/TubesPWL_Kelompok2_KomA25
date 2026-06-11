@@ -44,7 +44,6 @@
             @foreach($courses as $course)
 
                 @php
-                    // --- Logika Fallback Banner Kategori (front-course-part2) ---
                     $defaultBanner = match($course->category_id) {
                         1 => 'images/courses/literasi-keuangan.jpg',
                         2 => 'images/courses/umkm-kewirausahaan.jpg',
@@ -72,8 +71,7 @@
                                 <img src="{{ $imageSrc }}"
                                      alt="{{ $course->title }}"
                                      class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                 
-                                {{-- Badge Tingkat Kesulitan --}}
+                                
                                 <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-purple-700 capitalize shadow-sm z-10">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.483 9.246 5 7.5 5S4.168 5.483 3 6.253v13C4.168 18.483 5.754 18 7.5 18s3.332.483 4.5 1.253m0-13C13.168 5.483 14.754 5 16.5 5S19.832 5.483 21 6.253v13C19.832 18.483 18.246 18 16.5 18s-3.332.483-4.5 1.253"/>
@@ -81,7 +79,6 @@
                                     {{ $course->difficulty_level }}
                                 </span>
 
-                                {{-- Badge Durasi --}}
                                 <span class="absolute bottom-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-semibold text-gray-700 shadow-sm z-10">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <circle cx="12" cy="12" r="9" stroke-width="2"/>
@@ -105,7 +102,6 @@
                                 </p>
                             
                                 <div class="flex justify-between items-center text-xs mt-auto">
-                                    {{-- Info Total Lesson --}}
                                     <span class="flex items-center gap-1 text-purple-600 font-semibold bg-purple-50 px-2 py-1 rounded-md">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              class="w-4 h-4"
@@ -120,8 +116,7 @@
                                     
                                         {{ $course->lessons->count() }} Lesson
                                     </span>
-                                    
-                                    {{-- Rating Fallback / Penyeimbang Visual --}}
+
                                     <span class="flex items-center gap-1 text-yellow-500 font-bold bg-yellow-50 px-2 py-1 rounded-md">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z"/>
