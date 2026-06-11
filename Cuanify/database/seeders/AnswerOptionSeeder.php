@@ -3,961 +3,290 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
 use App\Models\AnswerOption;
 
 class AnswerOptionSeeder extends Seeder
 {
     public function run(): void
     {
-        // Question 1 (MCQ)
-        AnswerOption::create([
-            'question_id' => 1,
-            'option_text' => 'Menghabiskan uang',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 1,
-            'option_text' => 'Mengembangkan nilai uang',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 1,
-            'option_text' => 'Menabung tanpa tujuan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 1,
-            'option_text' => 'Beli BMW',
-            'is_correct' => false
-        ]);
-
-        // Question 2 (True/False)
-        AnswerOption::create([
-            'question_id' => 2,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 2,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 3,
-            'option_text' => 'Dana untuk membeli barang mewah',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 3,
-            'option_text' => 'Dana yang disiapkan untuk keadaan tak terduga',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 3,
-            'option_text' => 'Dana untuk berlibur setiap tahun',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 4,
-            'option_text' => 'Pakaian, makanan, dan tempat tinggal',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 4,
-            'option_text' => 'Smartphone terbaru',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 4,
-            'option_text' => 'Liburan ke luar negeri',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 5,
-            'option_text' => 'Membantu mengatur pengeluaran dan tabungan',
-                    'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 5,
-            'option_text' => 'Membuat pengeluaran menjadi lebih banyak',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 5,
-            'option_text' => 'Menghilangkan kebutuhan menabung',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 6,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 6,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 7,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-        
-        AnswerOption::create([
-            'question_id' => 7,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-        
-                // ==============================
-        // QUIZ 2 - Anggaran 50/30/20
-        // ==============================
-
-        // Question 8
-        AnswerOption::create([
-            'question_id' => 8,
-            'option_text' => 'Menghabiskan seluruh pendapatan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 8,
-            'option_text' => 'Mengatur penggunaan uang dengan lebih terencana',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 8,
-            'option_text' => 'Menambah jumlah utang',
-            'is_correct' => false
-        ]);
-
-        // Question 9
-        AnswerOption::create([
-            'question_id' => 9,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 9,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 10
-        AnswerOption::create([
-            'question_id' => 10,
-            'option_text' => 'Makanan dan transportasi',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 10,
-            'option_text' => 'Liburan dan hiburan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 10,
-            'option_text' => 'Koleksi barang hobi',
-            'is_correct' => false
-        ]);
-
-        // Question 11
-        AnswerOption::create([
-            'question_id' => 11,
-            'option_text' => '10%',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 11,
-            'option_text' => '20%',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 11,
-            'option_text' => '50%',
-            'is_correct' => false
-        ]);
-
-        // Question 12
-        AnswerOption::create([
-            'question_id' => 12,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 12,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // Question 13
-        AnswerOption::create([
-            'question_id' => 13,
-            'option_text' => 'Membantu mengontrol pengeluaran',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 13,
-            'option_text' => 'Meningkatkan pengeluaran konsumtif',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 13,
-            'option_text' => 'Menghilangkan kebutuhan menabung',
-            'is_correct' => false
-        ]);
-
-        // Question 14
-        AnswerOption::create([
-            'question_id' => 14,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 14,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // ==============================
-        // QUIZ 3 - Dana Darurat
-        // ==============================
-
-        // Question 15
-        AnswerOption::create([
-            'question_id' => 15,
-            'option_text' => 'Membeli barang mewah',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 15,
-            'option_text' => 'Menghadapi kebutuhan tak terduga',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 15,
-            'option_text' => 'Membayar hiburan bulanan',
-            'is_correct' => false
-        ]);
-
-        // Question 16
-        AnswerOption::create([
-            'question_id' => 16,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 16,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 17
-        AnswerOption::create([
-            'question_id' => 17,
-            'option_text' => 'Tabungan yang mudah dicairkan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 17,
-            'option_text' => 'Barang koleksi',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 17,
-            'option_text' => 'Aset yang sulit dijual',
-            'is_correct' => false
-        ]);
-
-        // Question 18
-        AnswerOption::create([
-            'question_id' => 18,
-            'option_text' => '1 bulan biaya hidup',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 18,
-            'option_text' => '3-6 bulan biaya hidup',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 18,
-            'option_text' => '12 tahun biaya hidup',
-            'is_correct' => false
-        ]);
-
-        // Question 19
-        AnswerOption::create([
-            'question_id' => 19,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 19,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // Question 20
-        AnswerOption::create([
-            'question_id' => 20,
-            'option_text' => 'Menambah risiko utang',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 20,
-            'option_text' => 'Memberikan perlindungan saat keadaan darurat',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 20,
-            'option_text' => 'Mengurangi pendapatan',
-            'is_correct' => false
-        ]);
-
-        // Question 21
-        AnswerOption::create([
-            'question_id' => 21,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 21,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // ==============================
-        // QUIZ 4 - Menabung
-        // ==============================
-
-        // Question 22
-        AnswerOption::create([
-            'question_id' => 22,
-            'option_text' => 'Membantu mencapai tujuan keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 22,
-            'option_text' => 'Menghabiskan uang lebih cepat',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 22,
-            'option_text' => 'Menambah utang',
-            'is_correct' => false
-        ]);
-
-        // Question 23
-        AnswerOption::create([
-            'question_id' => 23,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 23,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 24
-        AnswerOption::create([
-            'question_id' => 24,
-            'option_text' => 'Setelah uang habis',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 24,
-            'option_text' => 'Saat menerima pendapatan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 24,
-            'option_text' => 'Menjelang akhir tahun',
-            'is_correct' => false
-        ]);
-
-        // Question 25
-        AnswerOption::create([
-            'question_id' => 25,
-            'option_text' => 'Target yang ingin dicapai secara finansial',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 25,
-            'option_text' => 'Daftar belanja harian',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 25,
-            'option_text' => 'Tagihan bulanan',
-            'is_correct' => false
-        ]);
-
-        // Question 26
-        AnswerOption::create([
-            'question_id' => 26,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 26,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // Question 27
-        AnswerOption::create([
-            'question_id' => 27,
-            'option_text' => 'Agar tabungan lebih terpisah dari uang belanja',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 27,
-            'option_text' => 'Agar lebih mudah dihabiskan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 27,
-            'option_text' => 'Agar tidak perlu menabung lagi',
-            'is_correct' => false
-        ]);
-
-        // Question 28
-        AnswerOption::create([
-            'question_id' => 28,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 28,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // ==============================
-        // QUIZ 5 - Dasar Investasi
-        // ==============================
-
-        // Question 29
-        AnswerOption::create([
-            'question_id' => 29,
-            'option_text' => 'Mengembangkan nilai uang',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 29,
-            'option_text' => 'Menghabiskan seluruh pendapatan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 29,
-            'option_text' => 'Menghindari menabung',
-            'is_correct' => false
-        ]);
-
-        // Question 30
-        AnswerOption::create([
-            'question_id' => 30,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 30,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 31
-        AnswerOption::create([
-            'question_id' => 31,
-            'option_text' => 'Reksa Dana',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 31,
-            'option_text' => 'Tagihan listrik',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 31,
-            'option_text' => 'Belanja bulanan',
-            'is_correct' => false
-        ]);
-
-        // Question 32
-        AnswerOption::create([
-            'question_id' => 32,
-            'option_text' => 'Semakin tinggi risiko, semakin tinggi potensi keuntungan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 32,
-            'option_text' => 'Tidak ada hubungan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 32,
-            'option_text' => 'Semakin tinggi risiko, semakin kecil keuntungan',
-            'is_correct' => false
-        ]);
-
-        // Question 33
-        AnswerOption::create([
-            'question_id' => 33,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 33,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 34
-        AnswerOption::create([
-            'question_id' => 34,
-            'option_text' => 'Untuk mencapai tujuan keuangan jangka panjang',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 34,
-            'option_text' => 'Untuk menghabiskan uang',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 34,
-            'option_text' => 'Untuk menghindari keuntungan',
-            'is_correct' => false
-        ]);
-
-        // Question 35
-        AnswerOption::create([
-            'question_id' => 35,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 35,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // ==============================
-        // QUIZ 6 - Mengelola Utang
-        // ==============================
-
-        // Question 36
-        AnswerOption::create([
-            'question_id' => 36,
-            'option_text' => 'Kewajiban yang harus dibayar kembali',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 36,
-            'option_text' => 'Tabungan masa depan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 36,
-            'option_text' => 'Investasi tanpa risiko',
-            'is_correct' => false
-        ]);
-
-        // Question 37
-        AnswerOption::create([
-            'question_id' => 37,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 37,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 38
-        AnswerOption::create([
-            'question_id' => 38,
-            'option_text' => 'Pinjaman modal usaha',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 38,
-            'option_text' => 'Membeli gadget terbaru',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 38,
-            'option_text' => 'Liburan mewah',
-            'is_correct' => false
-        ]);
-
-        // Question 39
-        AnswerOption::create([
-            'question_id' => 39,
-            'option_text' => 'Kesulitan keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 39,
-            'option_text' => 'Pendapatan meningkat otomatis',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 39,
-            'option_text' => 'Risiko berkurang',
-            'is_correct' => false
-        ]);
-
-        // Question 40
-        AnswerOption::create([
-            'question_id' => 40,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 40,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 41
-        AnswerOption::create([
-            'question_id' => 41,
-            'option_text' => 'Menilai kemampuan membayar',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 41,
-            'option_text' => 'Langsung meminjam sebanyak mungkin',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 41,
-            'option_text' => 'Mengabaikan bunga pinjaman',
-            'is_correct' => false
-        ]);
-
-        // Question 42
-        AnswerOption::create([
-            'question_id' => 42,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 42,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // ==============================
-        // QUIZ 7 - Manajemen Risiko
-        // ==============================
-
-        // Question 43
-        AnswerOption::create([
-            'question_id' => 43,
-            'option_text' => 'Kemungkinan terjadinya kerugian keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 43,
-            'option_text' => 'Keuntungan yang pasti diperoleh',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 43,
-            'option_text' => 'Tabungan rutin bulanan',
-            'is_correct' => false
-        ]);
-
-        // Question 44
-        AnswerOption::create([
-            'question_id' => 44,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 44,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 45
-        AnswerOption::create([
-            'question_id' => 45,
-            'option_text' => 'Membantu menghadapi keadaan darurat',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 45,
-            'option_text' => 'Menambah risiko keuangan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 45,
-            'option_text' => 'Mengurangi pendapatan',
-            'is_correct' => false
-        ]);
-
-        // Question 46
-        AnswerOption::create([
-            'question_id' => 46,
-            'option_text' => 'Asuransi',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 46,
-            'option_text' => 'Belanja impulsif',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 46,
-            'option_text' => 'Menghabiskan tabungan',
-            'is_correct' => false
-        ]);
-
-        // Question 47
-        AnswerOption::create([
-            'question_id' => 47,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 47,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 48
-        AnswerOption::create([
-            'question_id' => 48,
-            'option_text' => 'Membantu mencapai tujuan keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 48,
-            'option_text' => 'Meningkatkan risiko',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 48,
-            'option_text' => 'Menghilangkan kebutuhan menabung',
-            'is_correct' => false
-        ]);
-
-        // Question 49
-        AnswerOption::create([
-            'question_id' => 49,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 49,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // ==============================
-        // QUIZ 8 - Ujian Akhir
-        // ==============================
-
-        // Question 50
-        AnswerOption::create([
-            'question_id' => 50,
-            'option_text' => 'Mengelola uang untuk mencapai tujuan keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 50,
-            'option_text' => 'Menghabiskan semua pendapatan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 50,
-            'option_text' => 'Menghindari menabung',
-            'is_correct' => false
-        ]);
-
-        // Question 51
-        AnswerOption::create([
-            'question_id' => 51,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 51,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
-
-        // Question 52
-        AnswerOption::create([
-            'question_id' => 52,
-            'option_text' => 'Menghadapi keadaan darurat',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 52,
-            'option_text' => 'Membeli barang mewah',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 52,
-            'option_text' => 'Meningkatkan konsumsi',
-            'is_correct' => false
-        ]);
-
-        // Question 53
-        AnswerOption::create([
-            'question_id' => 53,
-            'option_text' => 'Membantu mencapai tujuan keuangan',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 53,
-            'option_text' => 'Mengurangi pendapatan',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 53,
-            'option_text' => 'Menambah utang',
-            'is_correct' => false
-        ]);
-
-        // Question 54
-        AnswerOption::create([
-            'question_id' => 54,
-            'option_text' => 'True',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 54,
-            'option_text' => 'False',
-            'is_correct' => true
-        ]);
-
-        // Question 55
-        AnswerOption::create([
-            'question_id' => 55,
-            'option_text' => 'Utang untuk kegiatan yang menghasilkan nilai tambah',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 55,
-            'option_text' => 'Utang untuk membeli barang konsumtif',
-            'is_correct' => false
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 55,
-            'option_text' => 'Utang tanpa tujuan',
-            'is_correct' => false
-        ]);
-
-        // Question 56
-        AnswerOption::create([
-            'question_id' => 56,
-            'option_text' => 'True',
-            'is_correct' => true
-        ]);
-
-        AnswerOption::create([
-            'question_id' => 56,
-            'option_text' => 'False',
-            'is_correct' => false
-        ]);
+        $questionsData = [
+            1 => [
+                ['text' => 'Menghabiskan uang', 'is_correct' => false],
+                ['text' => 'Mengembangkan nilai uang', 'is_correct' => true],
+                ['text' => 'Menabung tanpa tujuan', 'is_correct' => false],
+                ['text' => 'Beli BMW', 'is_correct' => false],
+            ],
+            2 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            3 => [
+                ['text' => 'Dana untuk membeli barang mewah', 'is_correct' => false],
+                ['text' => 'Dana yang disiapkan untuk keadaan tak terduga', 'is_correct' => true],
+                ['text' => 'Dana untuk berlibur setiap tahun', 'is_correct' => false],
+            ],
+            4 => [
+                ['text' => 'Pakaian, makanan, dan tempat tinggal', 'is_correct' => true],
+                ['text' => 'Smartphone terbaru', 'is_correct' => false],
+                ['text' => 'Liburan ke luar negeri', 'is_correct' => false],
+            ],
+            5 => [
+                ['text' => 'Membantu mengatur pengeluaran dan tabungan', 'is_correct' => true],
+                ['text' => 'Membuat pengeluaran menjadi lebih banyak', 'is_correct' => false],
+                ['text' => 'Menghilangkan kebutuhan menabung', 'is_correct' => false],
+            ],
+            6 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            7 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            // Quiz 2
+            8 => [
+                ['text' => 'Menghabiskan seluruh pendapatan', 'is_correct' => false],
+                ['text' => 'Mengatur penggunaan uang dengan lebih terencana', 'is_correct' => true],
+                ['text' => 'Menambah jumlah utang', 'is_correct' => false],
+            ],
+            9 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            10 => [
+                ['text' => 'Makanan dan transportasi', 'is_correct' => true],
+                ['text' => 'Liburan dan hiburan', 'is_correct' => false],
+                ['text' => 'Koleksi barang hobi', 'is_correct' => false],
+            ],
+            11 => [
+                ['text' => '10%', 'is_correct' => false],
+                ['text' => '20%', 'is_correct' => true],
+                ['text' => '50%', 'is_correct' => false],
+            ],
+            12 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            13 => [
+                ['text' => 'Membantu mengontrol pengeluaran', 'is_correct' => true],
+                ['text' => 'Meningkatkan pengeluaran konsumtif', 'is_correct' => false],
+                ['text' => 'Menghilangkan kebutuhan menabung', 'is_correct' => false],
+            ],
+            14 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            15 => [
+                ['text' => 'Membeli barang mewah', 'is_correct' => false],
+                ['text' => 'Menghadapi kebutuhan tak terduga', 'is_correct' => true],
+                ['text' => 'Membayar hiburan bulanan', 'is_correct' => false],
+            ],
+            16 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            17 => [
+                ['text' => 'Tabungan yang mudah dicairkan', 'is_correct' => true],
+                ['text' => 'Barang koleksi', 'is_correct' => false],
+                ['text' => 'Aset yang sulit dijual', 'is_correct' => false],
+            ],
+            18 => [
+                ['text' => '1 bulan biaya hidup', 'is_correct' => false],
+                ['text' => '3-6 bulan biaya hidup', 'is_correct' => true],
+                ['text' => '12 tahun biaya hidup', 'is_correct' => false],
+            ],
+            19 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            20 => [
+                ['text' => 'Menambah risiko utang', 'is_correct' => false],
+                ['text' => 'Memberikan perlindungan saat keadaan darurat', 'is_correct' => true],
+                ['text' => 'Mengurangi pendapatan', 'is_correct' => false],
+            ],
+            21 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            22 => [
+                ['text' => 'Membantu mencapai tujuan keuangan', 'is_correct' => true],
+                ['text' => 'Menghabiskan uang lebih cepat', 'is_correct' => false],
+                ['text' => 'Menambah utang', 'is_correct' => false],
+            ],
+            23 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            24 => [
+                ['text' => 'Setelah uang habis', 'is_correct' => false],
+                ['text' => 'Saat menerima pendapatan', 'is_correct' => true],
+                ['text' => 'Menjelang akhir tahun', 'is_correct' => false],
+            ],
+            25 => [
+                ['text' => 'Target yang ingin dicapai secara finansial', 'is_correct' => true],
+                ['text' => 'Daftar belanja harian', 'is_correct' => false],
+                ['text' => 'Tagihan bulanan', 'is_correct' => false],
+            ],
+            26 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            27 => [
+                ['text' => 'Agar tabungan lebih terpisah dari uang belanja', 'is_correct' => true],
+                ['text' => 'Agar lebih mudah dihabiskan', 'is_correct' => false],
+                ['text' => 'Agar tidak perlu menabung lagi', 'is_correct' => false],
+            ],
+            28 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            29 => [
+                ['text' => 'Mengembangkan nilai uang', 'is_correct' => true],
+                ['text' => 'Menghabiskan seluruh pendapatan', 'is_correct' => false],
+                ['text' => 'Menghindari menabung', 'is_correct' => false],
+            ],
+            30 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            31 => [
+                ['text' => 'Reksa Dana', 'is_correct' => true],
+                ['text' => 'Tagihan listrik', 'is_correct' => false],
+                ['text' => 'Belanja bulanan', 'is_correct' => false],
+            ],
+            32 => [
+                ['text' => 'Semakin tinggi risiko, semakin tinggi potensi keuntungan', 'is_correct' => true],
+                ['text' => 'Tidak ada hubungan', 'is_correct' => false],
+                ['text' => 'Semakin tinggi risiko, semakin kecil keuntungan', 'is_correct' => false],
+            ],
+            33 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            34 => [
+                ['text' => 'Untuk mencapai tujuan keuangan jangka panjang', 'is_correct' => true],
+                ['text' => 'Untuk menghabiskan uang', 'is_correct' => false],
+                ['text' => 'Untuk menghindari keuntungan', 'is_correct' => false],
+            ],
+            35 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            36 => [
+                ['text' => 'Kewajiban yang harus dibayar kembali', 'is_correct' => true],
+                ['text' => 'Tabungan masa depan', 'is_correct' => false],
+                ['text' => 'Investasi tanpa risiko', 'is_correct' => false],
+            ],
+            37 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            38 => [
+                ['text' => 'Pinjaman modal usaha', 'is_correct' => true],
+                ['text' => 'Membeli gadget terbaru', 'is_correct' => false],
+                ['text' => 'Liburan mewah', 'is_correct' => false],
+            ],
+            39 => [
+                ['text' => 'Kesulitan keuangan', 'is_correct' => true],
+                ['text' => 'Pendapatan meningkat otomatis', 'is_correct' => false],
+                ['text' => 'Risiko berkurang', 'is_correct' => false],
+            ],
+            40 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            41 => [
+                ['text' => 'Menilai kemampuan membayar', 'is_correct' => true],
+                ['text' => 'Langsung meminjam sebanyak mungkin', 'is_correct' => false],
+                ['text' => 'Mengabaikan bunga pinjaman', 'is_correct' => false],
+            ],
+            42 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            43 => [
+                ['text' => 'Kemungkinan terjadinya kerugian keuangan', 'is_correct' => true],
+                ['text' => 'Keuntungan yang pasti diperoleh', 'is_correct' => false],
+                ['text' => 'Tabungan rutin bulanan', 'is_correct' => false],
+            ],
+            44 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            45 => [
+                ['text' => 'Membantu menghadapi keadaan darurat', 'is_correct' => true],
+                ['text' => 'Menambah risiko keuangan', 'is_correct' => false],
+                ['text' => 'Mengurangi pendapatan', 'is_correct' => false],
+            ],
+            46 => [
+                ['text' => 'Asuransi', 'is_correct' => true],
+                ['text' => 'Belanja impulsif', 'is_correct' => false],
+                ['text' => 'Menghabiskan tabungan', 'is_correct' => false],
+            ],
+            47 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            48 => [
+                ['text' => 'Membantu mencapai tujuan keuangan', 'is_correct' => true],
+                ['text' => 'Meningkatkan risiko', 'is_correct' => false],
+                ['text' => 'Menghilangkan kebutuhan menabung', 'is_correct' => false],
+            ],
+            49 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            50 => [
+                ['text' => 'Mengelola uang untuk mencapai tujuan keuangan', 'is_correct' => true],
+                ['text' => 'Menghabiskan semua pendapatan', 'is_correct' => false],
+                ['text' => 'Menghindari menabung', 'is_correct' => false],
+            ],
+            51 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+            52 => [
+                ['text' => 'Menghadapi keadaan darurat', 'is_correct' => true],
+                ['text' => 'Membeli barang mewah', 'is_correct' => false],
+                ['text' => 'Meningkatkan konsumsi', 'is_correct' => false],
+            ],
+            53 => [
+                ['text' => 'Membantu mencapai tujuan keuangan', 'is_correct' => true],
+                ['text' => 'Mengurangi pendapatan', 'is_correct' => false],
+                ['text' => 'Menambah utang', 'is_correct' => false],
+            ],
+            54 => [
+                ['text' => 'True', 'is_correct' => false],
+                ['text' => 'False', 'is_correct' => true],
+            ],
+            55 => [
+                ['text' => 'Utang untuk kegiatan yang menghasilkan nilai tambah', 'is_correct' => true],
+                ['text' => 'Utang untuk membeli barang konsumtif', 'is_correct' => false],
+                ['text' => 'Utang tanpa tujuan', 'is_correct' => false],
+            ],
+            56 => [
+                ['text' => 'True', 'is_correct' => true],
+                ['text' => 'False', 'is_correct' => false],
+            ],
+        ];
+
+        foreach ($questionsData as $questionId => $options) {
+            $this->createAnswerOptions($questionId, $options);
+        }
+    }
+
+    private function createAnswerOptions(int $questionId, array $options): void
+    {
+        foreach ($options as $option) {
+            AnswerOption::updateOrCreate(
+                [
+                    'question_id' => $questionId,
+                    'option_text' => $option['text']
+                ],
+                [
+                    'is_correct' => $option['is_correct']
+                ]
+            );
+        }
     }
 }
