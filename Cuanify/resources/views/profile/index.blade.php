@@ -99,7 +99,7 @@
 .progress-inner { display:flex; align-items:center; gap:28px; }
 
 .ring-wrap { position:relative; width:150px; height:150px; flex-shrink:0; }
-.ring-wrap svg { transform:rotate(-90deg); }
+.ring-wrap svg { transform:rotate(-90deg); display:block; }
 .ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
 .ring-pct { font-size:28px; font-weight:700; color:#7c3aed; line-height:1; margin-bottom: 2px; }
@@ -128,7 +128,6 @@
 }
 
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; align-items: start;}
-@media(max-width:700px){ .two-col { grid-template-columns:1fr; } .stat-row { grid-template-columns:repeat(2,1fr); } }
 
 .info-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
 .info-row { padding:10px 0; border-bottom:1px solid #f5f3ff; }
@@ -158,11 +157,9 @@
     white-space: nowrap; 
     width: 1%; 
 }
-
 .hist-table td:first-child {
     word-break: break-word;
 }
-
 .hist-table td { padding:10px 10px; border-bottom:1px solid #f5f3ff; color:#374151; vertical-align:middle; }
 .hist-table tr:last-child td { border-bottom:none; }
 .hist-table tr:hover td { background:#faf5ff; }
@@ -172,7 +169,6 @@
 
 .courses-card { background:#fff; border:1px solid #ede9fe; border-radius:16px; padding:22px; }
 .course-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-@media(max-width:700px){ .course-grid { grid-template-columns:1fr; } }
 .course-item {
     background:#faf5ff; border:1px solid #ede9fe;
     border-radius:12px; padding:14px;
@@ -185,6 +181,68 @@
 .prog-bar-wrap { background:#e9d5ff; border-radius:99px; height:6px; overflow:hidden; }
 .prog-bar-fill { height:100%; border-radius:99px; background:linear-gradient(to right,#a855f7,#ec4899); }
 .prog-bar-label { display:flex; justify-content:space-between; font-size:10px; color:#9ca3af; margin-bottom:3px; }
+
+@media(max-width:700px){
+    .two-col { grid-template-columns:1fr; }
+    .course-grid { grid-template-columns:1fr; }
+
+    .pf{ padding:20px 12px; }
+    .pf-title{ font-size:22px; }
+
+    .hero-card{
+        flex-direction:column;
+        text-align:center;
+        padding:24px 18px;
+        gap:14px;
+    }
+    .hero-info{ width:100%; }
+    .hero-name{ flex-direction:column; justify-content:center; flex-wrap:wrap; gap:4px; font-size:20px; }
+    .hero-meta{ align-items:center; }
+    .meta-row{ overflow-wrap:break-word; word-break:break-word; text-align:left; }
+    .btn-edit-hero{ margin:0 auto; }
+
+    .stat-row{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .stat-mini{ padding:12px; }
+    .stat-mini-val{ font-size:20px; }
+
+    .progress-card{ padding:16px; }
+    .progress-inner{
+        flex-direction:column;
+        align-items:center;
+        gap:16px;
+    }
+    .ring-wrap{ width:min(180px, 60vw); height:min(180px, 60vw); }
+    .ring-wrap svg{ width:100%; height:100%; }
+    .ring-pct{ font-size:48px; }
+    .ring-lbl{ font-size:11px; }
+
+    .progress-right{ width:100%; text-align:center; }
+    .prog-encourage{ font-size:13px; margin-bottom:10px; }
+
+    .prog-stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+    .prog-stat-box{ padding:10px 8px; }
+    .psb-label{ font-size:16px; }
+    .psb-val{ font-size:24px; }
+    .psb-val span{ font-size:16px !important; }
+    .psb-sub{ font-size:11px; }
+
+    .info-card{ padding:16px; }
+    .info-row{ padding:8px 0; }
+
+    .hist-table{ font-size:12px; min-width:480px; }
+    .hist-table th, .hist-table td{ padding:7px 6px; }
+
+    .course-item{ padding:12px; }
+}
+
+@media(max-width:420px){
+    .stat-row{ grid-template-columns:1fr 1fr; }
+    .hero-name{ font-size:18px; }
+}
+
+@media(max-width:380px){
+    .prog-stat-grid{ grid-template-columns:1fr; }
+}
 </style>
 
 <div class="pf">
