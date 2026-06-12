@@ -74,75 +74,77 @@
                 @endforelse
             </div>
 
-            <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-10">
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-gradient-to-r from-[#b55fe6]/10 via-[#df49a6]/10 to-[#e84393]/10 border-b border-purple-100">
-                            <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Judul Course</th>
-                            <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Instruktur</th>
-                            <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Jumlah Lesson</th>
-                            <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Status</th>
-                            <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
-                        @forelse ($pendingCourses as $course)
-                            <tr class="hover:bg-purple-50/40 transition-colors group">
-                                <td class="p-4 font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $course->title }}</td>
-                                <td class="p-4 text-sm text-gray-500">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                                            {{ strtoupper(substr($course->instructor->username ?? 'U', 0, 1)) }}
+            <div class="hidden sm:block overflow-x-auto mb-10">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <table class="w-full min-w-[900px]">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-[#b55fe6]/10 via-[#df49a6]/10 to-[#e84393]/10 border-b border-purple-100">
+                                <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Judul Course</th>
+                                <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Instruktur</th>
+                                <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Jumlah Lesson</th>
+                                <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Status</th>
+                                <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            @forelse ($pendingCourses as $course)
+                                <tr class="hover:bg-purple-50/40 transition-colors group">
+                                    <td class="p-4 font-semibold text-gray-800 group-hover:text-purple-700 transition-colors break-words">{{ $course->title }}</td>
+                                    <td class="p-4 text-sm text-gray-500">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                                                {{ strtoupper(substr($course->instructor->username ?? 'U', 0, 1)) }}
+                                            </div>
+                                            {{ $course->instructor->username ?? 'Tidak diketahui' }}
                                         </div>
-                                        {{ $course->instructor->username ?? 'Tidak diketahui' }}
-                                    </div>
-                                </td>
-                                <td class="p-4 text-center">
-                                    <span class="inline-flex items-center gap-1 text-sm font-bold text-gray-700">
-                                        <i class="fas fa-book-open text-purple-300 text-xs"></i>
-                                        {{ $course->lessons->count() }}
-                                    </span>
-                                </td>
-                                <td class="p-4 text-center">
-                                    <span class="bg-amber-50 border border-amber-200 text-amber-600 px-3 py-1 rounded-full text-xs font-bold">
-                                        Menunggu Review
-                                    </span>
-                                </td>
-                                <td class="p-4">
-                                    <div class="flex gap-2 justify-center">
-                                        <a href="{{ route('admin.courses.show', $course->course_id) }}"
-                                            class="bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
-                                            Detail
-                                        </a>
-                                        <form action="{{ route('admin.courses.approve', $course->course_id) }}" method="POST" onsubmit="return confirm('Yakin publish course ini?');">
-                                            @csrf
-                                            <button class="bg-green-50 text-green-700 hover:bg-green-500 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
-                                                Approve
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <span class="inline-flex items-center gap-1 text-sm font-bold text-gray-700">
+                                            <i class="fas fa-book-open text-purple-300 text-xs"></i>
+                                            {{ $course->lessons->count() }}
+                                        </span>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <span class="bg-amber-50 border border-amber-200 text-amber-600 px-3 py-1 rounded-full text-xs font-bold">
+                                            Menunggu Review
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex flex-wrap gap-2 justify-center">
+                                            <a href="{{ route('admin.courses.show', $course->course_id) }}"
+                                                class="bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                                                Detail
+                                            </a>
+                                            <form action="{{ route('admin.courses.approve', $course->course_id) }}" method="POST" onsubmit="return confirm('Yakin publish course ini?');">
+                                                @csrf
+                                                <button class="bg-green-50 text-green-700 hover:bg-green-500 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                                                    Approve
+                                                </button>
+                                            </form>
+                                            <button type="button"
+                                                @click="showRejectModal = true; selectedCourseId = {{ $course->course_id }}; selectedCourseTitle = '{{ addslashes($course->title) }}'"
+                                                class="bg-red-50 text-red-600 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                                                Reject
                                             </button>
-                                        </form>
-                                        <button type="button"
-                                            @click="showRejectModal = true; selectedCourseId = {{ $course->course_id }}; selectedCourseTitle = '{{ addslashes($course->title) }}'"
-                                            class="bg-red-50 text-red-600 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
-                                            Reject
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="p-12 text-center text-gray-400 text-sm">
-                                    <div class="flex flex-col items-center gap-2">
-                                        <svg class="w-10 h-10 text-purple-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                        Tidak ada course yang menunggu verifikasi.
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="p-12 text-center text-gray-400 text-sm">
+                                        <div class="flex flex-col items-center gap-2">
+                                            <svg class="w-10 h-10 text-purple-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            Tidak ada course yang menunggu verifikasi.
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>  
 
 
             <div class="mb-5">
@@ -181,55 +183,57 @@
                 @endforelse
             </div>
 
-            <div class="hidden sm:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <table class="w-full">
-                    <thead>
-                        <tr class="bg-gradient-to-r from-[#b55fe6]/10 via-[#df49a6]/10 to-[#e84393]/10 border-b border-purple-100">
-                            <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Judul Course</th>
-                            <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Instruktur</th>
-                            <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Status</th>
-                            <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50">
-                        @forelse ($publishedCourses as $course)
-                            <tr class="hover:bg-purple-50/40 transition-colors group">
-                                <td class="p-4 font-semibold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $course->title }}</td>
-                                <td class="p-4 text-sm text-gray-500">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                                            {{ strtoupper(substr($course->instructor->username ?? 'U', 0, 1)) }}
+            <div class="hidden sm:block overflow-x-auto">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <table class="w-full min-w-[800px]">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-[#b55fe6]/10 via-[#df49a6]/10 to-[#e84393]/10 border-b border-purple-100">
+                                <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Judul Course</th>
+                                <th class="p-4 text-left text-xs font-bold text-purple-700 uppercase tracking-wider">Instruktur</th>
+                                <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Status</th>
+                                <th class="p-4 text-center text-xs font-bold text-purple-700 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            @forelse ($publishedCourses as $course)
+                                <tr class="hover:bg-purple-50/40 transition-colors group">
+                                    <td class="p-4 font-semibold text-gray-800 group-hover:text-purple-700 transition-colors break-words">{{ $course->title }}</td>
+                                    <td class="p-4 text-sm text-gray-500">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                                                {{ strtoupper(substr($course->instructor->username ?? 'U', 0, 1)) }}
+                                            </div>
+                                            {{ $course->instructor->username ?? 'Tidak diketahui' }}
                                         </div>
-                                        {{ $course->instructor->username ?? 'Tidak diketahui' }}
-                                    </div>
-                                </td>
-                                <td class="p-4 text-center">
-                                    <span class="bg-gradient-to-r from-[#b55fe6]/10 to-[#e84393]/10 border border-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-                                        Published
-                                    </span>
-                                </td>
-                                <td class="p-4 flex justify-center">
-                                    <a href="{{ route('admin.courses.show', $course->course_id) }}"
-                                        class="bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white px-4 py-1.5 rounded-xl text-xs font-bold transition">
-                                        Lihat Detail
-                                    </a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="p-12 text-center text-gray-400 text-sm">
-                                    <div class="flex flex-col items-center gap-2">
-                                        <svg class="w-10 h-10 text-purple-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                        Belum ada course yang dipublish.
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <span class="bg-gradient-to-r from-[#b55fe6]/10 to-[#e84393]/10 border border-purple-200 text-purple-700 px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+                                            Published
+                                        </span>
+                                    </td>
+                                    <td class="p-4 flex justify-center">
+                                        <a href="{{ route('admin.courses.show', $course->course_id) }}"
+                                            class="bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white px-4 py-1.5 rounded-xl text-xs font-bold transition">
+                                            Lihat Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="p-12 text-center text-gray-400 text-sm">
+                                        <div class="flex flex-col items-center gap-2">
+                                            <svg class="w-10 h-10 text-purple-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                            </svg>
+                                            Belum ada course yang dipublish.
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div x-show="showRejectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" x-cloak>
