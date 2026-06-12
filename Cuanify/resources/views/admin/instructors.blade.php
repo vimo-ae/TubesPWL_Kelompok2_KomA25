@@ -76,7 +76,7 @@
 .pill { display:inline-block; padding:3px 10px; border-radius:99px; font-size:10px; font-weight:700; }
 .pill-pending { background:#fef3c7; color:#d97706; }
 
-.action-wrap { display:flex; flex-direction: column; gap:8px; justify-content:center; align-items: center; }
+.action-wrap { display:flex; flex-direction: column; gap:8px; justify-content:center; align-items:center; min-width:170px; }
 
 .btn-detail { padding:5px 14px; border-radius:8px; background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff; font-size:11px; font-weight:700; cursor:pointer; transition:background .15s, transform .15s; }
 .btn-detail:hover { background:#7e22ce; color:#fff; transform:translateY(-1px); }
@@ -89,27 +89,61 @@
 
 .empty-row td { text-align:center; padding:28px; color:#9ca3af; font-size:13px; }
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-@media(max-width:700px){ .two-col { grid-template-columns:1fr; } }
+@media (max-width: 768px){
+
+    .two-col{
+        grid-template-columns:1fr;
+    }
+
+    .iv-table th,
+    .iv-table td{
+        padding:10px 12px;
+        font-size:12px;
+    }
+
+    .action-wrap{
+        min-width:140px;
+    }
+
+    .btn-detail,
+    .btn-approve,
+    .btn-reject{
+        font-size:10px;
+        padding:5px 10px;
+    }
+
+    .iv-card-header{
+        padding:14px 16px;
+    }
+
+    .iv-card-title{
+        font-size:13px;
+    }
+
+    .iv-card-sub{
+        font-size:10px;
+    }
+}
 </style>
 
 <div class="flex min-h-screen">
 
-    <div class="flex-1 p-6 sm:p-8 lg:p-10">
+    <div class="flex-1 p-4 sm:p-8 lg:p-10">
         <div class="iv-wrap">
 
-            <div class="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
+            <div class="relative overflow-hidden rounded-[24px] sm:rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
                     <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
                 </div>
-                <div class="relative z-10 w-full flex flex-col justify-center px-10 py-8 text-white">
+                <div class="relative z-10 w-full flex flex-col justify-center px-4 sm:px-10 py-6 sm:py-8 text-white">
                     <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-4 border border-white/20 w-fit">
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
                         Verifikasi Instruktur
                     </div>
-                    <h1 class="text-3xl font-semibold tracking-normal mb-3 text-white">
+                    <h1 class="text-xl sm:text-3xl font-semibold tracking-normal mb-3 text-white leading-tight">
                         Kelola Instruktur <span class="text-[#f7e06d] font-bold">Cuanify</span>
                     </h1>
                     <p class="text-white/90 text-[13px] max-w-4xl font-normal leading-relaxed">
@@ -124,110 +158,134 @@
                         <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     </div>
                     <div>
-                        <p class="iv-card-title">Instruktur Pending</p>
+                        <p class="iv-card-title flex items-center gap-2">
+                            <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/>
+                            </svg>
+                            Instruktur Pending
+                        </p>
                         <p class="iv-card-sub">Menunggu persetujuan admin</p>
                     </div>
                 </div>
-                <table class="iv-table">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th class="center">Status</th>
-                            <th class="center">Profil</th> 
-                            <th class="center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $hasPending = false; @endphp
-                        @foreach($instructors as $instructor)
-                            @if($instructor->status_instructor == 'pending')
-                            @php $hasPending = true; @endphp
+                <div class="overflow-x-auto">
+                    <table class="iv-table min-w-[700px]">
+                        <thead>
                             <tr>
-                                <td class="name-bold">{{ $instructor->username }}</td>
-                                <td class="email-muted">{{ $instructor->email }}</td>
-                                <td class="center"><span class="pill pill-pending">Pending</span></td>
-
-                                <td class="center">
-                                    <a href="{{ url('/admin/instructor/' . $instructor->user_id) }}" class="inline-block btn-detail">
-                                        Detail
-                                    </a>
-                                </td>
-
-                                <td class="center">
-                                    <div class="action-wrap">
-                                        
-                                        <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
-                                            <form action="{{ url('/admin/approve/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
-                                                @csrf
-                                                <button type="submit" class="btn-approve">Setujui</button>
-                                            </form>
-                                            
-                                            <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.toggle('hidden')" class="btn-reject">
-                                                Tolak
-                                            </button>
-                                        </div>
-
-                                        <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-60 text-left mx-auto">
-                                            <form action="{{ url('/admin/reject/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
-                                                @csrf
-                                                <label class="block text-[11px] text-gray-500 mb-1 font-bold uppercase tracking-wider">
-                                                    Alasan Penolakan:
-                                                </label>
-                                                <input type="text" name="reason" placeholder="Ketik alasan di sini..." required class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 mb-3 focus:outline-none focus:border-red-400">
-                                                <div class="flex gap-2">
-                                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-bold w-full transition-all">Kirim</button>
-                                                    <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs font-bold w-full transition-all">Batal</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th class="center">Status</th>
+                                <th class="center">Profil</th> 
+                                <th class="center">Aksi</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @php $hasPending = false; @endphp
+                            @foreach($instructors as $instructor)
+                                @if($instructor->status_instructor == 'pending')
+                                @php $hasPending = true; @endphp
+                                <tr>
+                                    <td class="name-bold">{{ $instructor->username }}</td>
+                                    <td class="email-muted break-all">{{ $instructor->email }}</td>
+                                    <td class="center"><span class="pill pill-pending">Pending</span></td>
+
+                                    <td class="center">
+                                        <a href="{{ url('/admin/instructor/' . $instructor->user_id) }}" class="inline-block btn-detail">
+                                            Detail
+                                        </a>
+                                    </td>
+
+                                    <td class="center">
+                                        <div class="action-wrap">
+
+                                            <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
+                                                <form action="{{ url('/admin/approve/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
+                                                    @csrf
+                                                    <button type="submit" class="btn-approve">Setujui</button>
+                                                </form>
+
+                                                <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.toggle('hidden')" class="btn-reject">
+                                                    Tolak
+                                                </button>
+                                            </div>
+
+                                            <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-[250px] max-w-full text-left mx-auto">
+                                                <form action="{{ url('/admin/reject/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
+                                                    @csrf
+                                                    <label class="block text-[11px] text-gray-500 mb-1 font-bold uppercase tracking-wider">
+                                                        Alasan Penolakan:
+                                                    </label>
+                                                    <input type="text" name="reason" placeholder="Ketik alasan di sini..." required class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 mb-3 focus:outline-none focus:border-red-400">
+                                                    <div class="flex gap-2">
+                                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-bold w-full transition-all">Kirim</button>
+                                                        <button type="button" onclick="document.getElementById('form-tolak-{{ $instructor->user_id }}').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs font-bold w-full transition-all">Batal</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
+                            @if(!$hasPending)
+                            <tr class="empty-row"><td colspan="5">
+                                <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto 6px;display:block"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                Tidak ada instruktur pending
+                            </td></tr>
                             @endif
-                        @endforeach
-                        @if(!$hasPending)
-                        <tr class="empty-row"><td colspan="5">
-                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#ddd6fe" stroke-width="1.5" style="margin:0 auto 6px;display:block"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            Tidak ada instruktur pending
-                        </td></tr>
-                        @endif
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="two-col">
                 <div class="iv-card">
                     <div class="iv-card-header">
                         <div class="iv-card-icon ic-green"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#16a34a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-                        <div><p class="iv-card-title" style="color:#166534;">Instruktur Approved</p><p class="iv-card-sub">Sudah disetujui dan aktif</p></div>
+                        <div><p class="iv-card-title flex items-center gap-2" style="color:#166534;">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Instruktur Approved
+                            </p><p class="iv-card-sub">Sudah disetujui dan aktif</p>
+                        </div>
                     </div>
-                    <table class="iv-table">
-                        <thead><tr><th>Nama</th><th>Email</th></tr></thead>
-                        <tbody>
-                            @forelse($approvedInstructors as $i)
-                            <tr><td class="name-bold">{{ $i->username }}</td><td class="email-muted">{{ $i->email }}</td></tr>
-                            @empty
-                            <tr class="empty-row"><td colspan="2">Belum ada instruktur approved</td></tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="iv-table">
+                            <thead><tr><th>Nama</th><th>Email</th></tr></thead>
+                            <tbody>
+                                @forelse($approvedInstructors as $i)
+                                <tr><td class="name-bold">{{ $i->username }}</td><td class="email-muted">{{ $i->email }}</td></tr>
+                                @empty
+                                <tr class="empty-row"><td colspan="2">Belum ada instruktur approved</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="iv-card">
                     <div class="iv-card-header">
                         <div class="iv-card-icon ic-red"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                        <div><p class="iv-card-title" style="color:#991b1b;">Instruktur Rejected</p><p class="iv-card-sub">Ditolak oleh admin</p></div>
+                        <div><p class="iv-card-title flex items-center gap-2" style="color:#991b1b;">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                                Instruktur Rejected
+                            </p><p class="iv-card-sub">Ditolak oleh admin</p>
+                        </div>
                     </div>
-                    <table class="iv-table">
-                        <thead><tr><th>Nama</th><th>Email</th></tr></thead>
-                        <tbody>
-                            @forelse($rejectedInstructors as $i)
-                            <tr><td class="name-bold">{{ $i->username }}</td><td class="email-muted">{{ $i->email }}</td></tr>
-                            @empty
-                            <tr class="empty-row"><td colspan="2">Belum ada instruktur rejected</td></tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="iv-table">
+                            <thead><tr><th>Nama</th><th>Email</th></tr></thead>
+                            <tbody>
+                                @forelse($rejectedInstructors as $i)
+                                <tr><td class="name-bold">{{ $i->username }}</td><td class="email-muted">{{ $i->email }}</td></tr>
+                                @empty
+                                <tr class="empty-row"><td colspan="2">Belum ada instruktur rejected</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

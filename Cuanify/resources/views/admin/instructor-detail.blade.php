@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Detail Profil Instruktur - Cuanify')
 
-    <div class="p-6 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-8 relative overflow-hidden">
+    <div class="p-4 sm:p-6 lg:p-10 max-w-5xl mx-auto space-y-8 relative overflow-hidden">
 
         <div class="absolute top-0 left-1/4 w-72 h-72 bg-purple-200/30 rounded-full blur-3xl -z-10 pointer-events-none animate-pulse"></div>
         <div class="absolute bottom-10 right-10 w-60 h-60 bg-pink-200/20 rounded-full blur-3xl -z-10 pointer-events-none"></div>
@@ -15,7 +15,7 @@
             </a>
         </div>
 
-        <div class="bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-[36px] shadow-md border border-purple-100/80 shadow-purple-900/[0.03] transition-all relative">
+        <div class="bg-white/80 backdrop-blur-md p-4 sm:p-6 lg:p-10 rounded-[36px] shadow-md border border-purple-100/80 shadow-purple-900/[0.03] transition-all relative">
             
             <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
 
@@ -47,7 +47,7 @@
                             {{ $instructor->status_instructor ?? 'Pending' }}
                         </span>
 
-                        <h2 class="text-4xl font-black tracking-tight mb-1 bg-gradient-to-r from-[#8e44ad] via-[#e84393] to-[#ff758c] bg-clip-text text-transparent">
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight mb-1 break-words bg-gradient-to-r from-[#8e44ad] via-[#e84393] to-[#ff758c] bg-clip-text text-transparent">
                             {{ $instructor->username }}
                         </h2>
                         
@@ -63,14 +63,17 @@
 
                     <div class="space-y-2">
                         <h4 class="text-xs font-black text-purple-900/40 uppercase tracking-widest flex items-center justify-center md:justify-start gap-1.5">
-                            🚀 Tentang Instruktur
+                            <svg class="w-4 h-4 text-purple-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.118a7.5 7.5 0 0115 0A17.933 17.933 0 0112 21.75a17.933 17.933 0 01-7.5-1.632z"/>
+                            </svg>
+                            Tentang Instruktur
                         </h4>
                         <div class="text-sm text-gray-600 leading-relaxed bg-gradient-to-b from-gray-50 to-white p-5 rounded-2xl border border-purple-100/40 text-left whitespace-pre-line shadow-inner">
                             {{ $instructor->instructorProfile->deskripsi ?? 'Instruktur belum menuliskan deskripsi profil hangat mereka.' }}
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
                         
                         <div class="p-4 border border-purple-100 bg-gradient-to-br from-purple-50/30 via-white to-transparent rounded-2xl text-left flex items-center gap-4 group hover:-translate-y-1 hover:shadow-md hover:border-purple-300 transition-all duration-300">
                             <div class="p-3 bg-purple-600 text-white rounded-2xl shadow-md shadow-purple-500/20">
@@ -81,7 +84,7 @@
                             <div class="space-y-0.5">
                                 <h4 class="text-[10px] font-black text-purple-400 uppercase tracking-widest">Koneksi Profesional</h4>
                                 @if(!empty($instructor->instructorProfile->linkedin))
-                                    <a href="{{ $instructor->instructorProfile->linkedin }}" target="_blank" class="text-sm font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 group">
+                                    <a href="{{ $instructor->instructorProfile->linkedin }}" target="_blank" class="text-sm font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 group break-all">
                                         Profil LinkedIn
                                         <svg class="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
                                     </a>
@@ -100,7 +103,7 @@
                             <div class="space-y-0.5">
                                 <h4 class="text-[10px] font-black text-pink-400 uppercase tracking-widest">Portofolio & Pengalaman</h4>
                                 @if(!empty($instructor->instructorProfile->cv))
-                                    <a href="{{ Storage::url($instructor->instructorProfile->cv) }}" target="_blank" class="text-sm font-bold text-pink-700 hover:text-pink-900 flex items-center gap-1">
+                                    <a href="{{ Storage::url($instructor->instructorProfile->cv) }}" target="_blank" class="text-sm font-bold text-pink-700 hover:text-pink-900 flex items-center gap-1 break-all">
                                         Unduh Berkas CV
                                         <svg class="w-3.5 h-3.5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
                                     </a>

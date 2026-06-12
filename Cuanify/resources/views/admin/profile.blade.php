@@ -124,6 +124,73 @@
 
 .hist-table td { padding:10px; border-bottom:1px solid #f5f3ff; color:#374151; }
 
+@media (max-width: 768px){
+
+    .pf{
+        padding: 0 12px 24px;
+    }
+
+    .hero-card{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 18px;
+        gap: 18px;
+    }
+
+    .hero-name{
+        flex-direction: column;
+        gap: 6px;
+        font-size: 20px;
+    }
+
+    .hero-meta{
+        align-items: center;
+    }
+
+    .avatar-img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .stat-row{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .two-col{
+        grid-template-columns: 1fr;
+    }
+
+    .info-card{
+        padding: 18px;
+    }
+
+    .hist-table th,
+    .hist-table td{
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .pf-title{
+        font-size: 20px;
+    }
+
+    .pf-subtitle{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px){
+
+    .stat-row{
+        grid-template-columns: 1fr;
+    }
+
+    .hero-card{
+        border-radius: 18px;
+    }
+}
+
 </style>
             <div class="pf">
                 </div>
@@ -137,11 +204,11 @@
 
         <div class="avatar-wrap">
 
-           <img 
-    src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}" 
-    alt="Avatar" 
-    class="w-full h-full object-cover"
->
+        <img
+            src="{{ Auth::user()->profile && Auth::user()->profile->profile_photo ? asset('storage/' . Auth::user()->profile->profile_photo) : asset('images/profile-default.jpg') }}"
+            alt="Avatar"
+            class="avatar-img"
+        >
 
         </div>
 
@@ -173,7 +240,14 @@
 
         <div class="stat-mini">
 
-            <div class="stat-mini-icon"><span style="font-size:18px">👥</span></div>
+            <div class="stat-mini-icon">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
 
             <p class="stat-mini-label">Total User</p>
 
@@ -183,7 +257,13 @@
 
         <div class="stat-mini">
 
-            <div class="stat-mini-icon"><span style="font-size:18px">👨‍🏫</span></div>
+            <div class="stat-mini-icon">
+                <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path d="M12 14l6.16-3.42A12.08 12.08 0 0 1 18 20"/>
+                    <path d="M12 14l-6.16-3.42A12.08 12.08 0 0 0 6 20"/>
+                </svg>
+            </div>
 
             <p class="stat-mini-label">Instruktur</p>
 
@@ -193,7 +273,12 @@
 
         <div class="stat-mini">
 
-            <div class="stat-mini-icon"><span style="font-size:18px">📚</span></div>
+            <div class="stat-mini-icon">
+                <svg class="w-5 h-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 0 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+            </div>
 
             <p class="stat-mini-label">Kursus</p>
 
@@ -203,7 +288,14 @@
 
         <div class="stat-mini">
 
-            <div class="stat-mini-icon"><span style="font-size:18px">⏳</span></div>
+            <div class="stat-mini-icon">
+                <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2h12"/>
+                    <path d="M6 22h12"/>
+                    <path d="M8 2v6a4 4 0 0 0 2 3.46L12 13l2-1.54A4 4 0 0 0 16 8V2"/>
+                    <path d="M8 22v-6a4 4 0 0 1 2-3.46L12 11l2 1.54A4 4 0 0 1 16 16v6"/>
+                </svg>
+            </div>
 
             <p class="stat-mini-label">Pending</p>
 
@@ -235,37 +327,39 @@
 
             <div class="section-head"><p class="section-title">Log Aktivitas Terakhir</p></div>
 
-            <table class="hist-table">
+            <div class="overflow-x-auto">
+                <table class="hist-table min-w-[500px]">
 
-                <thead><tr><th>Aksi</th><th>User</th><th>Waktu</th></tr></thead>
+                    <thead><tr><th>Aksi</th><th>User</th><th>Waktu</th></tr></thead>
 
-                <tbody>
+                    <tbody>
 
-                    @forelse($recentLogs ?? [] as $log)
+                        @forelse($recentLogs ?? [] as $log)
 
-                    <tr>
+                        <tr>
 
-                        <td>{{ $log->action }}</td>
+                            <td>{{ $log->action }}</td>
 
-                        <td>{{ $log->user->username }}</td>
+                            <td>{{ $log->user->username }}</td>
 
-                        <td>{{ $log->created_at->diffForHumans() }}</td>
+                            <td>{{ $log->created_at->diffForHumans() }}</td>
 
-                    </tr>
+                        </tr>
 
-                    @empty
+                        @empty
 
-                    <tr>
+                        <tr>
 
-                        <td colspan="3" style="text-align:center; color:#9ca3af;">Belum ada aktivitas log.</td>
+                            <td colspan="3" style="text-align:center; color:#9ca3af;">Belum ada aktivitas log.</td>
 
-                    </tr>
+                        </tr>
 
-                    @endforelse
+                        @endforelse
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
 
         </div>
 
