@@ -58,14 +58,14 @@
     font-weight: 400;
 }
 
-.iv-card { background:#fff; border:1px solid #ede9fe; border-radius:18px; overflow:hidden; margin-bottom:20px; }
+.iv-card { width:100%; background:#fff; border:1px solid #ede9fe; border-radius:18px; overflow:hidden; margin-bottom:20px; }
 .iv-card-header { padding:16px 22px; border-bottom:1px solid #f5f3ff; display:flex; align-items:center; gap:10px; }
 .iv-card-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .ic-amber { background:#fef3c7; } .ic-green { background:#dcfce7; } .ic-red { background:#fee2e2; }
 .iv-card-title { font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; color:#1e1b4b; margin:0 0 2px; }
 .iv-card-sub    { font-size:11px; color:#9ca3af; margin:0; }
 
-.iv-table { width:100%; border-collapse:collapse; font-size:13px; }
+.iv-table { border-collapse:collapse; font-size:13px; }
 .iv-table th { text-align:left; padding:10px 20px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#9ca3af; border-bottom:1px solid #f5f3ff; }
 .iv-table th.center { text-align:center; }
 .iv-table td { padding:13px 20px; border-bottom:1px solid #f5f3ff; color:#374151; vertical-align:middle; }
@@ -76,7 +76,7 @@
 .pill { display:inline-block; padding:3px 10px; border-radius:99px; font-size:10px; font-weight:700; }
 .pill-pending { background:#fef3c7; color:#d97706; }
 
-.action-wrap { display:flex; flex-direction: column; gap:8px; justify-content:center; align-items:center; min-width:170px; }
+.action-wrap { display:flex; flex-direction: column; gap:8px; justify-content:center; align-items:center; min-width:140px; width:100%; }
 
 .btn-detail { padding:5px 14px; border-radius:8px; background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff; font-size:11px; font-weight:700; cursor:pointer; transition:background .15s, transform .15s; }
 .btn-detail:hover { background:#7e22ce; color:#fff; transform:translateY(-1px); }
@@ -89,20 +89,59 @@
 
 .empty-row td { text-align:center; padding:28px; color:#9ca3af; font-size:13px; }
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+.overflow-x-auto{
+    width:100%;
+    -webkit-overflow-scrolling:touch;
+}
+
+
 @media (max-width: 768px){
+
+    .flex-1{
+        min-width:0;
+    }
+    .iv-card{
+        max-width:100%;
+    }
+    .overflow-x-auto{
+        overflow-x:auto !important;
+    }
+
+    .iv-wrap{
+        padding: 0 0 20px;
+    }
+
+    .mobile-scroll-table{
+        min-width:700px !important;
+    }
 
     .two-col{
         grid-template-columns:1fr;
+        gap:12px;
     }
 
     .iv-table th,
     .iv-table td{
-        padding:10px 12px;
-        font-size:12px;
+        padding:8px 10px;
+        font-size:11px;
+        white-space:nowrap;
+    }
+
+    .iv-table td.email-muted{
+        max-width:140px;
+        white-space:normal;
+        word-break:break-all;
     }
 
     .action-wrap{
-        min-width:140px;
+        min-width:120px;
+        gap:6px;
+    }
+
+    .action-wrap > div{
+        flex-direction:column !important;
+        gap:6px !important;
     }
 
     .btn-detail,
@@ -110,18 +149,47 @@
     .btn-reject{
         font-size:10px;
         padding:5px 10px;
+        width:100%;
+        text-align:center;
+    }
+
+    #form-tolak-mobile-wrapper > div{
+        width:100% !important;
     }
 
     .iv-card-header{
-        padding:14px 16px;
+        padding:12px 14px;
+        gap:8px;
+    }
+
+    .iv-card-icon{
+        width:30px;
+        height:30px;
     }
 
     .iv-card-title{
-        font-size:13px;
+        font-size:12.5px;
     }
 
     .iv-card-sub{
+        font-size:9.5px;
+    }
+
+    .pill{
+        font-size:9px;
+        padding:2px 8px;
+    }
+}
+
+@media (max-width: 480px){
+    .iv-table th,
+    .iv-table td{
+        padding:6px 8px;
         font-size:10px;
+    }
+
+    .mobile-scroll-table{
+        min-width:620px !important;
     }
 }
 </style>
@@ -131,7 +199,7 @@
     <div class="flex-1 p-4 sm:p-8 lg:p-10">
         <div class="iv-wrap">
 
-            <div class="relative overflow-hidden rounded-[24px] sm:rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[190px] flex items-center w-full">
+            <div class="relative overflow-hidden rounded-[24px] sm:rounded-[35px] bg-gradient-to-r from-[#b55fe6] via-[#df49a6] to-[#e84393] shadow-md min-h-[160px] sm:min-h-[190px] flex items-center w-full">
                 <div class="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden pointer-events-none">
                     <div class="absolute w-64 h-64 bg-white/10 rounded-full -right-10 -top-16 blur-sm"></div>
                     <div class="absolute w-40 h-40 bg-white/5 rounded-full right-16 -bottom-12 blur-sm"></div>
@@ -169,7 +237,7 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="iv-table min-w-[700px]">
+                    <table class="iv-table mobile-scroll-table min-w-[900px]">
                         <thead>
                             <tr>
                                 <th>Nama</th>
@@ -209,7 +277,7 @@
                                                 </button>
                                             </div>
 
-                                            <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-[250px] max-w-full text-left mx-auto">
+                                            <div id="form-tolak-{{ $instructor->user_id }}" class="hidden p-3 bg-gray-50 border border-gray-200 rounded-lg shadow-inner w-full sm:w-[250px] max-w-full text-left mx-auto">
                                                 <form action="{{ url('/admin/reject/' . $instructor->user_id) }}" method="POST" style="margin: 0;">
                                                     @csrf
                                                     <label class="block text-[11px] text-gray-500 mb-1 font-bold uppercase tracking-wider">
@@ -251,7 +319,7 @@
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="iv-table">
+                        <table class="iv-table min-w-[500px]">
                             <thead><tr><th>Nama</th><th>Email</th></tr></thead>
                             <tbody>
                                 @forelse($approvedInstructors as $i)
@@ -275,7 +343,7 @@
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="iv-table">
+                        <table class="iv-table min-w-[500px]">
                             <thead><tr><th>Nama</th><th>Email</th></tr></thead>
                             <tbody>
                                 @forelse($rejectedInstructors as $i)
